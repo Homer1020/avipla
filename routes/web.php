@@ -12,4 +12,7 @@ Route::view('noticias', [HomeController::class, 'news'])->name('news');
 Route::view('contacto', [HomeController::class, 'contact'])->name('contact');
 
 
-Route::get('registro', [AuthController::class, 'registerForm']);
+Route::get('registro', [AuthController::class, 'registerForm'])->name('auth.registerForm');
+Route::get('login', [AuthController::class, 'loginForm'])->name('auth.loginForm');
+Route::post('registro', [AuthController::class, 'register'])->name('auth.register');
+Route::post('login', [AuthController::class, 'login'])->name('auth.login');

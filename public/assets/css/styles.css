@@ -446,3 +446,15 @@ a {
 .page-link {
     --bs-pagination-color: var(--color-secondary);
 }
+
+/* FORM LAYOUT */
+.auth-layout {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.bg-auth {
+    background-position: center;
+    background-size: cover;
+}

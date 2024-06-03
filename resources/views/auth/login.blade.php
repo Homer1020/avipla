@@ -27,9 +27,9 @@
         <div class="col-lg-7">
           <div class="card shadow">
             <div class="card-body p-5">
-              <h1 class="fs-3 text-center text-primary mb-4">Crear cuenta</h1>
+              <h1 class="fs-3 text-center text-primary mb-4">Iniciar sesión</h1>
 
-              <form action="{{ route('auth.register') }}" method="POST">
+              <form action="{{ route('auth.login') }}" method="POST">
                 @csrf
 
                 <!-- correo -->
@@ -37,11 +37,16 @@
                   <label for="email" class="form-label">Correo:</label>
                   <input
                     type="email"
-                    class="form-control"
+                    class="form-control @error('email') is-invalid @enderror"
                     placeholder="johndoe@gmail.com"
                     name="email"
                     id="email"
                   >
+                  @error('email')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                  @enderror
                 </div>
                 <!-- /correo -->
 
@@ -50,43 +55,22 @@
                   <label for="password" class="form-label">Contrasena:</label>
                   <input
                     type="password"
-                    class="form-control"
+                    class="form-control @error('password') is-invalid @enderror"
                     placeholder="********"
                     name="password"
                     id="password"
                   >
+                  @error('password')
+                    <div class="invalid-feedback">
+                      {{ $message }}
+                    </div>
+                  @enderror
                 </div>
                 <!-- /password -->
-
-                <!-- password -->
-                <div class="mb-3">
-                  <label for="password-confirm" class="form-label">Confirmar contraseña:</label>
-                  <input
-                    type="password-confirm"
-                    class="form-control"
-                    placeholder="********"
-                    name="password-confirm"
-                    id="password-confirm"
-                  >
-                </div>
-                <!-- /password -->
-
-                <!-- correo -->
-                <div class="mb-3">
-                  <label for="razon_social" class="form-label">Razón social:</label>
-                  <input
-                    type="razon_social"
-                    class="form-control"
-                    placeholder="Empresas polar"
-                    name="razon_social"
-                    id="razon_social"
-                  >
-                </div>
-                <!-- /correo -->
 
                 <div class="d-flex align-items-center mt-5">
-                  <input type="submit" value="Registrar" class="btn btn-primary me-4">
-                  <a href="{{ route('auth.loginForm') }}">Iniciar sesion</a>
+                  <input type="submit" value="Iniciar sesión" class="btn btn-primary me-4">
+                  <a href="{{ route('auth.registerForm') }}">Crear cuenta</a>
                 </div>
               </form>
             </div>
