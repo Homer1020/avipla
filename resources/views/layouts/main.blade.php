@@ -14,7 +14,7 @@
     <!-- OWL CAROUSEL -->
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <!-- OWL CAROUSEL THEME -->
-    <link rel="stylesheet" href="{{ asset('/assets/css/owl.theme.default.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.css') }}">
 </head>
 
 <body>
@@ -22,8 +22,8 @@
     <header id="header">
         <nav class="navbar py-0 navbar-expand-lg shadow-sm">
             <div class="container-md">
-                <a class="navbar-brand" href="#">
-                    <img src="./assets/img/logo.png" width="100" alt="Logo AVIPLA">
+                <a class="navbar-brand" href="{{ route('home') }}">
+                    <img src="{{ asset('assets/img/logo.png') }}" width="100" alt="Logo AVIPLA">
                 </a>
                 <div class="d-flex align-items-center">
                     <a href="#" class="btn btn-primary btn-variation me-4 text-uppercase">Afiliación</a>
@@ -50,25 +50,25 @@
         <div class="offcanvas-body p-5">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="index.html">Inicio</a>
+                    <a class="nav-link"href="{{ route('home') }}">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="quienes-somos.html">¿Quienes somos?</a>
+                    <a class="nav-link" href="{{ route('about') }}">¿Quienes somos?</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="servicios.html">Servicios</a>
+                    <a class="nav-link" href="{{ route('services') }}">Servicios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="afiliacion.html">Afiliacion</a>
+                    <a class="nav-link" href="{{ route('affiliation') }}">Afiliacion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="noticias.html">Noticias</a>
+                    <a class="nav-link" href="{{ route('news') }}">Noticias</a>
                 </li>
                 <li class="nav-item mb-4">
-                    <a class="nav-link" href="contacto.html">Contacto</a>
+                    <a class="nav-link" href="{{ route('contact') }}">Contacto</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="btn btn-primary btn-variation me-5 text-uppercase">Afiliación</a>
+                    <a href="{{ route('affiliation') }}" class="btn btn-primary btn-variation me-5 text-uppercase">Afiliación</a>
                 </li>
 
                 <div class="social-links">
@@ -89,23 +89,6 @@
         </div>
     </div>
     <!-- /sidenav -->
-
-    <!-- carousel -->
-    <div class="owl-carousel">
-        <div>
-            <div class="banner" style="background-image: url(./assets/img/hands.jpg);">
-                <div class="container-sm h-100">
-                    <div class="row h-100 align-items-center">
-                        <div class="col-lg-6">
-                            <h1 class="banner__title text-center text-lg-start">Asociación Venezolana de industrias plásticas</h1>
-                        </div>
-                        <!-- <div class="col-lg-6"></div> -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /carousel -->
 
     <main>
         @yield('content')

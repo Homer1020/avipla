@@ -1,6 +1,24 @@
 @extends('layouts.main')
 @section('title', 'Inicio')
 @section('content')
+
+	<!-- carousel -->
+	<div class="owl-carousel">
+			<div>
+					<div class="banner" style="background-image: url(./assets/img/hands.jpg);">
+							<div class="container-sm h-100">
+									<div class="row h-100 align-items-center">
+											<div class="col-lg-6">
+													<h1 class="banner__title text-center text-lg-start">Asociación Venezolana de industrias plásticas</h1>
+											</div>
+											<!-- <div class="col-lg-6"></div> -->
+									</div>
+							</div>
+					</div>
+			</div>
+	</div>
+    <!-- /carousel -->
+
   <!-- section -->
   <section class="section pb-0">
     <div class="container-sm">
