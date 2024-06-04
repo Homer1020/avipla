@@ -21,10 +21,10 @@
 
   <main class="auth-layout">
     <div class="container my-3">
-      <div class="row">
+      <div class="row justify-content-center">
         <div class="col-lg-5 bg-auth rounded" style="background-image: url({{ asset('assets/img/robot.jpg') }})">
         </div>
-        <div class="col-lg-7">
+        <div class="col-lg-5">
           <div class="card shadow">
             <div class="card-body p-5">
               <h1 class="fs-3 text-center text-primary mb-4">Crear cuenta</h1>
