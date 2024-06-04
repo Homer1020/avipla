@@ -455,6 +455,6 @@ a {
 }
 
 .bg-auth {
-    background-position: center;
+    background-position: top center;
     background-size: cover;
 }
