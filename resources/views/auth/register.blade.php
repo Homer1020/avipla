@@ -41,6 +41,8 @@
                     placeholder="Empresas polar"
                     name="razon_social"
                     id="razon_social"
+                    value="{{ $afiliado->razon_social }}"
+                    {{ $afiliado->id ? 'disabled' : '' }}
                   >
                 </div>
                 <!-- /razon_social -->

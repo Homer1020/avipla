@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afiliado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function registerForm() {
-        return view('auth.register');
+    public function registerForm(string $confirmation_code = '') {
+        $afiliado = new Afiliado();
+        if($confirmation_code) {
+            $afiliado = Afiliado::where('confirmation_code', $confirmation_code)->first();
+        }
+        return view('auth.register', compact('afiliado'));
     }
 
     public function loginForm() {
@@ -42,7 +47,6 @@ class AuthController extends Controller
     }
 
     public function register() {
-
     }
 
     public function logout(Request $request) {

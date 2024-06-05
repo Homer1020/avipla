@@ -13,9 +13,13 @@ class Afiliado extends Model
         'razon_social',
         'rif',
         'pagina_web',
-        'correo',
         'direccion',
         'telefono',
-        'estado'
+        'estado',
+        'confirmation_code'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -17,7 +17,6 @@ class AfiliadosSeeder extends Seeder
             [
                 'razon_social' => 'Empresas Polar',
                 'rif'        => '000000000',
-                'correo'      => 'empresa1@gmail.com',
                 'direccion'  => 'La Candelaria.',
                 'telefono'   => '0250123456',
                 'pagina_web' => 'https://www.empresaspolar.com/', // Add 'pagina_web'
@@ -25,7 +24,6 @@ class AfiliadosSeeder extends Seeder
             [
                 'razon_social' => 'Corporación Venezolana de Alimentos (CVA)',
                 'rif'        => '000000001',
-                'correo'      => 'cva@gmail.com',
                 'direccion'  => 'Los Ruices.',
                 'telefono'   => '02123456789',
                 'pagina_web' => 'https://www.cvalimentos.com/', // Add 'pagina_web'
@@ -33,7 +31,6 @@ class AfiliadosSeeder extends Seeder
             [
                 'razon_social' => 'Grupo Mavesa',
                 'rif'        => '000000002',
-                'correo'      => 'mavesa@gmail.com',
                 'direccion'  => 'El Recreo.',
                 'telefono'   => '02951234567',
                 'pagina_web' => 'https://www.grupomavesa.com/', // Add 'pagina_web'
@@ -41,7 +38,6 @@ class AfiliadosSeeder extends Seeder
             [
                 'razon_social' => 'Empresas Santa María',
                 'rif'        => '000000003',
-                'correo'      => 'santamaria@gmail.com',
                 'direccion'  => 'Los Chaguaramos.',
                 'telefono'   => '02129876543',
                 'pagina_web' => 'https://www.empresas-santamaria.com/', // Add 'pagina_web'
@@ -49,7 +45,6 @@ class AfiliadosSeeder extends Seeder
             [
                 'razon_social' => 'Plumrose Venezuela',
                 'rif'        => '000000004',
-                'correo'      => 'plumrose@gmail.com',
                 'direccion'  => 'La Urbina.',
                 'telefono'   => '02122345678',
                 'pagina_web' => 'https://www.plumrose.com.ve/', // Add 'pagina_web'

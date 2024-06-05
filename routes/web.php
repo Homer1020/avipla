@@ -20,17 +20,14 @@ Route::view('contacto', [HomeController::class, 'contact'])->name('contact');
  * AUTH ROUTES
  */
 Route::middleware('guest')->group(function() {
-  Route::get('register', [AuthController::class, 'registerForm'])->name('auth.registerForm');
   Route::get('login', [AuthController::class, 'loginForm'])->name('auth.loginForm');
-  Route::post('register', [AuthController::class, 'register'])->name('auth.register');
   Route::post('login', [AuthController::class, 'login'])->name('auth.login');
+  Route::get('registro/{confirmation_code?}', [AuthController::class, 'registerForm'])->name('auth.registerForm');
+  Route::post('register', [AuthController::class, 'register'])->name('auth.register');
 });
 Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::view('dashboard', 'dashboard.index')->name('dashboard');
 
-/**
- * AFILIADOS ROUTES
- */
 Route::resource('afiliados', AfiliadosController::class);
 Route::resource('notificaciones', NotificationController::class)->names('notifications');

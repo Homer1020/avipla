@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VerifyAfiliadoEmail;
 use App\Models\Afiliado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class AfiliadosController extends Controller
 {
@@ -31,18 +34,25 @@ class AfiliadosController extends Controller
     {
         $payload = $request->validate([
             'razon_social'  => 'required|string',
-            'rif'           => 'required',
+            'rif'           => 'required|unique:afiliados,rif',
             'pagina_web'    => 'url|nullable',
-            'correo'        => 'email|unique:afiliados,correo',
             'direccion'     => 'string|nullable',
             'telefono'      => 'string|nullable'
         ]);
 
-        Afiliado::create($payload);
+        $confirmation_code = Str::random(25);
+        $payload['confirmation_code'] = $confirmation_code;
+
+        $userPayload = $request->validate([
+            'correo'    => 'email|required|unique:users,email'
+        ]);
+
+        $afiliado = Afiliado::create($payload);
 
         /**
-         * TODO: hacer que se genere un token y enviarlo por email.
+         * TODO: hacer que se genere un codigo de confirmacion y enviarlo por email.
          */
+        Mail::to($userPayload['correo'])->send(new VerifyAfiliadoEmail($afiliado));
 
         return redirect()->route('afiliados.index')->with('succes', 'Se envio un correo al afiliado para crear la cuenta.');
     }
@@ -66,9 +76,24 @@ class AfiliadosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Afiliado $afiliado)
     {
-        //
+        $payload = $request->validate([
+            'razon_social'  => 'required|string',
+            'rif'           => 'required',
+            'pagina_web'    => 'url|nullable',
+            'correo'        => 'email|unique:afiliados,correo,' . $afiliado->id,
+            'direccion'     => 'string|nullable',
+            'telefono'      => 'string|nullable'
+        ]);
+
+        $afiliado->update($payload);
+
+        /**
+         * TODO: hacer que se genere un token y enviarlo por email.
+         */
+
+        return redirect()->route('afiliados.index')->with('succes', 'Afiliado actualizado correctamente.');
     }
 
     /**

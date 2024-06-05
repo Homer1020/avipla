@@ -25,8 +25,12 @@ return new class extends Migration
             $table->string('rif')->unique();
             $table->text('direccion')->nullable();
             $table->string('pagina_web')->nullable();
-            $table->string('correo', 255)->unique()->nullable();
             $table->string('telefono', 255)->unique()->nullable();
+
+            // To confirm affiliates
+            $table->string('confirmation_code')->nullable();
+            $table->boolean('confirmed')->default(0);
+
             $table->timestamps();
         });
     }
