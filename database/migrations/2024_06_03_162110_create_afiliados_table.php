@@ -15,16 +15,18 @@ return new class extends Migration
             $table->id();
             $table
                 ->foreignId('user_id')
+                ->nullable()
                 ->references('id')
                 ->on('users')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->boolean('estado'); // -> estado del afiliado
+            $table->boolean('estado')->default(1); // -> estado del afiliado
             $table->string('razon_social');
-            $table->string('RIF');
-            $table->text('direccion');
-            $table->string('nombre'); // -> persona a cargo
-            $table->string('telefono'); // -> telefono de la persona a cargo
+            $table->string('rif')->unique();
+            $table->text('direccion')->nullable();
+            $table->string('pagina_web')->nullable();
+            $table->string('correo', 255)->unique()->nullable();
+            $table->string('telefono', 255)->unique()->nullable();
             $table->timestamps();
         });
     }

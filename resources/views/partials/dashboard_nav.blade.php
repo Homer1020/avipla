@@ -11,6 +11,10 @@
             <div class="sb-nav-link-icon"><i class="fas fa-handshake"></i></div>
               Afiliados
           </a>
+          <a class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}" href="{{ route('notifications.index') }}">
+            <div class="sb-nav-link-icon"><i class="fas fa-bell"></i></div>
+              Notificaciones
+          </a>
           <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
               <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
               Layouts

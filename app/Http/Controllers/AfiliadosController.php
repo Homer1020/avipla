@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afiliado;
 use Illuminate\Http\Request;
 
 class AfiliadosController extends Controller
@@ -11,7 +12,8 @@ class AfiliadosController extends Controller
      */
     public function index()
     {
-        return view('afiliados.index');
+        $afiliados = Afiliado::where('estado', true)->latest()->get();
+        return view('afiliados.index', compact('afiliados'));
     }
 
     /**
@@ -19,7 +21,7 @@ class AfiliadosController extends Controller
      */
     public function create()
     {
-        //
+        return view('afiliados.create', ['afiliado' => new Afiliado()]);
     }
 
     /**
@@ -27,23 +29,38 @@ class AfiliadosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payload = $request->validate([
+            'razon_social'  => 'required|string',
+            'rif'           => 'required',
+            'pagina_web'    => 'url|nullable',
+            'correo'        => 'email|unique:afiliados,correo',
+            'direccion'     => 'string|nullable',
+            'telefono'      => 'string|nullable'
+        ]);
+
+        Afiliado::create($payload);
+
+        /**
+         * TODO: hacer que se genere un token y enviarlo por email.
+         */
+
+        return redirect()->route('afiliados.index')->with('succes', 'Se envio un correo al afiliado para crear la cuenta.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Afiliado $afiliado)
     {
-        //
+        return view('afiliados.show', compact('afiliado'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Afiliado $afiliado)
     {
-        //
+        return view('afiliados.edit', compact('afiliado'));
     }
 
     /**
@@ -57,8 +74,14 @@ class AfiliadosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Afiliado $afiliado)
     {
-        //
+        $afiliado->update([
+            'estado' => false
+        ]);
+
+        return redirect()
+                ->route('afiliados.index')
+                ->with('success', 'Se elimino el afiliado correctamente.');
     }
 }

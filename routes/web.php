@@ -3,6 +3,7 @@
 use App\Http\Controllers\AfiliadosController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -32,3 +33,4 @@ Route::view('dashboard', 'dashboard.index')->name('dashboard');
  * AFILIADOS ROUTES
  */
 Route::resource('afiliados', AfiliadosController::class);
+Route::resource('notificaciones', NotificationController::class)->names('notifications');

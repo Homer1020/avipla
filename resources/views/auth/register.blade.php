@@ -32,6 +32,19 @@
               <form action="{{ route('auth.register') }}" method="POST">
                 @csrf
 
+                <!-- razon_social -->
+                <div class="mb-3">
+                  <label for="razon_social" class="form-label">Razón social:</label>
+                  <input
+                    type="razon_social"
+                    class="form-control"
+                    placeholder="Empresas polar"
+                    name="razon_social"
+                    id="razon_social"
+                  >
+                </div>
+                <!-- /razon_social -->
+
                 <!-- correo -->
                 <div class="mb-3">
                   <label for="email" class="form-label">Correo:</label>
@@ -70,19 +83,6 @@
                   >
                 </div>
                 <!-- /password -->
-
-                <!-- correo -->
-                <div class="mb-3">
-                  <label for="razon_social" class="form-label">Razón social:</label>
-                  <input
-                    type="razon_social"
-                    class="form-control"
-                    placeholder="Empresas polar"
-                    name="razon_social"
-                    id="razon_social"
-                  >
-                </div>
-                <!-- /correo -->
 
                 <div class="d-flex align-items-center mt-5">
                   <input type="submit" value="Registrar" class="btn btn-primary me-4">

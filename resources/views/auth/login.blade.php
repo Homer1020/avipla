@@ -27,21 +27,17 @@
         <div class="col-lg-5">
           <div class="card shadow">
             <div class="card-body p-5">
+              <img src="{{ asset('assets/img/avatar.webp') }}" alt="Avatar" width="100" class="d-block mx-auto mb-3">
+
               <h1 class="fs-3 text-center text-primary mb-4">Iniciar sesión</h1>
 
               <form action="{{ route('auth.login') }}" method="POST">
                 @csrf
 
                 <!-- correo -->
-                <div class="mb-3">
-                  <label for="email" class="form-label">Correo:</label>
-                  <input
-                    type="email"
-                    class="form-control @error('email') is-invalid @enderror"
-                    placeholder="johndoe@gmail.com"
-                    name="email"
-                    id="email"
-                  >
+                <div class="form-floating mb-3">
+                  <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="johndoe@gmail.com">
+                  <label for="email">Correo electrónico</label>
                   @error('email')
                     <div class="invalid-feedback">
                       {{ $message }}
@@ -50,23 +46,17 @@
                 </div>
                 <!-- /correo -->
 
-                <!-- password -->
-                <div class="mb-3">
-                  <label for="password" class="form-label">Contrasena:</label>
-                  <input
-                    type="password"
-                    class="form-control @error('password') is-invalid @enderror"
-                    placeholder="********"
-                    name="password"
-                    id="password"
-                  >
+                <!-- correo -->
+                <div class="form-floating mb-3">
+                  <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="*******">
+                  <label for="password">Contraseña</label>
                   @error('password')
                     <div class="invalid-feedback">
                       {{ $message }}
                     </div>
                   @enderror
                 </div>
-                <!-- /password -->
+                <!-- /correo -->
 
                 <div class="d-flex align-items-center mt-5">
                   <input type="submit" value="Iniciar sesión" class="btn btn-primary me-4">
