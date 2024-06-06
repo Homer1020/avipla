@@ -24,13 +24,15 @@
       <div class="row justify-content-center">
         <div class="col-lg-5 bg-auth rounded" style="background-image: url({{ asset('assets/img/robot.jpg') }})">
         </div>
-        <div class="col-lg-5">
+        <div class="col-lg-7">
           <div class="card shadow">
-            <div class="card-body p-5">
+            <div class="card-body">
               <h1 class="fs-3 text-center text-primary mb-4">Crear cuenta</h1>
 
               <form action="{{ route('auth.register') }}" method="POST">
                 @csrf
+
+                <input type="hidden" name="confirmation_code" value="{{ $afiliado->confirmation_code }}">
 
                 <!-- razon_social -->
                 <div class="mb-3">
@@ -42,10 +44,24 @@
                     name="razon_social"
                     id="razon_social"
                     value="{{ $afiliado->razon_social }}"
-                    {{ $afiliado->id ? 'disabled' : '' }}
                   >
                 </div>
                 <!-- /razon_social -->
+
+
+                <!-- name -->
+                <div class="mb-3">
+                  <label for="name" class="form-label">Encargado:</label>
+                  <input
+                    type="name"
+                    class="form-control"
+                    placeholder="Empresas polar"
+                    name="name"
+                    id="name"
+                    value="{{ $afiliado->name }}"
+                  >
+                </div>
+                <!-- /name -->
 
                 <!-- correo -->
                 <div class="mb-3">
@@ -56,6 +72,7 @@
                     placeholder="johndoe@gmail.com"
                     name="email"
                     id="email"
+                    value="{{ $afiliado->correo }}"
                   >
                 </div>
                 <!-- /correo -->
@@ -77,7 +94,7 @@
                 <div class="mb-3">
                   <label for="password-confirm" class="form-label">Confirmar contraseña:</label>
                   <input
-                    type="password-confirm"
+                    type="password"
                     class="form-control"
                     placeholder="********"
                     name="password-confirm"

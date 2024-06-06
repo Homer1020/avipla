@@ -27,7 +27,11 @@
         <div class="col-lg-5">
           <div class="card shadow">
             <div class="card-body p-5">
-              <img src="{{ asset('assets/img/avatar.webp') }}" alt="Avatar" width="100" class="d-block mx-auto mb-3">
+              {{-- <img src="{{ asset('assets/img/avatar.webp') }}" alt="Avatar" width="100" class="d-block mx-auto mb-3"> --}}
+
+              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-3 mx-auto" style="height: 6rem; width: 6rem;">
+                <i class="fa fa-user fa-2x text-white"></i>
+              </div>
 
               <h1 class="fs-3 text-center text-primary mb-4">Iniciar sesión</h1>
 

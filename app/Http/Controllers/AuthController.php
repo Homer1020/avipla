@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Afiliado;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,7 +47,28 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    public function register() {
+    public function register(Request $request) {
+        $payload = $request->validate([
+            'name'      => 'required|string',
+            'email'     => 'required|email|unique:users,email',
+            'password'  => 'required|min:8'
+        ]);
+
+        $confirmation_code = $request->input('confirmation_code');
+
+        if($confirmation_code) {
+            $afiliado = Afiliado::where('confirmation_code', $confirmation_code)->first();
+            $payload['password'] = bcrypt($payload['password']);
+            $afiliado->user()->create($payload);
+            $afiliado->update([
+                'confirmation_code' => null
+            ]);
+            return redirect()->route('auth.loginForm');
+        } else {
+            /**
+             * MANEJAR ERROR
+             */
+        }
     }
 
     public function logout(Request $request) {

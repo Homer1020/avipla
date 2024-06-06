@@ -13,6 +13,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
+        <th>ID</th>
         <th>Razón social</th>
         <th>RIF</th>
         <th>Correo</th>
@@ -24,6 +25,7 @@
     <tbody>
       @foreach ($afiliados as $afiliado)
         <tr>
+          <td>#{{$afiliado->id}}</td>
           <td>
             <span class="text-truncate d-inline-block" style="max-width: 150px">{{ $afiliado->razon_social }}</span>
           </td>

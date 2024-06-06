@@ -37,22 +37,19 @@ class AfiliadosController extends Controller
             'rif'           => 'required|unique:afiliados,rif',
             'pagina_web'    => 'url|nullable',
             'direccion'     => 'string|nullable',
-            'telefono'      => 'string|nullable'
+            'telefono'      => 'string|nullable',
+            'correo'        => 'email|required|unique:afiliados,correo'
         ]);
 
         $confirmation_code = Str::random(25);
         $payload['confirmation_code'] = $confirmation_code;
-
-        $userPayload = $request->validate([
-            'correo'    => 'email|required|unique:users,email'
-        ]);
 
         $afiliado = Afiliado::create($payload);
 
         /**
          * TODO: hacer que se genere un codigo de confirmacion y enviarlo por email.
          */
-        Mail::to($userPayload['correo'])->send(new VerifyAfiliadoEmail($afiliado));
+        Mail::to($payload['correo'])->send(new VerifyAfiliadoEmail($afiliado));
 
         return redirect()->route('afiliados.index')->with('succes', 'Se envio un correo al afiliado para crear la cuenta.');
     }

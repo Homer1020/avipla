@@ -15,6 +15,7 @@ class Afiliado extends Model
         'pagina_web',
         'direccion',
         'telefono',
+        'correo',
         'estado',
         'confirmation_code'
     ];

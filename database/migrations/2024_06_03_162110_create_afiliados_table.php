@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('estado')->default(1); // -> estado del afiliado
             $table->string('razon_social');
             $table->string('rif')->unique();
+            $table->string('correo')->unique();
             $table->text('direccion')->nullable();
             $table->string('pagina_web')->nullable();
             $table->string('telefono', 255)->unique()->nullable();

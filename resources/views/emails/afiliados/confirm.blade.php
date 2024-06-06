@@ -14,7 +14,7 @@
 
     <p>Por favos clickear el enlace a continuación para crear tu cuenta:</p>
 
-    <a href="{{ route('auth.registerForm', $afiliado->confirmation_code) }}">Activate Account</a>
+    <a href="{{ route('auth.registerForm', $afiliado->confirmation_code) }}">Crear cuenta</a>
 
     <p>If you have any questions, please don't hesitate to contact us.</p>
 
