@@ -17,7 +17,9 @@ class Afiliado extends Model
         'telefono',
         'correo',
         'estado',
-        'confirmation_code'
+        'confirmation_code',
+        'confirmed',
+        'user_id'
     ];
 
     public function user() {

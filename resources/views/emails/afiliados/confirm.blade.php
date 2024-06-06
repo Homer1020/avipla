@@ -16,9 +16,9 @@
 
     <a href="{{ route('auth.registerForm', $afiliado->confirmation_code) }}">Crear cuenta</a>
 
-    <p>If you have any questions, please don't hesitate to contact us.</p>
+    <p>Si tienes alguna duda, por favor no dudes en contactar con nosotros.</p>
 
-    <p>Sincerely,</p>
-    <p>The AVIPLA Team</p>
+    <p>Atentamente,</p>
+    <p>El equipo AVIPLA</p>
 </body>
 </html>

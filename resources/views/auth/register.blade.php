@@ -18,15 +18,14 @@
 </head>
 
 <body class="bg-secondary">
-
   <main class="auth-layout">
     <div class="container my-3">
       <div class="row justify-content-center">
-        <div class="col-lg-5 bg-auth rounded" style="background-image: url({{ asset('assets/img/robot.jpg') }})">
+        <div class="col-lg-4 bg-auth rounded" style="background-image: url({{ asset('assets/img/robot.jpg') }})">
         </div>
-        <div class="col-lg-7">
+        <div class="col-lg-8">
           <div class="card shadow">
-            <div class="card-body">
+            <div class="card-body p-4">
               <h1 class="fs-3 text-center text-primary mb-4">Crear cuenta</h1>
 
               <form action="{{ route('auth.register') }}" method="POST">
@@ -34,38 +33,42 @@
 
                 <input type="hidden" name="confirmation_code" value="{{ $afiliado->confirmation_code }}">
 
-                <!-- razon_social -->
-                <div class="mb-3">
-                  <label for="razon_social" class="form-label">Razón social:</label>
-                  <input
-                    type="razon_social"
-                    class="form-control"
-                    placeholder="Empresas polar"
-                    name="razon_social"
-                    id="razon_social"
-                    value="{{ $afiliado->razon_social }}"
-                  >
+                <div class="row">
+                  <div class="col-lg-6">
+                    <!-- razon_social -->
+                    <div class="mb-3">
+                      <label for="razon_social" class="form-label">Razón social:</label>
+                      <input
+                        type="razon_social"
+                        class="form-control"
+                        placeholder="Empresas polar"
+                        name="razon_social"
+                        id="razon_social"
+                        value="{{ $afiliado->razon_social }}"
+                      >
+                    </div>
+                    <!-- /razon_social -->
+                  </div>
+                  <div class="col-lg-6">
+                    <!-- name -->
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Nombre del encargado:</label>
+                      <input
+                        type="name"
+                        class="form-control"
+                        placeholder="John Doe"
+                        name="name"
+                        id="name"
+                        autofocus
+                      >
+                    </div>
+                    <!-- /name -->
+                  </div>
                 </div>
-                <!-- /razon_social -->
-
-
-                <!-- name -->
-                <div class="mb-3">
-                  <label for="name" class="form-label">Encargado:</label>
-                  <input
-                    type="name"
-                    class="form-control"
-                    placeholder="Empresas polar"
-                    name="name"
-                    id="name"
-                    value="{{ $afiliado->name }}"
-                  >
-                </div>
-                <!-- /name -->
 
                 <!-- correo -->
                 <div class="mb-3">
-                  <label for="email" class="form-label">Correo:</label>
+                  <label for="email" class="form-label">Correo del encargado:</label>
                   <input
                     type="email"
                     class="form-control"

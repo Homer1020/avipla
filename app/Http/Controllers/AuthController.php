@@ -36,7 +36,7 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard');
+            return redirect()->intended('dashboard')->with('success', 'Bienvenido ' . Auth::user()->name . '!');
         }
 
         /**
@@ -54,14 +54,22 @@ class AuthController extends Controller
             'password'  => 'required|min:8'
         ]);
 
+        # por si se equivocaron en algun campo
+        $afiliadoPayload = $request->validate([
+            'razon_social'  => 'required|string'
+        ]);
+
         $confirmation_code = $request->input('confirmation_code');
 
         if($confirmation_code) {
             $afiliado = Afiliado::where('confirmation_code', $confirmation_code)->first();
             $payload['password'] = bcrypt($payload['password']);
-            $afiliado->user()->create($payload);
+            $user = User::create($payload);
+            $afiliado->user()->associate($user);
             $afiliado->update([
-                'confirmation_code' => null
+                'razon_social'      => $afiliadoPayload['razon_social'],
+                'confirmation_code' => null,
+                'confirmed'         => true
             ]);
             return redirect()->route('auth.loginForm');
         } else {
