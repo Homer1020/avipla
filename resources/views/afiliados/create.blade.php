@@ -5,7 +5,7 @@
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('afiliados.index') }}">Afiliados</a></li>
-    <li class="breadcrumb-item active">Crear afiliado</li>
+    <li class="breadcrumb-item active">Crear Afiliado</li>
   </ol>
 
   <form action="{{ route('afiliados.store') }}" method="POST">

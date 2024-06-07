@@ -46,4 +46,8 @@ class User extends Authenticatable
     public function afiliado() {
         return $this->hasOne(Afiliado::class);
     }
+
+    public function invoices() {
+        return $this->hasMany(Invoice::class);
+    }
 }

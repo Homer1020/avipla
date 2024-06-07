@@ -15,7 +15,7 @@ class AfiliadosController extends Controller
      */
     public function index()
     {
-        $afiliados = Afiliado::where('estado', true)->latest()->get();
+        $afiliados = Afiliado::latest()->where('estado', true)->get();
         return view('afiliados.index', compact('afiliados'));
     }
 
@@ -105,5 +105,17 @@ class AfiliadosController extends Controller
         return redirect()
                 ->route('afiliados.index')
                 ->with('success', 'Se elimino el afiliado correctamente.');
+    }
+
+    public function sendConfirmationEmail(Afiliado $afiliado) {
+        $confirmation_code = Str::random(25);
+
+        $afiliado->confirmation_code = $confirmation_code;
+        $afiliado->confirmed = false;
+        $afiliado->save();
+        
+        Mail::to($afiliado->correo)->send(new VerifyAfiliadoEmail($afiliado));
+
+        return redirect()->route('afiliados.show', $afiliado)->with('success', 'Se envio un correo de acceso.');
     }
 }

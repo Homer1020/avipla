@@ -55,23 +55,52 @@
         @endphp
           <li class="list-group-item"><span class="fw-bold d-block">Encargado:</span> {{ $afiliado->user->name }}</li>
           <li class="list-group-item"><span class="fw-bold d-block">Correo del encargado:</span> <a href="mailto:{{ $afiliado->user->email }}">{{ $afiliado->user->email }}</a></li>
-          <li class="list-group-item">
-            <span class="fw-bold d-block">Reenviar codigo de registro:</span>
-            <a class="btn btn-success mt-2">
-              <i class="fa fa-envelope"></i>
-              Enviar correo
-            </a>
-          </li>
         @else
           <li class="list-group-item">
             <span class="fw-bold d-block">Solicitar registro por correo:</span>
-            <a class="btn btn-success mt-2">
-              <i class="fa fa-envelope"></i>
-              Enviar correo
-            </a>
+            <form action="{{ route('afiliados.sendConfirmationEmail', $afiliado) }}" method="POST">
+              @csrf
+              <button type="submit" class="btn btn-success mt-2">
+                <i class="fa fa-envelope"></i>
+                Enviar correo
+              </button>
+            </form>
+            @if ($afiliado->confirmation_code)
+              <p class="text-muted text-sm mt-2 mb-0">Ya se envió un enlace pare el registro.</p>
+            @endif
           </li>
         @endif
       </ul>
     </div>
   </div>
 @endsection
+@push('script')
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: "success",
+            title: "{{ session('success') }}"
+        });
+    </script>
+  @endif
+
+  <script>
+    function submitAfterConfirm(form) {
+      Swal.fire({
+        title: "¿Estas seguro?",
+        text: "¡Esta acción no se puede revertir!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminalo!",
+        cancelButtonText: "Cancelar"
+      }).then((result) => {
+        if (result.isConfirmed) form.submit()
+      })
+    }
+
+  </script>
+@endpush

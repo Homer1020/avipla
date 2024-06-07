@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AVIPLA | Registro</title>
+  <title>AVIPLA | Iniciar sesión</title>
   <!-- BOOTSTRAP -->
   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
   <!-- FONT AWESOME -->

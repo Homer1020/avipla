@@ -11,23 +11,23 @@
             <div class="sb-nav-link-icon"><i class="fas fa-handshake"></i></div>
               Afiliados
           </a>
-          <a class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}" href="{{ route('notifications.index') }}">
+          <a class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}" href="{{ route('invoices.index') }}">
             <div class="sb-nav-link-icon"><i class="fas fa-file-invoice"></i></div>
               Facturación
           </a>
-          <a class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}" href="{{ route('notifications.index') }}">
+          <a class="nav-link" href="{{ route('notifications.index') }}">
             <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
               Boletines
           </a>
-          <a class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}" href="{{ route('notifications.index') }}">
+          <a class="nav-link" href="{{ route('notifications.index') }}">
             <div class="sb-nav-link-icon"><i class="fas fa-newspaper"></i></div>
               Noticias
           </a>
-          <a class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}" href="{{ route('notifications.index') }}">
+          <a class="nav-link" href="{{ route('notifications.index') }}">
             <div class="sb-nav-link-icon"><i class="fas fa-briefcase"></i></div>
               Mi empresa
           </a>
-          <a class="nav-link {{ request()->routeIs('notifications.*') ? 'active' : '' }}" href="{{ route('notifications.index') }}">
+          <a class="nav-link" href="{{ route('notifications.index') }}">
             <div class="sb-nav-link-icon"><i class="fas fa-headset"></i></div>
               Contacto
           </a>
