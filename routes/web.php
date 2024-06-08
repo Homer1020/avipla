@@ -28,7 +28,9 @@ Route::middleware('guest')->group(function() {
 });
 Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::view('dashboard', 'dashboard.index')->name('dashboard');
+Route::view('dashboard', 'dashboard.index')
+  ->name('dashboard')
+  ->middleware('auth');
 
 Route::post('correo_afiliado/{afiliado}', [AfiliadosController::class, 'sendConfirmationEmail'])->name('afiliados.sendConfirmationEmail');
 Route::resource('afiliados', AfiliadosController::class);
