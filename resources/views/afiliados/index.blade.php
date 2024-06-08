@@ -1,5 +1,8 @@
 @extends('layouts.dashboard')
 @section('title', 'Afiliados')
+@push('css')
+  <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+@endpush
 @section('content')
   <h1 class="mt-4">Afiliados</h1>
   <ol class="breadcrumb mb-4">
@@ -10,7 +13,7 @@
     <a href="{{ route('afiliados.create') }}" class="btn btn-primary">Crear afiliado</a>
   </div>
 
-  <table class="table table-bordered">
+  <table class="table table-bordered" id="afiliados-table">
     <thead>
       <tr>
         <th>ID</th>
@@ -59,7 +62,9 @@
 @endsection
 
 @push('script')
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{{ asset('assets/css/datatables.min.js') }}"></script>
 
   @if (session('success'))
     <script>
@@ -86,5 +91,8 @@
       })
     }
 
+    new DataTable('#afiliados-table', {
+      responsive: true
+    })
   </script>
 @endpush

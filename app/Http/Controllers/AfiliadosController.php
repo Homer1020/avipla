@@ -51,7 +51,7 @@ class AfiliadosController extends Controller
          */
         Mail::to($payload['correo'])->send(new VerifyAfiliadoEmail($afiliado));
 
-        return redirect()->route('afiliados.index')->with('succes', 'Se envio un correo al afiliado para crear la cuenta.');
+        return redirect()->route('afiliados.index')->with('success', 'Se envio un correo al afiliado para crear la cuenta.');
     }
 
     /**
