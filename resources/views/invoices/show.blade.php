@@ -17,16 +17,12 @@
                 #{{ $invoice->numero_factura }}
             </li>
             <li class="list-group-item">
-                <span class="fw-bold">Concepto:</span>
-                {{ $invoice->concepto }}
-            </li>
-            <li class="list-group-item">
                 <span class="fw-bold">Monto total:</span>
                 {{ $invoice->monto_total }}$
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Documento:</span>
-                <a href="{{ $invoice->documento }}">{{ $invoice->documento }}</a>
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}">{{ $invoice->documento }}</a>
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Estado:</span>

@@ -36,19 +36,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="concepto" class="form-label">Concepto</label>
-            <input
-                type="text"
-                class="form-control @error('concepto') is-invalid @enderror"
-                name="concepto"
-                id="concepto"
-            >
-            @error('concepto')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div class="mb-3">
             <label for="monto_total" class="form-label">Monto</label>
             <input
                 type="number"

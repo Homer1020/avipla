@@ -10,7 +10,7 @@
     <li class="breadcrumb-item active">Afiliados</li>
   </ol>
   <div class="mb-4">
-    <a href="{{ route('afiliados.create') }}" class="btn btn-primary">Crear afiliado</a>
+    <a href="{{ route('afiliados.create') }}" class="btn btn-primary">Nuevo afiliado</a>
   </div>
 
   <div class="mb-4 card">

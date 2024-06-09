@@ -7,6 +7,7 @@ use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class InvoiceController extends Controller
@@ -37,22 +38,22 @@ class InvoiceController extends Controller
         $payload = $request->validate([
             'afiliado_id'   => 'required|numeric|exists:afiliados,id',
             'monto_total'   => 'required|numeric',
-            'documento'     => 'required',
-            'concepto'      => 'required|string'
+            'documento'     => 'required'
         ]);
 
-        $numero_factura = Str::random(32);
+        $numeroFactura = Str::random(32);
 
-        $payload['documento'] = 'file.pdf';
-        $payload['numero_factura'] = $numero_factura;
+        $documentFile = $request->file('documento');
+        $documentFileName = $documentFile->hashName();
+        $documentFile->storeAs('invoices', $documentFileName);
+
+        $payload['documento'] = $documentFileName;
+        $payload['numero_factura'] = $numeroFactura;
 
         $user = Auth::user();
 
         if ($user !== null && $user instanceof User) {
             $user->invoices()->create($payload);
-            /**
-             * TODO: send a notification to afilado
-             */
             return redirect()->route('invoices.index')->with('success', 'Se creo la factura correctamente');
         }
         

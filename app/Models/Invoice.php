@@ -13,8 +13,7 @@ class Invoice extends Model
         'afiliado_id',
         'monto_total',
         'documento',
-        'numero_factura',
-        'concepto'
+        'numero_factura'
     ];
 
     public function user() {

@@ -15,12 +15,11 @@
 
   <div class="card">
     <div class="card-body">
-      <table class="table table-bordered">
+      <table class="table table-bordered" id="invoices-table">
         <thead>
           <tr>
             <th>ID</th>
             <th>Fecha</th>
-            <th>Concepto</th>
             <th>Empresa</th>
             <th>Estado</th>
             <th>Monto</th>
@@ -33,7 +32,6 @@
             <tr>
               <td>#{{ $invoice->id }}</td>
               <td>{{ $invoice->created_at }}</td>
-              <td>{{ $invoice->concepto }}</td>
               <td>
                 <span class="text-truncate d-inline-block" style="max-width: 150px">
                   {{ $invoice->afiliado->razon_social }}
@@ -46,9 +44,13 @@
               </td>
               <td>{{ $invoice->monto_total }}$</td>
               <td>
-                <a class="btn btn-primary" href="{{ route('invoices.show', $invoice) }}">
+                <a class="btn btn-success" href="{{ route('invoices.show', $invoice) }}">
                   <i class="fa fa-eye"></i>
                   Detalles
+                </a>
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
+                  <i class="fa fa-file"></i>
+                  Documento
                 </a>
               </td>
             </tr>

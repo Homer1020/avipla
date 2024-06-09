@@ -11,24 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('pagos', function (Blueprint $table) {
             $table->id();
             $table
-                ->foreignId('user_id')
+                ->foreignId('invoice_id')
                 ->references('id')
-                ->on('users')
+                ->on('invoices')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
             $table
-                ->foreignId('afiliado_id')
+                ->foreignId('metodo_pago_id')
                 ->references('id')
-                ->on('afiliados')
+                ->on('metodos_pago')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->enum('estado', ['PENDIENTE', 'COMPLETADO', 'CANCELADO'])->default('PENDIENTE');
-            $table->string('numero_factura')->unique();
-            $table->string('monto_total');
-            $table->string('documento');
+            $table->integer('monto');
+            $table->string('comprobante');
             $table->timestamps();
         });
     }
@@ -38,9 +36,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('invoices', function(Blueprint $table) {
-            $table->dropForeign(['user_id', 'afiliado_id']);
+        Schema::table('pagos', function(Blueprint $table) {
+            $table->dropForeign(['invoice_id', 'metodo_pago_id']);
         });
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('pagos');
     }
 };

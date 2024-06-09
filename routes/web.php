@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AfiliadosController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\NotificationController;
@@ -39,3 +40,10 @@ Route::resource('notificaciones', NotificationController::class)->names('notific
 Route::resource('facturas', InvoiceController::class)
   ->names('invoices')
   ->parameters([ 'facturas' => 'invoice' ]);
+
+/**
+ * MANAGE FILES
+ */
+Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
+->middleware('auth')
+->name('files.getFile');

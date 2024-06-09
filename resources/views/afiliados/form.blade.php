@@ -1,31 +1,32 @@
-<div class="mb-3">
-  <label for="razon_social" class="form-label">Razón social</label>
-  <input
-    type="text"
-    class="form-control @error('razon_social') is-invalid @enderror"
-    name="razon_social"
-    id="razon_social"
-    placeholder="Empresas Polar"
-    value="{{ old('razon_social', $afiliado->razon_social) }}"
-  >
-  @error('razon_social')
-    <span class="invalid-feedback">{{ $message }}</span>
-  @enderror
-</div>
-
-<div class="mb-3">
-  <label for="rif" class="form-label">RIF</label>
-  <input
-    type="text"
-    class="form-control @error('rif') is-invalid @enderror"
-    name="rif"
-    id="rif"
-    placeholder="J-000000001"
-    value="{{ old('rif', $afiliado->rif) }}"
-  >
-  @error('rif')
-    <span class="invalid-feedback">{{ $message }}</span>
-  @enderror
+<div class="row mb-3">
+  <div class="col-lg-6">
+    <label for="razon_social" class="form-label">Razón social</label>
+    <input
+      type="text"
+      class="form-control @error('razon_social') is-invalid @enderror"
+      name="razon_social"
+      id="razon_social"
+      placeholder="Empresas Polar"
+      value="{{ old('razon_social', $afiliado->razon_social) }}"
+    >
+    @error('razon_social')
+      <span class="invalid-feedback">{{ $message }}</span>
+    @enderror
+  </div>
+  <div class="col-lg-6">
+    <label for="rif" class="form-label">RIF</label>
+    <input
+      type="text"
+      class="form-control @error('rif') is-invalid @enderror"
+      name="rif"
+      id="rif"
+      placeholder="J-000000001"
+      value="{{ old('rif', $afiliado->rif) }}"
+    >
+    @error('rif')
+      <span class="invalid-feedback">{{ $message }}</span>
+    @enderror
+  </div>
 </div>
 
 <div class="mb-3">
