@@ -13,52 +13,56 @@
     <a href="{{ route('afiliados.create') }}" class="btn btn-primary">Crear afiliado</a>
   </div>
 
-  <table class="table table-bordered" id="afiliados-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Razón social</th>
-        <th>RIF</th>
-        <th>Correo</th>
-        <th>Teléfono</th>
-        <th>Acciones</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      @foreach ($afiliados as $afiliado)
-        <tr>
-          <td>#{{$afiliado->id}}</td>
-          <td>
-            <span class="text-truncate d-inline-block" style="max-width: 150px">{{ $afiliado->razon_social }}</span>
-          </td>
-          <td>{{ $afiliado->rif }}</td>
-          <td>{{ $afiliado->correo }}</td>
-          <td>{{ $afiliado->telefono }}</td>
-          <td>
-            <a href="{{ route('afiliados.show', $afiliado) }}" class="btn btn-primary">
-              <i class="fa fa-eye"></i>
-              Detalles
-            </a>
-
-            <form action="{{ route('afiliados.destroy', $afiliado) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
-              @csrf
-              @method('DELETE')
-              <button type="submit" class="btn btn-danger">
-                <i class="fa fa-trash"></i>
-                Eliminar
-              </button>
-            </form>
-
-            <a href="{{ route('afiliados.edit', $afiliado) }}" class="btn btn-warning">
-              <i class="fa fa-pen"></i>
-              Editar
-            </a>
-          </td>
-        </tr>
-      @endforeach
-    </tbody>
-  </table>
+  <div class="mb-4 card">
+    <div class="card-body">
+      <table class="table table-bordered w-100" id="afiliados-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Razón social</th>
+            <th>RIF</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+    
+        <tbody>
+          @foreach ($afiliados as $afiliado)
+            <tr>
+              <td>#{{$afiliado->id}}</td>
+              <td>
+                <span class="text-truncate d-inline-block" style="max-width: 150px">{{ $afiliado->razon_social }}</span>
+              </td>
+              <td>{{ $afiliado->rif }}</td>
+              <td>{{ $afiliado->correo }}</td>
+              <td>{{ $afiliado->telefono }}</td>
+              <td style="white-space: nowrap">
+                <a href="{{ route('afiliados.show', $afiliado) }}" class="btn btn-primary">
+                  <i class="fa fa-eye"></i>
+                  Detalles
+                </a>
+    
+                <form action="{{ route('afiliados.destroy', $afiliado) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                    Eliminar
+                  </button>
+                </form>
+    
+                <a href="{{ route('afiliados.edit', $afiliado) }}" class="btn btn-warning">
+                  <i class="fa fa-pen"></i>
+                  Editar
+                </a>
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  </div>
 @endsection
 
 @push('script')
@@ -92,7 +96,13 @@
     }
 
     new DataTable('#afiliados-table', {
-      responsive: true
+      columnDefs: [
+        { orderable: false, targets: 5 },
+      ],
+      order: false,
+      language: {
+        url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
+      }
     })
   </script>
 @endpush
