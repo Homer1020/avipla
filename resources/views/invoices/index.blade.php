@@ -14,6 +14,7 @@
   </div>
 
   <div class="card">
+<<<<<<< HEAD
     <div class="card-body">
       <table class="table table-bordered w-100" id="invoices-table">
         <thead>
@@ -54,6 +55,46 @@
         </tbody>
       </table>
     </div>
+=======
+    <table class="table table-bordered w-100" id="invoices-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Empresa</th>
+          <th>Estado</th>
+          <th>Monto</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+        @foreach ($invoices as $invoice)
+          <tr>
+            <td>#{{ $invoice->id }}</td>
+            <td>{{ $invoice->created_at }}</td>
+            <td>
+              <span class="text-truncate d-inline-block" style="max-width: 150px">
+                {{ $invoice->afiliado->razon_social }}
+              </span>
+            </td>
+            <td>
+              <div class="badge bg-warning">
+                {{ $invoice->estado }}
+              </div>
+            </td>
+            <td>{{ $invoice->monto_total }}$</td>
+            <td>
+              <a class="btn btn-primary" href="{{ route('invoices.show', $invoice) }}">
+                <i class="fa fa-eye"></i>
+                Detalles
+              </a>
+            </td>
+          </tr>
+        @endforeach
+      </tbody>
+    </table>
+>>>>>>> ebef31209a9ebaec80420f43ff479337210f8b12
   </div>
 @endsection
 
