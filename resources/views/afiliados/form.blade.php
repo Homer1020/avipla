@@ -1,62 +1,58 @@
-<div class="row mb-3">
-  <div class="col-lg-6">
-    <label for="razon_social" class="form-label">Razón social</label>
-    <input
-      type="text"
-      class="form-control @error('razon_social') is-invalid @enderror"
+<div class="row">
+  <div class="col-lg-4">
+    <x-forms.input
       name="razon_social"
       id="razon_social"
       placeholder="Empresas Polar"
-      value="{{ old('razon_social', $afiliado->razon_social) }}"
-    >
-    @error('razon_social')
-      <span class="invalid-feedback">{{ $message }}</span>
-    @enderror
+      label="Razón social"
+      :value="old('razon_social', $afiliado->razon_social)"
+      :error="$errors->first('razon_social')"
+    />
   </div>
-  <div class="col-lg-6">
-    <label for="rif" class="form-label">RIF</label>
-    <input
-      type="text"
-      class="form-control @error('rif') is-invalid @enderror"
+  <div class="col-lg-4">
+    <x-forms.input
       name="rif"
       id="rif"
       placeholder="J-000000001"
-      value="{{ old('rif', $afiliado->rif) }}"
-    >
-    @error('rif')
-      <span class="invalid-feedback">{{ $message }}</span>
-    @enderror
+      label="RIF"
+      :value="old('rif', $afiliado->rif)"
+      :error="$errors->first('rif')"
+    />
+  </div>
+  <div class="col-lg-4">
+    <x-forms.input
+      name="siglas"
+      id="siglas"
+      placeholder="AVIPLA"
+      label="Siglas"
+      :value="old('siglas', $afiliado->siglas)"
+      :error="$errors->first('siglas')"
+    />
   </div>
 </div>
 
-<div class="mb-3">
-  <label for="correo" class="form-label">Correo electronico</label>
-  <input
-    type="text"
-    class="form-control @error('correo') is-invalid @enderror"
-    name="correo"
-    id="correo"
-    value="{{ old('correo', $afiliado->correo) }}"
-    placeholder="johndoe@miempresa.com"
-  >
-  @error('correo')
-    <span class="invalid-feedback">{{ $message }}</span>
-  @enderror
-</div>
+<div class="row">
+  <div class="col-lg-6">
+    <x-forms.input
+      type="email"
+      name="correo"
+      id="correo"
+      label="Correo electronico"
+      placeholder="johndoe@miempresa.com"
+      :value="old('correo', $afiliado->correo)"
+      :error="$errors->first('correo')"
+    />
 
-<div class="mb-3">
-  <label for="telefono" class="form-label">Teléfono</label>
-  <input
-    type="text"
-    class="form-control @error('telefono') is-invalid @enderror"
-    name="telefono"
-    id="telefono"
-    value="{{ old('telefono', $afiliado->telefono) }}"
-    placeholder="+58 123 12 12"
-  >
-  @error('telefono')
-    <span class="invalid-feedback">{{ $message }}</span>
-  @enderror
+<input
+  type="text"
+  class="form-control @error('telefono') is-invalid @enderror"
+  name="telefono"
+  id="telefono"
+  label="Teléfono"
+  :value="old('telefono', $afiliado->telefono)"
+  placeholder="+58 123 12 12"
+>
+  </div>
 </div>
 
 <div class="mb-3">

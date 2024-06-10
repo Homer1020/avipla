@@ -49,14 +49,10 @@ class AuthController extends Controller
 
     public function register(Request $request) {
         $payload = $request->validate([
-            'name'      => 'required|string',
-            'email'     => 'required|email|unique:users,email',
-            'password'  => 'required|min:8'
-        ]);
-
-        # por si se equivocaron en algun campo
-        $afiliadoPayload = $request->validate([
-            'razon_social'  => 'required|string'
+            'name'              => 'required|string',
+            'email'             => 'required|email|unique:users,email',
+            'password'          => 'required|min:8|confirmed',
+            'razon_social'      => 'required|string',
         ]);
 
         $confirmation_code = $request->input('confirmation_code');
@@ -64,10 +60,14 @@ class AuthController extends Controller
         if($confirmation_code) {
             $afiliado = Afiliado::where('confirmation_code', $confirmation_code)->first();
             $payload['password'] = bcrypt($payload['password']);
-            $user = User::create($payload);
+            $user = User::create($request->only([
+                'name',
+                'email',
+                'password'
+            ]));
             $afiliado->user()->associate($user);
             $afiliado->update([
-                'razon_social'      => $afiliadoPayload['razon_social'],
+                'razon_social'      => $request->input('razon_social'),
                 'confirmation_code' => null,
                 'confirmed'         => true
             ]);
