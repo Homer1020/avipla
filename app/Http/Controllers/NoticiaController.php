@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Noticia;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class NoticiaController extends Controller
 {
@@ -12,7 +16,8 @@ class NoticiaController extends Controller
      */
     public function index()
     {
-        return view('noticias.index');
+        $noticias = Noticia::with(['categoria', 'usuario'])->latest()->get();
+        return view('noticias.index', compact('noticias'));
     }
 
     /**
@@ -20,7 +25,8 @@ class NoticiaController extends Controller
      */
     public function create()
     {
-        //
+        $categorias = Category::all();
+        return view('noticias.create', compact('categorias'));
     }
 
     /**
@@ -28,7 +34,27 @@ class NoticiaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payload = $request->validate([
+            'titulo'        => 'required|string|unique:noticias,titulo',
+            'contenido'     => 'required|string',
+            'categoria_id'  => 'required|numeric|exists:categories,id',
+            'thumbnail'     => 'required|file'
+        ]);
+
+        $slug = Str::slug($request->input('titulo'), "-");
+        $payload['slug'] = $slug;
+
+        $path = $request->file('thumbnail')->store('public/noticias');
+        $payload['thumbnail'] = $path;
+
+        $auth_user = Auth::user();
+
+        if($auth_user !== null && $auth_user instanceof User) {
+            $auth_user->noticias()->create($payload);
+        }
+
+
+        return redirect()->route('noticias.index')->with('success', 'Se creo la noticia correctamente.');
     }
 
     /**

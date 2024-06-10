@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Category::all();
+        return view('categorias.index', compact('categorias'));
     }
 
     /**
@@ -20,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categorias.create');
     }
 
     /**
@@ -28,7 +30,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payload = $request->validate([
+            'display_name'  => 'required|string|unique:categories,display_name'
+        ]);
+
+        $slug = Str::slug($request->input('display_name'), "-");
+        $payload['name'] = $slug;
+
+        Category::create($payload);
+
+        return redirect()->route('categories.index')->with('success', 'Se creo la categoría correctamente.');
     }
 
     /**

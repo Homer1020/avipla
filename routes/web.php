@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AfiliadosController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
@@ -42,6 +43,9 @@ Route::resource('facturas', InvoiceController::class)
   ->names('invoices')
   ->parameters([ 'facturas' => 'invoice' ]);
 Route::resource('noticias', NoticiaController::class);
+
+Route::resource('categorias', CategoryController::class)
+  ->names('categories');
 
 /**
  * MANAGE FILES

@@ -17,6 +17,10 @@
                 #{{ $invoice->numero_factura }}
             </li>
             <li class="list-group-item">
+                <span class="fw-bold">Fecha de emisión:</span>
+                {{ $invoice->created_at }}
+            </li>
+            <li class="list-group-item">
                 <span class="fw-bold">Monto total:</span>
                 {{ $invoice->monto_total }}$
             </li>
@@ -33,6 +37,18 @@
         </ul>
     </div>
     <div class="col-lg-6">
+        <p class="fw-bold text-uppercase text-muted">Usuario emisor</p>
+        <ul class="list-group mb-4">
+            <li class="list-group-item">
+                <span class="fw-bold">Nombre:</span>
+                {{ $invoice->user->name }}
+            </li>
+            <li class="list-group-item">
+                <span class="fw-bold">Correo:</span>
+                <a href="mailto:{{ $invoice->user->email }}">{{ $invoice->user->email }}</a>
+            </li>
+        </ul>
+
         <p class="fw-bold text-uppercase text-muted">Datos del afiliado</p>
         <ul class="list-group">
             <li class="list-group-item">

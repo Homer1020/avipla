@@ -14,7 +14,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">
+            <a class="navbar-brand ps-3" href="{{ route('dashboard') }}">
                 <img src="{{ asset('assets/img/logowhite.png') }}" alt="Logo AVIPLA" width="50" class="me-2">
                 Intranet
             </a>

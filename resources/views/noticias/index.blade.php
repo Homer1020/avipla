@@ -19,15 +19,43 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Razón social</th>
-            <th>RIF</th>
-            <th>Correo</th>
-            <th>Teléfono</th>
+            <th>Título</th>
+            <th>Fecha</th>
+            <th>Categoría</th>
+            <th>Usuario</th>
             <th>Acciones</th>
           </tr>
         </thead>
-    
         <tbody>
+          @foreach ($noticias as $noticia)
+            <tr>
+              <td>#{{ $noticia->id }}</td>
+              <td>
+                <a href="{{ route('noticias.show', $noticia) }}">
+                  {{ $noticia->titulo }}
+                </a>
+              </td>
+              <td>{{ $noticia->created_at }}</td>
+              <td>
+                <span class="badge bg-secondary">{{ $noticia->categoria->display_name }}</span>
+              </td>
+              <td>{{ $noticia->usuario->name }}</td>
+              <td style="white-space: nowrap">
+                <a href="{{ route('noticias.edit', $noticia) }}" class="btn btn-warning">
+                  <i class="fa fa-pen"></i>
+                  Editar
+                </a>
+                <form class="d-inline-block" action="{{ route('noticias.destroy', $noticia) }}" method="POST">
+                  @csrf
+                  @method('POST')
+                  <button class="btn btn-danger" type="submit">
+                    <i class="fa fa-trash"></i>
+                    Eliminar
+                  </button>
+                </form>
+              </td>
+            </tr>
+          @endforeach
         </tbody>
       </table>
     </div>
@@ -70,7 +98,7 @@
       ],
       order: false,
       language: {
-        url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
+        // url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
       }
     })
   </script>
