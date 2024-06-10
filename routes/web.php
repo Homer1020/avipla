@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,10 +41,11 @@ Route::resource('notificaciones', NotificationController::class)->names('notific
 Route::resource('facturas', InvoiceController::class)
   ->names('invoices')
   ->parameters([ 'facturas' => 'invoice' ]);
+Route::resource('noticias', NoticiaController::class);
 
 /**
  * MANAGE FILES
  */
 Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
-->middleware('auth')
-->name('files.getFile');
+  ->middleware('auth')
+  ->name('files.getFile');
