@@ -23,10 +23,10 @@ return new class extends Migration
             $table->boolean('estado')->default(1); // -> estado del afiliado
             $table->string('razon_social');
             $table->string('rif')->unique();
+            $table->string('anio_fundacion');
+            $table->decimal('capital_social');
             $table->string('correo')->unique();
-            $table->text('direccion')->nullable();
             $table->string('pagina_web')->nullable();
-            $table->string('telefono', 255)->unique()->nullable();
 
             // To confirm affiliates
             $table->string('confirmation_code')->nullable();

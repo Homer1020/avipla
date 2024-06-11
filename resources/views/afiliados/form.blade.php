@@ -42,16 +42,17 @@
       :value="old('correo', $afiliado->correo)"
       :error="$errors->first('correo')"
     />
-
-<input
-  type="text"
-  class="form-control @error('telefono') is-invalid @enderror"
-  name="telefono"
-  id="telefono"
-  label="Teléfono"
-  :value="old('telefono', $afiliado->telefono)"
-  placeholder="+58 123 12 12"
->
+  </div>
+  <div class="col-lg-6">
+    <x-forms.input
+      type="text"
+      class="form-control @error('telefono') is-invalid @enderror"
+      name="telefono"
+      id="telefono"
+      label="Teléfono"
+      :value="old('telefono', $afiliado->telefono)"
+      placeholder="+58 123 12 12"
+    />
   </div>
 </div>
 

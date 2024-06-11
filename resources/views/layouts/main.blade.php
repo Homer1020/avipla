@@ -62,7 +62,7 @@
                     <a class="nav-link" href="{{ route('affiliation') }}">Afiliacion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('news') }}">Noticias</a>
+                    <a class="nav-link" href="#">Noticias</a>
                 </li>
                 <li class="nav-item mb-4">
                     <a class="nav-link" href="{{ route('contact') }}">Contacto</a>

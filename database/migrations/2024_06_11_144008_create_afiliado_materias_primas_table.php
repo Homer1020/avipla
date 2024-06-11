@@ -11,23 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pagos', function (Blueprint $table) {
-            $table->id();
+        Schema::create('afiliado_materias_primas', function (Blueprint $table) {
             $table
-                ->foreignId('invoice_id')
+                ->foreignId('materia_prima_id')
                 ->references('id')
-                ->on('invoices')
+                ->on('materias_primas')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
             $table
-                ->foreignId('metodo_pago_id')
+                ->foreignId('afiliado_id')
                 ->references('id')
-                ->on('metodos_pago')
+                ->on('materias_primas')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->integer('monto');
-            $table->string('comprobante');
-            $table->timestamps();
         });
     }
 
@@ -36,10 +32,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('pagos', function(Blueprint $table) {
-            $table->dropForeign(['invoice_id']);
-            $table->dropForeign(['metodo_pago_id']);
+        Schema::table('afiliado_materias_primas', function (Blueprint $table) {
+            $table->dropForeign(['afiliado_id']);
+            $table->dropForeign(['materia_prima_id']);
         });
-        Schema::dropIfExists('pagos');
+        Schema::dropIfExists('afiliado_materias_primas');
     }
 };
