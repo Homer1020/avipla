@@ -70,7 +70,6 @@
     </div>
 </div>
 
-
 <p class="text-muted fw-bold text-uppercase">
     Direcciones
 </p>
@@ -78,25 +77,28 @@
 <div class="row">
     <div class="col-lg-6">
         <x-forms.textarea
-        name="direccion_oficina"
-        id="direccion_oficina"
-        label="Dirección de oficina"
-        :value="old('direccion_oficina', $afiliado->direccion_oficina)"
-        :error="$errors->first('direccion_oficina')"
+            name="direccion_oficina"
+            id="direccion_oficina"
+            label="Dirección de oficina"
+            placeholder="Ingrese una dirección"
+            :value="old('direccion_oficina', $afiliado->direccion_oficina)"
+            :error="$errors->first('direccion_oficina')"
         />
         <x-forms.input
-        name="ciudad_oficina"
-        id="ciudad_oficina"
-        label="Ciudad - Estado (Oficina)"
-        :value="old('ciudad_oficina', $afiliado->ciudad_oficina)"
-        :error="$errors->first('ciudad_oficina')"
+            name="ciudad_oficina"
+            id="ciudad_oficina"
+            label="Ciudad - Estado (Oficina)"
+            placeholder="Ingrese una ciudad o estado"
+            :value="old('ciudad_oficina', $afiliado->ciudad_oficina)"
+            :error="$errors->first('ciudad_oficina')"
         />
         <x-forms.input
-        name="telefono_oficina"
-        id="telefono_oficina"
-        label="Teléfono (Oficina)"
-        :value="old('telefono_oficina', $afiliado->telefono_oficina)"
-        :error="$errors->first('telefono_oficina')"
+            name="telefono_oficina"
+            id="telefono_oficina"
+            label="Teléfono (Oficina)"
+            placeholder="Ingrese un teléfono"
+            :value="old('telefono_oficina', $afiliado->telefono_oficina)"
+            :error="$errors->first('telefono_oficina')"
         />
     </div>
     <div class="col-lg-6">
@@ -104,6 +106,7 @@
         name="direccion_planta"
         id="direccion_planta"
         label="Dirección de planta"
+        placeholder="Ingrese una dirección"
         :value="old('direccion_planta', $afiliado->direccion_planta)"
         :error="$errors->first('direccion_planta')"
         />
@@ -111,6 +114,7 @@
         name="ciudad_planta"
         id="ciudad_planta"
         label="Ciudad - Estado (Planta)"
+        placeholder="Ingrese una ciudad o estado"
         :value="old('ciudad_planta', $afiliado->ciudad_planta)"
         :error="$errors->first('ciudad_planta')"
         />
@@ -118,33 +122,9 @@
         name="telefono_planta"
         id="telefono_planta"
         label="Teléfono (Planta)"
+        placeholder="Ingrese un teléfono"
         :value="old('telefono_planta', $afiliado->telefono_planta)"
         :error="$errors->first('telefono_planta')"
-        />
-    </div>
-</div>
-
-<p class="text-muted fw-bold text-uppercase">
-    Otros campos
-</p>
-
-<div class="row">
-    <div class="col-lg-6">
-        <x-forms.select
-            name="actividad_principal"
-            id="actividad_principal"
-            label="Actividad principal"
-            :value="old('actividad_principal', $afiliado->actividad_principal)"
-            :error="$errors->first('actividad_principal')" 
-        />
-    </div>
-    <div class="col-lg-6">
-        <x-forms.select
-            name="relaciones_comercio_exterior"
-            id="relaciones_comercio_exterior"
-            label="Relaciones de comercio exterior"
-            :value="old('relaciones_comercio_exterior', $afiliado->relaciones_comercio_exterior)"
-            :error="$errors->first('relaciones_comercio_exterior')" 
         />
     </div>
 </div>

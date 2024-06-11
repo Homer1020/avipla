@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Mail\VerifyAfiliadoEmail;
+use App\Models\Actividad;
 use App\Models\Afiliado;
+use App\Models\PersonalRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -24,7 +26,9 @@ class AfiliadosController extends Controller
      */
     public function create()
     {
-        return view('afiliados.create', ['afiliado' => new Afiliado()]);
+        $actividades = Actividad::all();
+        $afiliado = new Afiliado();
+        return view('afiliados.create', compact('afiliado', 'actividades'));
     }
 
     /**
@@ -32,6 +36,7 @@ class AfiliadosController extends Controller
      */
     public function store(Request $request)
     {
+        return dump($request->all());
         $payload = $request->validate([
             'razon_social'  => 'required|string',
             'rif'           => 'required|unique:afiliados,rif',

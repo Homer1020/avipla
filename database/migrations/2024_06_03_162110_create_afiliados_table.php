@@ -20,6 +20,13 @@ return new class extends Migration
                 ->on('users')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
+            $table
+                ->foreignId('actividad_id')
+                ->nullable()
+                ->references('id')
+                ->on('actividades')
+                ->onDelete('SET NULL')
+                ->onUpdate('CASCADE');
             $table->boolean('estado')->default(1); // -> estado del afiliado
             $table->string('razon_social');
             $table->string('rif')->unique();

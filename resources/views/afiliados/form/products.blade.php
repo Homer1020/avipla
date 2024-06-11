@@ -1,0 +1,1 @@
+<p class="fw-bold text-uppercase text-muted">Productos</p>

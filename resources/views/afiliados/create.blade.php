@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 @section('title', 'Crear Afiliado')
+@push('css')
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+@endpush
 @section('content')
 <h1 class="mt-4">Crear Afiliado</h1>
 <ol class="breadcrumb mb-4">
@@ -56,10 +60,27 @@
         <div class="tab-pane active" id="business-data" role="tabpanel" tabindex="0">
           @include('afiliados.form.business')
         </div>
-        <div class="tab-pane" id="profile" role="tabpanel" tabindex="0">...</div>
-        <div class="tab-pane" id="messages" role="tabpanel" tabindex="0">...</div>
+        <div class="tab-pane" id="profile" role="tabpanel" tabindex="0">
+          @include('afiliados.form.personal')
+        </div>
+        <div class="tab-pane" id="messages" role="tabpanel" tabindex="0">
+          @include('afiliados.form.products')
+          <button class="btn btn-success" type="submit">Guardar afiliado</button>
+        </div>
       </div>
     </div>
   </div>
 </form>
 @endsection
+@push('script')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#actividad_principal').select2({
+              theme: 'bootstrap-5',
+              tags: true,
+            })
+        })
+    </script>
+@endpush

@@ -14,8 +14,7 @@
         id="{{ $id }}"
         name="{{ $name }}"
         @if ($autofocus) autofocus @endif
-    >
-    </select>
+    >{{ $slot }}</select>
     @if ($error)
         <div class="invalid-feedback">{{ $error }}</div>
     @endif
