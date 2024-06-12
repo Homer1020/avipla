@@ -61,7 +61,7 @@
           @include('afiliados.form.business')
         </div>
         <div class="tab-pane" id="profile" role="tabpanel" tabindex="0">
-          @include('afiliados.form.personal')
+          @include('afiliados.form.personal-without-names')
         </div>
         <div class="tab-pane" id="messages" role="tabpanel" tabindex="0">
           @include('afiliados.form.products')
@@ -73,14 +73,63 @@
 </form>
 @endsection
 @push('script')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#actividad_principal').select2({
-              theme: 'bootstrap-5',
-              tags: true,
-            })
-        })
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#actividad_principal').select2({
+        theme: 'bootstrap-5',
+        tags: true,
+      })
+
+      $('#productos').select2({
+        theme: 'bootstrap-5',
+        tags: true,
+      })
+
+      $('#productos').on('select2:select', function(e) {
+        // produccion_total_mensual
+        // porcentage_exportacion
+        // mercado_exportacion
+        const parameter = e.params.data.text
+
+        const newInputProduccionTotalMensual = `
+          <div class="my-3 row" id="producto-${ parameter.toLowerCase().replace(' ', '-') }">
+            <div class="col-12">
+              <p class="fw-bold text-uppercase text-muted">
+                <small>Detalles de ${parameter}</small>
+              </p>
+            </div>
+            <div class="col-lg-4">
+              <input
+                placeholder="Producción total mensual"
+                name="produccion_total_mensual[]"
+                class="form-control"
+              />
+            </div>
+            <div class="col-lg-4">
+              <input
+                placeholder="Porcentage de exportación"
+                name="porcentage_exportacion[]"
+                class="form-control"
+              />
+            </div>
+            <div class="col-lg-4">
+              <input
+                placeholder="Mercado de exportación"
+                name="mercado_exportacion[]"
+                class="form-control"
+              />
+            </div>
+          </div>
+        `.trim()
+
+        $('#products_details').append(newInputProduccionTotalMensual)
+      })
+
+      $('#productos').on('select2:unselect', function (e) {
+        const parameter = e.params.data.text
+        $(`#producto-${ parameter.toLowerCase().replace(' ', '-') }`).remove()
+      });
+    })
+  </script>
 @endpush

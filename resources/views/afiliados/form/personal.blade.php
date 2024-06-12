@@ -31,6 +31,7 @@
 </div>
 
 <p class="fw-bold text-uppercase text-muted">Datos del personal</p>
+
 <div class="row">
     <div class="col-lg-6">
         <x-forms.input
@@ -169,6 +170,7 @@
         />
     </div>
 </div>
+
 <div class="row">
     <div class="col-lg-6">
         <x-forms.input

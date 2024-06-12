@@ -6,6 +6,7 @@ use App\Mail\VerifyAfiliadoEmail;
 use App\Models\Actividad;
 use App\Models\Afiliado;
 use App\Models\PersonalRole;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -27,8 +28,9 @@ class AfiliadosController extends Controller
     public function create()
     {
         $actividades = Actividad::all();
+        $productos = Producto::all();
         $afiliado = new Afiliado();
-        return view('afiliados.create', compact('afiliado', 'actividades'));
+        return view('afiliados.create', compact('afiliado', 'actividades', 'productos'));
     }
 
     /**
