@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Mail\VerifyAfiliadoEmail;
 use App\Models\Actividad;
 use App\Models\Afiliado;
+use App\Models\MateriaPrima;
 use App\Models\PersonalRole;
 use App\Models\Producto;
+use App\Models\Servicio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -29,8 +31,18 @@ class AfiliadosController extends Controller
     {
         $actividades = Actividad::all();
         $productos = Producto::all();
+        $materias_primas = MateriaPrima::all();
+        $servicios = Servicio::all();
         $afiliado = new Afiliado();
-        return view('afiliados.create', compact('afiliado', 'actividades', 'productos'));
+        $afiliados = Afiliado::all();
+        return view('afiliados.create', compact(
+            'afiliado',
+            'actividades',
+            'productos',
+            'materias_primas',
+            'servicios',
+            'afiliados'
+        ));
     }
 
     /**

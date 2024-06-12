@@ -14,48 +14,48 @@
 
 <form action="{{ route('afiliados.store') }}" method="POST">
   @csrf
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link active"
-        id="home-tab"
-        data-bs-toggle="tab"
-        data-bs-target="#business-data"
-        type="button"
-        role="tab"
-        aria-controls="home"
-        aria-selected="true"
-      >Paso #1</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link"
-        id="profile-tab"
-        data-bs-toggle="tab"
-        data-bs-target="#profile"
-        type="button"
-        role="tab"
-        aria-controls="profile"
-        aria-selected="false"
-      >Paso #2</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link"
-        id="messages-tab"
-        data-bs-toggle="tab"
-        data-bs-target="#messages"
-        type="button"
-        role="tab"
-        aria-controls="messages"
-        aria-selected="false"
-      >Pasos #3</button>
-    </li>
-  </ul>
-  <!-- Tab panes -->
-  <div class="card mb-4 border-top-0" style="border-top-left-radius: 0; border-top-right-radius: 0;">
+  <div class="card mb-4">
     <div class="card-body">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="home-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#business-data"
+            type="button"
+            role="tab"
+            aria-controls="home"
+            aria-selected="true"
+          >Paso #1</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="profile-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#profile"
+            type="button"
+            role="tab"
+            aria-controls="profile"
+            aria-selected="false"
+          >Paso #2</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="messages-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#messages"
+            type="button"
+            role="tab"
+            aria-controls="messages"
+            aria-selected="false"
+          >Pasos #3</button>
+        </li>
+      </ul>
+      <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane active" id="business-data" role="tabpanel" tabindex="0">
           @include('afiliados.form.business')
@@ -82,6 +82,21 @@
       })
 
       $('#productos').select2({
+        theme: 'bootstrap-5',
+        tags: true,
+      })
+
+      $('#materias_primas').select2({
+        theme: 'bootstrap-5',
+        tags: true,
+      })
+
+      $('#servicios').select2({
+        theme: 'bootstrap-5',
+        tags: true,
+      })
+
+      $('#afiliados').select2({
         theme: 'bootstrap-5',
         tags: true,
       })
