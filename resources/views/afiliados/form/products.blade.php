@@ -1,6 +1,6 @@
 <p class="fw-bold text-uppercase text-muted">Productos y servicios</p>
-<div class="row mb-3">
-  <div class="col-lg-6">
+<div class="row">
+  <div class="col-lg-6 mb-3">
     <label for="productos" class="form-label">Linea de productos</label>
     <select
       multiple
@@ -18,7 +18,7 @@
       <div class="invalid-feedback">{{ $message }}</div>
     @enderror
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-6 mb-3">
     <label for="materias_primas" class="form-label">Principales materias primas utilizadas</label>
     <select
       multiple
@@ -41,41 +41,39 @@
   </div>
 </div>
 
-<div class="row mb-3">
-  <div class="col-lg-6">
-    <label for="servicios" class="form-label">Servicios prestados</label>
-    <select
-      multiple
-      class="form-select w-100 @error('servicios') is-invalid @enderror"
-      name="servicios[]"
-      id="servicios"
-      data-placeholder="Seleccione una o varias materias primas"
-    >
-      <option></option>
-      @foreach ($servicios as $servicio)
-        <option value="{{ $servicio->id }}">{{ $servicio->nombre_servicio }}</option>
-      @endforeach
-    </select>
-    @error('servicios')
-      <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-  </div>
-  <div class="col-lg-6">
-    <label for="afiliados" class="form-label">Empresas asociadas a AVIPLA que la refieren</label>
-    <select
-      multiple
-      class="form-select w-100 @error('afiliados') is-invalid @enderror"
-      name="afiliados[]"
-      id="afiliados"
-      data-placeholder="Seleccione una o varias materias primas"
-    >
-      <option></option>
-      @foreach ($afiliados as $afiliado)
-        <option value="{{ $afiliado->id }}">{{ $afiliado->razon_social }}</option>
-      @endforeach
-    </select>
-    @error('afiliados')
-      <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-  </div>
+<div class="mb-3">
+  <label for="servicios" class="form-label">Servicios prestados</label>
+  <select
+    multiple
+    class="form-select w-100 @error('servicios') is-invalid @enderror"
+    name="servicios[]"
+    id="servicios"
+    data-placeholder="Seleccione una o varias materias primas"
+  >
+    <option></option>
+    @foreach ($servicios as $servicio)
+      <option value="{{ $servicio->id }}">{{ $servicio->nombre_servicio }}</option>
+    @endforeach
+  </select>
+  @error('servicios')
+    <div class="invalid-feedback">{{ $message }}</div>
+  @enderror
+</div>
+<div class="mb-3">
+  <label for="afiliados" class="form-label">Empresas asociadas a AVIPLA que la refieren</label>
+  <select
+    multiple
+    class="form-select w-100 @error('afiliados') is-invalid @enderror"
+    name="afiliados[]"
+    id="afiliados"
+    data-placeholder="Seleccione una o varias materias primas"
+  >
+    <option></option>
+    @foreach ($afiliados as $afiliado)
+      <option value="{{ $afiliado->id }}">{{ $afiliado->razon_social }}</option>
+    @endforeach
+  </select>
+  @error('afiliados')
+    <div class="invalid-feedback">{{ $message }}</div>
+  @enderror
 </div>

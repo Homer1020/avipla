@@ -5,6 +5,7 @@
             name="actividad_principal"
             id="actividad_principal"
             label="Actividad principal"
+            required
             :value="old('actividad_principal', $afiliado->actividad_principal)"
             :error="$errors->first('actividad_principal')" 
         >
@@ -18,6 +19,7 @@
         <x-forms.select
             name="relaciones_comercio_exterior"
             id="relaciones_comercio_exterior"
+            required
             label="Relaciones de comercio exterior"
             :value="old('relaciones_comercio_exterior', $afiliado->relaciones_comercio_exterior)"
             :error="$errors->first('relaciones_comercio_exterior')" 

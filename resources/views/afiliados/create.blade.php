@@ -17,7 +17,7 @@
   <div class="card mb-4">
     <div class="card-body">
       <!-- Nav tabs -->
-      <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+      <ul class="nav nav-tabs nav-fill mb-3" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button
             class="nav-link active"
@@ -52,8 +52,20 @@
             role="tab"
             aria-controls="messages"
             aria-selected="false"
-          >Pasos #3</button>
+          >Paso #3</button>
         </li>
+        {{-- <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="register-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#register"
+            type="button"
+            role="tab"
+            aria-controls="register"
+            aria-selected="false"
+          >Paso #4</button>
+        </li> --}}
       </ul>
       <!-- Tab panes -->
       <div class="tab-content">
@@ -65,8 +77,11 @@
         </div>
         <div class="tab-pane" id="messages" role="tabpanel" tabindex="0">
           @include('afiliados.form.products')
-          <button class="btn btn-success" type="submit">Guardar afiliado</button>
+          <button class="btn btn-success mt-4" type="submit">Guardar afiliado</button>
         </div>
+        {{-- <div class="tab-pane" id="register" role="tabpanel" tabindex="0">
+          @include('afiliados.form.products')
+        </div> --}}
       </div>
     </div>
   </div>
@@ -97,14 +112,10 @@
       })
 
       $('#afiliados').select2({
-        theme: 'bootstrap-5',
-        tags: true,
+        theme: 'bootstrap-5'
       })
 
       $('#productos').on('select2:select', function(e) {
-        // produccion_total_mensual
-        // porcentage_exportacion
-        // mercado_exportacion
         const parameter = e.params.data.text
 
         const newInputProduccionTotalMensual = `
@@ -116,21 +127,21 @@
             </div>
             <div class="col-lg-4">
               <input
-                placeholder="Producción total mensual"
+                placeholder="Producción total mensual (TM)"
                 name="produccion_total_mensual[]"
                 class="form-control"
               />
             </div>
             <div class="col-lg-4">
               <input
-                placeholder="Porcentage de exportación"
+                placeholder=" Porcentaje destinados a exportación"
                 name="porcentage_exportacion[]"
                 class="form-control"
               />
             </div>
             <div class="col-lg-4">
               <input
-                placeholder="Mercado de exportación"
+                placeholder="Mercados de importación / exportación"
                 name="mercado_exportacion[]"
                 class="form-control"
               />
