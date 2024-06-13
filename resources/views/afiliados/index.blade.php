@@ -22,7 +22,6 @@
             <th>Razón social</th>
             <th>RIF</th>
             <th>Correo</th>
-            <th>Teléfono</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -36,7 +35,6 @@
               </td>
               <td>{{ $afiliado->rif }}</td>
               <td>{{ $afiliado->correo }}</td>
-              <td>{{ $afiliado->telefono }}</td>
               <td style="white-space: nowrap">
                 <a href="{{ route('afiliados.show', $afiliado) }}" class="btn btn-primary">
                   <i class="fa fa-eye"></i>
@@ -97,7 +95,7 @@
 
     new DataTable('#afiliados-table', {
       columnDefs: [
-        { orderable: false, targets: 5 },
+        { orderable: false, targets: 4 },
       ],
       order: false,
       language: {

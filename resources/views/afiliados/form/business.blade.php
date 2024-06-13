@@ -89,7 +89,7 @@
             label="Dirección de oficina"
             placeholder="Ingrese una dirección"
             required
-            :value="old('direccion_oficina', $afiliado->direccion_oficina)"
+            :value="old('direccion_oficina', $afiliado->direccion ? $afiliado->direccion->direccion_oficina : '')"
             :error="$errors->first('direccion_oficina')"
         />
         <x-forms.input
@@ -98,7 +98,7 @@
             label="Ciudad - Estado (Oficina)"
             placeholder="Ingrese una ciudad o estado"
             required
-            :value="old('ciudad_oficina', $afiliado->ciudad_oficina)"
+            :value="old('ciudad_oficina', $afiliado->direccion ? $afiliado->direccion->ciudad_oficina : '')"
             :error="$errors->first('ciudad_oficina')"
         />
         <x-forms.input
@@ -108,7 +108,7 @@
             required
             label="Teléfono (Oficina)"
             placeholder="Ingrese un teléfono"
-            :value="old('telefono_oficina', $afiliado->telefono_oficina)"
+            :value="old('telefono_oficina', $afiliado->direccion ? $afiliado->direccion->telefono_oficina : '')"
             :error="$errors->first('telefono_oficina')"
         />
     </div>
@@ -119,7 +119,7 @@
             label="Dirección de planta"
             placeholder="Ingrese una dirección"
             required
-            :value="old('direccion_planta', $afiliado->direccion_planta)"
+            :value="old('direccion_planta', $afiliado->direccion ? $afiliado->direccion->direccion_planta : '')"
             :error="$errors->first('direccion_planta')"
         />
         <x-forms.input
@@ -128,7 +128,7 @@
             label="Ciudad - Estado (Planta)"
             placeholder="Ingrese una ciudad o estado"
             required
-            :value="old('ciudad_planta', $afiliado->ciudad_planta)"
+            :value="old('ciudad_planta', $afiliado->direccion ? $afiliado->direccion->ciudad_planta : '')"
             :error="$errors->first('ciudad_planta')"
         />
         <x-forms.input
@@ -138,7 +138,7 @@
             placeholder="Ingrese un teléfono"
             required
             type="tel"
-            :value="old('telefono_planta', $afiliado->telefono_planta)"
+            :value="old('telefono_planta', $afiliado->direccion ? $afiliado->direccion->telefono_planta : '')"
             :error="$errors->first('telefono_planta')"
         />
     </div>

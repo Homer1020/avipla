@@ -12,7 +12,7 @@
   <li class="breadcrumb-item active">Crear Afiliado</li>
 </ol>
 
-<form action="{{ route('afiliados.store') }}" method="POST">
+<form action="{{ route('afiliados.store') }}" novalidate method="POST">
   @csrf
   <div class="card mb-4">
     <div class="card-body">
@@ -54,18 +54,6 @@
             aria-selected="false"
           >Paso #3</button>
         </li>
-        {{-- <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="register-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#register"
-            type="button"
-            role="tab"
-            aria-controls="register"
-            aria-selected="false"
-          >Paso #4</button>
-        </li> --}}
       </ul>
       <!-- Tab panes -->
       <div class="tab-content">
@@ -79,9 +67,6 @@
           @include('afiliados.form.products')
           <button class="btn btn-success mt-4" type="submit">Guardar afiliado</button>
         </div>
-        {{-- <div class="tab-pane" id="register" role="tabpanel" tabindex="0">
-          @include('afiliados.form.products')
-        </div> --}}
       </div>
     </div>
   </div>

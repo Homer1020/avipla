@@ -30,6 +30,7 @@ return new class extends Migration
             $table->boolean('estado')->default(1); // -> estado del afiliado
             $table->string('razon_social');
             $table->string('rif')->unique();
+            $table->string('siglas');
             $table->string('anio_fundacion');
             $table->decimal('capital_social');
             $table->string('correo')->unique();

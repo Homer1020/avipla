@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateAfiliadoRequest;
 use App\Mail\VerifyAfiliadoEmail;
 use App\Models\Actividad;
 use App\Models\Afiliado;
+use App\Models\Direccion;
 use App\Models\MateriaPrima;
 use App\Models\PersonalRole;
 use App\Models\Producto;
@@ -33,8 +35,10 @@ class AfiliadosController extends Controller
         $productos = Producto::all();
         $materias_primas = MateriaPrima::all();
         $servicios = Servicio::all();
-        $afiliado = new Afiliado();
         $afiliados = Afiliado::all();
+
+        $afiliado = new Afiliado();
+
         return view('afiliados.create', compact(
             'afiliado',
             'actividades',
@@ -48,16 +52,19 @@ class AfiliadosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateAfiliadoRequest $request)
     {
-        return dump($request->all());
-        $payload = $request->validate([
-            'razon_social'  => 'required|string',
-            'rif'           => 'required|unique:afiliados,rif',
-            'pagina_web'    => 'url|nullable',
-            'direccion'     => 'string|nullable',
-            'telefono'      => 'string|nullable',
-            'correo'        => 'email|required|unique:afiliados,correo'
+        // return $request->all();
+        $payload = $request->safe()->only([
+            'razon_social',
+            'rif',
+            'anio_fundacion',
+            'capital_social',
+            'pagina_web',
+            'actividad_principal',
+            'relacion_comercio_exterior',
+            'correo',
+            'siglas'
         ]);
 
         $confirmation_code = Str::random(25);
@@ -65,10 +72,48 @@ class AfiliadosController extends Controller
 
         $afiliado = Afiliado::create($payload);
 
-        /**
-         * TODO: hacer que se genere un codigo de confirmacion y enviarlo por email.
-         */
-        Mail::to($payload['correo'])->send(new VerifyAfiliadoEmail($afiliado));
+        $afiliado->direccion()->create($request->safe()->only([
+            'direccion_oficina',
+            'ciudad_oficina',
+            'telefono_oficina',
+            'direccion_planta',
+            'ciudad_planta',
+            'telefono_planta'
+        ]));
+
+        $afiliado->personal()->create($request->safe()->only([
+            'correo_presidente',
+            'correo_gerente_general',
+            'correo_gerente_compras',
+            'correo_gerente_marketing_ventas',
+            'correo_gerente_planta',
+            'correo_gerente_recursos_humanos',
+            'correo_administrador',
+            'correo_gerente_exportaciones',
+            'correo_representante_avipla'
+        ]));
+
+        $data_productos = $request->safe()->only([
+            'productos',
+            'produccion_total_mensual',
+            'porcentage_exportacion',
+            'mercado_exportacion'
+        ]);
+
+        foreach ($data_productos['productos'] as $key => $producto_id) {
+            $pivot_data[$producto_id] = [
+                'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
+                'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
+                'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
+            ];
+        }
+
+        $afiliado->productos()->attach($pivot_data);
+        $afiliado->servicios()->attach($request->input('servicios'));
+        $afiliado->productos()->attach($request->input('productos'));
+        $afiliado->materias_primas()->attach($request->input('materias_primas'));
+
+        Mail::to($afiliado->correo)->send(new VerifyAfiliadoEmail($afiliado));
 
         return redirect()->route('afiliados.index')->with('success', 'Se envio un correo al afiliado para crear la cuenta.');
     }
@@ -86,7 +131,20 @@ class AfiliadosController extends Controller
      */
     public function edit(Afiliado $afiliado)
     {
-        return view('afiliados.edit', compact('afiliado'));
+        $actividades = Actividad::all();
+        $productos = Producto::all();
+        $materias_primas = MateriaPrima::all();
+        $servicios = Servicio::all();
+        $afiliados = Afiliado::all();
+        $afiliado->load(['direccion', 'personal']);
+        return view('afiliados.edit', compact(
+            'afiliado',
+            'actividades',
+            'productos',
+            'materias_primas',
+            'servicios',
+            'afiliados'
+        ));
     }
 
     /**

@@ -24,9 +24,9 @@ return new class extends Migration
                 ->on('afiliados')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->string('produccion_total_mensual');
-            $table->string('porcentage_exportacion');
-            $table->string('mercado_exportacion');
+            $table->string('produccion_total_mensual')->nullable();
+            $table->string('porcentage_exportacion')->nullable();
+            $table->string('mercado_exportacion')->nullable();
         });
     }
 

@@ -11,7 +11,12 @@
     >
       <option></option>
       @foreach ($productos as $producto)
-        <option value="{{ $producto->id }}">{{ $producto->nombre }}</option>
+        <option
+          {{ in_array($producto->id, old('productos', $afiliado->productos ? $afiliado->productos->pluck(['id'])->all() : [])) ? 'selected' : '' }}
+          value="{{ $producto->id }}"
+        >
+          {{ $producto->nombre }}
+        </option>
       @endforeach
     </select>
     @error('productos')
@@ -29,7 +34,10 @@
     >
       <option></option>
       @foreach ($materias_primas as $materia_prima)
-        <option value="{{ $materia_prima->id }}">{{ $materia_prima->materia_prima }}</option>
+        <option
+          {{ in_array($materia_prima->id, old('materias_primas', $afiliado->materias_primas ? $afiliado->materias_primas->pluck(['id'])->all() : [])) ? 'selected' : '' }}
+          value="{{ $materia_prima->id }}"
+        >{{ $materia_prima->materia_prima }}</option>
       @endforeach
     </select>
     @error('materias_primas')
@@ -52,7 +60,10 @@
   >
     <option></option>
     @foreach ($servicios as $servicio)
-      <option value="{{ $servicio->id }}">{{ $servicio->nombre_servicio }}</option>
+      <option
+        {{ in_array($servicio->id, old('servicios', $afiliado->servicios ? $afiliado->servicios->pluck(['id'])->all() : [])) ? 'selected' : '' }}
+        value="{{ $servicio->id }}"
+      >{{ $servicio->nombre_servicio }}</option>
     @endforeach
   </select>
   @error('servicios')

@@ -12,14 +12,14 @@ class Afiliado extends Model
     protected $fillable = [
         'razon_social',
         'rif',
+        'anio_fundacion',
+        'capital_social',
         'pagina_web',
-        'direccion',
-        'telefono',
+        'actividad_principal',
+        'relacion_comercio_exterior',
         'correo',
-        'estado',
         'confirmation_code',
-        'confirmed',
-        'user_id'
+        'siglas'
     ];
 
     public function user() {
@@ -28,5 +28,29 @@ class Afiliado extends Model
 
     public function invoices() {
         return $this->hasMany(Invoice::class);
+    }
+
+    public function direccion() {
+        return $this->hasOne(Direccion::class);
+    }
+
+    public function productos() {
+        return $this->belongsToMany(Producto::class, 'linea_productos');
+    }
+
+    public function materias_primas() {
+        return $this->belongsToMany(MateriaPrima::class, 'afiliado_materias_primas');
+    }
+
+    public function servicios() {
+        return $this->belongsToMany(Servicio::class, 'afiliados_servicios');
+    }
+
+    public function referencias() {
+        return $this->belongsToMany(Afiliado::class, 'afiliado_referencias');
+    }
+
+    public function personal() {
+        return $this->hasOne(Personal::class);
     }
 }
