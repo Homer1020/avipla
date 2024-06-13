@@ -33,14 +33,9 @@ return new class extends Migration
             $table->string('siglas');
             $table->string('anio_fundacion');
             $table->decimal('capital_social');
-            $table->string('correo')->unique();
             $table->string('pagina_web')->nullable();
             $table->string('actividad_principal');
             $table->enum('relacion_comercio_exterior', ['IMPORTADOR', 'EXPORTADOR', 'AMBOS']);
-
-            // To confirm affiliates
-            $table->string('confirmation_code')->nullable();
-            $table->boolean('confirmed')->default(0);
 
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Models\Afiliado;
+use App\Models\SolicitudAfiliado;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -18,7 +19,7 @@ class VerifyAfiliadoEmail extends Mailable
      * Create a new message instance.
      */
     public function __construct(
-        public Afiliado $afiliado
+        public SolicitudAfiliado $solicitud
     )
     {}
 

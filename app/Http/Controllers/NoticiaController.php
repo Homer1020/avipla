@@ -70,7 +70,8 @@ class NoticiaController extends Controller
      */
     public function edit(Noticia $noticia)
     {
-        //
+        $categorias = Category::all();
+        return view('noticias.edit', compact('noticia', 'categorias'));
     }
 
     /**

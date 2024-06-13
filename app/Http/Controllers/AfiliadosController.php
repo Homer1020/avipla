@@ -9,6 +9,7 @@ use App\Models\Afiliado;
 use App\Models\MateriaPrima;
 use App\Models\Producto;
 use App\Models\Servicio;
+use App\Models\SolicitudAfiliado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -20,7 +21,7 @@ class AfiliadosController extends Controller
      */
     public function index()
     {
-        $afiliados = Afiliado::latest()->where('estado', true)->get();
+        $afiliados = Afiliado::latest()->with('user')->where('estado', true)->get();
         return view('afiliados.index', compact('afiliados'));
     }
 
@@ -52,7 +53,6 @@ class AfiliadosController extends Controller
      */
     public function store(StoreAfiliadoRequest $request)
     {
-        // return $request->all();
         $payload = $request->safe()->only([
             'razon_social',
             'rif',
@@ -64,9 +64,6 @@ class AfiliadosController extends Controller
             'correo',
             'siglas'
         ]);
-
-        $confirmation_code = Str::random(25);
-        $payload['confirmation_code'] = $confirmation_code;
 
         $afiliado = Afiliado::create($payload);
 
@@ -111,9 +108,9 @@ class AfiliadosController extends Controller
         $afiliado->materias_primas()->attach($request->input('materias_primas'));
         $afiliado->referencias()->attach($request->input('afiliados'));
 
-        Mail::to($afiliado->correo)->send(new VerifyAfiliadoEmail($afiliado));
+        // Mail::to($afiliado->correo)->send(new VerifyAfiliadoEmail($afiliado));
 
-        return redirect()->route('afiliados.index')->with('success', 'Se envio un correo al afiliado para crear la cuenta.');
+        return redirect()->route('afiliados.index')->with('success', 'Se creo el afiliado correctamente.');
     }
 
     /**
@@ -188,15 +185,35 @@ class AfiliadosController extends Controller
                 ->with('success', 'Se elimino el afiliado correctamente.');
     }
 
-    public function sendConfirmationEmail(Afiliado $afiliado) {
-        $confirmation_code = Str::random(25);
+    // public function sendConfirmationEmail(Afiliado $afiliado) {
+    //     $confirmation_code = Str::random(25);
 
-        $afiliado->confirmation_code = $confirmation_code;
-        $afiliado->confirmed = false;
-        $afiliado->save();
+    //     $afiliado->confirmation_code = $confirmation_code;
+    //     $afiliado->confirmed = false;
+    //     $afiliado->save();
         
-        Mail::to($afiliado->correo)->send(new VerifyAfiliadoEmail($afiliado));
+    //     Mail::to($afiliado->correo)->send(new VerifyAfiliadoEmail($afiliado));
 
-        return redirect()->route('afiliados.show', $afiliado)->with('success', 'Se envio un correo de acceso.');
+    //     return redirect()->route('afiliados.show', $afiliado)->with('success', 'Se envio un correo de acceso.');
+    // }
+
+    public function requestForm() {
+        return view('afiliados.request');
+    }
+
+    public function request(Request $request) {
+        $payload = $request->validate([
+            'razon_social'  => 'required|string',
+            'correo'        => 'required|email|unique:solicitudes_afiliados,correo'
+        ]);
+
+        $confirmation_code = Str::random(25);
+        $payload['confirmation_code'] = $confirmation_code;
+
+        $solicitud = SolicitudAfiliado::create($payload);
+
+        Mail::to($request->input('correo'))->send(new VerifyAfiliadoEmail($solicitud));
+
+        return redirect()->route('afiliados.index')->with('success', 'Se envio un correo de acceso.');
     }
 }

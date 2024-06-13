@@ -1,93 +1,92 @@
 <p class="fw-bold text-uppercase text-muted">Productos y servicios</p>
-<div class="row">
-  <div class="col-lg-6 mb-3">
-    <label for="productos" class="form-label">Linea de productos</label>
-    <select
-      multiple
-      class="form-select w-100 @error('productos') is-invalid @enderror"
-      name="productos[]"
-      id="productos"
-      data-placeholder="Seleccione uno o varios productos"
-    >
-      <option></option>
-      @foreach ($productos as $producto)
-        <option
-          {{ in_array($producto->id, old('productos', $afiliado->productos ? $afiliado->productos->pluck(['id'])->all() : [])) ? 'selected' : '' }}
-          value="{{ $producto->id }}"
-        >
-          {{ $producto->nombre }}
-        </option>
-      @endforeach
-    </select>
-    @error('productos')
-      <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-  </div>
-  <div class="col-lg-6 mb-3">
-    <label for="materias_primas" class="form-label">Principales materias primas utilizadas</label>
-    <select
-      multiple
-      class="form-select w-100 @error('materias_primas') is-invalid @enderror"
-      name="materias_primas[]"
-      id="materias_primas"
-      data-placeholder="Seleccione una o varias materias primas"
-    >
-      <option></option>
-      @foreach ($materias_primas as $materia_prima)
-        <option
-          {{ in_array($materia_prima->id, old('materias_primas', $afiliado->materias_primas ? $afiliado->materias_primas->pluck(['id'])->all() : [])) ? 'selected' : '' }}
-          value="{{ $materia_prima->id }}"
-        >{{ $materia_prima->materia_prima }}</option>
-      @endforeach
-    </select>
-  </div>
-  <div class="col-lg-12" id="products_details">
-    @foreach (old('productos', $afiliado->productos) as $key => $producto)
-      <div class="row" id="producto-{{ strtolower($productos->find($producto)->nombre) }}">
-        <div class="col-12">
-          <p class="fw-bold text-uppercase text-muted">
-            <small>Detalles de {{ $productos->find($producto)->nombre }}</small>
-          </p>
-        </div>
-        <div class="col-lg-4 mb-3">
-          <input
-            type="number"
-            placeholder="Producción total mensual (TM)"
-            name="produccion_total_mensual[]"
-            class="form-control @error("produccion_total_mensual.$key") is-invalid @enderror"
-            value="{{ old('produccion_total_mensual') ? old('produccion_total_mensual')[$key] : $producto->pivot->produccion_total_mensual }}"
-          />
-          @error("produccion_total_mensual.$key")
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
-        <div class="col-lg-4 mb-3">
-          <input
-            type="number"
-            placeholder=" Porcentaje destinados a exportación"
-            name="porcentage_exportacion[]"
-            class="form-control @error("porcentage_exportacion.$key") is-invalid @enderror"
-            value="{{ old('porcentage_exportacion') ? old('porcentage_exportacion')[$key] : $producto->pivot->porcentage_exportacion }}"
-          />
-          @error("porcentage_exportacion.$key")
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
-        <div class="col-lg-4 mb-3">
-          <input
-            type="number"
-            placeholder="Mercados de importación / exportación"
-            name="mercado_exportacion[]"
-            class="form-control @error("mercado_exportacion.$key") is-invalid @enderror"
-            value="{{ old('mercado_exportacion') ? old('mercado_exportacion')[$key] : $producto->pivot->mercado_exportacion }}"
-          />
-          @error("mercado_exportacion.$key")
-            <div class="invalid-feedback">{{ $message }}</div>
-          @enderror
-        </div>
-      </div>
+
+<div class="mb-3 mb-3">
+  <label for="productos" class="form-label">Linea de productos</label>
+  <select
+    multiple
+    class="form-select w-100 @error('productos') is-invalid @enderror"
+    name="productos[]"
+    id="productos"
+    data-placeholder="Seleccione uno o varios productos"
+  >
+    <option></option>
+    @foreach ($productos as $producto)
+      <option
+        {{ in_array($producto->id, old('productos', $afiliado->productos ? $afiliado->productos->pluck(['id'])->all() : [])) ? 'selected' : '' }}
+        value="{{ $producto->id }}"
+      >
+        {{ $producto->nombre }}
+      </option>
     @endforeach
-  </div>
+  </select>
+  @error('productos')
+    <div class="invalid-feedback">{{ $message }}</div>
+  @enderror
+</div>
+<div id="products_details">
+  @foreach (old('productos', $afiliado->productos) as $key => $producto)
+    <div class="row" id="producto-{{ strtolower($productos->find($producto)->nombre) }}">
+      <div class="col-12">
+        <p class="fw-bold text-uppercase text-muted">
+          <small>Detalles de {{ $productos->find($producto)->nombre }}</small>
+        </p>
+      </div>
+      <div class="col-lg-4 mb-3">
+        <input
+          type="number"
+          placeholder="Producción total mensual (TM)"
+          name="produccion_total_mensual[]"
+          class="form-control @error("produccion_total_mensual.$key") is-invalid @enderror"
+          value="{{ old('produccion_total_mensual') ? old('produccion_total_mensual')[$key] : $producto->pivot->produccion_total_mensual }}"
+        />
+        @error("produccion_total_mensual.$key")
+          <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+      </div>
+      <div class="col-lg-4 mb-3">
+        <input
+          type="number"
+          placeholder=" Porcentaje destinados a exportación"
+          name="porcentage_exportacion[]"
+          class="form-control @error("porcentage_exportacion.$key") is-invalid @enderror"
+          value="{{ old('porcentage_exportacion') ? old('porcentage_exportacion')[$key] : $producto->pivot->porcentage_exportacion }}"
+        />
+        @error("porcentage_exportacion.$key")
+          <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+      </div>
+      <div class="col-lg-4 mb-3">
+        <input
+          type="number"
+          placeholder="Mercados de importación / exportación"
+          name="mercado_exportacion[]"
+          class="form-control @error("mercado_exportacion.$key") is-invalid @enderror"
+          value="{{ old('mercado_exportacion') ? old('mercado_exportacion')[$key] : $producto->pivot->mercado_exportacion }}"
+        />
+        @error("mercado_exportacion.$key")
+          <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+      </div>
+    </div>
+  @endforeach
+</div>
+<div class="mb-3 mb-3">
+  <label for="materias_primas" class="form-label">Principales materias primas utilizadas</label>
+  <select
+    multiple
+    class="form-select w-100 @error('materias_primas') is-invalid @enderror"
+    name="materias_primas[]"
+    id="materias_primas"
+    data-placeholder="Seleccione una o varias materias primas"
+  >
+    <option></option>
+    @foreach ($materias_primas as $materia_prima)
+      <option
+        {{ in_array($materia_prima->id, old('materias_primas', $afiliado->materias_primas ? $afiliado->materias_primas->pluck(['id'])->all() : [])) ? 'selected' : '' }}
+        value="{{ $materia_prima->id }}"
+      >{{ $materia_prima->materia_prima }}</option>
+    @endforeach
+  </select>
 </div>
 
 <div class="mb-3">

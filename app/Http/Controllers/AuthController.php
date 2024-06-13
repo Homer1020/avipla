@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAfiliadoRequest;
+use App\Models\Actividad;
 use App\Models\Afiliado;
+use App\Models\MateriaPrima;
+use App\Models\Producto;
+use App\Models\Servicio;
+use App\Models\SolicitudAfiliado;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,11 +16,28 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function registerForm(string $confirmation_code = '') {
+        
+        $solicitud = SolicitudAfiliado::where('confirmation_code', $confirmation_code)->first();
+        $actividades = Actividad::all();
+        $productos = Producto::all();
+        $materias_primas = MateriaPrima::all();
+        $servicios = Servicio::all();
         $afiliado = new Afiliado();
-        if($confirmation_code) {
-            $afiliado = Afiliado::where('confirmation_code', $confirmation_code)->first();
+        $afiliados = Afiliado::all();
+
+        if(!$solicitud) {
+            return redirect()->route('auth.login');
         }
-        return view('auth.register', compact('afiliado'));
+    
+        return view('auth.register', compact(
+            'solicitud',
+            'afiliado',
+            'actividades',
+            'productos',
+            'materias_primas',
+            'servicios',
+            'afiliados'
+        ));
     }
 
     public function loginForm() {
@@ -47,36 +70,84 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    public function register(Request $request) {
-        $payload = $request->validate([
-            'name'              => 'required|string',
-            'email'             => 'required|email|unique:users,email',
-            'password'          => 'required|min:8|confirmed',
-            'razon_social'      => 'required|string',
+    public function register(StoreAfiliadoRequest $request) {
+        $payload = $request->safe()->only([
+            'razon_social',
+            'rif',
+            'anio_fundacion',
+            'capital_social',
+            'pagina_web',
+            'actividad_principal',
+            'relacion_comercio_exterior',
+            'correo',
+            'siglas'
+        ]);
+
+        $data_user = $request->safe()->only([
+            'name',
+            'email',
+            'password'
         ]);
 
         $confirmation_code = $request->input('confirmation_code');
+        $solicitud = SolicitudAfiliado::where('confirmation_code', $confirmation_code)->first();
 
-        if($confirmation_code) {
-            $afiliado = Afiliado::where('confirmation_code', $confirmation_code)->first();
-            $payload['password'] = bcrypt($payload['password']);
-            $user = User::create($request->only([
-                'name',
-                'email',
-                'password'
-            ]));
-            $afiliado->user()->associate($user);
-            $afiliado->update([
-                'razon_social'      => $request->input('razon_social'),
-                'confirmation_code' => null,
-                'confirmed'         => true
-            ]);
-            return redirect()->route('auth.loginForm');
-        } else {
-            /**
-             * MANEJAR ERROR
-             */
+        if(!$solicitud) { return abort(400); }
+
+        $user = User::create([
+            'name'      => $data_user['name'],
+            'email'     => $data_user['email'],
+            'password'  => bcrypt($data_user['password']),
+        ]);
+
+        $afiliado = $user->afiliado()->create($payload);
+
+        $afiliado->direccion()->create($request->safe()->only([
+            'direccion_oficina',
+            'ciudad_oficina',
+            'telefono_oficina',
+            'direccion_planta',
+            'ciudad_planta',
+            'telefono_planta'
+        ]));
+
+        $afiliado->personal()->create($request->safe()->only([
+            'correo_presidente',
+            'correo_gerente_general',
+            'correo_gerente_compras',
+            'correo_gerente_marketing_ventas',
+            'correo_gerente_planta',
+            'correo_gerente_recursos_humanos',
+            'correo_administrador',
+            'correo_gerente_exportaciones',
+            'correo_representante_avipla'
+        ]));
+
+        $data_productos = $request->safe()->only([
+            'productos',
+            'produccion_total_mensual',
+            'porcentage_exportacion',
+            'mercado_exportacion'
+        ]);
+
+        foreach ($data_productos['productos'] as $key => $producto_id) {
+            $pivot_data[$producto_id] = [
+                'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
+                'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
+                'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
+            ];
         }
+
+        $afiliado->productos()->attach($pivot_data);
+        $afiliado->servicios()->attach($request->input('servicios'));
+        $afiliado->materias_primas()->attach($request->input('materias_primas'));
+        $afiliado->referencias()->attach($request->input('afiliados'));
+
+        // and last but not less important
+        $solicitud->confirmation_code = false;
+        $solicitud->save();
+
+        return redirect()->route('auth.login')->with('success', 'Se creo el afiliado correctamente.');
     }
 
     public function logout(Request $request) {

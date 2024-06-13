@@ -38,21 +38,13 @@
 <div class="row">
   <div class="col-lg-6">
     <x-forms.input
-      name="correo"
-      id="correo"
-      required
-      placeholder="Correo para iniciar sesión" label="Correo intranet"
-      :value="old('correo', $afiliado->correo)"
-      :error="$errors->first('correo')" />
-  </div>
-  <div class="col-lg-6">
-    <x-forms.input
       name="correo_presidente"
       id="correo_presidente"
       placeholder="Correo del Presidente"
       label="Correo del Presidente"
       :value="old('correo_presidente', $afiliado->personal ? $afiliado->personal->correo_presidente : '')"
-      :error="$errors->first('correo_presidente')" />
+      :error="$errors->first('correo_presidente')"
+    />
   </div>
   <div class="col-lg-6">
     <x-forms.input

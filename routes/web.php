@@ -35,8 +35,10 @@ Route::view('dashboard', 'dashboard.index')
   ->name('dashboard')
   ->middleware('auth');
 
-Route::post('correo_afiliado/{afiliado}', [AfiliadosController::class, 'sendConfirmationEmail'])->name('afiliados.sendConfirmationEmail');
+Route::get('afiliados/solicitar', [AfiliadosController::class, 'requestForm'])->name('afiliados.requestForm');
+Route::post('afiliados/solicitar', [AfiliadosController::class, 'request'])->name('afiliados.request');
 Route::resource('afiliados', AfiliadosController::class);
+Route::post('correo_afiliado/{afiliado}', [AfiliadosController::class, 'sendConfirmationEmail'])->name('afiliados.sendConfirmationEmail');
 
 Route::resource('notificaciones', NotificationController::class)->names('notifications');
 Route::resource('facturas', InvoiceController::class)

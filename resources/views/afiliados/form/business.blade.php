@@ -10,7 +10,7 @@
             placeholder="Empresas Polar"
             label="Razón social"
             required
-            :value="old('razon_social', $afiliado->razon_social)"
+            :value="old('razon_social', $afiliado->razon_social ? $afiliado->razon_social : $solicitud->razon_social)"
             :error="$errors->first('razon_social')"
         />
     </div>

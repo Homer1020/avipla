@@ -10,7 +10,8 @@
     <li class="breadcrumb-item active">Afiliados</li>
   </ol>
   <div class="mb-4">
-    <a href="{{ route('afiliados.create') }}" class="btn btn-primary">Nuevo afiliado</a>
+    <a href="{{ route('afiliados.requestForm') }}" class="btn btn-primary">Solicitar afiliado</a>
+    {{-- <a href="{{ route('afiliados.create') }}" disabled class="btn btn-success disabled">Nuevo afiliado</a> --}}
   </div>
 
   <div class="mb-4 card">
@@ -34,7 +35,7 @@
                 <span class="text-truncate d-inline-block" style="max-width: 150px">{{ $afiliado->razon_social }}</span>
               </td>
               <td>{{ $afiliado->rif }}</td>
-              <td>{{ $afiliado->correo }}</td>
+              <td>{{ $afiliado->user->email }}</td>
               <td style="white-space: nowrap">
                 <a href="{{ route('afiliados.show', $afiliado) }}" class="btn btn-primary">
                   <i class="fa fa-eye"></i>

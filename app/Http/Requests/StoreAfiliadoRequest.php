@@ -22,8 +22,10 @@ class StoreAfiliadoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'correo'                            => 'required|string|email',
             'razon_social'                      => 'required|string',
+            'email'                             => 'required|email',
+            'name'                              => 'required|string',
+            'password'                          => 'required|string|confirmed',
             'siglas'                            => 'required|string',
             'pagina_web'                        => 'url|nullable',
             'anio_fundacion'                    => 'required|unique:afiliados,rif',

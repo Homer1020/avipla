@@ -1,20 +1,21 @@
 @extends('layouts.dashboard')
-@section('title', 'Crear Noticia')
+@section('title', 'Editar Noticia')
 @push('css')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 @endpush
 @section('content')
-<h1 class="mt-4">Crear Noticia</h1>
+<h1 class="mt-4">Editar Noticia</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('noticias.index') }}">Noticias</a></li>
-    <li class="breadcrumb-item active">Crear Noticia</li>
+    <li class="breadcrumb-item active">Editar Noticia</li>
 </ol>
 
-<form action="{{ route('noticias.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('noticias.update', $noticia) }}" method="POST" enctype="multipart/form-data">
     @csrf
+    @method('PUT')
 
     <div class="row">
         <div class="col-lg-8">
@@ -27,7 +28,7 @@
                             type="text"
                             class="form-control @error('titulo') is-invalid @enderror"
                             id="titulo"
-                            value="{{ old('titulo') }}"
+                            value="{{ old('titulo', $noticia->titulo) }}"
                             placeholder="Título"
                         >
                         @error('titulo')
@@ -42,7 +43,7 @@
                         <textarea
                             id="contenido"
                             name="contenido"
-                        ></textarea>
+                        >{{ $noticia->contenido }}</textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Crear noticia</button>
@@ -62,7 +63,10 @@
                     >
                         <option></option>
                         @foreach ($categorias as $categoria)
-                            <option value="{{ $categoria->id }}">{{ $categoria->display_name }}</option>
+                            <option
+                                {{ old('categoria_id', $noticia->categoria_id) ? 'selected' : '' }}
+                                value="{{ $categoria->id }}"
+                            >{{ $categoria->display_name }}</option>
                         @endforeach
                     </select>
                     @error('categoria_id')
