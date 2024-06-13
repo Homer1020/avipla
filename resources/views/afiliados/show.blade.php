@@ -11,7 +11,7 @@
   <div class="row mb-4">
     <div class="col-lg-6">
       <p class="fw-bold text-uppercase text-muted">Datos de la empresa</p>
-      <ul class="list-group">
+      <ul class="list-group mb-3">
         <li class="list-group-item">
           <span class="fw-bold d-block">Razón social: </span>
           {{ $afiliado->razon_social }}
@@ -19,10 +19,6 @@
         <li class="list-group-item">
           <span class="fw-bold d-block">RIF: </span>
           {{ $afiliado->rif }}
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold d-block">Dirección: </span>
-          {{ $afiliado->direccion }}
         </li>
         <li class="list-group-item">
           <span class="fw-bold d-block">Página web: </span>
@@ -33,16 +29,39 @@
           <a href="mailto:{{ $afiliado->correo }}">{{ $afiliado->correo }}</a>
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Teléfono: </span>
-          <a href="tel:{{ $afiliado->telefono }}">{{ $afiliado->telefono }}</a>
-        </li>
-        <li class="list-group-item">
           <span class="fw-bold d-block">Estado: </span>
           @if ($afiliado->estado)
             <span class="badge bg-success">Activo</span>
           @else
             <span class="badge bg-success">Inactivo</span>
           @endif
+        </li>
+      </ul>
+      <p class="fw-bold text-uppercase text-muted">Direcciones</p>
+      <ul class="list-group mb-3">
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Dirección (oficina): </span>
+          {{ $afiliado->direccion->direccion_oficina }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Ciudad / estado (oficina): </span>
+          {{ $afiliado->direccion->ciudad_oficina }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Teléfono (oficina): </span>
+          {{ $afiliado->direccion->telefono_oficina }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Dirección (planta): </span>
+          {{ $afiliado->direccion->direccion_planta }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Ciudad / estado (planta): </span>
+          {{ $afiliado->direccion->ciudad_planta }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Teléfono (planta): </span>
+          {{ $afiliado->direccion->telefono_planta }}
         </li>
       </ul>
     </div>

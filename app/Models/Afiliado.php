@@ -33,9 +33,9 @@ class Afiliado extends Model
     public function direccion() {
         return $this->hasOne(Direccion::class);
     }
-
+    
     public function productos() {
-        return $this->belongsToMany(Producto::class, 'linea_productos');
+        return $this->belongsToMany(Producto::class, 'linea_productos')->withPivot('produccion_total_mensual', 'porcentage_exportacion', 'mercado_exportacion');
     }
 
     public function materias_primas() {
@@ -47,7 +47,7 @@ class Afiliado extends Model
     }
 
     public function referencias() {
-        return $this->belongsToMany(Afiliado::class, 'afiliado_referencias');
+        return $this->belongsToMany(Afiliado::class, 'afiliado_referencias', 'afiliado_id', 'afiliado_referencia_id');
     }
 
     public function personal() {

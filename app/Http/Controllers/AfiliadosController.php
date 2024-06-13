@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateAfiliadoRequest;
+use App\Http\Requests\StoreAfiliadoRequest;
 use App\Mail\VerifyAfiliadoEmail;
 use App\Models\Actividad;
 use App\Models\Afiliado;
-use App\Models\Direccion;
 use App\Models\MateriaPrima;
-use App\Models\PersonalRole;
 use App\Models\Producto;
 use App\Models\Servicio;
 use Illuminate\Http\Request;
@@ -52,7 +50,7 @@ class AfiliadosController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CreateAfiliadoRequest $request)
+    public function store(StoreAfiliadoRequest $request)
     {
         // return $request->all();
         $payload = $request->safe()->only([
@@ -110,8 +108,8 @@ class AfiliadosController extends Controller
 
         $afiliado->productos()->attach($pivot_data);
         $afiliado->servicios()->attach($request->input('servicios'));
-        $afiliado->productos()->attach($request->input('productos'));
         $afiliado->materias_primas()->attach($request->input('materias_primas'));
+        $afiliado->referencias()->attach($request->input('afiliados'));
 
         Mail::to($afiliado->correo)->send(new VerifyAfiliadoEmail($afiliado));
 
@@ -136,7 +134,13 @@ class AfiliadosController extends Controller
         $materias_primas = MateriaPrima::all();
         $servicios = Servicio::all();
         $afiliados = Afiliado::all();
-        $afiliado->load(['direccion', 'personal']);
+        $afiliado->load([
+            'direccion',
+            'personal',
+            'productos',
+            'materias_primas',
+            'servicios'
+        ]);
         return view('afiliados.edit', compact(
             'afiliado',
             'actividades',

@@ -42,51 +42,51 @@
     </select>
   </div>
   <div class="col-lg-12" id="products_details">
-      @foreach (old('productos', []) as $key => $producto)
-        <div class="row" id="producto-{{ strtolower($productos->find($producto)->nombre) }}">
-          <div class="col-12">
-            <p class="fw-bold text-uppercase text-muted">
-              <small>Detalles de {{ $productos->find($producto)->nombre }}</small>
-            </p>
-          </div>
-          <div class="col-lg-4 mb-3">
-            <input
-              type="number"
-              placeholder="Producción total mensual (TM)"
-              name="produccion_total_mensual[]"
-              class="form-control @error("produccion_total_mensual.$key") is-invalid @enderror"
-              value="{{ old('produccion_total_mensual')[$key] }}"
-            />
-            @error("produccion_total_mensual.$key")
-              <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-          </div>
-          <div class="col-lg-4 mb-3">
-            <input
-              type="number"
-              placeholder=" Porcentaje destinados a exportación"
-              name="porcentage_exportacion[]"
-              class="form-control @error("porcentage_exportacion.$key") is-invalid @enderror"
-              value="{{ old('porcentage_exportacion')[$key] }}"
-            />
-            @error("porcentage_exportacion.$key")
-              <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-          </div>
-          <div class="col-lg-4 mb-3">
-            <input
-              type="number"
-              placeholder="Mercados de importación / exportación"
-              name="mercado_exportacion[]"
-              class="form-control @error("mercado_exportacion.$key") is-invalid @enderror"
-              value="{{ old('mercado_exportacion')[$key] }}"
-            />
-            @error("mercado_exportacion.$key")
-              <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-          </div>
+    @foreach (old('productos', $afiliado->productos) as $key => $producto)
+      <div class="row" id="producto-{{ strtolower($productos->find($producto)->nombre) }}">
+        <div class="col-12">
+          <p class="fw-bold text-uppercase text-muted">
+            <small>Detalles de {{ $productos->find($producto)->nombre }}</small>
+          </p>
         </div>
-      @endforeach
+        <div class="col-lg-4 mb-3">
+          <input
+            type="number"
+            placeholder="Producción total mensual (TM)"
+            name="produccion_total_mensual[]"
+            class="form-control @error("produccion_total_mensual.$key") is-invalid @enderror"
+            value="{{ old('produccion_total_mensual') ? old('produccion_total_mensual')[$key] : $producto->pivot->produccion_total_mensual }}"
+          />
+          @error("produccion_total_mensual.$key")
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+        <div class="col-lg-4 mb-3">
+          <input
+            type="number"
+            placeholder=" Porcentaje destinados a exportación"
+            name="porcentage_exportacion[]"
+            class="form-control @error("porcentage_exportacion.$key") is-invalid @enderror"
+            value="{{ old('porcentage_exportacion') ? old('porcentage_exportacion')[$key] : $producto->pivot->porcentage_exportacion }}"
+          />
+          @error("porcentage_exportacion.$key")
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+        <div class="col-lg-4 mb-3">
+          <input
+            type="number"
+            placeholder="Mercados de importación / exportación"
+            name="mercado_exportacion[]"
+            class="form-control @error("mercado_exportacion.$key") is-invalid @enderror"
+            value="{{ old('mercado_exportacion') ? old('mercado_exportacion')[$key] : $producto->pivot->mercado_exportacion }}"
+          />
+          @error("mercado_exportacion.$key")
+            <div class="invalid-feedback">{{ $message }}</div>
+          @enderror
+        </div>
+      </div>
+    @endforeach
   </div>
 </div>
 
@@ -97,7 +97,7 @@
     class="form-select w-100 @error('servicios') is-invalid @enderror"
     name="servicios[]"
     id="servicios"
-    data-placeholder="Seleccione una o varias materias primas"
+    data-placeholder="Seleccione uno o varios servicios"
   >
     <option></option>
     @foreach ($servicios as $servicio)
@@ -118,7 +118,7 @@
     class="form-select w-100 @error('afiliados') is-invalid @enderror"
     name="afiliados[]"
     id="afiliados"
-    data-placeholder="Seleccione una o varias materias primas"
+    data-placeholder="Seleccione uno o varios afiliados"
   >
     <option></option>
     @foreach ($afiliados as $afiliado)

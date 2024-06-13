@@ -21,7 +21,7 @@ return new class extends Migration
             $table
                 ->foreignId('afiliado_id')
                 ->references('id')
-                ->on('materias_primas')
+                ->on('afiliados')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
         });

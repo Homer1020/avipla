@@ -93,6 +93,7 @@
                       id="pagina_web"
                       label="Página web:"
                       :error="$errors->first('pagina_web')"
+                      :value="$afiliado->pagina_web"
                     />
                     <!-- /correo -->
                   </div>
