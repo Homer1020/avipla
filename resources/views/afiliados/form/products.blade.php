@@ -40,12 +40,53 @@
         >{{ $materia_prima->materia_prima }}</option>
       @endforeach
     </select>
-    @error('materias_primas')
-      <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
   </div>
   <div class="col-lg-12" id="products_details">
-      
+      @foreach (old('productos', []) as $key => $producto)
+        <div class="row" id="producto-{{ strtolower($productos->find($producto)->nombre) }}">
+          <div class="col-12">
+            <p class="fw-bold text-uppercase text-muted">
+              <small>Detalles de {{ $productos->find($producto)->nombre }}</small>
+            </p>
+          </div>
+          <div class="col-lg-4 mb-3">
+            <input
+              type="number"
+              placeholder="Producción total mensual (TM)"
+              name="produccion_total_mensual[]"
+              class="form-control @error("produccion_total_mensual.$key") is-invalid @enderror"
+              value="{{ old('produccion_total_mensual')[$key] }}"
+            />
+            @error("produccion_total_mensual.$key")
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+          <div class="col-lg-4 mb-3">
+            <input
+              type="number"
+              placeholder=" Porcentaje destinados a exportación"
+              name="porcentage_exportacion[]"
+              class="form-control @error("porcentage_exportacion.$key") is-invalid @enderror"
+              value="{{ old('porcentage_exportacion')[$key] }}"
+            />
+            @error("porcentage_exportacion.$key")
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+          <div class="col-lg-4 mb-3">
+            <input
+              type="number"
+              placeholder="Mercados de importación / exportación"
+              name="mercado_exportacion[]"
+              class="form-control @error("mercado_exportacion.$key") is-invalid @enderror"
+              value="{{ old('mercado_exportacion')[$key] }}"
+            />
+            @error("mercado_exportacion.$key")
+              <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+          </div>
+        </div>
+      @endforeach
   </div>
 </div>
 

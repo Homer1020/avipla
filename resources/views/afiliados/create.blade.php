@@ -104,28 +104,31 @@
         const parameter = e.params.data.text
 
         const newInputProduccionTotalMensual = `
-          <div class="my-3 row" id="producto-${ parameter.toLowerCase().replace(' ', '-') }">
+          <div class="row" id="producto-${ parameter.toLowerCase().trim().replace(' ', '-') }">
             <div class="col-12">
               <p class="fw-bold text-uppercase text-muted">
                 <small>Detalles de ${parameter}</small>
               </p>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 mb-3">
               <input
+                type="number"
                 placeholder="Producción total mensual (TM)"
                 name="produccion_total_mensual[]"
                 class="form-control"
               />
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 mb-3">
               <input
+                type="number"
                 placeholder=" Porcentaje destinados a exportación"
                 name="porcentage_exportacion[]"
                 class="form-control"
               />
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 mb-3">
               <input
+                type="number"
                 placeholder="Mercados de importación / exportación"
                 name="mercado_exportacion[]"
                 class="form-control"
@@ -139,7 +142,8 @@
 
       $('#productos').on('select2:unselect', function (e) {
         const parameter = e.params.data.text
-        $(`#producto-${ parameter.toLowerCase().replace(' ', '-') }`).remove()
+        console.log(parameter.toLowerCase().trim().replace(' ', '-'))
+        $(`#producto-${ parameter.toLowerCase().trim().replace(' ', '-') }`).remove()
       });
     })
   </script>

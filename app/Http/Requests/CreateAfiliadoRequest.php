@@ -51,8 +51,11 @@ class CreateAfiliadoRequest extends FormRequest
             'productos'                         => 'required|array|min:1',
             'productos.*'                       => 'required|exists:productos,id',
             'produccion_total_mensual'          => 'array',
+            'produccion_total_mensual.*'        => 'required',
             'porcentage_exportacion'            => 'array', 
+            'porcentage_exportacion.*'          => 'required', 
             'mercado_exportacion'               => 'array',
+            'mercado_exportacion.*'             => 'required',
             
             'materias_primas'                   => 'required|array|min:1',
             'materias_primas.*'                 => 'required|exists:productos,id',
