@@ -37,7 +37,7 @@ class StoreAfiliadoRequest extends FormRequest
             'direccion_planta'                  => 'required|string',
             'ciudad_planta'                     => 'required|string',
             'telefono_planta'                   => 'required|numeric',
-            'actividad_principal'               => 'required|numeric|exists:actividades,id',
+            'actividad_id'                      => 'required|numeric|exists:actividades,id',
             'relaciones_comercio_exterior'      => 'required|string|in:IMPORTADOR,EXPORTADOR,AMBOS',
             'relaciones_comercio_exterior'      => 'required|string|in:IMPORTADOR,EXPORTADOR,AMBOS',
             'correo_presidente'                 => 'nullable|email',

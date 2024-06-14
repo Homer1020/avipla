@@ -15,7 +15,7 @@ class Afiliado extends Model
         'anio_fundacion',
         'capital_social',
         'pagina_web',
-        'actividad_principal',
+        'actividad_id',
         'relacion_comercio_exterior',
         'correo',
         'confirmation_code',
@@ -55,6 +55,6 @@ class Afiliado extends Model
     }
 
     public function actividad() {
-        return $this->belongsTo(Actividad::class, 'actividad_principal');
+        return $this->belongsTo(Actividad::class, 'actividad_id');
     }
 }

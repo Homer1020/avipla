@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AfiliadosController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BoletinesController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
@@ -33,25 +34,39 @@ Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::view('dashboard', 'dashboard.index')
   ->name('dashboard')
-  ->middleware('auth');
+  ->middleware(['auth']);
 
-Route::get('afiliados/solicitar', [AfiliadosController::class, 'requestForm'])->name('afiliados.requestForm');
-Route::post('afiliados/solicitar', [AfiliadosController::class, 'request'])->name('afiliados.request');
-Route::resource('afiliados', AfiliadosController::class)->except(['create', 'store']);
-Route::post('correo_afiliado/{afiliado}', [AfiliadosController::class, 'sendConfirmationEmail'])->name('afiliados.sendConfirmationEmail');
+Route::middleware(['auth', 'is_admin'])->group(function() {
+  Route::get('afiliados/solicitar', [AfiliadosController::class, 'requestForm'])
+    ->name('afiliados.requestForm');
+  Route::post('afiliados/solicitar', [AfiliadosController::class, 'request'])
+    ->name('afiliados.request');
+  Route::resource('afiliados', AfiliadosController::class)
+    ->except(['create', 'store']);
+});
 
-Route::resource('notificaciones', NotificationController::class)->names('notifications');
+// Route::post('correo_afiliado/{afiliado}', [AfiliadosController::class, 'sendConfirmationEmail'])
+//   ->name('afiliados.sendConfirmationEmail');
+
+Route::resource('boletines', BoletinesController::class);
+
+Route::resource('notificaciones', NotificationController::class)
+  ->names('notifications')
+  ->middleware(['auth', 'is_admin']);
 Route::resource('facturas', InvoiceController::class)
   ->names('invoices')
-  ->parameters([ 'facturas' => 'invoice' ]);
-Route::resource('noticias', NoticiaController::class);
+  ->parameters([ 'facturas' => 'invoice' ])
+  ->middleware(['auth', 'is_admin']);
+Route::resource('noticias', NoticiaController::class)
+  ->middleware(['auth', 'is_admin']);
 
 Route::resource('categorias', CategoryController::class)
-  ->names('categories');
+  ->names('categories')
+  ->middleware(['auth', 'is_admin']);
 
 /**
  * MANAGE FILES
  */
 Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
-  ->middleware('auth')
+  ->middleware(['auth', 'is_admin'])
   ->name('files.getFile');

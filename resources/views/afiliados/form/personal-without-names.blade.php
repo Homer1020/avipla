@@ -2,16 +2,16 @@
 <div class="row">
   <div class="col-lg-6">
     <x-forms.select
-      name="actividad_principal"
-      id="actividad_principal"
+      name="actividad_id"
+      id="actividad_id"
       label="Actividad principal"
       required
-      :value="old('actividad_principal', $afiliado->actividad_principal)"
-      :error="$errors->first('actividad_principal')"
+      :value="old('actividad_id', $afiliado->actividad_id)"
+      :error="$errors->first('actividad_id')"
     >
       <option selected disabled>Seleccione una actividad</option>
       @foreach ($actividades as $actividad)
-        <option {{ intval(old('actividad_principal', $afiliado->actividad_principal)) === $actividad->id ? 'selected' : '' }} value="{{ $actividad->id }}">{{ $actividad->actividad }}</option>
+        <option {{ intval(old('actividad_id', $afiliado->actividad_id)) === $actividad->id ? 'selected' : '' }} value="{{ $actividad->id }}">{{ $actividad->actividad }}</option>
       @endforeach
     </x-forms.select>
   </div>

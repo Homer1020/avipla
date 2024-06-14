@@ -77,7 +77,7 @@ class AuthController extends Controller
             'anio_fundacion',
             'capital_social',
             'pagina_web',
-            'actividad_principal',
+            'actividad_id',
             'relacion_comercio_exterior',
             'correo',
             'siglas'

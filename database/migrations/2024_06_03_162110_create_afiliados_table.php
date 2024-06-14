@@ -27,14 +27,13 @@ return new class extends Migration
                 ->on('actividades')
                 ->onDelete('SET NULL')
                 ->onUpdate('CASCADE');
-            $table->boolean('estado')->default(1); // -> estado del afiliado
+            $table->boolean('estado')->default(true); // -> estado del afiliado
             $table->string('razon_social');
             $table->string('rif')->unique();
             $table->string('siglas');
             $table->string('anio_fundacion');
             $table->decimal('capital_social');
             $table->string('pagina_web')->nullable();
-            $table->string('actividad_principal');
             $table->enum('relacion_comercio_exterior', ['IMPORTADOR', 'EXPORTADOR', 'AMBOS']);
 
             $table->timestamps();
