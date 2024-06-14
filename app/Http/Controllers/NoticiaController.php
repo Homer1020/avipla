@@ -37,9 +37,13 @@ class NoticiaController extends Controller
         $payload = $request->validate([
             'titulo'        => 'required|string|unique:noticias,titulo',
             'contenido'     => 'required|string',
-            'categoria_id'  => 'required|numeric|exists:categories,id',
+            'categoria_id'  => 'required',
             'thumbnail'     => 'required|file|image|mimes:jpeg,jpg,png|max:2048'
         ]);
+
+        if($request->input('save_draft')) {
+            $payload['estatus'] = 'DRAFT';
+        }
 
         $slug = Str::slug($request->input('titulo'), "-");
         $payload['slug'] = $slug;
@@ -86,6 +90,6 @@ class NoticiaController extends Controller
      */
     public function destroy(Noticia $noticia)
     {
-        //
+        return 'In work';
     }
 }

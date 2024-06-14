@@ -37,7 +37,7 @@ Route::view('dashboard', 'dashboard.index')
 
 Route::get('afiliados/solicitar', [AfiliadosController::class, 'requestForm'])->name('afiliados.requestForm');
 Route::post('afiliados/solicitar', [AfiliadosController::class, 'request'])->name('afiliados.request');
-Route::resource('afiliados', AfiliadosController::class);
+Route::resource('afiliados', AfiliadosController::class)->except(['create', 'store']);
 Route::post('correo_afiliado/{afiliado}', [AfiliadosController::class, 'sendConfirmationEmail'])->name('afiliados.sendConfirmationEmail');
 
 Route::resource('notificaciones', NotificationController::class)->names('notifications');

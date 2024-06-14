@@ -22,7 +22,7 @@
   <main class="auth-layout">
     <div class="container my-3">
       <div class="row justify-content-center">
-        <div class="col-lg-5 bg-auth rounded" style="background-image: url({{ asset('assets/img/robot.jpg') }})">
+        <div class="col-lg-5 bg-auth rounded" style="background-image: url({{ asset('assets/img/botellas3.jpg') }})">
         </div>
         <div class="col-lg-5">
           <div class="card shadow">

@@ -53,4 +53,8 @@ class Afiliado extends Model
     public function personal() {
         return $this->hasOne(Personal::class);
     }
+
+    public function actividad() {
+        return $this->belongsTo(Actividad::class, 'actividad_principal');
+    }
 }

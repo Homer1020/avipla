@@ -27,7 +27,7 @@
             >
                 <option></option>
                 @foreach ($afiliados as $afiliado)
-                    <option value="{{ $afiliado->id }}">{{ $afiliado->razon_social }}</option>
+                    <option {{ intval(old('afiliado_id')) === $afiliado->id ? 'selected' : '' }} value="{{ $afiliado->id }}">{{ $afiliado->razon_social }}</option>
                 @endforeach
             </select>
             @error('afiliado_id')
@@ -42,6 +42,7 @@
                 class="form-control @error('monto_total') is-invalid @enderror"
                 name="monto_total"
                 id="monto_total"
+                value="{{ old('monto_total') }}"
             >
             @error('monto_total')
                 <div class="invalid-feedback">{{ $message }}</div>

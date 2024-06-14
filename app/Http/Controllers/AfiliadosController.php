@@ -21,97 +21,8 @@ class AfiliadosController extends Controller
      */
     public function index()
     {
-        // $afiliados = Afiliado::latest()->with('user')->where('estado', true)->get();
         $solicitudes = SolicitudAfiliado::with('afiliado')->latest()->get();
         return view('afiliados.index', compact('solicitudes'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $actividades = Actividad::all();
-        $productos = Producto::all();
-        $materias_primas = MateriaPrima::all();
-        $servicios = Servicio::all();
-        $afiliados = Afiliado::all();
-
-        $afiliado = new Afiliado();
-
-        return view('afiliados.create', compact(
-            'afiliado',
-            'actividades',
-            'productos',
-            'materias_primas',
-            'servicios',
-            'afiliados'
-        ));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreAfiliadoRequest $request)
-    {
-        $payload = $request->safe()->only([
-            'razon_social',
-            'rif',
-            'anio_fundacion',
-            'capital_social',
-            'pagina_web',
-            'actividad_principal',
-            'relacion_comercio_exterior',
-            'correo',
-            'siglas'
-        ]);
-
-        $afiliado = Afiliado::create($payload);
-
-        $afiliado->direccion()->create($request->safe()->only([
-            'direccion_oficina',
-            'ciudad_oficina',
-            'telefono_oficina',
-            'direccion_planta',
-            'ciudad_planta',
-            'telefono_planta'
-        ]));
-
-        $afiliado->personal()->create($request->safe()->only([
-            'correo_presidente',
-            'correo_gerente_general',
-            'correo_gerente_compras',
-            'correo_gerente_marketing_ventas',
-            'correo_gerente_planta',
-            'correo_gerente_recursos_humanos',
-            'correo_administrador',
-            'correo_gerente_exportaciones',
-            'correo_representante_avipla'
-        ]));
-
-        $data_productos = $request->safe()->only([
-            'productos',
-            'produccion_total_mensual',
-            'porcentage_exportacion',
-            'mercado_exportacion'
-        ]);
-
-        foreach ($data_productos['productos'] as $key => $producto_id) {
-            $pivot_data[$producto_id] = [
-                'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
-                'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
-                'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
-            ];
-        }
-
-        $afiliado->productos()->attach($pivot_data);
-        $afiliado->servicios()->attach($request->input('servicios'));
-        $afiliado->materias_primas()->attach($request->input('materias_primas'));
-        $afiliado->referencias()->attach($request->input('afiliados'));
-
-        // Mail::to($afiliado->correo)->send(new VerifyAfiliadoEmail($afiliado));
-
-        return redirect()->route('afiliados.index')->with('success', 'Se creo el afiliado correctamente.');
     }
 
     /**
@@ -185,18 +96,6 @@ class AfiliadosController extends Controller
                 ->route('afiliados.index')
                 ->with('success', 'Se elimino el afiliado correctamente.');
     }
-
-    // public function sendConfirmationEmail(Afiliado $afiliado) {
-    //     $confirmation_code = Str::random(25);
-
-    //     $afiliado->confirmation_code = $confirmation_code;
-    //     $afiliado->confirmed = false;
-    //     $afiliado->save();
-        
-    //     Mail::to($afiliado->correo)->send(new VerifyAfiliadoEmail($afiliado));
-
-    //     return redirect()->route('afiliados.show', $afiliado)->with('success', 'Se envio un correo de acceso.');
-    // }
 
     public function requestForm() {
         return view('afiliados.request');

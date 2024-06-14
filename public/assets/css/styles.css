@@ -458,3 +458,8 @@ a {
     background-position: top center;
     background-size: cover;
 }
+
+/* OWL NAV */
+.owl-nav {
+    display: none !important;
+}

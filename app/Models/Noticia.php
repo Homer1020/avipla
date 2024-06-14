@@ -14,7 +14,8 @@ class Noticia extends Model
         'contenido',
         'categoria_id',
         'thumbnail',
-        'slug'
+        'slug',
+        'estatus'
     ];
 
     public function categoria() {

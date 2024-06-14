@@ -148,7 +148,9 @@ class AuthController extends Controller
         $solicitud->confirmation_code = null;
         $solicitud->save();
 
-        return redirect()->route('auth.login')->with('success', 'Se guardó el afiliado correctamente.');
+        Auth::login($user);
+
+        return redirect()->intended('dashboard')->with('success', 'Bienvenido ' . $user->name . '!');
     }
 
     public function logout(Request $request) {

@@ -22,6 +22,7 @@
                 <div class="card-body">
                     <p class="text-uppercase fw-bold text-muted">Noticia</p>
                     <div class="mb-3">
+                        <label for="titulo" class="form-label">Título</label>
                         <input
                             name="titulo"
                             type="text"
@@ -46,6 +47,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Crear noticia</button>
+                    <button type="submit" name="save_draft" value="save_draft" class="btn btn-outline-primary">Guardar borrador</button>
                 </div>
             </div>
         </div>
@@ -101,7 +103,7 @@
         $('#contenido').summernote({
             placeholder: 'Ingrese su contenido',
             tabsize: 2,
-            height: 120,
+            height: 250,
             toolbar: [
                 ['style', ['style']],
                 ['font', ['bold', 'underline', 'clear']],

@@ -25,8 +25,12 @@
           <a href="{{ $afiliado->pagina_web }}">{{ $afiliado->pagina_web }}</a>
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Correo: </span>
-          <a href="mailto:{{ $afiliado->correo }}">{{ $afiliado->correo }}</a>
+          <span class="fw-bold d-block">Actividad principal: </span>
+          {{ $afiliado->actividad->actividad }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Relaciones de comercio exterior: </span>
+          {{ $afiliado->relacion_comercio_exterior }}
         </li>
         <li class="list-group-item">
           <span class="fw-bold d-block">Estado: </span>
@@ -67,7 +71,7 @@
     </div>
     <div class="col-lg-6">
       <p class="fw-bold text-uppercase text-muted">Datos del encargado</p>
-      <ul class="list-group">
+      <ul class="list-group mb-3">
         @if($afiliado->user()->exists())
         @php
           $afiliado->load('user');    
@@ -105,6 +109,45 @@
             @endif
           </li>
         @endif
+      </ul>
+      <p class="fw-bold text-uppercase text-muted">Datos del personal</p>
+      <ul class="list-group mb-3">
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Correo del presidente: </span>
+          {{ $afiliado->personal->correo_presidente }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Correo del gerente general: </span>
+          {{ $afiliado->personal->correo_gerente_general }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Correo del gerente de compras: </span>
+          {{ $afiliado->personal->correo_gerente_compras }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Correo del gerente de mercadeo y/o ventas: </span>
+          {{ $afiliado->personal->correo_gerente_marketing_ventas }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Correo del gerente de planta: </span>
+          {{ $afiliado->personal->correo_gerente_planta }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Correo del gerente de recursos humanos: </span>
+          {{ $afiliado->personal->correo_gerente_recursos_humanos }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Correo del administrador: </span>
+          {{ $afiliado->personal->correo_administrador }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Correo del gerente de exportaciones: </span>
+          {{ $afiliado->personal->correo_gerente_exportaciones }}
+        </li>
+        <li class="list-group-item">
+          <span class="fw-bold d-block">Correo del representante ante AVIPLA: </span>
+          {{ $afiliado->personal->correo_representante_avipla }}
+        </li>
       </ul>
     </div>
   </div>

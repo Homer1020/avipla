@@ -22,7 +22,7 @@
             <th>Título</th>
             <th>Fecha</th>
             <th>Categoría</th>
-            <th>Usuario</th>
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -31,23 +31,29 @@
             <tr>
               <td>#{{ $noticia->id }}</td>
               <td>
-                <a href="{{ route('noticias.show', $noticia) }}">
+                <a href="{{ route('noticias.show', $noticia) }}" target="_blank">
                   {{ $noticia->titulo }}
                 </a>
               </td>
               <td>{{ $noticia->created_at }}</td>
               <td>
-                <span class="badge bg-secondary">{{ $noticia->categoria->display_name }}</span>
+                <span class="badge bg-primary">{{ $noticia->categoria->display_name }}</span>
               </td>
-              <td>{{ $noticia->usuario->name }}</td>
+              <td>
+                @if ($noticia->estatus === 'PUBLISHED')
+                  <span class="bg-success badge">{{ $noticia->estatus }}</span>
+                @else
+                  <span class="bg-secondary badge">{{ $noticia->estatus }}</span>
+                @endif 
+              </td>
               <td style="white-space: nowrap">
                 <a href="{{ route('noticias.edit', $noticia) }}" class="btn btn-warning">
                   <i class="fa fa-pen"></i>
                   Editar
                 </a>
-                <form class="d-inline-block" action="{{ route('noticias.destroy', $noticia) }}" method="POST">
+                <form class="d-inline-block" action="{{ route('noticias.destroy', $noticia) }}" onsubmit="submitAfterConfirm(event.target); return false" method="POST">
                   @csrf
-                  @method('POST')
+                  @method('DELETE')
                   <button class="btn btn-danger" type="submit">
                     <i class="fa fa-trash"></i>
                     Eliminar
