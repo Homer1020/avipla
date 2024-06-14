@@ -144,10 +144,11 @@ class AuthController extends Controller
         $afiliado->referencias()->attach($request->input('afiliados'));
 
         // and last but not less important
-        $solicitud->confirmation_code = false;
+        $solicitud->afiliado_id = $afiliado->id;
+        $solicitud->confirmation_code = null;
         $solicitud->save();
 
-        return redirect()->route('auth.login')->with('success', 'Se creo el afiliado correctamente.');
+        return redirect()->route('auth.login')->with('success', 'Se guardó el afiliado correctamente.');
     }
 
     public function logout(Request $request) {

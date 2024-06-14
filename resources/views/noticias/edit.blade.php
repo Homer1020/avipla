@@ -85,6 +85,9 @@
                     @error('thumbnail')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
+                    <div id="display_image">
+                        <img class="img-fluid rounded mt-3" src="{{ Storage::url($noticia->thumbnail) }}" alt="{{ $noticia->titulo }}">
+                    </div>
                 </div>
             </div>
         </div>

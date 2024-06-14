@@ -17,6 +17,18 @@ class CategorySeeder extends Seeder
             [
                 'display_name'  => 'Carros',
                 'name'          => 'carros'
+            ],
+            [
+                'display_name'  => 'Motos',
+                'name'          => 'motos'
+            ],
+            [
+                'display_name'  => 'Bicicletas',
+                'name'          => 'bicicletas'
+            ],
+            [
+                'display_name'  => 'Clima',
+                'name'          => 'clima'
             ]
         ]);
     }

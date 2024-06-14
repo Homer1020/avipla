@@ -29,7 +29,7 @@
         <div class="col-lg-11">
           <div class="card shadow">
             <div class="card-body p-4">
-              <h1 class="fs-3 text-center text-primary mb-4">Crear cuenta</h1>
+              <h1 class="fs-3 fw-bold text-primary text-center mb-4 text-uppercase">Crear cuenta</h1>
 
               <form novalidate action="{{ route('auth.register') }}" method="POST">
                 @csrf
@@ -38,19 +38,19 @@
                 <ul class="nav nav-tabs nav-fill mb-3" id="myTab" role="tablist">
                   <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#business-data"
-                      type="button" role="tab" aria-controls="home" aria-selected="true">Paso #1</button>
+                      type="button" role="tab" aria-controls="home" aria-selected="true">Datos de la empresa</button>
                   </li>
                   <li class="nav-item" role="presentation">
                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
-                      type="button" role="tab" aria-controls="profile" aria-selected="false">Paso #2</button>
+                      type="button" role="tab" aria-controls="profile" aria-selected="false">Actividades y personal</button>
                   </li>
                   <li class="nav-item" role="presentation">
                     <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages"
-                      type="button" role="tab" aria-controls="messages" aria-selected="false">Paso #3</button>
+                      type="button" role="tab" aria-controls="messages" aria-selected="false">Productos y servicios</button>
                   </li>
                   <li class="nav-item" role="presentation">
                     <button class="nav-link" id="final-tab" data-bs-toggle="tab" data-bs-target="#final"
-                      type="button" role="tab" aria-controls="final" aria-selected="false">Paso #4</button>
+                      type="button" role="tab" aria-controls="final" aria-selected="false">Registro de encargado</button>
                   </li>
                 </ul>
                 <!-- Tab panes -->

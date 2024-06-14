@@ -16,4 +16,8 @@ class SolicitudAfiliado extends Model
         'correo',
         'confirmation_code',
     ];
+
+    public function afiliado() {
+        return $this->belongsTo(Afiliado::class, 'afiliado_id');
+    }
 }

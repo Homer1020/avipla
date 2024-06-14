@@ -73,6 +73,7 @@
                 <div class="mb-3">
                     <label for="thumbnail" class="form-label">Imagen principal</label>
                     <input
+                        accept="image/*"
                         type="file"
                         name="thumbnail"
                         id="thumbnail"

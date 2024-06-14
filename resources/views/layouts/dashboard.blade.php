@@ -7,6 +7,8 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Avipla - @yield('title')</title>
+        <!-- FAVICON -->
+        <link rel="shortcut icon" href="{{ asset('assets/img/logo.png') }}" type="image/png">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         @stack('css')

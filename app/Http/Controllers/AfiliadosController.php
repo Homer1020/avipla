@@ -21,8 +21,9 @@ class AfiliadosController extends Controller
      */
     public function index()
     {
-        $afiliados = Afiliado::latest()->with('user')->where('estado', true)->get();
-        return view('afiliados.index', compact('afiliados'));
+        // $afiliados = Afiliado::latest()->with('user')->where('estado', true)->get();
+        $solicitudes = SolicitudAfiliado::with('afiliado')->latest()->get();
+        return view('afiliados.index', compact('solicitudes'));
     }
 
     /**

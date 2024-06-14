@@ -38,7 +38,7 @@ class NoticiaController extends Controller
             'titulo'        => 'required|string|unique:noticias,titulo',
             'contenido'     => 'required|string',
             'categoria_id'  => 'required|numeric|exists:categories,id',
-            'thumbnail'     => 'required|file'
+            'thumbnail'     => 'required|file|image|mimes:jpeg,jpg,png|max:2048'
         ]);
 
         $slug = Str::slug($request->input('titulo'), "-");
@@ -52,7 +52,6 @@ class NoticiaController extends Controller
         if($auth_user !== null && $auth_user instanceof User) {
             $auth_user->noticias()->create($payload);
         }
-
 
         return redirect()->route('noticias.index')->with('success', 'Se creo la noticia correctamente.');
     }

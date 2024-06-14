@@ -62,10 +62,7 @@
                 </div>
                 <!-- /correo -->
 
-                <div class="d-flex align-items-center mt-5">
-                  <input type="submit" value="Iniciar sesión" class="btn btn-primary me-4">
-                  <a href="{{ route('auth.registerForm') }}">Crear cuenta</a>
-                </div>
+                <input type="submit" value="Iniciar sesión" class="btn btn-primary mt-4">
               </form>
             </div>
           </div>
@@ -80,8 +77,18 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <!-- OWL CAROUSEL -->
   <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
+  <!-- SWEET ALERT -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- SCRIPT -->
   <script src="{{ asset('assets/js/app.js') }}"></script>
+  @if (session('success'))
+    <script>
+      Swal.fire({
+        icon: "success",
+        title: "{{ session('success') }}"
+      });
+    </script>
+  @endif
 </body>
 
 </html>

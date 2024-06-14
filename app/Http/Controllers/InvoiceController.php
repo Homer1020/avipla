@@ -38,7 +38,7 @@ class InvoiceController extends Controller
         $payload = $request->validate([
             'afiliado_id'   => 'required|numeric|exists:afiliados,id',
             'monto_total'   => 'required|numeric',
-            'documento'     => 'required'
+            'documento'     => 'required|file|mimes:pdf'
         ]);
 
         $numeroFactura = Str::random(32);
