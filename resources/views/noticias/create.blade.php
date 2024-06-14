@@ -64,7 +64,10 @@
                     >
                         <option></option>
                         @foreach ($categorias as $categoria)
-                            <option value="{{ $categoria->id }}">{{ $categoria->display_name }}</option>
+                            <option
+                                @selected(intval(old('categoria_id')) === $categoria->id)
+                                value="{{ $categoria->id }}"
+                            >{{ $categoria->display_name }}</option>
                         @endforeach
                     </select>
                     @error('categoria_id')
