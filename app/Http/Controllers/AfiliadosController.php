@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAfiliadoRequest;
+use App\Http\Requests\UpdateAfiliadoRequest;
 use App\Mail\VerifyAfiliadoEmail;
 use App\Models\Actividad;
 use App\Models\Afiliado;
@@ -13,6 +14,7 @@ use App\Models\SolicitudAfiliado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
 
 class AfiliadosController extends Controller
 {
@@ -21,7 +23,9 @@ class AfiliadosController extends Controller
      */
     public function index()
     {
-        $solicitudes = SolicitudAfiliado::with('afiliado')->latest()->get();
+        $solicitudes = SolicitudAfiliado::whereHas('afiliado', function (Builder $query) {
+            return $query->where('estado', true);
+        })->get();
         return view('afiliados.index', compact('solicitudes'));
     }
 
@@ -74,24 +78,65 @@ class AfiliadosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Afiliado $afiliado)
+    public function update(UpdateAfiliadoRequest $request, Afiliado $afiliado)
     {
-        $payload = $request->validate([
-            'razon_social'  => 'required|string',
-            'rif'           => 'required',
-            'pagina_web'    => 'url|nullable',
-            'correo'        => 'email|unique:afiliados,correo,' . $afiliado->id,
-            'direccion'     => 'string|nullable',
-            'telefono'      => 'string|nullable'
+
+        $payload = $request->safe()->only([
+            'razon_social',
+            'rif',
+            'anio_fundacion',
+            'capital_social',
+            'pagina_web',
+            'actividad_id',
+            'relacion_comercio_exterior',
+            'correo',
+            'siglas'
         ]);
 
         $afiliado->update($payload);
 
-        /**
-         * TODO: hacer que se genere un token y enviarlo por email.
-         */
+        $afiliado->direccion()->update($request->safe()->only([
+            'direccion_oficina',
+            'ciudad_oficina',
+            'telefono_oficina',
+            'direccion_planta',
+            'ciudad_planta',
+            'telefono_planta'
+        ]));
 
-        return redirect()->route('afiliados.index')->with('succes', 'Afiliado actualizado correctamente.');
+        $afiliado->personal()->update($request->safe()->only([
+            'correo_presidente',
+            'correo_gerente_general',
+            'correo_gerente_compras',
+            'correo_gerente_marketing_ventas',
+            'correo_gerente_planta',
+            'correo_gerente_recursos_humanos',
+            'correo_administrador',
+            'correo_gerente_exportaciones',
+            'correo_representante_avipla'
+        ]));
+
+        $data_productos = $request->safe()->only([
+            'productos',
+            'produccion_total_mensual',
+            'porcentage_exportacion',
+            'mercado_exportacion'
+        ]);
+
+        foreach ($data_productos['productos'] as $key => $producto_id) {
+            $pivot_data[$producto_id] = [
+                'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
+                'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
+                'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
+            ];
+        }
+
+        $afiliado->productos()->sync($pivot_data);
+        $afiliado->servicios()->sync($request->input('servicios'));
+        $afiliado->materias_primas()->sync($request->input('materias_primas'));
+        $afiliado->referencias()->sync($request->input('afiliados'));
+
+        return redirect()->route('afiliados.index')->with('success', 'Se actualizo la información del afiliado');
     }
 
     /**
@@ -99,13 +144,14 @@ class AfiliadosController extends Controller
      */
     public function destroy(Afiliado $afiliado)
     {
+        // return $afiliado->toArray();
         $afiliado->update([
-            'estado' => false
+            'estado' => 0
         ]);
 
         return redirect()
-                ->route('afiliados.index')
-                ->with('success', 'Se elimino el afiliado correctamente.');
+            ->route('afiliados.index')
+            ->with('success', 'Se elimino el afiliado correctamente.');
     }
 
     public function requestForm() {

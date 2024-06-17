@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Servicios')
 @section('content')
-<div style="height: 80px;"></div>
+<div style="height: 200px;"></div>
 
 <!-- section -->
 <section class="section">

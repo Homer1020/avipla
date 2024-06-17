@@ -7,6 +7,7 @@ use App\Models\Actividad;
 use App\Models\Afiliado;
 use App\Models\MateriaPrima;
 use App\Models\Producto;
+use App\Models\Role;
 use App\Models\Servicio;
 use App\Models\SolicitudAfiliado;
 use App\Models\User;
@@ -99,6 +100,9 @@ class AuthController extends Controller
             'email'     => $data_user['email'],
             'password'  => bcrypt($data_user['password']),
         ]);
+
+        $afiliado_role = Role::firstOrCreate(['name' => 'afiliado']);
+        $user->roles()->sync($afiliado_role);
 
         $afiliado = $user->afiliado()->create($payload);
 

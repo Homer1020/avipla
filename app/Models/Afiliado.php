@@ -19,7 +19,8 @@ class Afiliado extends Model
         'relacion_comercio_exterior',
         'correo',
         'confirmation_code',
-        'siglas'
+        'siglas',
+        'estado'
     ];
 
     public function user() {

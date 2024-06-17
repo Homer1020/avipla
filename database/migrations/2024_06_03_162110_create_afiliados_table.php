@@ -27,7 +27,7 @@ return new class extends Migration
                 ->on('actividades')
                 ->onDelete('SET NULL')
                 ->onUpdate('CASCADE');
-            $table->boolean('estado')->default(true); // -> estado del afiliado
+            $table->boolean('estado')->default(1); // -> estado del afiliado
             $table->string('razon_social');
             $table->string('rif')->unique();
             $table->string('siglas');

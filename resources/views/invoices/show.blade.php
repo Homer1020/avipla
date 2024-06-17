@@ -57,7 +57,7 @@
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Correo:</span>
-                <a href="mailto:{{ $invoice->afiliado->correo }}">{{ $invoice->afiliado->correo }}</a>
+                <a href="mailto:{{ $invoice->afiliado->user->email }}">{{ $invoice->afiliado->user->email }}</a>
             </li>
         </ul>
     </div>

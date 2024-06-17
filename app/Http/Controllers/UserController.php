@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->get();
+        $users = User::with('roles')->latest()->get();
         return view('users.index', compact('users'));
     }
 
@@ -21,7 +22,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $user = new User();
+        $roles = Role::all();
+        return view('users.create', compact('user', 'roles'));
     }
 
     /**
@@ -29,7 +32,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
@@ -43,9 +46,10 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(User $user)
     {
-        //
+        $roles = Role::all();
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**

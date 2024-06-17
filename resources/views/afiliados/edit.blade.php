@@ -12,7 +12,7 @@
     <li class="breadcrumb-item active">Modificar afiliado</li>
   </ol>
 
-  <form action="{{ route('afiliados.update', $afiliado) }}" method="POST">
+  <form novalidate action="{{ route('afiliados.update', $afiliado) }}" method="POST">
     @csrf
     @method('PUT')
     <div class="card mb-4">
@@ -115,7 +115,7 @@
       })
 
       $('#productos').on('select2:unselect', function (e) {
-        const parameter = e.params.data.text
+        const parameter = e.params.data.text.trim()
         $(`#producto-${ parameter.toLowerCase().replace(' ', '-') }`).remove()
       });
     })

@@ -17,6 +17,7 @@ class RoleSeeder extends Seeder
             ['name' => 'usuario'],
             ['name' => 'editor'],
             ['name' => 'administrador'],
+            ['name' => 'afiliado'],
         ]);
     }
 }

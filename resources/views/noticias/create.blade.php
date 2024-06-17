@@ -99,8 +99,7 @@
     <script>
         $(document).ready(function() {
             $('#categoria_id').select2({
-                theme: 'bootstrap-5',
-                tags: true
+                theme: 'bootstrap-5'
             })
         })
         $('#contenido').summernote({

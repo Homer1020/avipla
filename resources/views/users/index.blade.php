@@ -37,10 +37,6 @@
                     @endforeach
                 </td>
                 <td style="white-space: nowrap">
-                    <a href="{{ route('users.show', $user) }}" class="btn btn-primary">
-                    <i class="fa fa-eye"></i>
-                    Detalles
-                    </a>
                     <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
                     @csrf
                     @method('DELETE')
