@@ -43,19 +43,11 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Category $category)
     {
-        //
+        return view('categorias.edit', compact('category'));
     }
 
     /**
@@ -63,7 +55,16 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $payload = $request->validate([
+            'display_name'  => 'required|string|unique:categories,display_name,' . $category->id
+        ]);
+
+        $slug = Str::slug($request->input('display_name'), "-");
+        $payload['name'] = $slug;
+
+        $category->update($payload);
+
+        return redirect()->route('categories.index')->with('success', 'Se actualizo la categoría correctamente.');
     }
 
     /**
@@ -71,6 +72,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index')->with('success', 'Se elimino la categoría correctamente.');
     }
 }

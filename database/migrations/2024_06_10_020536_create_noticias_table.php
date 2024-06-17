@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table
                 ->foreignId('categoria_id')
+                ->nullable()
                 ->references('id')
                 ->on('categories')
-                ->onDelete('RESTRICT')
+                ->onDelete('SET NULL')
                 ->onUpdate('CASCADE');
             $table
                 ->foreignId('user_id')

@@ -13,27 +13,27 @@
       <p class="fw-bold text-uppercase text-muted">Datos de la empresa</p>
       <ul class="list-group mb-3">
         <li class="list-group-item">
-          <span class="fw-bold d-block">Razón social: </span>
+          <span class="fw-bold">Razón social: </span>
           {{ $afiliado->razon_social }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">RIF: </span>
+          <span class="fw-bold">RIF: </span>
           {{ $afiliado->rif }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Página web: </span>
+          <span class="fw-bold">Página web: </span>
           <a href="{{ $afiliado->pagina_web }}">{{ $afiliado->pagina_web }}</a>
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Actividad principal: </span>
+          <span class="fw-bold">Actividad principal: </span>
           {{ $afiliado->actividad->actividad }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Relaciones de comercio exterior: </span>
+          <span class="fw-bold">Relaciones de comercio exterior: </span>
           {{ $afiliado->relacion_comercio_exterior }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Estado: </span>
+          <span class="fw-bold">Estado: </span>
           @if ($afiliado->estado)
             <span class="badge bg-success">Activo</span>
           @else
@@ -44,29 +44,60 @@
       <p class="fw-bold text-uppercase text-muted">Direcciones</p>
       <ul class="list-group mb-3">
         <li class="list-group-item">
-          <span class="fw-bold d-block">Dirección (oficina): </span>
+          <span class="fw-bold">Dirección (oficina): </span>
           {{ $afiliado->direccion->direccion_oficina }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Ciudad / estado (oficina): </span>
+          <span class="fw-bold">Ciudad / estado (oficina): </span>
           {{ $afiliado->direccion->ciudad_oficina }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Teléfono (oficina): </span>
+          <span class="fw-bold">Teléfono (oficina): </span>
           {{ $afiliado->direccion->telefono_oficina }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Dirección (planta): </span>
+          <span class="fw-bold">Dirección (planta): </span>
           {{ $afiliado->direccion->direccion_planta }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Ciudad / estado (planta): </span>
+          <span class="fw-bold">Ciudad / estado (planta): </span>
           {{ $afiliado->direccion->ciudad_planta }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Teléfono (planta): </span>
+          <span class="fw-bold">Teléfono (planta): </span>
           {{ $afiliado->direccion->telefono_planta }}
         </li>
+      </ul>
+
+      <p class="fw-bold text-uppercase text-muted">Principales materias primas utilizadas</p>
+      <ul class="list-group mb-3">
+        @foreach ($afiliado->materias_primas as $materia_prima)
+          <li class="list-group-item">
+            {{ $materia_prima->materia_prima }}
+          </li>
+        @endforeach
+      </ul>
+
+      <p class="fw-bold text-uppercase text-muted">Servicios prestados</p>
+      <ul class="list-group mb-3">
+        @foreach ($afiliado->servicios as $servicio)
+          <li class="list-group-item">
+            {{ $servicio->nombre_servicio }}
+          </li>
+        @endforeach
+      </ul>
+
+      <p class="fw-bold text-uppercase text-muted">Empresas asociadas a AVIPLA que la refieren</p>
+      <ul class="list-group mb-3">
+        @forelse ($afiliado->referencias as $referencia)
+          <li class="list-group-item">
+            {{ $referencia->razon_social }}
+          </li>
+        @empty
+          <li class="list-group-item list-group-item-info">
+            Sin referencias
+          </li>
+        @endforelse
       </ul>
     </div>
     <div class="col-lg-6">
@@ -76,11 +107,11 @@
         @php
           $afiliado->load('user');    
         @endphp
-          <li class="list-group-item"><span class="fw-bold d-block">Encargado:</span> {{ $afiliado->user->name }}</li>
-          <li class="list-group-item"><span class="fw-bold d-block">Correo del encargado:</span> <a href="mailto:{{ $afiliado->user->email }}">{{ $afiliado->user->email }}</a></li>
+          <li class="list-group-item"><span class="fw-bold">Encargado:</span> {{ $afiliado->user->name }}</li>
+          <li class="list-group-item"><span class="fw-bold">Correo del encargado:</span> <a href="mailto:{{ $afiliado->user->email }}">{{ $afiliado->user->email }}</a></li>
         @else
           <li class="list-group-item">
-            <span class="fw-bold d-block">Solicitar registro por correo:</span>
+            <span class="fw-bold">Solicitar registro por correo:</span>
             <form action="{{ route('afiliados.sendConfirmationEmail', $afiliado) }}" method="POST">
               @csrf
               <button type="submit" class="btn btn-success mt-2">
@@ -113,41 +144,60 @@
       <p class="fw-bold text-uppercase text-muted">Datos del personal</p>
       <ul class="list-group mb-3">
         <li class="list-group-item">
-          <span class="fw-bold d-block">Correo del presidente: </span>
+          <span class="fw-bold">Correo del presidente: </span>
           {{ $afiliado->personal->correo_presidente }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Correo del gerente general: </span>
+          <span class="fw-bold">Correo del gerente general: </span>
           {{ $afiliado->personal->correo_gerente_general }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Correo del gerente de compras: </span>
+          <span class="fw-bold">Correo del gerente de compras: </span>
           {{ $afiliado->personal->correo_gerente_compras }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Correo del gerente de mercadeo y/o ventas: </span>
+          <span class="fw-bold">Correo del gerente de mercadeo y/o ventas: </span>
           {{ $afiliado->personal->correo_gerente_marketing_ventas }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Correo del gerente de planta: </span>
+          <span class="fw-bold">Correo del gerente de planta: </span>
           {{ $afiliado->personal->correo_gerente_planta }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Correo del gerente de recursos humanos: </span>
+          <span class="fw-bold">Correo del gerente de recursos humanos: </span>
           {{ $afiliado->personal->correo_gerente_recursos_humanos }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Correo del administrador: </span>
+          <span class="fw-bold">Correo del administrador: </span>
           {{ $afiliado->personal->correo_administrador }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Correo del gerente de exportaciones: </span>
+          <span class="fw-bold">Correo del gerente de exportaciones: </span>
           {{ $afiliado->personal->correo_gerente_exportaciones }}
         </li>
         <li class="list-group-item">
-          <span class="fw-bold d-block">Correo del representante ante AVIPLA: </span>
+          <span class="fw-bold">Correo del representante ante AVIPLA: </span>
           {{ $afiliado->personal->correo_representante_avipla }}
         </li>
+      </ul>
+
+      <p class="fw-bold text-uppercase text-muted">Linea de productos</p>
+      <ul class="list-group mb-3">
+        @foreach ($afiliado->productos as $producto)
+          <li class="list-group-item">
+            <span class="fw-bold">Producto: </span>
+            {{ $producto->nombre }}
+            <br>
+            <span class="fw-bold">Producción total mensual (TM): </span>
+            {{ $producto->pivot->produccion_total_mensual }}
+            <br>
+            <span class="fw-bold">Porcentaje destinados a exportación: </span>
+            {{ $producto->pivot->porcentage_exportacion }}
+            <br>
+            <span class="fw-bold">Mercados de importación / exportación: </span>
+            {{ $producto->pivot->mercado_exportacion }}
+          </li>
+        @endforeach
       </ul>
     </div>
   </div>
@@ -179,6 +229,5 @@
         if (result.isConfirmed) form.submit()
       })
     }
-
   </script>
 @endpush

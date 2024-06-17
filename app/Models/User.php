@@ -54,4 +54,8 @@ class User extends Authenticatable
     public function noticias() {
         return $this->hasMany(Noticia::class);
     }
+
+    public function roles() {
+        return $this->belongsToMany(Role::class);
+    }
 }

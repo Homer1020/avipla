@@ -29,6 +29,9 @@
         <div class="col-lg-11">
           <div class="card shadow">
             <div class="card-body p-4">
+              <div class="text-center mb-4">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA" width="100px">
+              </div>
               <h1 class="fs-3 fw-bold text-primary text-center mb-4 text-uppercase">Crear cuenta</h1>
 
               <form novalidate action="{{ route('auth.register') }}" method="POST">
@@ -110,6 +113,9 @@
                   </div>
                 </div>
               </form>
+            </div>
+            <div class="card-footer p-4">
+              <p class="text-muted m-0 text-center">© 2024 AVIPLA. Todos los derechos reservados.</p>
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@
     <li class="breadcrumb-item active">Crear Categoría</li>
   </ol>
 
-  <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ route('categories.store') }}" method="POST">
     @csrf
     <div class="card mb-4">
       <div class="card-body">

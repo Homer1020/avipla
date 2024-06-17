@@ -30,6 +30,17 @@ class AfiliadosController extends Controller
      */
     public function show(Afiliado $afiliado)
     {
+        $afiliado->load([
+            'user',
+            'invoices',
+            'direccion',
+            'productos',
+            'materias_primas',
+            'servicios',
+            'referencias',
+            'personal',
+            'actividad'
+        ]);
         return view('afiliados.show', compact('afiliado'));
     }
 

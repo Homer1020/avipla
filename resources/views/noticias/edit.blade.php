@@ -46,7 +46,7 @@
                         >{{ $noticia->contenido }}</textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Crear noticia</button>
+                    <button type="submit" class="btn btn-primary">Guardar noticia</button>
                 </div>
             </div>
         </div>

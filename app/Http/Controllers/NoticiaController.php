@@ -7,6 +7,7 @@ use App\Models\Noticia;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class NoticiaController extends Controller
@@ -37,7 +38,7 @@ class NoticiaController extends Controller
         $payload = $request->validate([
             'titulo'        => 'required|string|unique:noticias,titulo',
             'contenido'     => 'required|string',
-            'categoria_id'  => 'required',
+            'categoria_id'  => 'nullable',
             'thumbnail'     => 'required|file|image|mimes:jpeg,jpg,png|max:2048'
         ]);
 
@@ -82,7 +83,29 @@ class NoticiaController extends Controller
      */
     public function update(Request $request, Noticia $noticia)
     {
-        //
+        $payload = $request->validate([
+            'titulo'        => 'required|string|unique:noticias,titulo,' . $noticia->id,
+            'contenido'     => 'required|string',
+            'categoria_id'  => 'nullable',
+            'thumbnail'     => 'file|image|mimes:jpeg,jpg,png|max:2048'
+        ]);
+
+        if($request->hasFile('thumbnail') && Storage::fileExists($noticia->thumbnail)) {
+            Storage::delete($noticia->thumbnail);
+            $path = $request->file('thumbnail')->store('public/noticias');
+            $payload['thumbnail'] = $path;
+        }
+
+        if($request->input('save_draft')) {
+            $payload['estatus'] = 'DRAFT';
+        }
+
+        $slug = Str::slug($request->input('titulo'), "-");
+        $payload['slug'] = $slug;
+
+        $noticia->update($payload);
+
+        return redirect()->route('noticias.index')->with('success', 'Se actualizo la noticia correctamente.');
     }
 
     /**
@@ -90,6 +113,12 @@ class NoticiaController extends Controller
      */
     public function destroy(Noticia $noticia)
     {
-        return 'In work';
+        if(Storage::fileExists($noticia->thumbnail)) {
+            Storage::delete($noticia->thumbnail);
+        }
+
+        $noticia->delete();
+
+        return redirect()->route('noticias.index')->with('success', 'Se elimino la noticia correctamente.');
     }
 }

@@ -42,8 +42,8 @@
           </div>
           <div class="tab-pane" id="messages" role="tabpanel" tabindex="0">
             @include('afiliados.form.products')
-            <button class="btn btn-success mt-4" type="submit">Guardar afiliado</button>
           </div>
+          <button class="btn btn-success" type="submit">Guardar afiliado</button>
         </div>
       </div>
     </div>

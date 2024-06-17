@@ -22,6 +22,7 @@
             <th>ID</th>
             <th>Categoría</th>
             <th>Slug</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,21 @@
                     <td>#{{ $categoria->id }}</td>
                     <td>{{ $categoria->display_name }}</td>
                     <td>{{ $categoria->name }}</td>
+                    <td style="white-space: nowrap">
+                      <form action="{{ route('categories.destroy', $categoria) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger">
+                          <i class="fa fa-trash"></i>
+                          Eliminar
+                      </button>
+                      </form>
+
+                      <a href="{{ route('categories.edit', $categoria) }}" class="btn btn-warning">
+                      <i class="fa fa-pen"></i>
+                      Editar
+                      </a>
+                  </td>
                 </tr>
             @endforeach
         </tbody>

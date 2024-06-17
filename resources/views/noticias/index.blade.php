@@ -37,7 +37,11 @@
               </td>
               <td>{{ $noticia->created_at }}</td>
               <td>
-                <span class="badge bg-primary">{{ $noticia->categoria->display_name }}</span>
+                @if ($noticia->categoria)
+                  <span class="badge bg-primary">{{ $noticia->categoria->display_name }}</span>
+                @else
+                  <span class="badge bg-secondary">Sin categoría</span>
+                @endif
               </td>
               <td>
                 @if ($noticia->estatus === 'PUBLISHED')

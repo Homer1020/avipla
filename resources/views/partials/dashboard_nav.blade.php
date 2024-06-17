@@ -29,9 +29,9 @@
                     "
                     href="#"
                     data-bs-toggle="collapse"
-                    data-bs-target="#collapsePages"
+                    data-bs-target="#newsPage"
                     aria-expanded="false"
-                    aria-controls="collapsePages"
+                    aria-controls="newsPage"
                 >
                     <div class="sb-nav-link-icon"><i class="fas fa-newspaper"></i></div>
                     Noticias
@@ -46,13 +46,50 @@
                             : ''
                         }}
                     "
-                    id="collapsePages"
+                    id="newsPage"
                     aria-labelledby="headingTwo"
                     data-bs-parent="#sidenavAccordion"
                 >
                     <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                         <a href="{{ route('noticias.index') }}" class="nav-link {{ request()->routeIs('noticias.*') ? 'active' : '' }}">Todas las noticias</a>
                         <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">Categorías</a>
+                    </nav>
+                </div>
+                <a
+                    class="
+                        nav-link
+                        {{
+                            request()->routeIs('users.*') || request()->routeIs('roles.*')
+                            ? ''
+                            : 'collapsed'
+                        }}
+                    "
+                    href="#"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#usersPage"
+                    aria-expanded="false"
+                    aria-controls="usersPage"
+                >
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    Usuarios
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div
+                    class="
+                        collapse
+                        {{
+                            (request()->routeIs('users.*') || request()->routeIs('roles.*'))
+                            ? 'show'
+                            : ''
+                        }}
+                    "
+                    id="usersPage"
+                    aria-labelledby="headingTwo"
+                    data-bs-parent="#sidenavAccordion"
+                >
+                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                        <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">Todos los usuarios</a>
+                        <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}">Roles</a>
                     </nav>
                 </div>
             @endif

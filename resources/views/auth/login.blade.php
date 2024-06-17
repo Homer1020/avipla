@@ -27,11 +27,13 @@
         <div class="col-lg-5">
           <div class="card shadow">
             <div class="card-body p-5">
-              {{-- <img src="{{ asset('assets/img/avatar.webp') }}" alt="Avatar" width="100" class="d-block mx-auto mb-3"> --}}
-
-              <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-3 mx-auto" style="height: 6rem; width: 6rem;">
-                <i class="fa fa-user fa-2x text-white"></i>
+              <div class="text-center mb-4">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA" width="100px">
               </div>
+
+              {{-- <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-3 mx-auto" style="height: 6rem; width: 6rem;">
+                <i class="fa fa-user fa-2x text-white"></i>
+              </div> --}}
 
               <h1 class="fs-3 text-center text-primary mb-4">Iniciar sesión</h1>
 
@@ -62,8 +64,11 @@
                 </div>
                 <!-- /correo -->
 
-                <input type="submit" value="Iniciar sesión" class="btn btn-primary mt-4">
+                <input type="submit" value="Iniciar sesión" class="btn btn-primary">
               </form>
+            </div>
+            <div class="card-footer py-4">
+              <p class="text-muted m-0 text-center">© 2024 AVIPLA. Todos los derechos reservados.</p>
             </div>
           </div>
         </div>

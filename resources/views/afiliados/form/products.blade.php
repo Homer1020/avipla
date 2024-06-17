@@ -46,7 +46,7 @@
       <div class="col-lg-4 mb-3">
         <input
           type="number"
-          placeholder=" Porcentaje destinados a exportación"
+          placeholder="Porcentaje destinados a exportación"
           name="porcentage_exportacion[]"
           class="form-control @error("porcentage_exportacion.$key") is-invalid @enderror"
           value="{{ old('porcentage_exportacion') ? old('porcentage_exportacion')[$key] : $producto->pivot->porcentage_exportacion }}"
@@ -120,8 +120,12 @@
     data-placeholder="Seleccione uno o varios afiliados"
   >
     <option></option>
-    @foreach ($afiliados as $afiliado)
-      <option value="{{ $afiliado->id }}">{{ $afiliado->razon_social }}</option>
+    @foreach ($afiliados as $referencia)
+      <option
+        {{ in_array($referencia->id, old('afiliados', $afiliado->referencias ? $afiliado->referencias->pluck(['id'])->all() : [])) ? 'selected' : '' }}
+        value="{{ $referencia->id }}">
+        {{ $referencia->razon_social }}
+      </option>
     @endforeach
   </select>
   @error('afiliados')

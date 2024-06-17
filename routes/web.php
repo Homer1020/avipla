@@ -9,6 +9,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -45,8 +47,13 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
     ->except(['create', 'store']);
 });
 
-// Route::post('correo_afiliado/{afiliado}', [AfiliadosController::class, 'sendConfirmationEmail'])
-//   ->name('afiliados.sendConfirmationEmail');
+Route::resource('usuarios', UserController::class)
+  ->middleware('auth')
+  ->parameters(['usuarios' => 'user'])
+  ->names('users');
+
+Route::resource('roles', RoleController::class)
+  ->middleware('auth');
 
 Route::resource('boletines', BoletinesController::class);
 
@@ -55,13 +62,15 @@ Route::resource('notificaciones', NotificationController::class)
   ->middleware(['auth', 'is_admin']);
 Route::resource('facturas', InvoiceController::class)
   ->names('invoices')
-  ->parameters([ 'facturas' => 'invoice' ])
+  ->parameters(['facturas' => 'invoice'])
   ->middleware(['auth', 'is_admin']);
 Route::resource('noticias', NoticiaController::class)
   ->middleware(['auth', 'is_admin']);
 
 Route::resource('categorias', CategoryController::class)
   ->names('categories')
+  ->parameters(['categorias' => 'category'])
+  ->except(['show'])
   ->middleware(['auth', 'is_admin']);
 
 /**
