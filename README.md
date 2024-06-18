@@ -1,66 +1,57 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Sistema de gestión de agremiados para la asociación venezolana de plástico.
+El sistema CRM se presenta como una herramienta valiosa para optimizar la gestión de afiliados de la Asociación Venezolana de Plástico, mejorando la comunicación, la organización y la eficiencia en el manejo de información.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**Objetivo:**
 
-## About Laravel
+-   Gestionar afiliados de la Asociación Venezolana de Plástico de manera eficiente y centralizada.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Beneficios:**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   Elimina la gestión de datos de pagos y boletines por WhatsApp.
+-   Centraliza la información en un sistema seguro y accesible.
+-   Facilita la comunicación entre la asociación y los afiliados.
+-   Permite la suspensión de cuentas de afiliados morosos.
+-   Ofrece a los afiliados un portal para gestionar su cuenta y acceder a información relevante.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Funcionalidades:**
 
-## Learning Laravel
+-   **Para afiliados:**
+    -   Visualización de estado de cuenta.
+    -   Consulta de facturas y pagos.
+    -   Recepción de notificaciones y boletines.
+    -   Modificación de datos de empresa.
+    -   Envío de mensajes a la asociación.
+-   **Para administradores:**
+    -   Creación de notificaciones, boletines y noticias.
+    -   Consulta de datos de afiliados (incluidos estados de cuenta).
+    -   Suspensión de cuentas de afiliados.
+    -   Edición de información del sitio web.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Levantar el proyecto en local
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+> Debemos de tener una versión de PHP mayor o igual a la 8.2.0
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+**Clonamos el repositorio:**
 
-## Laravel Sponsors
+    git clone https://github.com/Homer1020/avipla.git
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+**Instalamos las dependencias de composer:**
 
-### Premium Partners
+    composer install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+**Migramos la base de datos:**
 
-## Contributing
+El siguiente comando además de crear la estructura de la base de datos, la llena con datos de ejemplo.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    php artisan migrate --seed
 
-## Code of Conduct
+**Configuramos las variables de entorno:**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+A partir del archivo .env.example creamos nuestro .env y configuramos según sea conveniente.
 
-## Security Vulnerabilities
+**Iniciamos nuestro servidor PHP :**
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Podemos ingresar a la ruta http://todominio.test/login para poder iniciar sesión con los siguientes datos:
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+ - Correo: admin@admin.com
+ - Password: admin123
