@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +14,13 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
+        $user = User::create([
             'email'     => 'homermoncallo@gmail.com',
             'password'  => bcrypt('admin123'),
-            'name'      => 'Homer Moncayo',
-            'is_admin'  => true
+            'name'      => 'Homer Moncayo'
         ]);
+
+        $afiliado_role = Role::firstOrCreate(['name' => 'administrador']);
+        $user->roles()->sync($afiliado_role);
     }
 }

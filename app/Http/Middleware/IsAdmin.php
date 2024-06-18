@@ -16,8 +16,8 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $current_user = Auth::user();
-        if($current_user->is_admin) { return $next($request); }
+        $user = Auth::user();
+        if($user->roles->first()->name === 'administrador') { return $next($request); }
         return redirect('dashboard')->with('error', 'Acción no permitida.');
     }
 }

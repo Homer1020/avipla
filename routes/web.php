@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PagoController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -63,7 +64,7 @@ Route::resource('notificaciones', NotificationController::class)
 Route::resource('facturas', InvoiceController::class)
   ->names('invoices')
   ->parameters(['facturas' => 'invoice'])
-  ->middleware(['auth', 'is_admin']);
+  ->middleware('auth');
 Route::resource('noticias', NoticiaController::class)
   ->middleware(['auth', 'is_admin']);
 
@@ -73,9 +74,12 @@ Route::resource('categorias', CategoryController::class)
   ->except(['show'])
   ->middleware(['auth', 'is_admin']);
 
+Route::resource('pagos', PagoController::class)
+  ->middleware(['auth']);
+
 /**
  * MANAGE FILES
  */
 Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
-  ->middleware(['auth', 'is_admin'])
+  ->middleware(['auth'])
   ->name('files.getFile');

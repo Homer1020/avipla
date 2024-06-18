@@ -36,23 +36,28 @@
               <td>{{ $solicitud->correo }}</td>
               <td style="white-space: nowrap">
                 @if ($solicitud->afiliado)
-                  <a href="{{ route('afiliados.show', $solicitud->afiliado) }}" class="btn btn-primary">
-                    <i class="fa fa-eye"></i>
-                    Detalles
-                  </a>
-                  <form action="{{ route('afiliados.destroy', $solicitud->afiliado) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">
-                      <i class="fa fa-trash"></i>
-                      Eliminar
-                    </button>
-                  </form>
-
-                  <a href="{{ route('afiliados.edit', $solicitud->afiliado) }}" class="btn btn-warning">
-                    <i class="fa fa-pen"></i>
-                    Editar
-                  </a>
+                  @can('view', $solicitud->afiliado)
+                    <a href="{{ route('afiliados.show', $solicitud->afiliado) }}" class="btn btn-primary">
+                      <i class="fa fa-eye"></i>
+                      Detalles
+                    </a>
+                  @endcan
+                  @can('delete', $solicitud->afiliado)
+                    <form action="{{ route('afiliados.destroy', $solicitud->afiliado) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                        Eliminar
+                      </button>
+                    </form>
+                  @endcan
+                  @can('update', $solicitud->afiliado)
+                    <a href="{{ route('afiliados.edit', $solicitud->afiliado) }}" class="btn btn-warning">
+                      <i class="fa fa-pen"></i>
+                      Editar
+                    </a>
+                  @endcan
                 @else
                   <div class="alert alert-info m-0">
                     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

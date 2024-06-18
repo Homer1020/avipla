@@ -1,17 +1,14 @@
 @extends('layouts.dashboard')
-@section('title', 'Facturas')
+@section('title', 'Estado de cuenta')
 @push('css')
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 @endpush
 @section('content')
-  <h1 class="mt-4">Facturas</h1>
+  <h1 class="mt-4">Estado de cuenta</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Facturas</li>
+    <li class="breadcrumb-item active">Estado de cuenta</li>
   </ol>
-  <div class="mb-4">
-    <a href="{{ route('invoices.create') }}" class="btn btn-primary">Generar factura</a>
-  </div>
 
   <div class="card">
     <div class="card-body">
@@ -20,7 +17,6 @@
           <tr>
             <th>ID</th>
             <th>Fecha</th>
-            <th>Empresa</th>
             <th>Estado</th>
             <th>Monto</th>
             <th>Acciones</th>
@@ -33,11 +29,6 @@
               <td>#{{ $invoice->id }}</td>
               <td>{{ $invoice->created_at }}</td>
               <td>
-                <span class="text-truncate d-inline-block" style="max-width: 150px">
-                  {{ $invoice->afiliado->razon_social }}
-                </span>
-              </td>
-              <td>
                 <div class="badge bg-warning">
                   {{ $invoice->estado }}
                 </div>
@@ -45,6 +36,14 @@
               <td>{{ $invoice->monto_total }}$</td>
               <td>
                 @can('view', $invoice)
+                @can('create', App\Models\Pago::class)
+                    <form action="#" class="d-inline-block">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-file-invoice"></i>
+                            Pagar factura
+                        </button>
+                    </form>
+                @endcan
                   <a class="btn btn-success" href="{{ route('invoices.show', $invoice) }}">
                     <i class="fa fa-eye"></i>
                     Detalles
@@ -95,7 +94,7 @@
 
     new DataTable('#invoices-table', {
       columnDefs: [
-        { orderable: false, targets: 5 },
+        { orderable: false, targets: 4 },
       ],
       order: false,
       language: {
