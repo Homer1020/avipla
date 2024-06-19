@@ -141,6 +141,10 @@ a {
                 backdrop-filter ease .2s;
 }
 
+.header-separator {
+    height: 200px;
+}
+
 #header.fixed {
     background-color: rgba(255, 255, 255, .7);
     backdrop-filter: blur(5px);
@@ -148,6 +152,16 @@ a {
 
 #header .navbar-brand img {
     transition: width ease .2s;
+}
+
+@media (max-width: 678px) {
+    #header .navbar-brand img {
+        width: 90px;
+    }
+
+    .header-separator {
+        height: 90px;
+    }
 }
 
 #header.fixed .navbar-brand img {

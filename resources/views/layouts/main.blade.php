@@ -99,7 +99,7 @@
                 <div class="row justify-content-center">
                     <div class="offset-md-3 col-md-4">
                         <div class="text-center">
-                            <img src="./assets/img/logowhite.png" alt="Logo" width="100">
+                            <img src="/assets/img/logowhite.png" alt="Logo" width="100">
                         </div>
                     </div>
 

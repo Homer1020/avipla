@@ -43,50 +43,59 @@
                         <textarea
                             id="contenido"
                             name="contenido"
-                        ></textarea>
+                        >{{ old('contenido') }}</textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Crear noticia</button>
-                    <button type="submit" name="save_draft" value="save_draft" class="btn btn-outline-primary">Guardar borrador</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-file-alt"></i>
+                        Publicar
+                    </button>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="card card-body">
-                <p class="text-uppercase fw-bold text-muted">Otros datos</p>
-                <div class="mb-3">
-                    <label for="categoria_id" class="form-label">Categoría</label>
-                    <select
-                        name="categoria_id"
-                        id="categoria_id"
-                        class="selectpicker w-100 @error('categoria_id') is-invalid @enderror"
-                        data-placeholder="Seleccione una categoría"
-                    >
-                        <option></option>
-                        @foreach ($categorias as $categoria)
-                            <option
-                                @selected(intval(old('categoria_id')) === $categoria->id)
-                                value="{{ $categoria->id }}"
-                            >{{ $categoria->display_name }}</option>
-                        @endforeach
-                    </select>
-                    @error('categoria_id')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="text-uppercase fw-bold text-muted">Otros datos</p>
+                    <div class="mb-3">
+                        <label for="categoria_id" class="form-label">Categoría</label>
+                        <select
+                            name="categoria_id"
+                            id="categoria_id"
+                            class="selectpicker w-100 @error('categoria_id') is-invalid @enderror"
+                            data-placeholder="Seleccione una categoría"
+                        >
+                            <option></option>
+                            @foreach ($categorias as $categoria)
+                                <option
+                                    @selected(intval(old('categoria_id')) === $categoria->id)
+                                    value="{{ $categoria->id }}"
+                                >{{ $categoria->display_name }}</option>
+                            @endforeach
+                        </select>
+                        @error('categoria_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                <div class="mb-3">
-                    <label for="thumbnail" class="form-label">Imagen principal</label>
-                    <input
-                        accept="image/*"
-                        type="file"
-                        name="thumbnail"
-                        id="thumbnail"
-                        class="form-control @error('thumbnail') is-invalid @enderror"
-                    >
-                    @error('thumbnail')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <div class="mb-3">
+                        <label for="thumbnail" class="form-label">Imagen principal</label>
+                        <input
+                            accept="image/*"
+                            type="file"
+                            name="thumbnail"
+                            id="thumbnail"
+                            class="form-control @error('thumbnail') is-invalid @enderror"
+                        >
+                        @error('thumbnail')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <hr>
+                    <button type="submit" name="save_draft" value="save_draft" class="btn btn-outline-primary">
+                        <i class="fas fa-file-edit"></i>
+                        Guardar borrador
+                    </button>
                 </div>
             </div>
         </div>

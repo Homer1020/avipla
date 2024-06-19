@@ -58,4 +58,8 @@ class User extends Authenticatable
     public function roles() {
         return $this->belongsToMany(Role::class);
     }
+
+    public function is_admin(): bool {
+        return $this->roles()->first()->name === 'administrador';
+    }
 }

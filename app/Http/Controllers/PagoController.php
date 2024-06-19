@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Models\MetodoPago;
 use App\Models\Pago;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,7 +36,25 @@ class PagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $payload = $request->validate([
+            'metodo_pago_id'    => 'numeric|required|exists:metodos_pago,id',
+            'comprobante'       => 'file|required',
+            'invoice_id'        => 'numeric|required|exists:invoices,id'
+        ]);
+
+        $invoice = Invoice::where('id', $payload['invoice_id'])->first();
+
+        $this->authorize('view', $invoice); // todo change this policie for anyone more especific
+
+        Pago::create([
+            'metodo_pago_id'    => $payload['metodo_pago_id'],
+            'invoice_id'        => $payload['invoice_id'],
+            'comprobante'       => 'comprebante.png',
+        ]);
+
+        $invoice->update([ 'estado' => 'REVISION' ]);
+
+        return redirect()->route('pagos.index')->with('success', 'Pago realizado correctamente.');
     }
 
     /**
@@ -73,5 +92,11 @@ class PagoController extends Controller
     public function invoiceDetails(Invoice $invoice) {
         $this->authorize('view', $invoice);
         return view('pagos.invoice', compact('invoice'));
+    }
+
+    public function payInvoice(Invoice $invoice) {
+        $this->authorize('view', $invoice);
+        $metodos_pago = MetodoPago::all();
+        return view('pagos.create', compact('invoice', 'metodos_pago'));
     }
 }

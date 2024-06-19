@@ -29,19 +29,30 @@
               <td>#{{ $invoice->id }}</td>
               <td>{{ $invoice->created_at }}</td>
               <td>
-                <div class="badge bg-warning">
-                  {{ $invoice->estado }}
-                </div>
+                @switch($invoice->estado)
+                  @case('COMPLETADO')
+                    <div class="badge bg-success">
+                      {{ $invoice->estado }}
+                    </div>
+                    @break
+                  @case('PENDIENTE')
+                    <div class="badge bg-warning">
+                      {{ $invoice->estado }}
+                    </div>
+                    @break
+                  @default
+                    <div class="badge bg-secondary">
+                      {{ $invoice->estado }}
+                    </div>
+                @endswitch
               </td>
               <td>{{ $invoice->monto_total }}$</td>
               <td>
-                @can('create', App\Models\Pago::class)
-                    <form action="#" class="d-inline-block">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-file-invoice"></i>
-                            Pagar factura
-                        </button>
-                    </form>
+                @can('update', $invoice)
+                  <a href="{{ route('pagos.pay_invoice', $invoice) }}" type="submit" class="btn btn-primary">
+                    <i class="fas fa-file-invoice"></i>
+                    Pagar factura
+                  </a>
                 @endcan
                 @can('view', $invoice)
                   <a class="btn btn-success" href="{{ route('pagos.invoice', $invoice) }}">

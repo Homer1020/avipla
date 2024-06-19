@@ -38,9 +38,22 @@
                 </span>
               </td>
               <td>
-                <div class="badge bg-warning">
-                  {{ $invoice->estado }}
-                </div>
+                @switch($invoice->estado)
+                  @case('COMPLETADO')
+                    <div class="badge bg-success">
+                      {{ $invoice->estado }}
+                    </div>
+                    @break
+                  @case('PENDIENTE')
+                    <div class="badge bg-warning">
+                      {{ $invoice->estado }}
+                    </div>
+                    @break
+                  @default
+                    <div class="badge bg-secondary">
+                      {{ $invoice->estado }}
+                    </div>
+                @endswitch
               </td>
               <td>{{ $invoice->monto_total }}$</td>
               <td>

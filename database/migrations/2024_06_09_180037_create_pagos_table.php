@@ -25,7 +25,6 @@ return new class extends Migration
                 ->on('metodos_pago')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->integer('monto');
             $table->string('comprobante');
             $table->timestamps();
         });

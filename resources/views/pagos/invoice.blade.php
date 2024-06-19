@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 @section('title', 'Detalle Factura')
 @section('content')
-  <h1 class="mt-4">Detalle Factura</h1>
+  <h1 class="mt-4">Detalles del pago</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
-    <li class="breadcrumb-item active">Detalle del pago</li>
+    <li class="breadcrumb-item active">Detalles del pago</li>
   </ol>
   
   <div class="row">

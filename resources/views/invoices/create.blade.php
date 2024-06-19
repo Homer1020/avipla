@@ -56,6 +56,7 @@
                 name="documento"
                 id="documento"
                 class="form-control @error('documento') is-invalid @enderror"
+                accept=".pdf"
             >
             @error('documento')
                 <div class="invalid-feedback">{{ $message }}</div>

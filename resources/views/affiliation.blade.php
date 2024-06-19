@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Afiliación')
 @section('content')
-<div style="height: 200px;"></div>
+<div class="header-separator"></div>
 <!-- section -->
 <section class="section">
   <div class="container-md">

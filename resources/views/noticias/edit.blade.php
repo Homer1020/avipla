@@ -46,7 +46,15 @@
                         >{{ $noticia->contenido }}</textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Guardar noticia</button>
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fas fa-file-alt"></i>
+                        Publicar noticia
+                    </button>
+                    
+                    <button type="submit" name="save_draft" value="save_draft" class="btn btn-outline-primary">
+                        <i class="fas fa-file-edit"></i>
+                        Guardar borrador
+                    </button>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
         $user = Auth::user();
-        if($user->roles->first()->name === 'administrador') { return $next($request); }
+        if($user instanceof User && $user->is_admin()) { return $next($request); }
         return redirect('dashboard')->with('error', 'Acción no permitida.');
     }
 }

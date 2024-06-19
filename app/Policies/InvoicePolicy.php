@@ -21,7 +21,7 @@ class InvoicePolicy
      */
     public function view(User $user, Invoice $invoice): bool
     {
-        return $user->roles->first()->name === 'administrador' || $user->afiliado->id === $invoice->afiliado->id;
+        return $user->roles->first()->name === 'administrador' || $user->afiliado->id === $invoice->afiliado_id;
     }
 
     /**

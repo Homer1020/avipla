@@ -71,20 +71,28 @@
 
       <p class="fw-bold text-uppercase text-muted">Principales materias primas utilizadas</p>
       <ul class="list-group mb-3">
-        @foreach ($afiliado->materias_primas as $materia_prima)
+        @forelse ($afiliado->materias_primas as $materia_prima)
           <li class="list-group-item">
             {{ $materia_prima->materia_prima }}
           </li>
-        @endforeach
+        @empty
+          <li class="list-group-item list-group-item-info">
+            Sin materias primas
+          </li>
+        @endforelse
       </ul>
 
       <p class="fw-bold text-uppercase text-muted">Servicios prestados</p>
       <ul class="list-group mb-3">
-        @foreach ($afiliado->servicios as $servicio)
+        @forelse ($afiliado->servicios as $servicio)
           <li class="list-group-item">
             {{ $servicio->nombre_servicio }}
           </li>
-        @endforeach
+        @empty
+          <li class="list-group-item list-group-item-info">
+            Sin servicios
+          </li>
+        @endforelse
       </ul>
 
       <p class="fw-bold text-uppercase text-muted">Empresas asociadas a AVIPLA que la refieren</p>
@@ -183,7 +191,7 @@
 
       <p class="fw-bold text-uppercase text-muted">Linea de productos</p>
       <ul class="list-group mb-3">
-        @foreach ($afiliado->productos as $producto)
+        @forelse ($afiliado->productos as $producto)
           <li class="list-group-item">
             <span class="fw-bold">Producto: </span>
             {{ $producto->nombre }}
@@ -197,7 +205,11 @@
             <span class="fw-bold">Mercados de importación / exportación: </span>
             {{ $producto->pivot->mercado_exportacion }}
           </li>
-        @endforeach
+        @empty
+          <li class="list-group-item list-group-item-info">
+            Sin productos
+          </li>
+        @endforelse
       </ul>
     </div>
   </div>

@@ -26,7 +26,7 @@ class AfiliadosSeeder extends Seeder
             ]);
     
             $user = User::create([
-                'name'      => 'Ricardo Briceño',
+                'name'      => "Ricardo Briceño #{$i}",
                 'email'     => "ingenieroquero{$i}@gmail.com",    // Correo único para cada iteración
                 'password'  => bcrypt('admin123'),
             ]);

@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
     public function getFile(string $dir, string $path) {
+        $invoice = Invoice::where('documento', $path)->first();
+        
+        $this->authorize('view', $invoice);
+
         function mapExtensionToContentType(string $extension): string
         {
             $mappings = [

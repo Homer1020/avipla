@@ -25,7 +25,7 @@ return new class extends Migration
                 ->on('afiliados')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->enum('estado', ['PENDIENTE', 'COMPLETADO', 'CANCELADO'])->default('PENDIENTE');
+            $table->enum('estado', ['PENDIENTE', 'REVISION', 'COMPLETADO', 'CANCELADO'])->default('PENDIENTE');
             $table->string('numero_factura')->unique();
             $table->string('monto_total');
             $table->string('documento');

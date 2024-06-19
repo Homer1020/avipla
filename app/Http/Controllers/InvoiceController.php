@@ -76,7 +76,7 @@ class InvoiceController extends Controller
      */
     public function edit(Invoice $invoice)
     {
-        //
+        
     }
 
     /**
@@ -84,7 +84,6 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, Invoice $invoice)
     {
-        //
     }
 
     /**

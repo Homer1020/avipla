@@ -49,22 +49,27 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
 });
 
 Route::resource('usuarios', UserController::class)
-  ->middleware('auth')
+  ->middleware(['auth', 'is_admin'])
   ->parameters(['usuarios' => 'user'])
   ->names('users');
 
 Route::resource('roles', RoleController::class)
-  ->middleware('auth');
+  ->middleware(['auth', 'is_admin']);
 
 Route::resource('boletines', BoletinesController::class);
 
 Route::resource('notificaciones', NotificationController::class)
   ->names('notifications')
   ->middleware(['auth', 'is_admin']);
+
 Route::resource('facturas', InvoiceController::class)
   ->names('invoices')
   ->parameters(['facturas' => 'invoice'])
   ->middleware('auth');
+
+/**
+ * NEWS ROUTES
+ */
 Route::resource('noticias', NoticiaController::class)
   ->middleware(['auth', 'is_admin']);
 
@@ -74,10 +79,18 @@ Route::resource('categorias', CategoryController::class)
   ->except(['show'])
   ->middleware(['auth', 'is_admin']);
 
+/**
+ * PAYMENTS ROUTES
+ */
+Route::get('pagos/{invoice}/detalle', [PagoController::class, 'invoiceDetails'])
+  ->name('pagos.invoice');
+
+Route::get('pagos/{invoice}/pagar', [PagoController::class, 'payInvoice'])
+  ->name('pagos.pay_invoice');
+
 Route::resource('pagos', PagoController::class)
   ->middleware(['auth']);
-Route::get('pagos/detalle/{invoice}', [PagoController::class, 'invoiceDetails'])
-  ->name('pagos.invoice');
+
 
 /**
  * MANAGE FILES

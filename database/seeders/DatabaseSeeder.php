@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MateriaPrimaSeeder::class);
         $this->call(ServicioSeeder::class);
         $this->call(AfiliadosSeeder::class);
+        $this->call(MetodoPagoSeeder::class);
     }
 }
