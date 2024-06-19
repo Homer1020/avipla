@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AVIPLA | Iniciar sesión</title>
+  <title>AVIPLA | Recuperar contraseña</title>
   <!-- BOOTSTRAP -->
   <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
   <!-- FONT AWESOME -->
@@ -22,18 +22,16 @@
   <main class="auth-layout">
     <div class="container my-3">
       <div class="row justify-content-center">
-        <div class="col-lg-5 bg-auth rounded" style="background-image: url({{ asset('assets/img/botellas3.jpg') }})">
-        </div>
         <div class="col-lg-5">
           <div class="card shadow">
-            <div class="card-body px-5 py-4">
+            <div class="card-body p-5">
               <div class="text-center mb-4">
                 <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA" width="100px">
               </div>
 
-              <h1 class="fs-3 text-center text-primary mb-4">Iniciar sesión</h1>
+              <h1 class="fs-3 text-center text-primary mb-4">Recuperar contraseña</h1>
 
-              <form action="{{ route('auth.login') }}" method="POST">
+              <form action="{{ route('password.email') }}" method="POST">
                 @csrf
 
                 <!-- correo -->
@@ -48,23 +46,7 @@
                 </div>
                 <!-- /correo -->
 
-                <!-- correo -->
-                <div class="form-floating mb-3">
-                  <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="*******">
-                  <label for="password">Contraseña</label>
-                  @error('password')
-                    <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                  @enderror
-                </div>
-                <!-- /correo -->
-
-                <input type="submit" value="Iniciar sesión" class="btn btn-primary">
-
-                <p class="mb-0 mt-3">
-                  <a href="{{ route('password.request') }}">¿Olvidaste tu contraseña?</a>
-                </p>
+                <input type="submit" value="Enviar correo de recuperación" class="btn btn-primary text-center w-100">
               </form>
             </div>
             <div class="card-footer py-4">

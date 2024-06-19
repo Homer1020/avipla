@@ -32,6 +32,11 @@ Route::middleware('guest')->group(function() {
   Route::post('login', [AuthController::class, 'login'])->name('auth.login');
   Route::get('registro/{confirmation_code?}', [AuthController::class, 'registerForm'])->name('auth.registerForm');
   Route::post('register', [AuthController::class, 'register'])->name('auth.register');
+  
+  Route::view('/forgot-password', 'auth.forgot-password')->name('password.request');
+  Route::post('/forgot-password', [AuthController::class, 'sendPasswordEmail'])->name('password.email');
+  Route::get('/reset-password/{token}', [AuthController::class, 'resetPasswordForm'])->name('password.reset');
+  Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
 Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
