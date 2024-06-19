@@ -38,6 +38,8 @@ class PagoController extends Controller
     {
         $payload = $request->validate([
             'metodo_pago_id'    => 'numeric|required|exists:metodos_pago,id',
+            'monto'             => 'required|numeric',
+            'referencia'        => 'required',
             'comprobante'       => 'file|required',
             'invoice_id'        => 'numeric|required|exists:invoices,id'
         ]);
@@ -49,6 +51,8 @@ class PagoController extends Controller
         Pago::create([
             'metodo_pago_id'    => $payload['metodo_pago_id'],
             'invoice_id'        => $payload['invoice_id'],
+            'monto'             => $payload['monto'],
+            'referencia'        => $payload['referencia'],
             'comprobante'       => 'comprebante.png',
         ]);
 

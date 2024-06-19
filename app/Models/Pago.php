@@ -12,6 +12,12 @@ class Pago extends Model
     protected $fillable = [
         'comprobante',
         'metodo_pago_id',
-        'invoice_id'
+        'invoice_id',
+        'monto',
+        'referencia'
     ];
+
+    public function metodo_pago() {
+        return $this->belongsTo(MetodoPago::class);
+    }
 }

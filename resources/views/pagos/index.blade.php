@@ -47,21 +47,19 @@
                 @endswitch
               </td>
               <td>{{ $invoice->monto_total }}$</td>
-              <td>
-                @can('update', $invoice)
-                  <a href="{{ route('pagos.pay_invoice', $invoice) }}" type="submit" class="btn btn-primary">
-                    <i class="fas fa-file-invoice"></i>
-                    Pagar factura
-                  </a>
-                @endcan
+              <td>  
+                @if (!$invoice->pago)
+                  @can('update', $invoice)
+                    <a href="{{ route('pagos.pay_invoice', $invoice) }}" type="submit" class="btn btn-primary">
+                      <i class="fas fa-file-invoice"></i>
+                      Pagar factura
+                    </a>
+                  @endcan
+                @endif
                 @can('view', $invoice)
                   <a class="btn btn-success" href="{{ route('pagos.invoice', $invoice) }}">
                     <i class="fa fa-eye"></i>
                     Detalles
-                  </a>
-                  <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
-                    <i class="fa fa-file"></i>
-                    Documento
                   </a>
                 @endcan
               </td>

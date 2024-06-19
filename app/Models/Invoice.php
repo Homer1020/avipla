@@ -24,4 +24,8 @@ class Invoice extends Model
     public function afiliado() {
         return $this->belongsTo(Afiliado::class);
     }
+
+    public function pago() {
+        return $this->hasOne(Pago::class);
+    }
 }

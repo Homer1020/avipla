@@ -10,6 +10,30 @@
   
   <div class="row">
       <div class="col-lg-6">
+        @if ($invoice->pago)
+            @php
+                $pago = $invoice->pago;
+            @endphp
+            <p class="fw-bold text-uppercase text-muted">Datos del pago</p>
+            <ul class="list-group mb-4">
+                <li class="list-group-item">
+                    <span class="fw-bold">Método de pago:</span>
+                    {{ $pago->metodo_pago->metodo_pago }}
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Monto:</span>
+                    {{ $pago->monto }}$
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Referencia:</span>
+                    {{ $pago->referencia }}
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Fecha:</span>
+                    {{ $pago->created_at }}
+                </li>
+            </ul>
+        @endif
         <p class="fw-bold text-uppercase text-muted">Datos de factura</p>
         <ul class="list-group">
             <li class="list-group-item">
@@ -30,9 +54,22 @@
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Estado:</span>
-                <span class="badge bg-warning">
-                    {{ $invoice->estado }}
-                </span>
+                @switch($invoice->estado)
+                  @case('COMPLETADO')
+                    <div class="badge bg-success">
+                      {{ $invoice->estado }}
+                    </div>
+                    @break
+                  @case('PENDIENTE')
+                    <div class="badge bg-warning">
+                      {{ $invoice->estado }}
+                    </div>
+                    @break
+                  @default
+                    <div class="badge bg-secondary">
+                      {{ $invoice->estado }}
+                    </div>
+                @endswitch
             </li>
         </ul>
     </div>

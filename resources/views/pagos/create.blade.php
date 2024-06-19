@@ -35,6 +35,37 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="monto">Monto</label>
+                        <input
+                            name="monto"
+                            id="monto"
+                            type="text"
+                            class="form-control @error('monto') is-invalid @enderror"
+                            value="{{ old('monto') }}"
+                            placeholder="Ingrese el monto"
+                        >
+                        @error('monto')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="referencia" class="form-label">Referencia</label>
+                        <input
+                            name="referencia"
+                            id="referencia"
+                            type="text"
+                            class="form-control @error('referencia') is-invalid @enderror"
+                            value="{{ old('referencia') }}"
+                            placeholder="Ingrese el número de referencia"
+                        >
+                        @error('referencia')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <div class="mb-3">
                         <label for="comprobante" class="form-label">Comprobante</label>
                         <input

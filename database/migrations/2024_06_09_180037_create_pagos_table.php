@@ -26,6 +26,8 @@ return new class extends Migration
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
             $table->string('comprobante');
+            $table->string('monto');
+            $table->string('referencia');
             $table->timestamps();
         });
     }

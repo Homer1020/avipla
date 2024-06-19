@@ -7,7 +7,6 @@
     <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
     <li class="breadcrumb-item active">Detalles del pago</li>
   </ol>
-  
   <div class="row">
       <div class="col-lg-6">
         <p class="fw-bold text-uppercase text-muted">Datos de factura</p>

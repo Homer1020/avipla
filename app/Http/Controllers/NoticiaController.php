@@ -98,6 +98,8 @@ class NoticiaController extends Controller
 
         if($request->input('save_draft')) {
             $payload['estatus'] = 'DRAFT';
+        } else {
+            $payload['estatus'] = 'PUBLISHED';
         }
 
         $slug = Str::slug($request->input('titulo'), "-");
