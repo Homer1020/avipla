@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Invoice;
 use App\Models\Pago;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -21,7 +22,7 @@ class PagoPolicy
      */
     public function view(User $user, Pago $pago): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -37,7 +38,7 @@ class PagoPolicy
      */
     public function update(User $user, Pago $pago): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -45,7 +46,7 @@ class PagoPolicy
      */
     public function delete(User $user, Pago $pago): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -53,7 +54,7 @@ class PagoPolicy
      */
     public function restore(User $user, Pago $pago): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -61,6 +62,6 @@ class PagoPolicy
      */
     public function forceDelete(User $user, Pago $pago): bool
     {
-        //
+        return true;
     }
 }

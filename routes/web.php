@@ -76,6 +76,8 @@ Route::resource('categorias', CategoryController::class)
 
 Route::resource('pagos', PagoController::class)
   ->middleware(['auth']);
+Route::get('pagos/detalle/{invoice}', [PagoController::class, 'invoiceDetails'])
+  ->name('pagos.invoice');
 
 /**
  * MANAGE FILES

@@ -69,4 +69,9 @@ class PagoController extends Controller
     {
         //
     }
+
+    public function invoiceDetails(Invoice $invoice) {
+        // $this->authorize('view', $invoice);
+        return view('pagos.invoice', compact('invoice'));
+    }
 }

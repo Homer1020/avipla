@@ -7,11 +7,15 @@ use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class InvoiceController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Invoice::class, 'invoice');
+    }
+
     /**
      * Display a listing of the resource.
      */

@@ -35,7 +35,6 @@
               </td>
               <td>{{ $invoice->monto_total }}$</td>
               <td>
-                @can('view', $invoice)
                 @can('create', App\Models\Pago::class)
                     <form action="#" class="d-inline-block">
                         <button type="submit" class="btn btn-primary">
@@ -44,7 +43,8 @@
                         </button>
                     </form>
                 @endcan
-                  <a class="btn btn-success" href="{{ route('invoices.show', $invoice) }}">
+                @can('view', $invoice)
+                  <a class="btn btn-success" href="{{ route('pagos.invoice', $invoice) }}">
                     <i class="fa fa-eye"></i>
                     Detalles
                   </a>

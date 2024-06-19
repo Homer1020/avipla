@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Afiliado;
+use App\Models\Role;
+use App\Models\SolicitudAfiliado;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,47 +16,58 @@ class AfiliadosSeeder extends Seeder
      */
     public function run(): void
     {
-        Afiliado::insert([
-            [
-                'razon_social' => 'Empresas Polar',
-                'rif' => '000000000',
-                'direccion' => 'La Candelaria.',
-                'telefono' => '0250123456',
-                'pagina_web' => 'https://www.empresaspolar.com/',
-                'correo' => 'info@empresaspolar.com'
-            ],
-            [
-                'razon_social' => 'Corporación Venezolana de Alimentos (CVA)',
-                'rif' => '000000001',
-                'direccion' => 'Los Ruices.',
-                'telefono' => '02123456789',
-                'pagina_web' => 'https://www.cvalimentos.com/',
-                'correo' => 'contacto@cvalimentos.com'
-            ],
-            [
-                'razon_social' => 'Grupo Mavesa',
-                'rif' => '000000002',
-                'direccion' => 'El Recreo.',
-                'telefono' => '02951234567',
-                'pagina_web' => 'https://www.grupomavesa.com/',
-                'correo' => 'info@grupomavesa.com'
-            ],
-            [
-                'razon_social' => 'Empresas Santa María',
-                'rif' => '000000003',
-                'direccion' => 'Los Chaguaramos.',
-                'telefono' => '02129876543',
-                'pagina_web' => 'https://www.empresas-santamaria.com/',
-                'correo' => 'contacto@empresas-santamaria.com'
-            ],
-            [
-                'razon_social' => 'Plumrose Venezuela',
-                'rif' => '000000004',
-                'direccion' => 'La Urbina.',
-                'telefono' => '02122345678',
-                'pagina_web' => 'https://www.plumrose.com.ve/',
-                'correo' => 'info@plumrose.com.ve'
-            ]
-        ]);
+
+        $afiliado_role = Role::where('name', 'afiliado')->get();
+
+        for ($i = 0; $i < 4; $i++) {
+            $solicitud = SolicitudAfiliado::create([
+                'razon_social'  => "Tepuy 21 #{$i}",
+                'correo'        => "ingenieroquero{$i}@gmail.com"  // Correo único para cada iteración
+            ]);
+    
+            $user = User::create([
+                'name'      => 'Ricardo Briceño',
+                'email'     => "ingenieroquero{$i}@gmail.com",    // Correo único para cada iteración
+                'password'  => bcrypt('admin123'),
+            ]);
+    
+            $user->roles()->sync($afiliado_role);
+    
+            $afiliado = $user->afiliado()->create([
+                'razon_social'                  => "Tepuy 21 #{$i}",
+                'rif'                           => "F-00000000{$i}",
+                'anio_fundacion'                => '2001',
+                'capital_social'                => '100',
+                'pagina_web'                    => 'https://tepuy21.com',
+                'actividad_id'                  => 1,
+                'relacion_comercio_exterior'    => 'EXPORTADOR',
+                'siglas'                        => 'FC',
+                'estado'                        => 1
+            ]);
+    
+            $afiliado->direccion()->create([
+                'direccion_oficina'     => 'Plaza Bolivar',
+                'ciudad_oficina'        => 'Caracas',
+                'telefono_oficina'      => '0412001010101',
+                'direccion_planta'      => 'Plaza Bolivar',
+                'ciudad_planta'         => 'Caracas',
+                'telefono_planta'       => '0412012121333'
+            ]);
+    
+            $afiliado->personal()->create([
+                'correo_presidente'                 => '',
+                'correo_gerente_general'            => '',
+                'correo_gerente_compras'            => '',
+                'correo_gerente_marketing_ventas'   => '',
+                'correo_gerente_planta'             => '',
+                'correo_gerente_recursos_humanos'   => '',
+                'correo_administrador'              => '',
+                'correo_gerente_exportaciones'      => '',
+                'correo_representante_avipla'       => ''
+            ]);
+    
+            $solicitud->afiliado_id = $afiliado->id;
+            $solicitud->save();
+        }
     }
 }
