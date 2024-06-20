@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVIPLA - Crea tu cuenta de afiliado</title>
+    <title>AVIPLA - Recordatorio para crear cuenta de afiliado</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,7 +23,7 @@
         }
 
         h1 {
-            color: #333333;
+            color: #323567;
             text-align: center;
         }
 
@@ -36,14 +36,14 @@
         a {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #323567;
             color: #ffffff;
             text-decoration: none;
             border-radius: 5px;
         }
 
         a:hover {
-            background-color: #0056b3;
+            background-color: #323567;
         }
 
         .footer {
@@ -56,7 +56,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>AVIPLA - Crea tu cuenta de afiliado</h1>
+        <div class="text-center mb-4">
+          <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA" width="100px">
+        </div>
+        <h1>AVIPLA - Recordatorio para crear cuenta de afiliado</h1>
 
         <p>Hola {{ $solicitud->razon_social }},</p>
 

@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use App\Models\Pago;
 use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
     public function getFile(string $dir, string $path) {
         $invoice = Invoice::where('documento', $path)->first();
+        $pago = Pago::where('comprobante', $path)->first();
+
+        if(!$invoice && $pago) {
+            $invoice = $pago->invoice;
+        }
         
         $this->authorize('view', $invoice);
 

@@ -11,10 +11,6 @@ use App\Models\MateriaPrima;
 use App\Models\Producto;
 use App\Models\Servicio;
 use App\Models\SolicitudAfiliado;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Builder;
 
 class AfiliadosController extends Controller
 {
@@ -64,7 +60,7 @@ class AfiliadosController extends Controller
         $productos = Producto::all();
         $materias_primas = MateriaPrima::all();
         $servicios = Servicio::all();
-        $afiliados = Afiliado::all();
+        $afiliados = Afiliado::where('id', '!=', $afiliado->id);
         $afiliado->load([
             'direccion',
             'personal',
@@ -159,25 +155,5 @@ class AfiliadosController extends Controller
         return redirect()
             ->route('afiliados.index')
             ->with('success', 'Se elimino el afiliado correctamente.');
-    }
-
-    public function requestForm() {
-        return view('afiliados.request');
-    }
-
-    public function request(Request $request) {
-        $payload = $request->validate([
-            'razon_social'  => 'required|string',
-            'correo'        => 'required|email|unique:solicitudes_afiliados,correo'
-        ]);
-
-        $confirmation_code = Str::random(25);
-        $payload['confirmation_code'] = $confirmation_code;
-
-        $solicitud = SolicitudAfiliado::create($payload);
-
-        Mail::to($request->input('correo'))->send(new VerifyAfiliadoEmail($solicitud));
-
-        return redirect()->route('afiliados.index')->with('success', 'Se envio un correo de acceso.');
     }
 }

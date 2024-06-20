@@ -14,7 +14,8 @@ class Invoice extends Model
         'monto_total',
         'documento',
         'numero_factura',
-        'estado'
+        'estado',
+        'codigo_factura'
     ];
 
     public function user() {

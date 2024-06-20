@@ -34,7 +34,7 @@
               </div>
               <h1 class="fs-3 fw-bold text-primary text-center mb-4 text-uppercase">Crear cuenta</h1>
 
-              <form novalidate action="{{ route('auth.register') }}" method="POST">
+              <form action="{{ route('auth.register') }}" method="POST">
                 @csrf
                 <input type="hidden" name="confirmation_code" value="{{ $solicitud->confirmation_code }}">
                 <!-- Nav tabs -->
@@ -177,6 +177,8 @@
                 placeholder="Producción total mensual (TM)"
                 name="produccion_total_mensual[]"
                 class="form-control"
+                max="100"
+                min="0"
               />
             </div>
             <div class="col-lg-4 mb-3">
@@ -185,6 +187,8 @@
                 placeholder=" Porcentaje destinados a exportación"
                 name="porcentage_exportacion[]"
                 class="form-control"
+                max="100"
+                min="0"
               />
             </div>
             <div class="col-lg-4 mb-3">
@@ -193,6 +197,8 @@
                 placeholder="Mercados de importación / exportación"
                 name="mercado_exportacion[]"
                 class="form-control"
+                max="100"
+                min="0"
               />
             </div>
           </div>

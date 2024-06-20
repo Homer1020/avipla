@@ -32,10 +32,16 @@
                     <span class="fw-bold">Fecha:</span>
                     {{ $pago->created_at }}
                 </li>
+                <li class="list-group-item">
+                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'comprobantes', 'path' => $pago->comprobante]) }}" class="btn btn-outline-primary">
+                        <i class="fa fa-file"></i>
+                        Comprobante
+                    </a>
+                </li>
             </ul>
         @endif
         <p class="fw-bold text-uppercase text-muted">Datos de factura</p>
-        <ul class="list-group">
+        <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>
                 #{{ $invoice->numero_factura }}
@@ -49,27 +55,27 @@
                 {{ $invoice->monto_total }}$
             </li>
             <li class="list-group-item">
-                <span class="fw-bold">Documento:</span>
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}">{{ $invoice->documento }}</a>
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
+                    <i class="fa fa-file"></i>
+                    Documento
+                </a>
             </li>
             <li class="list-group-item">
-                <span class="fw-bold">Estado:</span>
-                @switch($invoice->estado)
-                  @case('COMPLETADO')
-                    <div class="badge bg-success">
-                      {{ $invoice->estado }}
+                <form action="{{ route('invoices.update', $invoice) }}" method="POST">
+                    @method('PUT')
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Estado:</label>
+                        <select name="invoice_status" id="invoice_status" class="form-select">
+                            <option selected disabled>Cambiar estado</option>
+                            <option value="COMPLETADO" @selected($invoice->estado === 'COMPLETADO')>COMPLETADO</option>
+                            <option value="PENDIENTE" @selected($invoice->estado === 'PENDIENTE')>PENDIENTE</option>
+                            <option value="CANCELADO" @selected($invoice->estado === 'CANCELADO')>CANCELADO</option>
+                            <option value="REVISION" @selected($invoice->estado === 'REVISION')>REVISION</option>
+                        </select>
                     </div>
-                    @break
-                  @case('PENDIENTE')
-                    <div class="badge bg-warning">
-                      {{ $invoice->estado }}
-                    </div>
-                    @break
-                  @default
-                    <div class="badge bg-secondary">
-                      {{ $invoice->estado }}
-                    </div>
-                @endswitch
+                    <div id="submit_button"></div>
+                </form>
             </li>
         </ul>
     </div>
@@ -100,3 +106,27 @@
     </div>
   </div>
 @endsection
+@push('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        const $invoice_status = $('#invoice_status')
+        const initial_value = $invoice_status.val()
+        $('#invoice_status').on('change', function() {
+            const current_value = $('#invoice_status').val()
+            if(current_value !== initial_value && !($('#submit_button button').length)) {
+                $('#submit_button').append('<button type="submit" class="btn btn-outline-success"><i class="fa fa-check"></i> Guardar estado</button>')
+            } else if(current_value === initial_value) {
+                $('#submit_button button').remove()
+            }
+        });
+    </script>
+  
+    @if (session('success'))
+      <script>
+          Swal.fire({
+              icon: "success",
+              title: "{{ session('success') }}"
+          });
+      </script>
+    @endif
+@endpush

@@ -19,8 +19,9 @@
         <thead>
           <tr>
             <th>ID</th>
+            <th>Factura N°</th>
             <th>Fecha</th>
-            <th>Empresa</th>
+            <th>Afiliado</th>
             <th>Estado</th>
             <th>Monto</th>
             <th>Acciones</th>
@@ -31,7 +32,8 @@
           @foreach ($invoices as $invoice)
             <tr>
               <td>#{{ $invoice->id }}</td>
-              <td>{{ $invoice->created_at }}</td>
+              <td>{{ $invoice->numero_factura }}</td>
+              <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
               <td>
                 <span class="text-truncate d-inline-block" style="max-width: 150px">
                   {{ $invoice->afiliado->razon_social }}
@@ -46,6 +48,11 @@
                     @break
                   @case('PENDIENTE')
                     <div class="badge bg-warning">
+                      {{ $invoice->estado }}
+                    </div>
+                    @break
+                  @case('CANCELADO')
+                    <div class="badge bg-danger">
                       {{ $invoice->estado }}
                     </div>
                     @break
@@ -108,7 +115,7 @@
 
     new DataTable('#invoices-table', {
       columnDefs: [
-        { orderable: false, targets: 5 },
+        { orderable: false, targets: 6 },
       ],
       order: false,
       language: {

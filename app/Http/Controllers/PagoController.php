@@ -40,9 +40,15 @@ class PagoController extends Controller
             'metodo_pago_id'    => 'numeric|required|exists:metodos_pago,id',
             'monto'             => 'required|numeric',
             'referencia'        => 'required',
-            'comprobante'       => 'file|required',
+            'comprobante'       => 'file|required|mimes:pdf',
             'invoice_id'        => 'numeric|required|exists:invoices,id'
         ]);
+
+        $comprobanteFile = $request->file('comprobante');
+        $comprobanteFileName = $comprobanteFile->hashName();
+        $comprobanteFile->storeAs('comprobantes', $comprobanteFileName);
+
+        $payload['comprobante'] = $comprobanteFileName;
 
         $invoice = Invoice::where('id', $payload['invoice_id'])->first();
 
@@ -53,7 +59,7 @@ class PagoController extends Controller
             'invoice_id'        => $payload['invoice_id'],
             'monto'             => $payload['monto'],
             'referencia'        => $payload['referencia'],
-            'comprobante'       => 'comprebante.png',
+            'comprobante'       => $payload['comprobante'],
         ]);
 
         $invoice->update([ 'estado' => 'REVISION' ]);

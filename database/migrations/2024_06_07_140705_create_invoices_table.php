@@ -27,8 +27,10 @@ return new class extends Migration
                 ->onUpdate('CASCADE');
             $table->enum('estado', ['PENDIENTE', 'REVISION', 'COMPLETADO', 'CANCELADO'])->default('PENDIENTE');
             $table->string('numero_factura')->unique();
+            $table->string('codigo_factura')->unique();
             $table->string('monto_total');
             $table->string('documento');
+            $table->text('observaciones')->nullable();
             $table->timestamps();
         });
     }

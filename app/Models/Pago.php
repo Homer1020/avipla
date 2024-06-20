@@ -20,4 +20,8 @@ class Pago extends Model
     public function metodo_pago() {
         return $this->belongsTo(MetodoPago::class);
     }
+
+    public function invoice() {
+        return $this->belongsTo(Invoice::class);
+    }
 }

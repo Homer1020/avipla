@@ -36,6 +36,20 @@
         </div>
 
         <div class="mb-3">
+            <label for="numero_factura" class="form-label">Número de factura</label>
+            <input
+                type="number"
+                class="form-control @error('numero_factura') is-invalid @enderror"
+                name="numero_factura"
+                id="numero_factura"
+                value="{{ old('numero_factura') }}"
+            >
+            @error('numero_factura')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
             <label for="monto_total" class="form-label">Monto</label>
             <input
                 type="number"

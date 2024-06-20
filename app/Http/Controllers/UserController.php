@@ -23,7 +23,7 @@ class UserController extends Controller
     public function create()
     {
         $user = new User();
-        $roles = Role::all();
+        $roles = Role::where('name', '!=', 'afiliado')->get();
         return view('users.create', compact('user', 'roles'));
     }
 

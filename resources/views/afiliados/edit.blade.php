@@ -12,7 +12,7 @@
     <li class="breadcrumb-item active">Modificar afiliado</li>
   </ol>
 
-  <form novalidate action="{{ route('afiliados.update', $afiliado) }}" method="POST">
+  <form action="{{ route('afiliados.update', $afiliado) }}" method="POST">
     @csrf
     @method('PUT')
     <div class="card mb-4">
@@ -92,6 +92,8 @@
                 placeholder="Producción total mensual (TM)"
                 name="produccion_total_mensual[]"
                 class="form-control"
+                min="0"
+                max="100"
               />
             </div>
             <div class="col-lg-4">
@@ -99,6 +101,8 @@
                 placeholder=" Porcentaje destinados a exportación"
                 name="porcentage_exportacion[]"
                 class="form-control"
+                min="0"
+                max="100"
               />
             </div>
             <div class="col-lg-4">
@@ -106,6 +110,8 @@
                 placeholder="Mercados de importación / exportación"
                 name="mercado_exportacion[]"
                 class="form-control"
+                min="0"
+                max="100"
               />
             </div>
           </div>

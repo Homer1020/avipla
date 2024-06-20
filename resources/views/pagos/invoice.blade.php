@@ -9,8 +9,38 @@
   </ol>
   <div class="row">
       <div class="col-lg-6">
+        @if ($invoice->pago)
+            @php
+                $pago = $invoice->pago;
+            @endphp
+            <p class="fw-bold text-uppercase text-muted">Datos del pago</p>
+            <ul class="list-group mb-4">
+                <li class="list-group-item">
+                    <span class="fw-bold">Método de pago:</span>
+                    {{ $pago->metodo_pago->metodo_pago }}
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Monto:</span>
+                    {{ $pago->monto }}$
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Referencia:</span>
+                    {{ $pago->referencia }}
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Fecha:</span>
+                    {{ $pago->created_at }}
+                </li>
+                <li class="list-group-item">
+                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'comprobantes', 'path' => $pago->comprobante]) }}" class="btn btn-outline-primary">
+                        <i class="fa fa-file"></i>
+                        Comprobante
+                    </a>
+                </li>
+            </ul>
+        @endif
         <p class="fw-bold text-uppercase text-muted">Datos de factura</p>
-        <ul class="list-group">
+        <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>
                 #{{ $invoice->numero_factura }}
@@ -24,8 +54,11 @@
                 {{ $invoice->monto_total }}$
             </li>
             <li class="list-group-item">
-                <span class="fw-bold">Documento:</span>
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}">{{ $invoice->documento }}</a>
+                <span class="fw-bold d-block mb-2">Documento:</span>
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
+                    <i class="fa fa-file"></i>
+                    Documento
+                </a>
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Estado:</span>

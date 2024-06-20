@@ -40,19 +40,20 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         $payload = $request->validate([
-            'afiliado_id'   => 'required|numeric|exists:afiliados,id',
-            'monto_total'   => 'required|numeric',
-            'documento'     => 'required|file|mimes:pdf'
+            'afiliado_id'       => 'required|numeric|exists:afiliados,id',
+            'monto_total'       => 'required|numeric',
+            'numero_factura'    => 'required|numeric|unique:invoices,numero_factura',
+            'documento'         => 'required|file|mimes:pdf'
         ]);
 
-        $numeroFactura = Str::random(32);
+        $codigo_factura = Str::random(32);
 
         $documentFile = $request->file('documento');
         $documentFileName = $documentFile->hashName();
         $documentFile->storeAs('invoices', $documentFileName);
 
         $payload['documento'] = $documentFileName;
-        $payload['numero_factura'] = $numeroFactura;
+        $payload['codigo_factura'] = $codigo_factura;
 
         $user = Auth::user();
 
@@ -68,6 +69,7 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $invoice)
     {
+        $invoice->load(['user', 'afiliado', 'pago']);
         return view('invoices.show', compact('invoice'));
     }
 
@@ -84,6 +86,9 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, Invoice $invoice)
     {
+        $invoice->estado = $request->input('invoice_status');
+        $invoice->save();
+        return redirect()->route('invoices.show', $invoice)->with('success', 'Se actualizo el estado de la factura.');
     }
 
     /**

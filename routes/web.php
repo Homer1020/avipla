@@ -11,6 +11,7 @@ use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,10 +46,12 @@ Route::view('dashboard', 'dashboard.index')
   ->middleware(['auth']);
 
 Route::middleware(['auth', 'is_admin'])->group(function() {
-  Route::get('afiliados/solicitar', [AfiliadosController::class, 'requestForm'])
+  Route::get('afiliados/solicitar', [SolicitudController::class, 'requestForm'])
     ->name('afiliados.requestForm');
-  Route::post('afiliados/solicitar', [AfiliadosController::class, 'request'])
+  Route::post('afiliados/solicitar', [SolicitudController::class, 'request'])
     ->name('afiliados.request');
+  Route::post('afiliados/solicitud/{solicitud}/recordatorio', [SolicitudController::class, 'reminder'])
+    ->name('afiliados.reminder');
   Route::resource('afiliados', AfiliadosController::class)
     ->except(['create', 'store']);
 });

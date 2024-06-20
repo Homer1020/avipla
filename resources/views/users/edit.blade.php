@@ -8,7 +8,6 @@
   <h1 class="mt-4">Editar Usuario</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('noticias.index') }}">Noticias</a></li>
     <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Usuarios</a></li>
     <li class="breadcrumb-item active">Editar Usuario</li>
   </ol>
