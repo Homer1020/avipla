@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-@section('title', 'Afiliados')
+@section('title', 'Noticias')
 @push('css')
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 @endpush

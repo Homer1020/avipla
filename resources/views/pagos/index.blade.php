@@ -40,8 +40,14 @@
                       {{ $invoice->estado }}
                     </div>
                     @break
+                  @case('CANCELADO')
+                    <div class="badge bg-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $invoice->observaciones }}">
+                      {{ $invoice->estado }}
+                      <i class="fa fa-info-circle"></i>
+                    </div>
+                    @break
                   @default
-                    <div class="badge bg-secondary">
+                    <div class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $invoice->observaciones }}">
                       {{ $invoice->estado }}
                     </div>
                 @endswitch
@@ -72,7 +78,6 @@
 @endsection
 
 @push('script')
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{{ asset('assets/css/datatables.min.js') }}"></script>
 
@@ -109,6 +114,11 @@
       language: {
         // url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
       }
+    })
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 
   </script>

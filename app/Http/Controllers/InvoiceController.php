@@ -87,6 +87,7 @@ class InvoiceController extends Controller
     public function update(Request $request, Invoice $invoice)
     {
         $invoice->estado = $request->input('invoice_status');
+        $invoice->observaciones = $request->input('observaciones');
         $invoice->save();
         return redirect()->route('invoices.show', $invoice)->with('success', 'Se actualizo el estado de la factura.');
     }

@@ -102,14 +102,35 @@
                 {{ $invoice->monto_total }}$
             </li>
             <li class="list-group-item">
-                <span class="fw-bold">Documento:</span>
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}">{{ $invoice->documento }}</a>
+                <span class="fw-bold d-block mb-2">Documento:</span>
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
+                    <i class="fa fa-file"></i>
+                    Documento
+                </a>
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Estado:</span>
-                <span class="badge bg-warning">
-                    {{ $invoice->estado }}
-                </span>
+                @switch($invoice->estado)
+                  @case('COMPLETADO')
+                    <div class="badge bg-success">
+                      {{ $invoice->estado }}
+                    </div>
+                    @break
+                  @case('PENDIENTE')
+                    <div class="badge bg-warning">
+                      {{ $invoice->estado }}
+                    </div>
+                    @break
+                  @case('CANCELADO')
+                    <div class="badge bg-danger">
+                      {{ $invoice->estado }}
+                    </div>
+                    @break
+                  @default
+                    <div class="badge bg-secondary">
+                      {{ $invoice->estado }}
+                    </div>
+                @endswitch
             </li>
         </ul>
     </div>

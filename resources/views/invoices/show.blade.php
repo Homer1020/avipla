@@ -62,7 +62,7 @@
             </li>
             <li class="list-group-item">
                 <form action="{{ route('invoices.update', $invoice) }}" method="POST">
-                    @method('PUT')
+                    @method('PATCH')
                     @csrf
                     <div class="mb-3">
                         <label class="form-label fw-bold">Estado:</label>
@@ -73,6 +73,18 @@
                             <option value="CANCELADO" @selected($invoice->estado === 'CANCELADO')>CANCELADO</option>
                             <option value="REVISION" @selected($invoice->estado === 'REVISION')>REVISION</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="observaciones" class="fw-bold form-label">Observaciones:</label>
+                        <textarea
+                            name="observaciones"
+                            id="observaciones"
+                            rows="2"
+                            class="form-control @error('observaciones') is-invalid @enderror"
+                        >{{ old('observaciones', $invoice->observaciones) }}</textarea>
+                        @error('is-invalid')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div id="submit_button"></div>
                 </form>
@@ -114,9 +126,11 @@
         $('#invoice_status').on('change', function() {
             const current_value = $('#invoice_status').val()
             if(current_value !== initial_value && !($('#submit_button button').length)) {
-                $('#submit_button').append('<button type="submit" class="btn btn-outline-success"><i class="fa fa-check"></i> Guardar estado</button>')
+                $('#submit_button').append(`
+                    <button type="submit" class="btn btn-outline-success"><i class="fa fa-check"></i> Guardar estado</button>
+                `)
             } else if(current_value === initial_value) {
-                $('#submit_button button').remove()
+                $('#submit_button > *').remove()
             }
         });
     </script>
