@@ -6,7 +6,7 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                 Dashboard
             </a>
-            <div class="sb-sidenav-menu-heading">Administrador</div>
+            <div class="sb-sidenav-menu-heading">{{ Auth::user()->roles->first()->name }}</div>
            
             @can('viewAny', App\Models\Afiliado::class)
                 <a class="nav-link {{ request()->routeIs('afiliados.*') ? 'active' : '' }}"

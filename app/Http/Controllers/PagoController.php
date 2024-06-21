@@ -19,7 +19,7 @@ class PagoController extends Controller
             ->whereHas('afiliado', function ($query) {
                 $query->where('user_id', Auth::user()->id);
             })
-            ->get();
+            ->latest()->get();
         return view('pagos.index', compact('invoices'));
     }
 
@@ -40,7 +40,7 @@ class PagoController extends Controller
             'metodo_pago_id'    => 'numeric|required|exists:metodos_pago,id',
             'monto'             => 'required|numeric',
             'referencia'        => 'required',
-            'comprobante'       => 'file|required|mimes:pdf',
+            'comprobante'       => 'file|required|mimes:pdf,png,jpg,jpeg',
             'invoice_id'        => 'numeric|required|exists:invoices,id'
         ]);
 
