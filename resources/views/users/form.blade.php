@@ -29,14 +29,36 @@
 </div>
 
 <div class="mb-3">
-    <label for="role_id" class="form-label">Role</label>
-    <select class="form-select" name="role_id" id="role_id">
-        <option selected disabled>Seleccionar rol</option>
+    <label for="#" class="form-label">Rol</label>
+    <select name="role_id" id="role_id" class="form-select">
+        <option selected disabled>Seleccione un rol</option>
         @foreach ($roles as $role)
-            <option @selected($role->id === old('role_id', $user->roles->first() ? $user->roles->first()->id : '')) value="{{ $role->id }}">{{ $role->name }}</option>
+            <option value="{{ $role->id }}">{{ $role->name }}</option>
         @endforeach
     </select>
-    @error('role_id')
+</div>
+
+<div class="mb-3">
+    <label for="password" class="form-label">Contraseña</label>
+    <input
+        type="password"
+        name="password"
+        id="password"
+        class="form-control @error('password') is-invalid @enderror"
+        placeholder="*******"
+    >
+    @error('password')
         <div class="invalid-feedback">{{ $message }}</div>
     @enderror
+</div>
+
+<div class="mb-3">
+    <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
+    <input
+        type="password"
+        name="password_confirmation"
+        id="password_confirmation"
+        class="form-control @error('password_confirmation') is-invalid @enderror"
+        placeholder="*******"
+    >
 </div>

@@ -10,6 +10,7 @@ use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PagoController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\UserController;
@@ -61,6 +62,9 @@ Route::resource('usuarios', UserController::class)
   ->parameters(['usuarios' => 'user'])
   ->names('users');
 
+Route::get('perfil', [ProfileController::class, 'show'])->name('profile.show');
+Route::put('perfil', [ProfileController::class, 'update'])->name('profile.update');
+
 Route::resource('roles', RoleController::class)
   ->middleware(['auth', 'is_admin']);
 
@@ -68,7 +72,7 @@ Route::resource('boletines', BoletinesController::class);
 
 Route::resource('notificaciones', NotificationController::class)
   ->names('notifications')
-  ->middleware(['auth', 'is_admin']);
+  ->middleware(['auth']);
 
 Route::resource('facturas', InvoiceController::class)
   ->names('invoices')

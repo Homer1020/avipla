@@ -33,14 +33,17 @@
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item">
                     <a href="{{ route('notifications.index') }}" role="button" class="nav-link">
-                        <i class="fa fa-bell"></i>
+                        <i class="fa fa-bell fa-fw"></i>
+                        <div class="badge bg-danger">0</div>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Mi perfil</a></li>
-                        <li><a class="dropdown-item" href="#">Mi empresa</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profile.show') }}">Perfil de usuario</a></li>
+                        @if (Auth::user()->roles->first()->name === 'afiliado')
+                            <li><a class="dropdown-item" href="#">Perfil de empresa</a></li>
+                        @endif
                         <li><hr class="dropdown-divider" /></li>
                         <li>
                             <form action="{{ route('auth.logout') }}" method="POST">

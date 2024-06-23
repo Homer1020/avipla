@@ -60,7 +60,7 @@ class AfiliadosController extends Controller
         $productos = Producto::all();
         $materias_primas = MateriaPrima::all();
         $servicios = Servicio::all();
-        $afiliados = Afiliado::where('id', '!=', $afiliado->id);
+        $afiliados = Afiliado::where('id', '!=', $afiliado->id)->get();
         $afiliado->load([
             'direccion',
             'personal',

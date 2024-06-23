@@ -2,114 +2,77 @@
     <div class="sb-sidenav-menu">
         <div class="nav">
             <div class="sb-sidenav-menu-heading">Core</div>
-            <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+            <x-nav-link
+                :to="route('dashboard')"
+                active="dashboard"
+                icon="fas fa-tachometer-alt"
+            >
                 Dashboard
-            </a>
+            </x-nav-link>
+            <x-nav-link
+                :to="route('notifications.index')"
+                active="notifications.*"
+                icon="fas fa-bell"
+            >
+                Notificaciones
+                <span class="badge bg-danger ms-3">99+</span>
+            </x-nav-link>
             <div class="sb-sidenav-menu-heading">{{ Auth::user()->roles->first()->name }}</div>
-           
             @can('viewAny', App\Models\Afiliado::class)
-                <a class="nav-link {{ request()->routeIs('afiliados.*') ? 'active' : '' }}"
-                    href="{{ route('afiliados.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-handshake"></i></div>
+                <x-nav-link
+                    :to="route('afiliados.index')"
+                    active="afiliados.*"
+                    icon="fas fa-handshake"
+                >
                     Afiliados
-                </a>
+                </x-nav-link>
             @endcan
             @can('viewAny', App\Models\Invoice::class)
-                <a class="nav-link {{ request()->routeIs('invoices.*') ? 'active' : '' }}"
-                    href="{{ route('invoices.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-file-invoice"></i></div>
+                <x-nav-link
+                    :to="route('invoices.index')"
+                    active="invoices.*"
+                    icon="fas fa-file-invoice"
+                >
                     Facturación
-                </a>
+                </x-nav-link>
             @endcan
             @can('viewAny', App\Models\Pago::class)
-                <a class="nav-link {{ request()->routeIs('pagos.*') ? 'active' : '' }}" href="{{ route('pagos.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
+                <x-nav-link
+                    :to="route('pagos.index')"
+                    active="pagos.*"
+                    icon="fas fa-credit-card"
+                >
                     Estado de cuenta
-                </a>
+                </x-nav-link>
             @endcan
             @if (request()->user()->is_admin())
-                <a
-                    class="
-                        nav-link
-                        {{
-                            request()->routeIs('noticias.*') || request()->routeIs('categories.*')
-                            ? ''
-                            : 'collapsed'
-                        }}
-                    "
-                    href="#"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#newsPage"
-                    aria-expanded="false"
-                    aria-controls="newsPage"
+                <x-nav-link-dropdown
+                    title="Noticias"
+                    icon="fas fa-newspaper"
+                    target="newsPage"
+                    :active="request()->routeIs('noticias.*') || request()->routeIs('categories.*')"
                 >
-                    <div class="sb-nav-link-icon"><i class="fas fa-newspaper"></i></div>
-                    Noticias
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div
-                    class="
-                        collapse
-                        {{
-                            (request()->routeIs('noticias.*') || request()->routeIs('categories.*'))
-                            ? 'show'
-                            : ''
-                        }}
-                    "
-                    id="newsPage"
-                    aria-labelledby="headingTwo"
-                    data-bs-parent="#sidenavAccordion"
+                    <a href="{{ route('noticias.index') }}" class="nav-link {{ request()->routeIs('noticias.*') ? 'active' : '' }}">Todas las noticias</a>
+                    <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">Categorías</a>
+                </x-nav-link-dropdown>
+
+                <x-nav-link-dropdown
+                    title="Usuarios"
+                    icon="fas fa-users"
+                    target="usersPage"
+                    :active="request()->routeIs('users.*') || request()->routeIs('roles.*')"
                 >
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a href="{{ route('noticias.index') }}" class="nav-link {{ request()->routeIs('noticias.*') ? 'active' : '' }}">Todas las noticias</a>
-                        <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">Categorías</a>
-                    </nav>
-                </div>            
+                    <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">Todos los usuarios</a>
+                    <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}">Roles</a>
+                </x-nav-link-dropdown>
             @endif
-            @if (request()->user()->is_admin())
-                <a
-                    class="
-                        nav-link
-                        {{
-                            request()->routeIs('users.*') || request()->routeIs('roles.*')
-                            ? ''
-                            : 'collapsed'
-                        }}
-                    "
-                    href="#"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#usersPage"
-                    aria-expanded="false"
-                    aria-controls="usersPage"
-                >
-                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                    Usuarios
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                </a>
-                <div
-                    class="
-                        collapse
-                        {{
-                            (request()->routeIs('users.*') || request()->routeIs('roles.*'))
-                            ? 'show'
-                            : ''
-                        }}
-                    "
-                    id="usersPage"
-                    aria-labelledby="headingTwo"
-                    data-bs-parent="#sidenavAccordion"
-                >
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">Todos los usuarios</a>
-                        <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}">Roles</a>
-                    </nav>
-                </div>
-            @endif
-            <a class="nav-link {{ request()->routeIs('boletines.*') ? 'active' : '' }}" href="{{ route('boletines.index') }}">
-                <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
+            <x-nav-link
+                :to="route('boletines.index')"
+                active="boletines.*"
+                icon="fas fa-envelope"
+            >
                 Boletines
-            </a>
+            </x-nav-link>
         </div>
     </div>
     <div class="sb-sidenav-footer">

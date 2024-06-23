@@ -15,7 +15,7 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Role</th>
+            <th>Rol</th>
           </tr>
         </thead>
     

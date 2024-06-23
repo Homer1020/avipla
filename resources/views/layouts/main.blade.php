@@ -25,7 +25,7 @@
         <nav class="navbar py-0 navbar-expand-lg shadow-sm">
             <div class="container-md">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <img src="{{ asset('assets/img/logo.png') }}" width="200" alt="Logo AVIPLA">
+                    <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA">
                 </a>
                 <div class="d-flex align-items-center">
                     <a href="#" class="btn btn-primary btn-variation me-4 text-uppercase">Afiliación</a>
