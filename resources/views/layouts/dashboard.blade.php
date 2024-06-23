@@ -12,6 +12,12 @@
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
         @stack('css')
+        <style>
+            .sb-nav-link-icon {
+                width: 18px;
+                text-align: center;
+            }
+        </style>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -34,7 +40,7 @@
                 <li class="nav-item">
                     <a href="{{ route('notifications.index') }}" role="button" class="nav-link">
                         <i class="fa fa-bell fa-fw"></i>
-                        <div class="badge bg-danger">0</div>
+                        <div class="badge bg-danger">99+</div>
                     </a>
                 </li>
                 <li class="nav-item dropdown">
