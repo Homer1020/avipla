@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Afiliado;
 use App\Models\Invoice;
 use App\Models\User;
+use App\Notifications\InvoiceCreated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -58,7 +59,8 @@ class InvoiceController extends Controller
         $user = Auth::user();
 
         if ($user !== null && $user instanceof User) {
-            $user->invoices()->create($payload);
+            $invoice = $user->invoices()->create($payload);
+            $invoice->afiliado->user->notify(new InvoiceCreated($invoice));
             return redirect()->route('invoices.index')->with('success', 'Se creo la factura correctamente');
         }
         

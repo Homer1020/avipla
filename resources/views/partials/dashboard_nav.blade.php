@@ -15,7 +15,9 @@
                 icon="fas fa-bell"
             >
                 Notificaciones
-                <span class="badge bg-danger ms-3">99+</span>
+                <span class="badge bg-danger ms-3">
+                    {{ Auth::user()->unreadNotifications()->count() }}
+                </span>
             </x-nav-link>
             <div class="sb-sidenav-menu-heading">{{ Auth::user()->roles->first()->name }}</div>
             @can('viewAny', App\Models\Afiliado::class)

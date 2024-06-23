@@ -1,18 +1,28 @@
 @extends('layouts.main')
 @section('title', $noticia->titulo)
-<style>
-    .hero {
-        aspect-ratio: 16/8;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
+@push('css')
+    <style>
+        .hero {
+            aspect-ratio: 16/8;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
 
-    .thumbnail {
-        aspect-ratio: 16/9;
-        object-fit: cover;
-    }
-</style>
+        .thumbnail {
+            aspect-ratio: 16/10;
+            object-fit: cover;
+        }
+
+        #header .navbar-brand img {
+            width: 100px;
+        }
+
+        .header-separator {
+            height: 110px;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="header-separator"></div>
     <main class="container py-5">
@@ -24,21 +34,30 @@
                     <li>Publicado el: {{ $noticia->created_at->format('d-m-Y') }}</li>
                     <li>Categorias: {{ $noticia->categoria->name }}</li>
                 </ul>
+                <h1>{{ $noticia->titulo }}</h1>
                 {!! $noticia->contenido !!}
             </div>
             <div class="col-12 col-lg-4">
                 <aside>
                     <div class="card mb-4">
                         <div class="card-body">
-                            <div class="d-flex">
-                                <div class="flex-shrink-0">
-                                    <img class="rounded thumbnail" src="{{ Storage::url($noticia->thumbnail) }}" width="130" alt="...">
+                            @foreach ($relacionadas as $relacionada)
+                                <div class="d-flex mb-3">
+                                    <div class="flex-shrink-0">
+                                        <a href="{{ route('noticias.show', $noticia) }}">
+                                            <img class="rounded thumbnail" src="{{ Storage::url($relacionada->thumbnail) }}" width="130" alt="...">
+                                        </a>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h3 class="fs-5">
+                                            <a href="{{ route('noticias.show', $relacionada) }}">
+                                                {{ $relacionada->titulo }}
+                                            </a>
+                                        </h3>
+                                        <p>Por: {{ $relacionada->usuario->name }}</p>
+                                    </div>
                                 </div>
-                                <div class="flex-grow-1 ms-3">
-                                    <h3 class="fs-5">{{ $noticia->titulo }}</h3>
-                                    
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </aside>

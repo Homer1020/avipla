@@ -10,7 +10,7 @@
     <li class="breadcrumb-item active">Estado de cuenta</li>
   </ol>
 
-  <div class="card">
+  <div class="card mb-5">
     <div class="card-body">
       <table class="table table-bordered" id="invoices-table">
         <thead>

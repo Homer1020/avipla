@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\TestStatus\Notice;
 
 class NoticiaController extends Controller
 {
@@ -66,7 +67,8 @@ class NoticiaController extends Controller
      */
     public function show(Noticia $noticia)
     {
-        return view('noticias.show', compact('noticia'));
+        $relacionadas = Noticia::all();
+        return view('noticias.show', compact('noticia', 'relacionadas'));
     }
 
     /**

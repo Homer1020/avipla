@@ -40,7 +40,9 @@
                 <li class="nav-item">
                     <a href="{{ route('notifications.index') }}" role="button" class="nav-link">
                         <i class="fa fa-bell fa-fw"></i>
-                        <div class="badge bg-danger">99+</div>
+                        <div class="badge bg-danger">
+                            {{ Auth::user()->unreadNotifications()->count() }}
+                        </div>
                     </a>
                 </li>
                 <li class="nav-item dropdown">

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <!-- OWL CAROUSEL THEME -->
     <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.css') }}">
+    @stack('css')
 </head>
 
 <body>

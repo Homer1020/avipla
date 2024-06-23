@@ -115,7 +115,7 @@
         $('#contenido').summernote({
             placeholder: 'Ingrese su contenido',
             tabsize: 2,
-            height: 120,
+            height: 300,
             toolbar: [
                 ['style', ['style']],
                 ['font', ['bold', 'underline', 'clear']],
