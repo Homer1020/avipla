@@ -19,11 +19,10 @@ use Illuminate\Support\Facades\Route;
 /**
  * WEB ROUTES
  */
-Route::view('/', [HomeController::class, 'home'])->name('home');
+Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::view('quienes-somos', [HomeController::class, 'aboutus'])->name('about');
 Route::view('servicios', [HomeController::class, 'services'])->name('services');
 Route::view('afiliacion', [HomeController::class, 'affiliation'])->name('affiliation');
-Route::view('noticias', [HomeController::class, 'news'])->name('news');
 Route::view('contacto', [HomeController::class, 'contact'])->name('contact');
 
 /**
@@ -83,7 +82,10 @@ Route::resource('facturas', InvoiceController::class)
  * NEWS ROUTES
  */
 Route::resource('noticias', NoticiaController::class)
+  ->except(['show'])
   ->middleware(['auth', 'is_admin']);
+Route::get('noticias-avipla', [HomeController::class, 'news'])->name('news');
+Route::get('noticias/{noticia}', [HomeController::class, 'newsItem'])->name('news.item');
 
 Route::resource('categorias', CategoryController::class)
   ->names('categories')
@@ -96,10 +98,10 @@ Route::resource('categorias', CategoryController::class)
  */
 Route::get('pagos/{invoice}/detalle', [PagoController::class, 'invoiceDetails'])
   ->name('pagos.invoice');
-
 Route::get('pagos/{invoice}/pagar', [PagoController::class, 'payInvoice'])
   ->name('pagos.pay_invoice');
-
+Route::get('pagos/{invoice}/modificar', [PagoController::class, 'updatePay'])
+  ->name('pagos.update_pay');
 Route::resource('pagos', PagoController::class)
   ->middleware(['auth']);
 

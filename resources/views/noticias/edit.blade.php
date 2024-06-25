@@ -72,7 +72,7 @@
                         <option></option>
                         @foreach ($categorias as $categoria)
                             <option
-                                {{ old('categoria_id', $noticia->categoria_id) ? 'selected' : '' }}
+                                {{ old('categoria_id', $noticia->categoria_id) === $categoria->id ? 'selected' : '' }}
                                 value="{{ $categoria->id }}"
                             >{{ $categoria->display_name }}</option>
                         @endforeach

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePagoRequest;
+use App\Http\Requests\UpdatePagoRequest;
 use App\Models\Invoice;
 use App\Models\MetodoPago;
 use App\Models\Pago;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PagoController extends Controller
 {
@@ -34,15 +37,9 @@ class PagoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePagoRequest $request)
     {
-        $payload = $request->validate([
-            'metodo_pago_id'    => 'numeric|required|exists:metodos_pago,id',
-            'monto'             => 'required|numeric',
-            'referencia'        => 'required',
-            'comprobante'       => 'file|required|mimes:pdf,png,jpg,jpeg',
-            'invoice_id'        => 'numeric|required|exists:invoices,id'
-        ]);
+        $payload = $request->validated();
 
         $comprobanteFile = $request->file('comprobante');
         $comprobanteFileName = $comprobanteFile->hashName();
@@ -54,13 +51,7 @@ class PagoController extends Controller
 
         $this->authorize('view', $invoice); // todo change this policie for anyone more especific
 
-        Pago::create([
-            'metodo_pago_id'    => $payload['metodo_pago_id'],
-            'invoice_id'        => $payload['invoice_id'],
-            'monto'             => $payload['monto'],
-            'referencia'        => $payload['referencia'],
-            'comprobante'       => $payload['comprobante'],
-        ]);
+        Pago::create($payload);
 
         $invoice->update([ 'estado' => 'REVISION' ]);
 
@@ -86,9 +77,26 @@ class PagoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pago $pago)
+    public function update(UpdatePagoRequest $request, Pago $pago)
     {
-        //
+        $payload = $request->validated();
+
+        if($request->hasFile('comprobante')) {
+            Storage::delete($pago->comprobante);
+            $comprobanteFile = $request->file('comprobante');
+            $comprobanteFileName = $comprobanteFile->hashName();
+            $comprobanteFile->storeAs('comprobantes', $comprobanteFileName);
+
+            $payload['comprobante'] = $comprobanteFileName;
+
+            $invoice = Invoice::where('id', $payload['invoice_id'])->first();
+        }
+
+        $pago->update($payload);
+
+        $invoice->update([ 'estado' => 'REVISION' ]);
+
+        return redirect()->route('pagos.index')->with('success', 'Se actualizo la información del pago correctamente.');
     }
 
     /**
@@ -108,5 +116,12 @@ class PagoController extends Controller
         $this->authorize('view', $invoice);
         $metodos_pago = MetodoPago::all();
         return view('pagos.create', compact('invoice', 'metodos_pago'));
+    }
+
+    public function updatePay(Invoice $invoice) {
+        $invoice->load('pago');
+        $this->authorize('update', $invoice);
+        $metodos_pago = MetodoPago::all();
+        return view('pagos.edit', compact('invoice', 'metodos_pago'));
     }
 }

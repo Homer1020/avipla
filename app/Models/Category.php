@@ -14,5 +14,9 @@ class Category extends Model
         'name'
     ];
 
+    public function noticias() {
+        return $this->hasMany(Noticia::class, 'categoria_id');
+    }
+
     public $timestamps = false;
 }

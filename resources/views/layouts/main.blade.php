@@ -14,9 +14,13 @@
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     <!-- OWL CAROUSEL -->
-    <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/owl.carousel.min.css') }}">
     <!-- OWL CAROUSEL THEME -->
     <link rel="stylesheet" href="{{ asset('assets/css/owl.theme.default.css') }}">
+    <!-- GOOGLE FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     @stack('css')
 </head>
 
@@ -65,7 +69,7 @@
                     <a class="nav-link" href="{{ route('affiliation') }}">Afiliacion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Noticias</a>
+                    <a class="nav-link" href="{{ route('news') }}">Noticias</a>
                 </li>
                 <li class="nav-item mb-4">
                     <a class="nav-link" href="{{ route('contact') }}">Contacto</a>

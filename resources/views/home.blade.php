@@ -1,21 +1,28 @@
 @extends('layouts.main')
 @section('title', 'Inicio')
+@push('css')
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+    </style>
+@endpush
 @section('content')
 
 	<!-- carousel -->
 	<div class="owl-carousel">
-			<div>
-					<div class="banner" style="background-image: url(./assets/img/hands.jpg);">
-							<div class="container-sm h-100">
-									<div class="row h-100 align-items-center">
-											<div class="col-lg-6">
-													<h1 class="banner__title text-center text-lg-start">Asociación Venezolana de industrias plásticas</h1>
-											</div>
-											<!-- <div class="col-lg-6"></div> -->
-									</div>
-							</div>
-					</div>
-			</div>
+        <div>
+            <div class="banner" style="background-image: url(./assets/img/hands.jpg);">
+                <div class="container-sm h-100">
+                    <div class="row h-100 align-items-center">
+                        <div class="col-lg-6">
+                            <h1 class="banner__title text-center text-lg-start">Asociación Venezolana de industrias plásticas</h1>
+                        </div>
+                        <!-- <div class="col-lg-6"></div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
 	</div>
     <!-- /carousel -->
 
@@ -50,38 +57,20 @@
     <div class="container-sm">
         <h2 class="section__title">Noticias de la Industria</h2>
         <div class="row">
-            <div class="col-md-4">
-                <article class="mb-5 mb-md-0">
-                    <a href="article.html" class="d-block">
-                        <img src="./assets/img/reciclaje2.jpg" class="figure-img img-fluid rounded shadow-sm object-fit-cover d-block mb-4" alt="">
-                    </a>
-                    <h3 class="fs-5 article__title mb-4"><a class="text-primary" href="article.html">El problema del plástico en la naturaleza ¿Cómo puedes ayudar?</a></h3>
+            @foreach ($noticias as $noticia)
+                <div class="col-md-4">
+                    <article class="mb-5 mb-md-0">
+                        <a href="{{ route('news.item', $noticia) }}" class="d-block">
+                            <img style="aspect-ratio: 1280/853;" src="{{ Storage::url($noticia->thumbnail) }}" class="figure-img img-fluid rounded shadow-sm object-fit-cover d-block mb-3" alt="{{ $noticia->titulo }}">
+                        </a>
+                        <h3 class="fs-5 article__title mb-3"><a class="text-primary" href="{{ route('news.item', $noticia) }}">{{ $noticia->titulo }}</a></h3>
 
-                    <a href="article.html" class="btn btn-outline-primary">Leer artículo</a>
-                </article>
-            </div>
-            <div class="col-md-4">
-                <article class="mb-5 mb-md-0">
-                    <a href="article.html" class="d-block">
-                        <img src="./assets/img/reciclaje2.jpg" class="figure-img img-fluid rounded shadow-sm object-fit-cover d-block mb-4" alt="">
-                    </a>
-                    <h3 class="fs-5 article__title mb-4"><a class="text-primary" href="article.html">El problema del plástico en la naturaleza ¿Cómo puedes ayudar?</a></h3>
-
-                    <a href="article.html" class="btn btn-outline-primary">Leer artículo</a>
-                </article>
-            </div>
-            <div class="col-md-4">
-                <article class="mb-5 mb-md-0">
-                    <a href="article.html" class="d-block">
-                        <img src="./assets/img/reciclaje2.jpg" class="figure-img img-fluid rounded shadow-sm object-fit-cover d-block mb-4" alt="">
-                    </a>
-                    <h3 class="fs-5 article__title mb-4"><a class="text-primary" href="article.html">El problema del plástico en la naturaleza ¿Cómo puedes ayudar?</a></h3>
-
-                    <a href="article.html" class="btn btn-outline-primary">Leer artículo</a>
-                </article>
-            </div>
+                        <a href="{{ route('news.item', $noticia) }}" class="btn btn-outline-primary">Leer artículo</a>
+                    </article>
+                </div>
+            @endforeach
             <div class="col-12 text-center" style="margin-top: 4rem;">
-                <a href="article.html" class="btn btn-primary text-uppercase">Ver más</a>
+                <a href="{{ route('news') }}" class="btn btn-primary text-uppercase">Ver más</a>
             </div>
         </div>
     </div>

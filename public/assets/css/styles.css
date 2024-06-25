@@ -18,10 +18,11 @@
 
 body {
     font-family: swiss;
-    color: #333;
+    color: #222;
 }
 
 a {
+    font-family: "Poppins", sans-serif;
     color: inherit;
 }
 
@@ -85,6 +86,7 @@ a {
     padding-top: 0.7rem;
     padding-bottom: 0.7rem;
     font-weight: 500;
+    letter-spacing: 1px;
 }
 
 .btn:not(.btn-variation) {
@@ -119,6 +121,16 @@ a {
 .btn-primary {
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
+}
+
+.btn-primary:hover {
+    background-color: #212345 !important;
+    border-color: #212345 !important;
+}
+
+.btn-primary.btn-variation:hover {
+    background-color: #51b4e1 !important;
+    border-color: #51b4e1 !important;
 }
 
 /* ARTICLE */
@@ -183,6 +195,12 @@ a {
     text-transform: uppercase;
     font-size: 14px;
     color: var(--color-secondary);
+}
+
+.nav-link:hover,
+.nav-link:active,
+.nav-link:focus {
+    color: #212345 !important;
 }
 
 /* OFF CANVAS */

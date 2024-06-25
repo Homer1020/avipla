@@ -27,9 +27,14 @@
         </thead>
         <tbody>
             @foreach ($categorias as $categoria)
+                @php
+                  $categorias_length = $categoria->noticias->count();
+                @endphp
                 <tr>
                     <td>#{{ $categoria->id }}</td>
-                    <td>{{ $categoria->display_name }}</td>
+                    <td>
+                      <a href="">{{ $categoria->display_name }} ({{ $categorias_length }} {{ ($categorias_length > 1 || $categorias_length === 0)? 'noticias' : 'noticia' }})</a>
+                    </td>
                     <td>{{ $categoria->name }}</td>
                     <td style="white-space: nowrap">
                       <form action="{{ route('categories.destroy', $categoria) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">

@@ -63,15 +63,6 @@ class NoticiaController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Noticia $noticia)
-    {
-        $relacionadas = Noticia::all();
-        return view('noticias.show', compact('noticia', 'relacionadas'));
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Noticia $noticia)

@@ -31,7 +31,7 @@
             <tr>
               <td>#{{ $noticia->id }}</td>
               <td>
-                <a href="{{ route('noticias.show', $noticia) }}" target="_blank">
+                <a href="{{ route('news.item', $noticia) }}" target="_blank">
                   {{ $noticia->titulo }}
                 </a>
               </td>

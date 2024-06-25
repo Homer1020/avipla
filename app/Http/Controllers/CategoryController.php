@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categorias = Category::all();
+        $categorias = Category::with('noticias')->get();
         return view('categorias.index', compact('categorias'));
     }
 

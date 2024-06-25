@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Noticia;
+
 class HomeController extends Controller
 {
     public function home() {
-        return view('home');
+        $noticias = Noticia::latest()->limit(3)->get();
+        return view('home', compact('noticias'));
     }
 
     public function aboutus() {
@@ -21,10 +25,25 @@ class HomeController extends Controller
     }
 
     public function news() {
-        return view('news');
+        $noticias = Noticia::with('categoria')
+            ->latest()
+            ->paginate(6);
+        return view('news', compact('noticias'));
     }
 
     public function contact() {
         return view('contact');
+    }
+
+    public function newsItem(Noticia $noticia) {
+        $relacionadas = Noticia::whereHas('categoria', function ($query) use ($noticia) {
+                $query->where('categoria_id', $noticia->categoria_id);
+            })
+            ->where('id', '!=', $noticia->id)
+            ->inRandomOrder()
+            ->limit(3)
+            ->get();
+        $categorias = Category::all();
+        return view('noticias.show', compact('noticia', 'relacionadas', 'categorias'));
     }
 }

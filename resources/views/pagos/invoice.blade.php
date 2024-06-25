@@ -62,27 +62,7 @@
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Estado:</span>
-                @switch($invoice->estado)
-                  @case('COMPLETADO')
-                    <div class="badge bg-success">
-                      {{ $invoice->estado }}
-                    </div>
-                    @break
-                  @case('PENDIENTE')
-                    <div class="badge bg-warning">
-                      {{ $invoice->estado }}
-                    </div>
-                    @break
-                  @case('CANCELADO')
-                    <div class="badge bg-danger">
-                      {{ $invoice->estado }}
-                    </div>
-                    @break
-                  @default
-                    <div class="badge bg-secondary">
-                      {{ $invoice->estado }}
-                    </div>
-                @endswitch
+                @include('partials.invoice_status')
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Observaciones:</span>
