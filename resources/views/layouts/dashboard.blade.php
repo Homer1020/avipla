@@ -50,9 +50,12 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <h6 class="dropdown-header text-uppercase">Notificaciones sin leer ({{ $notifications->count() }})</h6>
                         <li><hr class="dropdown-divider"></li>
-                        @foreach ($notifications as $notification)
+                        @forelse ($notifications as $notification)
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="{{ route('pagos.invoice', $notification->data['invoice_id']) }}">
+                                <a
+                                    class="dropdown-item d-flex align-items-center"
+                                    href="{{ route('pagos.invoice', $notification->data['invoice_id']) }}"
+                                >
                                     <div class="flex-shrink-0">
                                         <div style="width: 35px; height: 35px;" class="rounded bg text d-flex align-items-center justify-content-center">
                                             <i class="fa fa-file-invoice fa-xl"></i>
@@ -66,17 +69,36 @@
                                     </div>
                                 </a>
                             </li>
-                        @endforeach
+                        @empty
+                            <li>
+                                <div class="p-3 py-1">
+                                    <p class="m-0 text-muted d-flex align-items-center justify-content-center">
+                                        <i class="fa fa-bell-slash me-2"></i>
+                                        Sin novedades.
+                                    </p>
+                                </div>
+                            </li>
+                        @endforelse
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item text-center" href="{{ route('notifications.index') }}">Todas las Notificaciones</a></li>
+                        <li><a class="dropdown-item text-center" href="{{ route('notifications.index') }}">Todas las notificaciones</a></li>
                     </ul>
                   </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{{ route('profile.show') }}">Perfil de usuario</a></li>
+                        <li>
+                            <a
+                                class="dropdown-item {{ request()->routeIs('profile.show') ? 'active' : '' }}"
+                                href="{{ route('profile.show') }}"
+                            >Perfil de usuario</a>
+                        </li>
                         @if (Auth::user()->roles->first()->name === 'afiliado')
-                            <li><a class="dropdown-item" href="{{ route('business.show') }}">Perfil de empresa</a></li>
+                            <li>
+                                <a
+                                    class="dropdown-item {{ request()->routeIs('business.show') ? 'active' : '' }}"
+                                    href="{{ route('business.show') }}"
+                                >Perfil de empresa</a>
+                            </li>
                         @endif
                         <li><hr class="dropdown-divider" /></li>
                         <li>
