@@ -6,6 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Avipla - @yield('title')</title>
         <!-- FAVICON -->
         <link rel="shortcut icon" href="{{ asset('assets/img/logo.png') }}" type="image/png">
@@ -37,20 +39,44 @@
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item">
-                    <a href="{{ route('notifications.index') }}" role="button" class="nav-link">
+                @php $notifications = Auth::user()->unreadNotifications @endphp
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">
                         <i class="fa fa-bell fa-fw"></i>
                         <div class="badge bg-danger">
-                            {{ Auth::user()->unreadNotifications()->count() }}
+                            {{ $notifications->count() }}
                         </div>
                     </a>
-                </li>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <h6 class="dropdown-header text-uppercase">Notificaciones sin leer ({{ $notifications->count() }})</h6>
+                        <li><hr class="dropdown-divider"></li>
+                        @foreach ($notifications as $notification)
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center" href="{{ route('pagos.invoice', $notification->data['invoice_id']) }}">
+                                    <div class="flex-shrink-0">
+                                        <div style="width: 35px; height: 35px;" class="rounded bg text d-flex align-items-center justify-content-center">
+                                            <i class="fa fa-file-invoice fa-xl"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <p class="m-0">
+                                            Tienes una factura pendiente #{{ $notification->data['numero_factura'] }}.
+                                        </p>
+                                        <small>{{ $notification->created_at->diffForHumans() }}</small>
+                                    </div>
+                                </a>
+                            </li>
+                        @endforeach
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-center" href="{{ route('notifications.index') }}">Todas las Notificaciones</a></li>
+                    </ul>
+                  </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="{{ route('profile.show') }}">Perfil de usuario</a></li>
                         @if (Auth::user()->roles->first()->name === 'afiliado')
-                            <li><a class="dropdown-item" href="#">Perfil de empresa</a></li>
+                            <li><a class="dropdown-item" href="{{ route('business.show') }}">Perfil de empresa</a></li>
                         @endif
                         <li><hr class="dropdown-divider" /></li>
                         <li>

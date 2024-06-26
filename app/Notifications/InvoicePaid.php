@@ -8,14 +8,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class InvoiceCreated extends Notification
+class InvoicePaid extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(public Invoice $invoice)
+    public function __construct(
+        public Invoice $invoice
+    )
     {
         //
     }
@@ -49,7 +51,7 @@ class InvoiceCreated extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'invoice_id'        => $this->invoice->id,
+            'invoice_id'    => $this->invoice->id,
             'numero_factura'    => $this->invoice->numero_factura
         ];
     }

@@ -64,14 +64,19 @@ Route::resource('usuarios', UserController::class)
 Route::get('perfil', [ProfileController::class, 'show'])->name('profile.show');
 Route::put('perfil', [ProfileController::class, 'update'])->name('profile.update');
 
+Route::get('mi-empresa', [ProfileController::class, 'businessShow'])->name('business.show');
+Route::put('mi-empresa', [ProfileController::class, 'update'])->name('business.update');
+
 Route::resource('roles', RoleController::class)
   ->middleware(['auth', 'is_admin']);
 
 Route::resource('boletines', BoletinesController::class);
 
-Route::resource('notificaciones', NotificationController::class)
-  ->names('notifications')
+Route::get('notificaciones', [NotificationController::class, 'index'])
+  ->name('notifications.index')
   ->middleware(['auth']);
+Route::post('notificaciones', [NotificationController::class, 'markAllAsRead'])
+  ->name('notifications.markAllAsRead');
 
 Route::resource('facturas', InvoiceController::class)
   ->names('invoices')

@@ -7,6 +7,8 @@ use App\Http\Requests\UpdatePagoRequest;
 use App\Models\Invoice;
 use App\Models\MetodoPago;
 use App\Models\Pago;
+use App\Models\User;
+use App\Notifications\InvoicePaid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -54,6 +56,13 @@ class PagoController extends Controller
         Pago::create($payload);
 
         $invoice->update([ 'estado' => 'REVISION' ]);
+
+        $administradores = User::whereHas('roles', function ($query) {
+            $query->where('name', 'administrador');
+        })->get();
+        foreach ($administradores as $administrador) {
+            $administrador->notify(new InvoicePaid($invoice));
+        }
 
         return redirect()->route('pagos.index')->with('success', 'Pago realizado correctamente.');
     }

@@ -5,7 +5,7 @@
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
-    <li class="breadcrumb-item active">Detalles del pago</li>
+    <li class="breadcrumb-item active">Factura #{{ $invoice->numero_factura }}</li>
   </ol>
   <div class="row">
       <div class="col-lg-6">
@@ -54,19 +54,31 @@
                 {{ $invoice->monto_total }}$
             </li>
             <li class="list-group-item">
-                <span class="fw-bold d-block mb-2">Documento:</span>
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
-                    <i class="fa fa-file"></i>
-                    Documento
-                </a>
-            </li>
-            <li class="list-group-item">
                 <span class="fw-bold">Estado:</span>
                 @include('partials.invoice_status')
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Observaciones:</span>
                 {{ $invoice->observaciones }}
+            </li>
+            
+            @if (!$invoice->pago)
+                @can('update', $invoice)
+                    <li class="list-group-item">
+                        <span class="fw-bold d-block mb-2">Pagar factura:</span>
+                        <a href="{{ route('pagos.pay_invoice', $invoice) }}" type="submit" class="btn btn-primary">
+                            <i class="fas fa-file-invoice"></i>
+                            Pagar factura
+                        </a>
+                    </li>
+                @endcan
+            @endif
+            <li class="list-group-item">
+                <span class="fw-bold d-block mb-2">Documento:</span>
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
+                    <i class="fa fa-file"></i>
+                    Documento
+                </a>
             </li>
         </ul>
     </div>

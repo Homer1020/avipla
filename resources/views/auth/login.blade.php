@@ -27,7 +27,7 @@
         <div class="col-lg-5">
           <div class="card shadow">
             <div class="card-body px-5 py-4">
-              <div class="text-center mb-4">
+              <div class="text-center mb-2">
                 <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA" width="100px">
               </div>
 

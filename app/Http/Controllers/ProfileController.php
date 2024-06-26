@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Actividad;
+use App\Models\Afiliado;
+use App\Models\MateriaPrima;
+use App\Models\Producto;
+use App\Models\Servicio;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -32,5 +37,29 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()->route('profile.show')->with('success', 'Se actualio el perfil correctamente.');
+    }
+
+    public function businessShow(Request $request) {
+        $afiliado = $request->user()->afiliado;
+        $actividades = Actividad::all();
+        $productos = Producto::all();
+        $materias_primas = MateriaPrima::all();
+        $servicios = Servicio::all();
+        $afiliados = Afiliado::where('id', '!=', $afiliado->id)->get();
+        $afiliado->load([
+            'direccion',
+            'personal',
+            'productos',
+            'materias_primas',
+            'servicios'
+        ]);
+        return view('profile.business', compact(
+            'afiliado',
+            'actividades',
+            'productos',
+            'materias_primas',
+            'servicios',
+            'afiliados'
+        ));
     }
 }
