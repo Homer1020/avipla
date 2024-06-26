@@ -42,7 +42,8 @@ class AfiliadosSeeder extends Seeder
                 'actividad_id'                  => 1,
                 'relacion_comercio_exterior'    => 'EXPORTADOR',
                 'siglas'                        => 'FC',
-                'estado'                        => 1
+                'estado'                        => 1,
+                'brand'                         => 'brand.png'
             ]);
     
             $afiliado->direccion()->create([

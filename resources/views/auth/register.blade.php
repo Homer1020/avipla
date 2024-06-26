@@ -34,7 +34,7 @@
               </div>
               <h1 class="fs-3 fw-bold text-primary text-center mb-4 text-uppercase">Crear cuenta</h1>
 
-              <form action="{{ route('auth.register') }}" method="POST">
+              <form novalidate action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="confirmation_code" value="{{ $solicitud->confirmation_code }}">
                 <!-- Nav tabs -->

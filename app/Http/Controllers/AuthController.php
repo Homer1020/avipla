@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class AuthController extends Controller
@@ -107,6 +108,10 @@ class AuthController extends Controller
 
         $afiliado_role = Role::firstOrCreate(['name' => 'afiliado']);
         $user->roles()->sync($afiliado_role);
+
+        # upload image
+        $path = $request->file('brand')->store('public/brands');
+        $payload['brand'] = $path;
 
         $afiliado = $user->afiliado()->create($payload);
 

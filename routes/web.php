@@ -45,7 +45,7 @@ Route::view('dashboard', 'dashboard.index')
   ->name('dashboard')
   ->middleware(['auth']);
 
-Route::middleware(['auth', 'is_admin'])->group(function() {
+Route::middleware(['auth'])->group(function() {
   Route::get('afiliados/solicitar', [SolicitudController::class, 'requestForm'])
     ->name('afiliados.requestForm');
   Route::post('afiliados/solicitar', [SolicitudController::class, 'request'])

@@ -20,7 +20,8 @@ class Afiliado extends Model
         'correo',
         'confirmation_code',
         'siglas',
-        'estado'
+        'estado',
+        'brand'
     ];
 
     public function user() {

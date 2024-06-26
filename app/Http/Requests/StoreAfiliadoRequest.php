@@ -22,6 +22,7 @@ class StoreAfiliadoRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'brand'                             => 'required|max:2024|image',
             'razon_social'                      => 'required|string',
             'email'                             => 'required|email',
             'name'                              => 'required|string',

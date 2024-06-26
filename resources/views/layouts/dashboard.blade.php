@@ -99,14 +99,6 @@
                                 href="{{ route('profile.show') }}"
                             >Perfil de usuario</a>
                         </li>
-                        @if (Auth::user()->roles->first()->name === 'afiliado')
-                            <li>
-                                <a
-                                    class="dropdown-item {{ request()->routeIs('business.show') ? 'active' : '' }}"
-                                    href="{{ route('business.show') }}"
-                                >Perfil de empresa</a>
-                            </li>
-                        @endif
                         <li><hr class="dropdown-divider" /></li>
                         <li>
                             <form action="{{ route('auth.logout') }}" method="POST">

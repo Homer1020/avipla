@@ -11,6 +11,7 @@ use App\Models\MateriaPrima;
 use App\Models\Producto;
 use App\Models\Servicio;
 use App\Models\SolicitudAfiliado;
+use Illuminate\Support\Facades\Storage;
 
 class AfiliadosController extends Controller
 {
@@ -83,7 +84,6 @@ class AfiliadosController extends Controller
      */
     public function update(UpdateAfiliadoRequest $request, Afiliado $afiliado)
     {
-
         $payload = $request->safe()->only([
             'razon_social',
             'rif',
@@ -95,6 +95,12 @@ class AfiliadosController extends Controller
             'correo',
             'siglas'
         ]);
+
+        if($request->hasFile('brand') && Storage::fileExists($afiliado->brand)) {
+            Storage::delete($afiliado->brand);
+            $path = $request->file('brand')->store('public/brands');
+            $payload['brand'] = $path;
+        }
 
         $afiliado->update($payload);
 
@@ -139,7 +145,9 @@ class AfiliadosController extends Controller
         $afiliado->materias_primas()->sync($request->input('materias_primas'));
         $afiliado->referencias()->sync($request->input('afiliados'));
 
-        return redirect()->route('afiliados.index')->with('success', 'Se actualizo la información del afiliado');
+        return request()->user()->is_admin()
+        ? redirect()->route('afiliados.index')->with('success', 'Se actualizo la información del afiliado')
+        : redirect()->route('business.show')->with('success', 'Se guardó tu información');
     }
 
     /**

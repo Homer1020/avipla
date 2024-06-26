@@ -28,6 +28,7 @@ return new class extends Migration
                 ->onDelete('SET NULL')
                 ->onUpdate('CASCADE');
             $table->boolean('estado')->default(1); // -> estado del afiliado
+            $table->string('brand');
             $table->string('razon_social');
             $table->string('rif')->unique();
             $table->string('siglas');

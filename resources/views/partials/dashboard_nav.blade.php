@@ -9,6 +9,15 @@
             >
                 Dashboard
             </x-nav-link>
+            @if (Auth::user()->roles->first()->name === 'afiliado')
+                <x-nav-link
+                    :to="route('business.show')"
+                    active="business.*"
+                    icon="fas fa-building"
+                >
+                    Mi empresa
+                </x-nav-link>
+            @endif
             <x-nav-link
                 :to="route('notifications.index')"
                 active="notifications.*"

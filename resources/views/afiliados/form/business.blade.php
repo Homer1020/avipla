@@ -77,6 +77,24 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-lg-12">
+        <x-forms.input
+            type="file"
+            name="brand"
+            id="brand"
+            label="Logotipo de la empresa"
+            required
+            :error="$errors->first('brand')"
+        />
+        @if ($afiliado->brand)
+            <div class="text-center">
+                <img width="200" class="mb-3" src="{{ Storage::url($afiliado->brand) }}" alt="Logo: {{ $afiliado->razon_social }}">
+            </div>
+        @endif
+    </div>
+</div>
+
 <p class="text-muted fw-bold text-uppercase">
     Direcciones
 </p>
