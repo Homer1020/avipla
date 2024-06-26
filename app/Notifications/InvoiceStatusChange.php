@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class InvoicePaid extends Notification
+class InvoiceStatusChange extends Notification
 {
     use Queueable;
 
@@ -18,9 +18,7 @@ class InvoicePaid extends Notification
     public function __construct(
         public Invoice $invoice
     )
-    {
-        //
-    }
+    {}
 
     /**
      * Get the notification's delivery channels.
@@ -53,7 +51,8 @@ class InvoicePaid extends Notification
         return [
             'invoice_id'        => $this->invoice->id,
             'numero_factura'    => $this->invoice->numero_factura,
-            'message'           => 'Se canceló la factura #' . $this->invoice->numero_factura
+            'status'            => $this->invoice->estado,
+            'message'           => 'Cambió el estado de la factura #'  . $this->invoice->numero_factura . ' a "' . $this->invoice->estado . '"'
         ];
     }
 }

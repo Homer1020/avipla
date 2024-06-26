@@ -16,6 +16,7 @@
         <thead>
           <tr>
             <th>ID</th>
+            <th>Factura N°</th>
             <th>Fecha</th>
             <th>Estado</th>
             <th>Monto</th>
@@ -27,6 +28,7 @@
           @foreach ($invoices as $invoice)
             <tr>
               <td>#{{ $invoice->id }}</td>
+              <td>#{{ $invoice->numero_factura }}</td>
               <td>{{ $invoice->created_at }}</td>
               <td>
                 @include('partials.invoice_status')
@@ -95,7 +97,7 @@
 
     new DataTable('#invoices-table', {
       columnDefs: [
-        { orderable: false, targets: 4 },
+        { orderable: false, targets: 5 },
       ],
       order: false,
       language: {

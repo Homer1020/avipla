@@ -32,7 +32,7 @@
           @foreach ($invoices as $invoice)
             <tr>
               <td>#{{ $invoice->id }}</td>
-              <td>{{ $invoice->numero_factura }}</td>
+              <td>#{{ $invoice->numero_factura }}</td>
               <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
               <td>
                 <span class="text-truncate d-inline-block" style="max-width: 150px">

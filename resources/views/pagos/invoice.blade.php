@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'Detalle Factura')
 @section('content')
-  <h1 class="mt-4">Detalles del pago</h1>
+  <h1 class="mt-4">Detalles de la factura</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
@@ -32,11 +32,23 @@
                     {{ $pago->created_at }}
                 </li>
                 <li class="list-group-item">
+                    <span class="fw-bold d-block mb-2">Comprobante de pago:</span>
                     <a target="_blank" href="{{ route('files.getFile', ['dir' => 'comprobantes', 'path' => $pago->comprobante]) }}" class="btn btn-outline-primary">
                         <i class="fa fa-file"></i>
                         Comprobante
                     </a>
                 </li>
+                @if ($invoice->estado === 'CANCELADO')
+                  @can('update', $invoice)
+                    <li class="list-group-item">
+                        <span class="fw-bold d-block mb-2">Modificar pago:</span>
+                        <a href="{{ route('pagos.update_pay', $invoice) }}" type="submit" class="btn btn-warning">
+                            <i class="fas fa-file-invoice"></i>
+                            Modificar Pago
+                        </a>
+                    </li>
+                  @endcan
+                @endif
             </ul>
         @endif
         <p class="fw-bold text-uppercase text-muted">Datos de factura</p>

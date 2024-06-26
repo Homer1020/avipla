@@ -51,10 +51,16 @@
                         <h6 class="dropdown-header text-uppercase">Notificaciones sin leer ({{ $notifications->count() }})</h6>
                         <li><hr class="dropdown-divider"></li>
                         @forelse ($notifications as $notification)
+                            @php
+                                # Saber si el link de la notificacion debe dirigir a una vista de administrador o de afiliado
+                                $route = request()->user()->is_admin()
+                                    ? route('invoices.show', $notification->data['invoice_id'])
+                                    : route('pagos.invoice', $notification->data['invoice_id']);
+                            @endphp
                             <li>
                                 <a
                                     class="dropdown-item d-flex align-items-center"
-                                    href="{{ route('pagos.invoice', $notification->data['invoice_id']) }}"
+                                    href="{{ $route }}"
                                 >
                                     <div class="flex-shrink-0">
                                         <div style="width: 35px; height: 35px;" class="rounded bg text d-flex align-items-center justify-content-center">
@@ -63,7 +69,7 @@
                                     </div>
                                     <div class="flex-grow-1 ms-3">
                                         <p class="m-0">
-                                            Tienes una factura pendiente #{{ $notification->data['numero_factura'] }}.
+                                        {{ $notification->data['message'] }}
                                         </p>
                                         <small>{{ $notification->created_at->diffForHumans() }}</small>
                                     </div>
@@ -73,8 +79,9 @@
                             <li>
                                 <div class="p-3 py-1">
                                     <p class="m-0 text-muted d-flex align-items-center justify-content-center">
-                                        <i class="fa fa-bell-slash me-2"></i>
-                                        Sin novedades.
+                                        <small>
+                                            Sin novedades
+                                        </small>
                                     </p>
                                 </div>
                             </li>

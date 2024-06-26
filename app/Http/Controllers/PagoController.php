@@ -9,6 +9,7 @@ use App\Models\MetodoPago;
 use App\Models\Pago;
 use App\Models\User;
 use App\Notifications\InvoicePaid;
+use App\Notifications\PayUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -26,14 +27,6 @@ class PagoController extends Controller
             })
             ->latest()->get();
         return view('pagos.index', compact('invoices'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -68,22 +61,6 @@ class PagoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Pago $pago)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pago $pago)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(UpdatePagoRequest $request, Pago $pago)
@@ -97,23 +74,22 @@ class PagoController extends Controller
             $comprobanteFile->storeAs('comprobantes', $comprobanteFileName);
 
             $payload['comprobante'] = $comprobanteFileName;
-
-            $invoice = Invoice::where('id', $payload['invoice_id'])->first();
         }
 
         $pago->update($payload);
 
-        $invoice->update([ 'estado' => 'REVISION' ]);
+        $pago->invoice->update([ 'estado' => 'REVISION' ]);
+
+        $administradores = User::whereHas('roles', function ($query) {
+            $query->where('name', 'administrador');
+        })
+        ->get();
+
+        foreach ($administradores as $administrador) {
+            $administrador->notify(new PayUpdated($pago->invoice));
+        }
 
         return redirect()->route('pagos.index')->with('success', 'Se actualizo la información del pago correctamente.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Pago $pago)
-    {
-        //
     }
 
     public function invoiceDetails(Invoice $invoice) {

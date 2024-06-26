@@ -43,20 +43,9 @@
   @endif
   
   @foreach (Auth::user()->unreadNotifications as $notification)
-    @switch($notification->type)
-      @case('App\Notifications\InvoiceCreated')
-        <x-notifications.invoice-created
-          :notification="$notification"
-        />
-        @break
-      @case('App\Notifications\InvoicePaid')
-        <x-notifications.invoice-paid
-          :notification="$notification"
-        />
-        @break
-      @default
-        
-    @endswitch
+    <x-notifications.invoice
+      :notification="$notification"
+    />
   @endforeach
 
   <p class="text-muted text-uppercase">Notificaciones leidas</p>
@@ -81,20 +70,9 @@
     </div>
   @endif
   @foreach (Auth::user()->readNotifications as $notification)
-  @switch($notification->type)
-      @case('App\Notifications\InvoiceCreated')
-        <x-notifications.invoice-created
-          :notification="$notification"
-        />
-        @break
-      @case('App\Notifications\InvoicePaid')
-        <x-notifications.invoice-paid
-          :notification="$notification"
-        />
-        @break
-      @default
-        
-    @endswitch
+    <x-notifications.invoice
+      :notification="$notification"
+    />
   @endforeach
 @endsection
 @push('script')

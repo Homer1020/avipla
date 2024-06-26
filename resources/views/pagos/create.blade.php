@@ -6,7 +6,7 @@
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
     <li class="breadcrumb-item"><a href="{{ route('pagos.invoice', $invoice) }}">Factura #{{ $invoice->numero_factura }}</a></li>
-    <li class="breadcrumb-item active">Detalle del pago</li>
+    <li class="breadcrumb-item active">Pagar factura</li>
   </ol>
   
   <div class="row mb-4">

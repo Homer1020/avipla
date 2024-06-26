@@ -50,7 +50,8 @@ class InvoiceCreated extends Notification
     {
         return [
             'invoice_id'        => $this->invoice->id,
-            'numero_factura'    => $this->invoice->numero_factura
+            'numero_factura'    => $this->invoice->numero_factura,
+            'message'           => 'Tienes una factura pendiente por pagar #' . $this->invoice->numero_factura
         ];
     }
 }

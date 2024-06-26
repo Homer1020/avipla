@@ -6,6 +6,7 @@ use App\Models\Afiliado;
 use App\Models\Invoice;
 use App\Models\User;
 use App\Notifications\InvoiceCreated;
+use App\Notifications\InvoiceStatusChange;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -91,7 +92,17 @@ class InvoiceController extends Controller
         $invoice->estado = $request->input('invoice_status');
         $invoice->observaciones = $request->input('observaciones');
         $invoice->save();
-        return redirect()->route('invoices.show', $invoice)->with('success', 'Se actualizo el estado de la factura.');
+
+        $administradores = User::whereHas('roles', function ($query) {
+            $query->where('name', 'administrador');
+        })
+        ->where('id', '!=', $request->user()->id)
+        ->get();
+        foreach ($administradores as $administrador) {
+            $administrador->notify(new InvoiceStatusChange($invoice));
+        }
+        $invoice->afiliado->user->notify(new InvoiceStatusChange($invoice));
+        return redirect()->route('invoices.index', $invoice)->with('success', 'Se actualizo el estado de la factura.');
     }
 
     /**
