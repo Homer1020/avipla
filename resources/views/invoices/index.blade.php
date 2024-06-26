@@ -88,7 +88,6 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="{{ asset('assets/css/datatables.min.js') }}"></script>
-
   @if (session('success'))
     <script>
         Swal.fire({
@@ -116,7 +115,10 @@
 
     new DataTable('#invoices-table', {
       columnDefs: [
-        { orderable: false, targets: 6 },
+        {
+          orderable: false,
+          targets: 6
+        }
       ],
       order: false,
       language: {
