@@ -84,6 +84,15 @@
             >
                 Boletines
             </x-nav-link>
+            @if (Auth::user()->is_admin())
+                <x-nav-link
+                    :to="route('notifications.index')"
+                    active="notifications.*"
+                    icon="fas fa-database"
+                >
+                    Sitio web
+                </x-nav-link>
+            @endif
         </div>
     </div>
     <div class="sb-sidenav-footer">
