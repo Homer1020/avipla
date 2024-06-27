@@ -53,9 +53,15 @@
                         @forelse ($notifications as $notification)
                             @php
                                 # Saber si el link de la notificacion debe dirigir a una vista de administrador o de afiliado
-                                $route = request()->user()->is_admin()
-                                    ? route('invoices.show', $notification->data['invoice_id'])
-                                    : route('pagos.invoice', $notification->data['invoice_id']);
+                                if(isset($notification->data['invoice_id'])) {
+                                    $route = request()->user()->is_admin()
+                                        ? route('invoices.show', $notification->data['invoice_id'])
+                                        : route('pagos.invoice', $notification->data['invoice_id']);
+                                } else if ($notification->data['boletine_id']) {
+                                    $route = route('boletines.show', $notification->data['boletine_id']);
+                                }
+
+                                
                             @endphp
                             <li>
                                 <a
@@ -64,7 +70,7 @@
                                 >
                                     <div class="flex-shrink-0">
                                         <div style="width: 35px; height: 35px;" class="rounded bg text d-flex align-items-center justify-content-center">
-                                            <i class="fa fa-file-invoice fa-xl"></i>
+                                            <i class="{{ $notification->data['icon'] }} fa-xl"></i>
                                         </div>
                                     </div>
                                     <div class="flex-grow-1 ms-3">

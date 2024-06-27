@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('boletins', function (Blueprint $table) {
+        Schema::create('categoria_boletines', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('display_name');
+            $table->string('name')->unique();
         });
     }
 
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('boletins');
+        Schema::dropIfExists('categoria_boletines');
     }
 };

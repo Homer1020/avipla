@@ -61,6 +61,10 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function boletin() {
+        return $this->hasMany(Boletine::class);
+    }
+
     public function is_admin(): bool {
         return $this->roles()->first()->name === 'administrador';
     }

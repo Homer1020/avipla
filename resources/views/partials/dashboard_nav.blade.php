@@ -63,7 +63,7 @@
                     target="newsPage"
                     :active="request()->routeIs('noticias.*') || request()->routeIs('categories.*')"
                 >
-                    <a href="{{ route('noticias.index') }}" class="nav-link {{ request()->routeIs('noticias.*') ? 'active' : '' }}">Todas las noticias</a>
+                    <a href="{{ route('noticias.index') }}" class="nav-link {{ request()->routeIs('noticias.*')  ? 'active' : '' }}">Todas las noticias</a>
                     <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">Categorías</a>
                 </x-nav-link-dropdown>
 
@@ -77,13 +77,15 @@
                     <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}">Roles</a>
                 </x-nav-link-dropdown>
             @endif
-            <x-nav-link
-                :to="route('boletines.index')"
-                active="boletines.*"
+            <x-nav-link-dropdown
+                title="Boletines"
                 icon="fas fa-envelope"
+                target="boletinesPage"
+                :active="request()->routeIs('boletines.*') || request()->routeIs('categorias-boletines.*')"
             >
-                Boletines
-            </x-nav-link>
+                <a href="{{ route('boletines.index') }}" class="nav-link {{ request()->routeIs('boletines.*') ? 'active' : '' }}">Todos los boletines</a>
+                <a href="{{ route('categorias-boletines.index') }}" class="nav-link {{ request()->routeIs('categorias-boletines.*') ? 'active' : '' }}">Categorías</a>
+            </x-nav-link-dropdown>
             @if (Auth::user()->is_admin())
                 <x-nav-link
                     :to="route('notifications.index')"

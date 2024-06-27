@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\AfiliadosController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\BoletinesController;
+use App\Http\Controllers\BoletineController;
+use App\Http\Controllers\CategoriaBoletineController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
@@ -70,7 +71,9 @@ Route::put('mi-empresa', [ProfileController::class, 'update'])->name('business.u
 Route::resource('roles', RoleController::class)
   ->middleware(['auth', 'is_admin']);
 
-Route::resource('boletines', BoletinesController::class);
+Route::resource('boletines', BoletineController::class);
+Route::resource('categorias-boletines', CategoriaBoletineController::class)
+  ->parameters(['categorias-boletines' => 'category']);
 
 Route::get('notificaciones', [NotificationController::class, 'index'])
   ->name('notifications.index')

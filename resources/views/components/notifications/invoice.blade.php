@@ -1,10 +1,13 @@
 <div class="card mb-3 shadow shadow-sm">
     <div class="card-body">
         @php
-            # Saber si el link de la notificacion debe dirigir a una vista de administrador o de afiliado
-            $route = request()->user()->is_admin()
-                ? route('invoices.show', $notification->data['invoice_id'])
-                : route('pagos.invoice', $notification->data['invoice_id']);
+            if(isset($notification->data['invoice_id'])) {
+                $route = request()->user()->is_admin()
+                    ? route('invoices.show', $notification->data['invoice_id'])
+                    : route('pagos.invoice', $notification->data['invoice_id']);
+            } else if ($notification->data['boletine_slug']) {
+                $route = route('boletines.show', $notification->data['boletine_slug']);
+            }
         @endphp
         <a href="{{ $route }}" class="d-flex" style="text-decoration: none; color: #000;">
         <div class="flex-shrink-0">
