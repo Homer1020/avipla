@@ -23,8 +23,10 @@
         }
 
         h1 {
-            color: #323567;
+            color: #333333;
             text-align: center;
+            margin: 0.5rem 0;
+            font-size: 24px;
         }
 
         p {
@@ -48,16 +50,19 @@
 
         .footer {
             margin-top: 20px;
-            text-align: center;
             color: #999999;
             font-size: 14px;
+        }
+
+        .img-container {
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="text-center mb-4">
-          <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA" width="100px">
+        <div class="img-container">
+            <img src="{{ $message->embed(asset('assets/img/logo.png')) }}" alt="Logo Avipla" width="100">
         </div>
         <h1>AVIPLA - Recordatorio para crear cuenta de afiliado</h1>
 

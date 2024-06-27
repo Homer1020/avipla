@@ -120,3 +120,9 @@ Route::resource('pagos', PagoController::class)
 Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
   ->middleware(['auth'])
   ->name('files.getFile');
+
+Route::get('/mailable', function () {
+    $solicitud = App\Models\SolicitudAfiliado::find(1);
+ 
+    return new App\Mail\VerifyAfiliadoEmail($solicitud);
+});

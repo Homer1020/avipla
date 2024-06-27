@@ -25,6 +25,8 @@
         h1 {
             color: #333333;
             text-align: center;
+            margin: 0.5rem 0;
+            font-size: 24px;
         }
 
         p {
@@ -36,26 +38,32 @@
         a {
             display: inline-block;
             padding: 10px 20px;
-            background-color: #007bff;
+            background-color: #323567;
             color: #ffffff;
             text-decoration: none;
             border-radius: 5px;
         }
 
         a:hover {
-            background-color: #0056b3;
+            background-color: #323567;
         }
 
         .footer {
             margin-top: 20px;
-            text-align: center;
             color: #999999;
             font-size: 14px;
+        }
+
+        .img-container {
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="img-container">
+            <img src="{{ $message->embed(asset('assets/img/logo.png')) }}" alt="Logo Avipla" width="100">
+        </div>
         <h1>AVIPLA - Crea tu cuenta de afiliado</h1>
 
         <p>Hola {{ $solicitud->razon_social }},</p>
@@ -71,8 +79,12 @@
         <p>Atentamente,</p>
         <p>El equipo AVIPLA</p>
         
+        <hr>
+        
         <div class="footer">
-            <p>Este es un mensaje automático. Por favor no respondas a este correo.</p>
+            <p>
+                Este es un mensaje automático. Por favor no respondas a este correo.
+            </p>
         </div>
     </div>
 </body>
