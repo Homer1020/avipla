@@ -49,6 +49,8 @@ class InvoiceCreated extends Notification
     public function toArray(object $notifiable): array
     {
         return [
+            'icon'              => 'fa fa-file-invoice',
+            'bg-class'          => 'bg-warning',
             'invoice_id'        => $this->invoice->id,
             'numero_factura'    => $this->invoice->numero_factura,
             'message'           => 'Tienes una factura pendiente por pagar #' . $this->invoice->numero_factura

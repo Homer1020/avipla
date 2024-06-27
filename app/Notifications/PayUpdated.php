@@ -49,6 +49,8 @@ class PayUpdated extends Notification
     public function toArray(object $notifiable): array
     {
         return [
+            'icon'              => 'fa fa-file-invoice',
+            'bg-class'          => 'bg-danger',
             'invoice_id'        => $this->invoice->id,
             'numero_factura'    => $this->invoice->numero_factura,
             'message'           => 'Se actualizaron los datos del pago para la factura #'  . $this->invoice->numero_factura

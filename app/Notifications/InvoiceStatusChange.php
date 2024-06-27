@@ -48,7 +48,15 @@ class InvoiceStatusChange extends Notification
      */
     public function toArray(object $notifiable): array
     {
+        $bg_class = match($this->invoice->estado) {
+            'PENDIENTE'     => 'bg-secondary',
+            'REVISION'      => 'bg-warning',
+            'COMPLETADO'    => 'bg-success',
+            'CANCELADO'     => 'bg-danger'
+        };
         return [
+            'icon'              => 'fa fa-file-invoice',
+            'bg-class'          => $bg_class,
             'invoice_id'        => $this->invoice->id,
             'numero_factura'    => $this->invoice->numero_factura,
             'status'            => $this->invoice->estado,

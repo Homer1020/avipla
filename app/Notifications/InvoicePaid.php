@@ -51,6 +51,8 @@ class InvoicePaid extends Notification
     public function toArray(object $notifiable): array
     {
         return [
+            'icon'              => 'fa fa-file-invoice',
+            'bg-class'          => 'bg-secondary',
             'invoice_id'        => $this->invoice->id,
             'numero_factura'    => $this->invoice->numero_factura,
             'message'           => 'Se canceló la factura #' . $this->invoice->numero_factura
