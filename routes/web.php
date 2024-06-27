@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -113,6 +114,10 @@ Route::get('pagos/{invoice}/modificar', [PagoController::class, 'updatePay'])
 Route::resource('pagos', PagoController::class)
   ->middleware(['auth']);
 
+/**
+ * WEBSITE CONTROLLER
+ */
+Route::get('sitio-web', [WebsiteController::class, 'index'])->name('website.index');
 
 /**
  * MANAGE FILES

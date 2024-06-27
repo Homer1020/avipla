@@ -62,6 +62,7 @@ class BoletineController extends Controller
      */
     public function show(Boletine $boletine)
     {
+        $boletine->load('user');
         return view('boletines.show', compact('boletine'));
     }
 

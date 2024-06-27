@@ -21,6 +21,10 @@ class Boletine extends Model
         return $this->belongsTo(CategoriaBoletine::class, 'category_id');
     }
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';

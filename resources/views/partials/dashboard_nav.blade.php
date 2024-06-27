@@ -98,8 +98,8 @@
             @endif
             @if (Auth::user()->is_admin())
                 <x-nav-link
-                    :to="route('notifications.index')"
-                    active="notifications.*"
+                    :to="route('website.index')"
+                    active="website.*"
                     icon="fas fa-database"
                 >
                     Sitio web

@@ -86,7 +86,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div id="submit_button"></div>
+                    <button type="submit" class="btn btn-outline-success"><i class="fa fa-check"></i> Guardar estado</button>
                 </form>
             </li>
         </ul>
@@ -120,20 +120,6 @@
 @endsection
 @push('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        const $invoice_status = $('#invoice_status')
-        const initial_value = $invoice_status.val()
-        $('#invoice_status').on('change', function() {
-            const current_value = $('#invoice_status').val()
-            if(current_value !== initial_value && !($('#submit_button button').length)) {
-                $('#submit_button').append(`
-                    <button type="submit" class="btn btn-outline-success"><i class="fa fa-check"></i> Guardar estado</button>
-                `)
-            } else if(current_value === initial_value) {
-                $('#submit_button > *').remove()
-            }
-        });
-    </script>
   
     @if (session('success'))
       <script>

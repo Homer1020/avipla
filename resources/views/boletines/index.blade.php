@@ -29,7 +29,7 @@
                 <td>#{{ $boletin->id }}</td>
                 <td>{{ $boletin->created_at->format('d-m-Y') }}</td>
                 <td>
-                  <a href="{{ route('boletines.show', $boletin) }}" target="_blank">{{ $boletin->titulo }}</a>
+                  <a href="{{ route('boletines.show', $boletin) }}">{{ $boletin->titulo }}</a>
                 </td>
                 <td>
                   @if ($boletin->categoria)
