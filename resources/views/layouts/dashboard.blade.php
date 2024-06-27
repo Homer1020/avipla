@@ -57,8 +57,8 @@
                                     $route = request()->user()->is_admin()
                                         ? route('invoices.show', $notification->data['invoice_id'])
                                         : route('pagos.invoice', $notification->data['invoice_id']);
-                                } else if ($notification->data['boletine_id']) {
-                                    $route = route('boletines.show', $notification->data['boletine_id']);
+                                } else if ($notification->data['boletine_slug']) {
+                                    $route = route('boletines.show', $notification->data['boletine_slug']);
                                 }
 
                                 

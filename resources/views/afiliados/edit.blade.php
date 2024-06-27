@@ -12,7 +12,7 @@
     <li class="breadcrumb-item active">Modificar afiliado</li>
   </ol>
 
-  <form action="{{ route('afiliados.update', $afiliado) }}" method="POST">
+  <form action="{{ route('afiliados.update', $afiliado) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="card mb-4">

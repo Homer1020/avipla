@@ -96,8 +96,10 @@ class AfiliadosController extends Controller
             'siglas'
         ]);
 
-        if($request->hasFile('brand') && Storage::fileExists($afiliado->brand)) {
-            Storage::delete($afiliado->brand);
+        if($request->hasFile('brand')) {
+            if(Storage::fileExists($afiliado->brand)) {
+                Storage::delete($afiliado->brand);
+            }
             $path = $request->file('brand')->store('public/brands');
             $payload['brand'] = $path;
         }

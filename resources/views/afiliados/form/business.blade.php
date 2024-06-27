@@ -84,7 +84,6 @@
             name="brand"
             id="brand"
             label="Logotipo de la empresa"
-            required
             :error="$errors->first('brand')"
         />
         @if ($afiliado->brand)

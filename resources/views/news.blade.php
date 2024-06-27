@@ -53,7 +53,7 @@
     <div class="header-separator"></div>
     <div class="hero mb-5 d-flex align-items-center" style="background-image: url(/assets/img/botellas3.jpg)">
         <div class="container">
-            <h1 class="text-white text-uppercase fs-1 fw-bold">Noticias</h1>
+            <h1 class="text-white text-uppercase fs-1 fw-bold">Noticias recientes</h1>
         </div>
     </div>
     <div class="container py-3">

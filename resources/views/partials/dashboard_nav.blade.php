@@ -77,15 +77,25 @@
                     <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}">Roles</a>
                 </x-nav-link-dropdown>
             @endif
-            <x-nav-link-dropdown
-                title="Boletines"
-                icon="fas fa-envelope"
-                target="boletinesPage"
-                :active="request()->routeIs('boletines.*') || request()->routeIs('categorias-boletines.*')"
-            >
-                <a href="{{ route('boletines.index') }}" class="nav-link {{ request()->routeIs('boletines.*') ? 'active' : '' }}">Todos los boletines</a>
-                <a href="{{ route('categorias-boletines.index') }}" class="nav-link {{ request()->routeIs('categorias-boletines.*') ? 'active' : '' }}">Categorías</a>
-            </x-nav-link-dropdown>
+            @if (Auth::user()->is_admin())
+                <x-nav-link-dropdown
+                    title="Boletines"
+                    icon="fas fa-envelope"
+                    target="boletinesPage"
+                    :active="request()->routeIs('boletines.*') || request()->routeIs('categorias-boletines.*')"
+                >
+                    <a href="{{ route('boletines.index') }}" class="nav-link {{ request()->routeIs('boletines.*') ? 'active' : '' }}">Todos los boletines</a>
+                    <a href="{{ route('categorias-boletines.index') }}" class="nav-link {{ request()->routeIs('categorias-boletines.*') ? 'active' : '' }}">Categorías</a>
+                </x-nav-link-dropdown>
+            @else
+                <x-nav-link
+                    :to="route('boletines.index')"
+                    active="boletines.*"
+                    icon="fas fa-envelope"
+                >
+                    Boletines
+                </x-nav-link>
+            @endif
             @if (Auth::user()->is_admin())
                 <x-nav-link
                     :to="route('notifications.index')"
