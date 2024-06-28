@@ -39,7 +39,7 @@ class CategoryController extends Controller
 
         Category::create($payload);
 
-        return redirect()->route('categories.index')->with('success', 'Se creo la categoría correctamente.');
+        return redirect()->route('categories.index')->with('success', 'Se creó la categoría correctamente.');
     }
 
     /**
@@ -64,7 +64,7 @@ class CategoryController extends Controller
 
         $category->update($payload);
 
-        return redirect()->route('categories.index')->with('success', 'Se actualizo la categoría correctamente.');
+        return redirect()->route('categories.index')->with('success', 'Se actualizó la categoría correctamente.');
     }
 
     /**
@@ -73,6 +73,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('categories.index')->with('success', 'Se elimino la categoría correctamente.');
+        return redirect()->route('categories.index')->with('success', 'Se eliminó la categoría correctamente.');
     }
 }

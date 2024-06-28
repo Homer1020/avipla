@@ -83,6 +83,28 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="tags" class="form-label">Etiquetas</label>
+                    <select
+                        name="tags[]"
+                        id="tags"
+                        class="selectpicker w-100 @error('tags') is-invalid @enderror"
+                        data-placeholder="Seleccione una etiqueta"
+                        multiple
+                    >
+                        <option></option>
+                        @foreach ($etiquetas as $etiqueta)
+                            <option
+                                value="{{ $etiqueta->id }}"
+                                @selected(in_array($etiqueta->id, old('tags', $noticia->tags->pluck(['id'])->all())))
+                            >{{ $etiqueta->display_name }}</option>
+                        @endforeach
+                    </select>
+                    @error('tags')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
                     <label for="thumbnail" class="form-label">Imagen principal</label>
                     <input
                         type="file"
@@ -108,6 +130,9 @@
     <script>
         $(document).ready(function() {
             $('#categoria_id').select2({
+                theme: 'bootstrap-5',
+            })
+            $('#tags').select2({
                 theme: 'bootstrap-5',
                 tags: true
             })

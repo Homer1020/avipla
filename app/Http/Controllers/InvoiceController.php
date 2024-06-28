@@ -62,7 +62,7 @@ class InvoiceController extends Controller
         if ($user !== null && $user instanceof User) {
             $invoice = $user->invoices()->create($payload);
             $invoice->afiliado->user->notify(new InvoiceCreated($invoice));
-            return redirect()->route('invoices.index')->with('success', 'Se creo la factura correctamente');
+            return redirect()->route('invoices.index')->with('success', 'Se creó la factura correctamente');
         }
         
     }
@@ -106,7 +106,7 @@ class InvoiceController extends Controller
             }
             $invoice->afiliado->user->notify(new InvoiceStatusChange($invoice));
         }
-        return redirect()->route('invoices.index', $invoice)->with('success', 'Se actualizo el estado de la factura.');
+        return redirect()->route('invoices.index', $invoice)->with('success', 'Se actualizó el estado de la factura.');
     }
 
     /**

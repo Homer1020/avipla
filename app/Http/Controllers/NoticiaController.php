@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Noticia;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +28,8 @@ class NoticiaController extends Controller
     public function create()
     {
         $categorias = Category::all();
-        return view('noticias.create', compact('categorias'));
+        $etiquetas = Tag::all();
+        return view('noticias.create', compact('categorias', 'etiquetas'));
     }
 
     /**
@@ -55,10 +57,11 @@ class NoticiaController extends Controller
         $auth_user = Auth::user();
 
         if($auth_user !== null && $auth_user instanceof User) {
-            $auth_user->noticias()->create($payload);
+            $noticia = $auth_user->noticias()->create($payload);
+            $noticia->tags()->attach($request->input('tags'));
         }
 
-        return redirect()->route('noticias.index')->with('success', 'Se creo la noticia correctamente.');
+        return redirect()->route('noticias.index')->with('success', 'Se creó la noticia correctamente.');
     }
 
     /**
@@ -67,7 +70,8 @@ class NoticiaController extends Controller
     public function edit(Noticia $noticia)
     {
         $categorias = Category::all();
-        return view('noticias.edit', compact('noticia', 'categorias'));
+        $etiquetas = Tag::all();
+        return view('noticias.edit', compact('noticia', 'categorias', 'etiquetas'));
     }
 
     /**
@@ -98,8 +102,9 @@ class NoticiaController extends Controller
         $payload['slug'] = $slug;
 
         $noticia->update($payload);
+        $noticia->tags()->sync($request->input('tags'));
 
-        return redirect()->route('noticias.index')->with('success', 'Se actualizo la noticia correctamente.');
+        return redirect()->route('noticias.index')->with('success', 'Se actualizó la noticia correctamente.');
     }
 
     /**
@@ -113,6 +118,6 @@ class NoticiaController extends Controller
 
         $noticia->delete();
 
-        return redirect()->route('noticias.index')->with('success', 'Se elimino la noticia correctamente.');
+        return redirect()->route('noticias.index')->with('success', 'Se eliminó la noticia correctamente.');
     }
 }

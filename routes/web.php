@@ -14,6 +14,7 @@ use App\Http\Controllers\PagoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SolicitudController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
@@ -93,12 +94,19 @@ Route::resource('facturas', InvoiceController::class)
 Route::resource('noticias', NoticiaController::class)
   ->except(['show'])
   ->middleware(['auth', 'is_admin']);
+
 Route::get('noticias-avipla', [HomeController::class, 'news'])->name('news');
 Route::get('noticias/{noticia}', [HomeController::class, 'newsItem'])->name('news.item');
 
 Route::resource('categorias', CategoryController::class)
   ->names('categories')
   ->parameters(['categorias' => 'category'])
+  ->except(['show'])
+  ->middleware(['auth', 'is_admin']);
+
+  Route::resource('etiquetas', TagController::class)
+  ->names('tags')
+  ->parameters(['etiquetas' => 'tag'])
   ->except(['show'])
   ->middleware(['auth', 'is_admin']);
 

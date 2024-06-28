@@ -40,7 +40,7 @@ class CategoriaBoletineController extends Controller
 
         CategoriaBoletine::create($payload);
 
-        return redirect()->route('categorias-boletines.index')->with('success', 'Se creo la categoría correctamente.');
+        return redirect()->route('categorias-boletines.index')->with('success', 'Se creó la categoría correctamente.');
     }
 
     /**
@@ -73,7 +73,7 @@ class CategoriaBoletineController extends Controller
 
         $category->update($payload);
 
-        return redirect()->route('categorias-boletines.index')->with('success', 'Se actualizo la categoría correctamente.');
+        return redirect()->route('categorias-boletines.index')->with('success', 'Se actualizó la categoría correctamente.');
     }
 
     /**
@@ -82,6 +82,6 @@ class CategoriaBoletineController extends Controller
     public function destroy(CategoriaBoletine $category)
     {
         $category->delete();
-        return redirect()->route('categorias-boletines.index')->with('success', 'Se elimino la categoría correctamente.');
+        return redirect()->route('categorias-boletines.index')->with('success', 'Se eliminó la categoría correctamente.');
     }
 }

@@ -148,7 +148,7 @@ class AfiliadosController extends Controller
         $afiliado->referencias()->sync($request->input('afiliados'));
 
         return request()->user()->is_admin()
-        ? redirect()->route('afiliados.index')->with('success', 'Se actualizo la información del afiliado')
+        ? redirect()->route('afiliados.index')->with('success', 'Se actualizó la información del afiliado')
         : redirect()->route('business.show')->with('success', 'Se guardó tu información');
     }
 
@@ -164,6 +164,6 @@ class AfiliadosController extends Controller
 
         return redirect()
             ->route('afiliados.index')
-            ->with('success', 'Se elimino el afiliado correctamente.');
+            ->with('success', 'Se eliminó el afiliado correctamente.');
     }
 }
