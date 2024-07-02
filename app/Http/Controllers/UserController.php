@@ -13,7 +13,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->latest()->get();
+        $users = User::with('roles')->latest()->where('id', '!=', request()->user()->id)->get();
         return view('users.index', compact('users'));
     }
 
@@ -32,7 +32,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $payload = $request->validate([
+            'name'      => 'required|string',
+            'email'     => 'required|string|email|unique:users,email',
+            'password'  => 'required|min:8|confirmed',
+            'role_id'   => 'required|exists:roles,id'
+        ]);
+
+        $user = User::create($payload);
+
+        $user->roles()->sync([$payload['role_id']]);
+
+        return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
     }
 
     /**
@@ -48,6 +59,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $user->load('roles');
         $roles = Role::where('name', '!=', 'afiliado')->get();
         return view('users.edit', compact('user', 'roles'));
     }
@@ -55,16 +67,36 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $payload = $request->validate([
+            'name'      => 'required|string',
+            'email'     => 'required|string|email|unique:users,email,' . $user->id,
+            'password'  => 'nullable|min:8|confirmed',
+            'role_id'   => 'required|exists:roles,id'
+        ]);
+
+
+        $user->name = $payload['name'];
+        $user->email = $payload['email'];
+
+        if($request->input('password')) {
+            $user->password = bcrypt($request->input('password'));
+        }
+
+         $user->roles()->sync([$payload['role_id']]);
+
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'Se actualizó el usuario correctamente.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('users.index')->with('success', 'Se eliminó el perfil correctamente.');         
     }
 }

@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AvisoCobro;
 use Illuminate\Http\Request;
 
-class WebsiteController extends Controller
+class AvisoCobroController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('website.edit');
+        //
     }
 
     /**
@@ -33,7 +34,7 @@ class WebsiteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(AvisoCobro $avisoCobro)
     {
         //
     }
@@ -41,7 +42,7 @@ class WebsiteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(AvisoCobro $avisoCobro)
     {
         //
     }
@@ -49,7 +50,7 @@ class WebsiteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, AvisoCobro $avisoCobro)
     {
         //
     }
@@ -57,7 +58,7 @@ class WebsiteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(AvisoCobro $avisoCobro)
     {
         //
     }

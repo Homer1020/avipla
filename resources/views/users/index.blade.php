@@ -31,9 +31,15 @@
                 <td>{{ $user->email }}</td>
                 <td>
                     @foreach ($user->roles as $role)
+                      @if($role->name === 'afiliado')
                         <span class="badge bg-secondary">
-                            {{ $role->name }}
+                          {{ $role->name }}
                         </span>
+                      @else
+                        <span class="badge bg-success">
+                          {{ $role->name }}
+                        </span>
+                      @endif
                     @endforeach
                 </td>
                 <td style="white-space: nowrap">

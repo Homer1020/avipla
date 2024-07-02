@@ -36,7 +36,7 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return redirect()->route('profile.show')->with('success', 'Se actualio el perfil correctamente.');
+        return redirect()->route('profile.show')->with('success', 'Se actualizó el perfil correctamente.');
     }
 
     public function businessShow(Request $request) {

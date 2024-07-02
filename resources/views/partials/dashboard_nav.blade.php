@@ -39,6 +39,13 @@
                 </x-nav-link>
             @endcan
             @can('viewAny', App\Models\Invoice::class)
+                {{-- <x-nav-link
+                    :to="route('invoices.index')"
+                    active="invoices.*"
+                    icon="fas fa-exclamation-triangle"
+                >
+                    Avisos de cobro
+                </x-nav-link> --}}
                 <x-nav-link
                     :to="route('invoices.index')"
                     active="invoices.*"
