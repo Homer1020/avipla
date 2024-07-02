@@ -54,7 +54,7 @@ class BoletineController extends Controller
             $afiliado->notify(new BoletinCreated($boletine));
         }
 
-        return redirect()->route('boletines.index')->with('success', 'Se creo el boletin correctamente');
+        return redirect()->route('boletines.index')->with('success', 'Se creó el boletin correctamente');
     }
 
     /**
@@ -91,7 +91,7 @@ class BoletineController extends Controller
 
         $boletine->update($payload);
 
-        return redirect()->route('boletines.index')->with('success', 'Se actualizo el boletin correctamente');
+        return redirect()->route('boletines.index')->with('success', 'Se actualizó el boletin correctamente');
     }
 
     /**
@@ -100,6 +100,6 @@ class BoletineController extends Controller
     public function destroy(Boletine $boletine)
     {
         $boletine->delete();
-        return redirect()->route('boletines.index')->with('success', 'Se elimino el boletin correctamente');
+        return redirect()->route('boletines.index')->with('success', 'Se eliminó el boletin correctamente');
     }
 }

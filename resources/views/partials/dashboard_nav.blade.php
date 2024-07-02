@@ -24,7 +24,7 @@
                 icon="fas fa-bell"
             >
                 Notificaciones
-                <span class="badge bg-danger ms-3">
+                <span class="badge bg-danger ms-auto">
                     {{ Auth::user()->unreadNotifications()->count() }}
                 </span>
             </x-nav-link>
@@ -68,10 +68,11 @@
                     title="Noticias"
                     icon="fas fa-newspaper"
                     target="newsPage"
-                    :active="request()->routeIs('noticias.*') || request()->routeIs('categories.*')"
+                    :active="request()->routeIs('noticias.*') || request()->routeIs('categories.*') || request()->routeIs('tags.*')"
                 >
                     <a href="{{ route('noticias.index') }}" class="nav-link {{ request()->routeIs('noticias.*')  ? 'active' : '' }}">Todas las noticias</a>
                     <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">Categorías</a>
+                    <a href="{{ route('tags.index') }}" class="nav-link {{ request()->routeIs('tags.*') ? 'active' : '' }}">Etiquetas</a>
                 </x-nav-link-dropdown>
 
                 <x-nav-link-dropdown

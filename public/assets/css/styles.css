@@ -26,6 +26,12 @@ a {
     color: inherit;
 }
 
+/* PAGINATION */
+.active>.page-link, .page-link.active {
+    background-color: var(--color-secondary) !important;
+    border-color: var(--color-secondary) !important;
+}
+
 /* TOGGLE */
 .toggle {
     background-color: transparent;

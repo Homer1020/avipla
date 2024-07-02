@@ -26,6 +26,7 @@ class HomeController extends Controller
 
     public function news() {
         $noticias = Noticia::with('categoria')
+            ->where('estatus', 'PUBLISHED')
             ->latest()
             ->paginate(6);
         return view('news', compact('noticias'));
@@ -36,6 +37,9 @@ class HomeController extends Controller
     }
 
     public function newsItem(Noticia $noticia) {
+        if($noticia->estatus === 'DRAFT') {
+            return abort(404);
+        }
         $relacionadas = Noticia::whereHas('categoria', function ($query) use ($noticia) {
                 $query->where('categoria_id', $noticia->categoria_id);
             })

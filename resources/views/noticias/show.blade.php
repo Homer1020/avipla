@@ -111,11 +111,6 @@
                                             <p class="m-0">
                                                 <small><span class="fw-bold">Por:</span> {{ $relacionada->usuario->name }}</small>
                                             </p>
-                                            <div>
-                                                <span class="badge bg-secondary">
-                                                    {{ $relacionada->categoria->name }}
-                                                </span>
-                                            </div>
                                         </div>
                                     </article>
                                 @empty

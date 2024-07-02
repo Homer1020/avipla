@@ -52,7 +52,7 @@ class BoletinCreated extends Notification
             'boletine_id'       => $this->boletine->id,
             'boletine_slug'     => $this->boletine->slug,
             'titulo'            => $this->boletine->titulo,
-            'message'           => 'Se creo un nuevo boletin "'. $this->boletine->titulo .'"'
+            'message'           => 'Se creó un nuevo boletin "'. $this->boletine->titulo .'"'
         ];
     }
 }

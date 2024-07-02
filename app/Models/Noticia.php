@@ -26,6 +26,10 @@ class Noticia extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function tags() {
+        return $this->belongsToMany(Tag::class, 'tag_noticia');
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';
