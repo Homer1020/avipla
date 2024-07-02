@@ -1,17 +1,17 @@
 @extends('layouts.dashboard')
 @section('title', 'Detalle Factura')
 @section('content')
-  <h1 class="mt-4">Detalles de la factura</h1>
+  <h1 class="mt-4">Detalles del aviso</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
-    <li class="breadcrumb-item active">Factura #{{ $invoice->numero_factura }}</li>
+    <li class="breadcrumb-item active">Aviso de cobro #{{ $avisoCobro->numero_factura }}</li>
   </ol>
   <div class="row">
       <div class="col-lg-6">
-        @if ($invoice->pago)
+        @if ($avisoCobro->pago)
             @php
-                $pago = $invoice->pago;
+                $pago = $avisoCobro->pago;
             @endphp
             <p class="fw-bold text-uppercase text-muted">Datos del pago</p>
             <ul class="list-group mb-4">
@@ -38,32 +38,30 @@
                         Comprobante
                     </a>
                 </li>
-                @if ($invoice->estado === 'CANCELADO')
-                  @can('update', $invoice)
+                @if ($avisoCobro->estado === 'CANCELADO')
                     <li class="list-group-item">
                         <span class="fw-bold d-block mb-2">Modificar pago:</span>
-                        <a href="{{ route('pagos.update_pay', $invoice) }}" type="submit" class="btn btn-warning">
+                        <a href="{{ route('pagos.update_pay', $avisoCobro) }}" type="submit" class="btn btn-warning">
                             <i class="fas fa-file-invoice"></i>
                             Modificar Pago
                         </a>
                     </li>
-                  @endcan
                 @endif
             </ul>
         @endif
-        <p class="fw-bold text-uppercase text-muted">Datos de factura</p>
+        <p class="fw-bold text-uppercase text-muted">Aviso de pago</p>
         <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>
-                #{{ $invoice->numero_factura }}
+                #{{ $avisoCobro->numero_factura }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Fecha de emisión:</span>
-                {{ $invoice->created_at }}
+                {{ $avisoCobro->created_at }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Monto total:</span>
-                {{ $invoice->monto_total }}$
+                {{ $avisoCobro->monto_total }}$
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Estado:</span>
@@ -71,23 +69,21 @@
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Observaciones:</span>
-                {{ $invoice->observaciones }}
+                {{ $avisoCobro->observaciones }}
             </li>
             
-            @if (!$invoice->pago)
-                @can('update', $invoice)
-                    <li class="list-group-item">
-                        <span class="fw-bold d-block mb-2">Pagar factura:</span>
-                        <a href="{{ route('pagos.pay_invoice', $invoice) }}" type="submit" class="btn btn-primary">
-                            <i class="fas fa-file-invoice"></i>
-                            Pagar factura
-                        </a>
-                    </li>
-                @endcan
+            @if (!$avisoCobro->pago)
+                <li class="list-group-item">
+                    <span class="fw-bold d-block mb-2">Adjuntar pago:</span>
+                    <a href="{{ route('avisos-cobro.payCollectionNotice', $avisoCobro) }}" type="submit" class="btn btn-primary">
+                        <i class="fas fa-file-invoice"></i>
+                        Adjuntar pago
+                    </a>
+                </li>
             @endif
             <li class="list-group-item">
                 <span class="fw-bold d-block mb-2">Documento:</span>
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->documento]) }}" class="btn btn-outline-primary">
                     <i class="fa fa-file"></i>
                     Documento
                 </a>
@@ -99,11 +95,11 @@
         <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Nombre:</span>
-                {{ $invoice->user->name }}
+                {{ $avisoCobro->user->name }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Correo:</span>
-                <a href="mailto:{{ $invoice->user->email }}">{{ $invoice->user->email }}</a>
+                <a href="mailto:{{ $avisoCobro->user->email }}">{{ $avisoCobro->user->email }}</a>
             </li>
         </ul>
 
@@ -111,11 +107,11 @@
         <ul class="list-group">
             <li class="list-group-item">
                 <span class="fw-bold">Empresa:</span>
-                {{ $invoice->afiliado->razon_social }}
+                {{ $avisoCobro->afiliado->razon_social }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Correo:</span>
-                <a href="mailto:{{ $invoice->afiliado->user->email }}">{{ $invoice->afiliado->user->email }}</a>
+                <a href="mailto:{{ $avisoCobro->afiliado->user->email }}">{{ $avisoCobro->afiliado->user->email }}</a>
             </li>
         </ul>
     </div>

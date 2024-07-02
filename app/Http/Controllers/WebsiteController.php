@@ -11,11 +11,7 @@ class WebsiteController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
-        return view('website.edit');
-=======
         return view('website.index');
->>>>>>> 8dd578afd7945a13abf815d5a6812854e52945f7
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AfiliadosController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AvisoCobroController;
 use App\Http\Controllers\BoletineController;
 use App\Http\Controllers\CategoriaBoletineController;
 use App\Http\Controllers\CategoryController;
@@ -83,11 +84,19 @@ Route::get('notificaciones', [NotificationController::class, 'index'])
 Route::post('notificaciones', [NotificationController::class, 'markAllAsRead'])
   ->name('notifications.markAllAsRead');
 
-Route::resource('facturas', InvoiceController::class)
-  ->names('invoices')
-  ->parameters(['facturas' => 'invoice'])
+Route::resource('avisos-de-cobro', AvisoCobroController::class)
+  ->names('avisos-cobro')
+  ->parameters(['avisos-de-cobro' => 'aviso_cobro'])
   ->middleware('auth');
 
+/**
+ * Investigar cual seria el mejor nombre para estas rutas
+ */
+Route::get('pagos/{avisoCobro}/pagar', [AvisoCobroController::class, 'payCollectionNotice'])
+  ->name('avisos-cobro.payCollectionNotice')
+  ->middleware('auth');
+Route::get('pagos/{avisoCobro}/detalle', [AvisoCobroController::class, 'avisoCobroDetails'])
+  ->name('pagos.invoice');
 /**
  * NEWS ROUTES
  */
@@ -113,12 +122,8 @@ Route::resource('categorias', CategoryController::class)
 /**
  * PAYMENTS ROUTES
  */
-Route::get('pagos/{invoice}/detalle', [PagoController::class, 'invoiceDetails'])
-  ->name('pagos.invoice');
-Route::get('pagos/{invoice}/pagar', [PagoController::class, 'payInvoice'])
-  ->name('pagos.pay_invoice');
-Route::get('pagos/{invoice}/modificar', [PagoController::class, 'updatePay'])
-  ->name('pagos.update_pay');
+// Route::get('pagos/{invoice}/modificar', [PagoController::class, 'updatePay'])
+//   ->name('pagos.update_pay');
 Route::resource('pagos', PagoController::class)
   ->middleware(['auth']);
 

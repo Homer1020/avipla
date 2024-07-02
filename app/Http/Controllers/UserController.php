@@ -60,7 +60,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $user->load('roles');
-        $roles = Role::where('name', '!=', 'afiliado')->get();
+        $roles = Role::all();
         return view('users.edit', compact('user', 'roles'));
     }
 

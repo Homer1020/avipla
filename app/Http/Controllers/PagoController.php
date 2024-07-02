@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePagoRequest;
 use App\Http\Requests\UpdatePagoRequest;
+use App\Models\AvisoCobro;
 use App\Models\Invoice;
 use App\Models\MetodoPago;
 use App\Models\Pago;
 use App\Models\User;
+use App\Notifications\AvisoCobroPaid;
 use App\Notifications\InvoicePaid;
 use App\Notifications\PayUpdated;
 use Illuminate\Http\Request;
@@ -21,12 +23,12 @@ class PagoController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with('afiliado')
+        $avisosCobros = AvisoCobro::with('afiliado')
             ->whereHas('afiliado', function ($query) {
                 $query->where('user_id', Auth::user()->id);
             })
             ->latest()->get();
-        return view('pagos.index', compact('invoices'));
+        return view('pagos.index', compact('avisosCobros'));
     }
 
     /**
@@ -42,22 +44,26 @@ class PagoController extends Controller
 
         $payload['comprobante'] = $comprobanteFileName;
 
-        $invoice = Invoice::where('id', $payload['invoice_id'])->first();
-
-        $this->authorize('view', $invoice); // todo change this policie for anyone more especific
+        $avisoCobro = AvisoCobro::where('id', $payload['aviso_cobro_id'])->first();
 
         Pago::create($payload);
 
-        $invoice->update([ 'estado' => 'REVISION' ]);
+        $avisoCobro->update([ 'estado' => 'REVISION' ]);
 
         $administradores = User::whereHas('roles', function ($query) {
             $query->where('name', 'administrador');
         })->get();
         foreach ($administradores as $administrador) {
-            $administrador->notify(new InvoicePaid($invoice));
+            $administrador->notify(new AvisoCobroPaid($avisoCobro));
         }
 
         return redirect()->route('pagos.index')->with('success', 'Pago realizado correctamente.');
+    }
+
+    public function edit(Pago $pago) {
+        $pago->load('avisoCobro');
+        $metodos_pago = MetodoPago::all();
+        return view('pagos.edit', compact('pago', 'metodos_pago'));
     }
 
     /**
@@ -78,7 +84,7 @@ class PagoController extends Controller
 
         $pago->update($payload);
 
-        $pago->invoice->update([ 'estado' => 'REVISION' ]);
+        $pago->avisoCobro->update([ 'estado' => 'REVISION' ]);
 
         $administradores = User::whereHas('roles', function ($query) {
             $query->where('name', 'administrador');
@@ -86,27 +92,9 @@ class PagoController extends Controller
         ->get();
 
         foreach ($administradores as $administrador) {
-            $administrador->notify(new PayUpdated($pago->invoice));
+            $administrador->notify(new PayUpdated($pago->avisoCobro));
         }
 
         return redirect()->route('pagos.index')->with('success', 'Se actualizó la información del pago correctamente.');
-    }
-
-    public function invoiceDetails(Invoice $invoice) {
-        $this->authorize('view', $invoice);
-        return view('pagos.invoice', compact('invoice'));
-    }
-
-    public function payInvoice(Invoice $invoice) {
-        $this->authorize('view', $invoice);
-        $metodos_pago = MetodoPago::all();
-        return view('pagos.create', compact('invoice', 'metodos_pago'));
-    }
-
-    public function updatePay(Invoice $invoice) {
-        $invoice->load('pago');
-        $this->authorize('update', $invoice);
-        $metodos_pago = MetodoPago::all();
-        return view('pagos.edit', compact('invoice', 'metodos_pago'));
     }
 }

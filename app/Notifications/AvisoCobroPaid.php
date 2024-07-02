@@ -2,23 +2,21 @@
 
 namespace App\Notifications;
 
-use App\Models\Invoice;
+use App\Models\AvisoCobro;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class InvoiceCreated extends Notification
+class AvisoCobroPaid extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(public Invoice $invoice)
-    {
-        //
-    }
+    public function __construct(public AvisoCobro $avisoCobro)
+    {}
 
     /**
      * Get the notification's delivery channels.
@@ -50,10 +48,10 @@ class InvoiceCreated extends Notification
     {
         return [
             'icon'              => 'fa fa-file-invoice',
-            'bg-class'          => 'bg-warning',
-            'invoice_id'        => $this->invoice->id,
-            'numero_factura'    => $this->invoice->numero_factura,
-            'message'           => 'Tienes una factura pendiente por pagar #' . $this->invoice->numero_factura
+            'bg-class'          => 'bg-secondary',
+            'invoice_id'        => $this->avisoCobro->id,
+            'numero_factura'    => $this->avisoCobro->numero_factura,
+            'message'           => 'Se realizó pago para el aviso de cobro #' . $this->avisoCobro->numero_factura
         ];
     }
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('aviso_cobros', function (Blueprint $table) {
             $table->id();
             $table
                 ->foreignId('user_id')
@@ -25,12 +25,13 @@ return new class extends Migration
                 ->on('afiliados')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->enum('estado', ['PENDIENTE', 'REVISION', 'COMPLETADO', 'CANCELADO'])->default('PENDIENTE');
+            $table->enum('estado', ['PENDIENTE', 'REVISION', 'CONCILIADO', 'DEVUELTO'])->default('PENDIENTE');
             $table->string('numero_factura')->unique();
             $table->string('codigo_factura')->unique();
             $table->string('monto_total');
             $table->string('documento');
             $table->text('observaciones')->nullable();
+            $table->date('fecha_limite')->nullable();
             $table->timestamps();
         });
     }
@@ -40,10 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('invoices', function(Blueprint $table) {
-            $table->dropForeign(['afiliado_id']);
-            $table->dropForeign(['user_id']);
-        });
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('aviso_cobros');
     }
 };

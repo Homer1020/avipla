@@ -5,8 +5,8 @@
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('pagos.invoice', $invoice) }}">Factura #{{ $invoice->numero_factura }}</a></li>
-    <li class="breadcrumb-item active">Pagar factura</li>
+    <li class="breadcrumb-item"><a href="{{ route('pagos.invoice', $avisoCobro) }}">Factura #{{ $avisoCobro->numero_factura }}</a></li>
+    <li class="breadcrumb-item active">Adjuntar pago</li>
   </ol>
   
   <div class="row mb-4">
@@ -16,7 +16,7 @@
             <div class="card-body">
                 <form action="{{ route('pagos.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden" name="invoice_id" value="{{ $invoice->id }}">
+                    <input type="hidden" name="aviso_cobro_id" value="{{ $avisoCobro->id }}">
                     <div class="mb-3">
                         <label for="metodo_pago_id" class="form-label">Método de pago</label>
                         <select
@@ -88,48 +88,48 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <p class="fw-bold text-uppercase text-muted">Datos de factura</p>
+        <p class="fw-bold text-uppercase text-muted">Aviso de cobro</p>
         <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>
-                #{{ $invoice->numero_factura }}
+                #{{ $avisoCobro->numero_factura }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Fecha de emisión:</span>
-                {{ $invoice->created_at }}
+                {{ $avisoCobro->created_at }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Monto total:</span>
-                {{ $invoice->monto_total }}$
+                {{ $avisoCobro->monto_total }}$
             </li>
             <li class="list-group-item">
                 <span class="fw-bold d-block mb-2">Documento:</span>
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->documento]) }}" class="btn btn-outline-primary">
                     <i class="fa fa-file"></i>
                     Documento
                 </a>
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Estado:</span>
-                @switch($invoice->estado)
+                @switch($avisoCobro->estado)
                   @case('COMPLETADO')
                     <div class="badge bg-success">
-                      {{ $invoice->estado }}
+                      {{ $avisoCobro->estado }}
                     </div>
                     @break
                   @case('PENDIENTE')
                     <div class="badge bg-warning">
-                      {{ $invoice->estado }}
+                      {{ $avisoCobro->estado }}
                     </div>
                     @break
                   @case('CANCELADO')
                     <div class="badge bg-danger">
-                      {{ $invoice->estado }}
+                      {{ $avisoCobro->estado }}
                     </div>
                     @break
                   @default
                     <div class="badge bg-secondary">
-                      {{ $invoice->estado }}
+                      {{ $avisoCobro->estado }}
                     </div>
                 @endswitch
             </li>

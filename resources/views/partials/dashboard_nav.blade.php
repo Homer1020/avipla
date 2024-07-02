@@ -39,19 +39,12 @@
                 </x-nav-link>
             @endcan
             @can('viewAny', App\Models\Invoice::class)
-                {{-- <x-nav-link
-                    :to="route('invoices.index')"
-                    active="invoices.*"
-                    icon="fas fa-exclamation-triangle"
+                <x-nav-link
+                    :to="route('avisos-cobro.index')"
+                    active="avisos-cobro.*"
+                    icon="fas fa-money-bill-wave"
                 >
                     Avisos de cobro
-                </x-nav-link> --}}
-                <x-nav-link
-                    :to="route('invoices.index')"
-                    active="invoices.*"
-                    icon="fas fa-file-invoice"
-                >
-                    Facturación
                 </x-nav-link>
             @endcan
             @can('viewAny', App\Models\Pago::class)
@@ -60,7 +53,7 @@
                     active="pagos.*"
                     icon="fas fa-credit-card"
                 >
-                    Estado de cuenta
+                    Avisos de cobro
                 </x-nav-link>
             @endcan
             @if (request()->user()->is_admin())

@@ -19,7 +19,7 @@
     </div>
   @endif
 
-  <p class="text-muted text-uppercase">Notificaciones sin leer</p>
+  <p class="fw-bold text-uppercase">Notificaciones sin leer</p>
 
   @if (!Auth::user()->unreadNotifications->count())
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -48,7 +48,7 @@
     />
   @endforeach
 
-  <p class="text-muted text-uppercase">Notificaciones leidas</p>
+  <p class="fw-bold text-uppercase">Notificaciones leidas</p>
   @if (!Auth::user()->readNotifications->count())
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
       <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">

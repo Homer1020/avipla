@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Models\Invoice;
+use App\Models\AvisoCobro;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -16,7 +16,7 @@ class PayUpdated extends Notification
      * Create a new notification instance.
      */
     public function __construct(
-        public Invoice $invoice
+        public AvisoCobro $avisoCobro
     )
     {}
 
@@ -51,9 +51,9 @@ class PayUpdated extends Notification
         return [
             'icon'              => 'fa fa-file-invoice',
             'bg-class'          => 'bg-danger',
-            'invoice_id'        => $this->invoice->id,
-            'numero_factura'    => $this->invoice->numero_factura,
-            'message'           => 'Se actualizaron los datos del pago para la factura #'  . $this->invoice->numero_factura
+            'invoice_id'        => $this->avisoCobro->id,
+            'numero_factura'    => $this->avisoCobro->numero_factura,
+            'message'           => 'Se actualizaron los datos del pago para la factura #'  . $this->avisoCobro->numero_factura
         ];
     }
 }

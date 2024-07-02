@@ -1,16 +1,16 @@
 @extends('layouts.dashboard')
-@section('title', 'Facturas')
+@section('title', 'Avisos de cobro')
 @push('css')
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 @endpush
 @section('content')
-  <h1 class="mt-4">Facturas</h1>
+  <h1 class="mt-4">Avisos de cobro</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Facturas</li>
+    <li class="breadcrumb-item active">Avisos de cobro</li>
   </ol>
   <div class="mb-4">
-    <a href="{{ route('invoices.create') }}" class="btn btn-primary">Generar factura</a>
+    <a href="{{ route('avisos-cobro.create') }}" class="btn btn-primary">Generar aviso</a>
   </div>
 
   <div class="card">
@@ -19,7 +19,7 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Factura N°</th>
+            <th>Aviso N°</th>
             <th>Fecha</th>
             <th>Afiliado</th>
             <th>Estado</th>
@@ -29,52 +29,29 @@
         </thead>
     
         <tbody>
-          @foreach ($invoices as $invoice)
+          @foreach ($avisosCobros as $avisoCobro)
             <tr>
-              <td>#{{ $invoice->id }}</td>
-              <td>#{{ $invoice->numero_factura }}</td>
-              <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
+              <td>#{{ $avisoCobro->id }}</td>
+              <td>#{{ $avisoCobro->numero_factura }}</td>
+              <td>{{ $avisoCobro->created_at->format('Y-m-d') }}</td>
               <td>
                 <span class="text-truncate d-inline-block" style="max-width: 150px">
-                  {{ $invoice->afiliado->razon_social }}
+                  {{ $avisoCobro->afiliado->razon_social }}
                 </span>
               </td>
               <td>
-                @switch($invoice->estado)
-                  @case('COMPLETADO')
-                    <div class="badge bg-success">
-                      {{ $invoice->estado }}
-                    </div>
-                    @break
-                  @case('PENDIENTE')
-                    <div class="badge bg-warning">
-                      {{ $invoice->estado }}
-                    </div>
-                    @break
-                  @case('CANCELADO')
-                    <div class="badge bg-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $invoice->observaciones }}">
-                      {{ $invoice->estado }}
-                      <i class="fa fa-info-circle"></i>
-                    </div>
-                    @break
-                  @default
-                    <div class="badge bg-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $invoice->observaciones }}">
-                      {{ $invoice->estado }}
-                    </div>
-                @endswitch
+                @include('partials.invoice_status')
               </td>
-              <td>{{ $invoice->monto_total }}$</td>
+              <td>{{ $avisoCobro->monto_total }}$</td>
               <td>
-                @can('view', $invoice)
-                  <a class="btn btn-success" href="{{ route('invoices.show', $invoice) }}">
-                    <i class="fa fa-eye"></i>
-                    Detalles
-                  </a>
-                  <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
-                    <i class="fa fa-file"></i>
-                    Documento
-                  </a>
-                @endcan
+                <a class="btn btn-success" href="{{ route('avisos-cobro.show', $avisoCobro) }}">
+                  <i class="fa fa-eye"></i>
+                  Detalles
+                </a>
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'avisos-cobros', 'path' => $avisoCobro->documento]) }}" class="btn btn-outline-primary">
+                  <i class="fa fa-file"></i>
+                  Documento
+                </a>
               </td>
             </tr>
           @endforeach

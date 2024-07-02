@@ -26,7 +26,7 @@ class StorePagoRequest extends FormRequest
             'monto'             => 'required|numeric',
             'referencia'        => 'required|unique:pagos,referencia',
             'comprobante'       => 'file|required|mimes:pdf,png,jpg,jpeg',
-            'invoice_id'        => 'numeric|required|exists:invoices,id'
+            'aviso_cobro_id'    => 'numeric|required|exists:aviso_cobros,id'
         ];
     }
 }

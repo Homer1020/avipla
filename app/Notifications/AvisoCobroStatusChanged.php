@@ -2,25 +2,21 @@
 
 namespace App\Notifications;
 
-use App\Models\Invoice;
+use App\Models\AvisoCobro;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class InvoicePaid extends Notification
+class AvisoCobroStatusChanged extends Notification
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct(
-        public Invoice $invoice
-    )
-    {
-        //
-    }
+    public function __construct(public AvisoCobro $avisoCobro)
+    {}
 
     /**
      * Get the notification's delivery channels.
@@ -50,12 +46,19 @@ class InvoicePaid extends Notification
      */
     public function toArray(object $notifiable): array
     {
+        $bg_class = match($this->avisoCobro->estado) {
+            'PENDIENTE'     => 'bg-secondary',
+            'REVISION'      => 'bg-warning',
+            'CONCILIADO'    => 'bg-success',
+            'DEVUELTO'     => 'bg-danger'
+        };
         return [
             'icon'              => 'fa fa-file-invoice',
-            'bg-class'          => 'bg-secondary',
-            'invoice_id'        => $this->invoice->id,
-            'numero_factura'    => $this->invoice->numero_factura,
-            'message'           => 'Se canceló la factura #' . $this->invoice->numero_factura
+            'bg-class'          => $bg_class,
+            'invoice_id'        => $this->avisoCobro->id,
+            'numero_factura'    => $this->avisoCobro->numero_factura,
+            'status'            => $this->avisoCobro->estado,
+            'message'           => 'Hola ' . $notifiable->name . '! Cambió el estado de la factura #'  . $this->avisoCobro->numero_factura . ' a "' . $this->avisoCobro->estado . '"'
         ];
     }
 }

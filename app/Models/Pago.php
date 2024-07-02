@@ -12,7 +12,7 @@ class Pago extends Model
     protected $fillable = [
         'comprobante',
         'metodo_pago_id',
-        'invoice_id',
+        'aviso_cobro_id',
         'monto',
         'referencia'
     ];
@@ -21,7 +21,7 @@ class Pago extends Model
         return $this->belongsTo(MetodoPago::class);
     }
 
-    public function invoice() {
-        return $this->belongsTo(Invoice::class);
+    public function avisoCobro() {
+        return $this->belongsTo(AvisoCobro::class);
     }
 }

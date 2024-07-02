@@ -25,38 +25,32 @@
         </thead>
     
         <tbody>
-          @foreach ($invoices as $invoice)
+          @foreach ($avisosCobros as $avisoCobro)
             <tr>
-              <td>#{{ $invoice->id }}</td>
-              <td>#{{ $invoice->numero_factura }}</td>
-              <td>{{ $invoice->created_at }}</td>
+              <td>#{{ $avisoCobro->id }}</td>
+              <td>#{{ $avisoCobro->numero_factura }}</td>
+              <td>{{ $avisoCobro->created_at->format('d-m-Y') }}</td>
               <td>
                 @include('partials.invoice_status')
               </td>
-              <td>{{ $invoice->monto_total }}$</td>
+              <td>{{ $avisoCobro->monto_total }}$</td>
               <td>
-                @if ($invoice->estado === 'CANCELADO')
-                  @can('update', $invoice)
-                    <a href="{{ route('pagos.update_pay', $invoice) }}" type="submit" class="btn btn-warning">
-                      <i class="fas fa-file-invoice"></i>
-                      Modificar Pago
-                    </a>
-                  @endcan
-                @endif
-                @if (!$invoice->pago)
-                  @can('update', $invoice)
-                    <a href="{{ route('pagos.pay_invoice', $invoice) }}" type="submit" class="btn btn-primary">
-                      <i class="fas fa-file-invoice"></i>
-                      Pagar factura
-                    </a>
-                  @endcan
-                @endif
-                @can('view', $invoice)
-                  <a class="btn btn-success" href="{{ route('pagos.invoice', $invoice) }}">
-                    <i class="fa fa-eye"></i>
-                    Detalles
+                @if ($avisoCobro->estado === 'DEVUELTO')
+                  <a href="{{ route('pagos.edit', $avisoCobro->pago) }}" type="submit" class="btn btn-warning">
+                    <i class="fas fa-file-invoice"></i>
+                    Modificar Pago
                   </a>
-                @endcan
+                @endif
+                @if (!$avisoCobro->pago)
+                  <a href="{{ route('avisos-cobro.payCollectionNotice', $avisoCobro) }}" type="submit" class="btn btn-primary">
+                    <i class="fas fa-file-invoice"></i>
+                    Adjuntar pago
+                  </a>
+                @endif
+                <a class="btn btn-success" href="{{ route('pagos.invoice', $avisoCobro) }}">
+                  <i class="fa fa-eye"></i>
+                  Detalles
+                </a>
               </td>
             </tr>
           @endforeach

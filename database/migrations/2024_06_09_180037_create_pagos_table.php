@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('pagos', function (Blueprint $table) {
             $table->id();
             $table
-                ->foreignId('invoice_id')
+                ->foreignId('aviso_cobro_id')
                 ->references('id')
-                ->on('invoices')
+                ->on('aviso_cobros')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
             $table

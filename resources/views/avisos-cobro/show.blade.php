@@ -4,15 +4,15 @@
   <h1 class="mt-4">Detalle Factura</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('invoices.index') }}">Facturas</a></li>
-    <li class="breadcrumb-item active">Detalle Factura</li>
+    <li class="breadcrumb-item"><a href="{{ route('avisos-cobro.index') }}">Avisos de cobro</a></li>
+    <li class="breadcrumb-item active">Detalle del aviso</li>
   </ol>
   
   <div class="row">
       <div class="col-lg-6">
-        @if ($invoice->pago)
+        @if ($avisoCobro->pago)
             @php
-                $pago = $invoice->pago;
+                $pago = $avisoCobro->pago;
             @endphp
             <p class="fw-bold text-uppercase text-muted">Datos del pago</p>
             <ul class="list-group mb-4">
@@ -44,34 +44,40 @@
         <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>
-                #{{ $invoice->numero_factura }}
+                #{{ $avisoCobro->numero_factura }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Fecha de emisión:</span>
-                {{ $invoice->created_at }}
+                {{ $avisoCobro->created_at }}
             </li>
+            @if ($avisoCobro->fecha_limite)
+                <li class="list-group-item">
+                    <span class="fw-bold">Fecha de límite:</span>
+                    {{ $avisoCobro->fecha_limite }}
+                </li>
+            @endif
             <li class="list-group-item">
                 <span class="fw-bold">Monto total:</span>
-                {{ $invoice->monto_total }}$
+                {{ $avisoCobro->monto_total }}$
             </li>
             <li class="list-group-item">
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->documento]) }}" class="btn btn-outline-primary">
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'avisos-cobros', 'path' => $avisoCobro->documento]) }}" class="btn btn-outline-primary">
                     <i class="fa fa-file"></i>
                     Documento
                 </a>
             </li>
             <li class="list-group-item">
-                <form action="{{ route('invoices.update', $invoice) }}" method="POST">
+                <form action="{{ route('avisos-cobro.update', $avisoCobro) }}" method="POST">
                     @method('PATCH')
                     @csrf
                     <div class="mb-3">
                         <label class="form-label fw-bold">Estado:</label>
                         <select name="invoice_status" id="invoice_status" class="form-select">
                             <option selected disabled>Cambiar estado</option>
-                            <option value="COMPLETADO" @selected($invoice->estado === 'COMPLETADO')>COMPLETADO</option>
-                            <option value="PENDIENTE" @selected($invoice->estado === 'PENDIENTE')>PENDIENTE</option>
-                            <option value="CANCELADO" @selected($invoice->estado === 'CANCELADO')>CANCELADO</option>
-                            <option value="REVISION" @selected($invoice->estado === 'REVISION')>REVISION</option>
+                            <option value="PENDIENTE" @selected($avisoCobro->estado === 'PENDIENTE')>PENDIENTE</option>
+                            <option value="REVISION" @selected($avisoCobro->estado === 'REVISION')>COMPLETADO</option>
+                            <option value="DEVUELTO" @selected($avisoCobro->estado === 'DEVUELTO')>DEVUELTO</option>
+                            <option value="CONCILIADO" @selected($avisoCobro->estado === 'CONCILIADO')>CONCILIADO</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -81,7 +87,7 @@
                             id="observaciones"
                             rows="2"
                             class="form-control @error('observaciones') is-invalid @enderror"
-                        >{{ old('observaciones', $invoice->observaciones) }}</textarea>
+                        >{{ old('observaciones', $avisoCobro->observaciones) }}</textarea>
                         @error('is-invalid')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -96,11 +102,11 @@
         <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Nombre:</span>
-                {{ $invoice->user->name }}
+                {{ $avisoCobro->user->name }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Correo:</span>
-                <a href="mailto:{{ $invoice->user->email }}">{{ $invoice->user->email }}</a>
+                <a href="mailto:{{ $avisoCobro->user->email }}">{{ $avisoCobro->user->email }}</a>
             </li>
         </ul>
 
@@ -108,11 +114,11 @@
         <ul class="list-group">
             <li class="list-group-item">
                 <span class="fw-bold">Empresa:</span>
-                {{ $invoice->afiliado->razon_social }}
+                {{ $avisoCobro->afiliado->razon_social }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Correo:</span>
-                <a href="mailto:{{ $invoice->afiliado->user->email }}">{{ $invoice->afiliado->user->email }}</a>
+                <a href="mailto:{{ $avisoCobro->afiliado->user->email }}">{{ $avisoCobro->afiliado->user->email }}</a>
             </li>
         </ul>
     </div>
