@@ -177,7 +177,7 @@
                     @endif
                     <div class="d-inline-block" id="invoice_button_wrapper">
                         @if ($avisoCobro->invoice)
-                            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-outline-primary">
+                            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-primary">
                                 <i class="fa fa-eye"></i>
                                 Ver factura
                             </a>
@@ -230,7 +230,7 @@
                     $('#exampleModal').modal('hide')
                     $('#btn-invoice').remove()
                     $('#invoice_button_wrapper').append(`
-                        <a target="_blank" href="${ buttonURL }" class="btn btn-outline-primary">
+                        <a target="_blank" href="${ buttonURL }" class="btn btn-primary">
                             <i class="fa fa-eye"></i>
                             Ver factura
                         </a>
