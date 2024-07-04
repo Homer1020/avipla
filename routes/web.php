@@ -4,6 +4,7 @@ use App\Http\Controllers\AfiliadosController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvisoCobroController;
 use App\Http\Controllers\BoletineController;
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\CategoriaBoletineController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
@@ -149,3 +150,8 @@ Route::get('/mailable', function () {
  
     return new App\Mail\VerifyAfiliadoEmail($solicitud);
 });
+
+/**
+ * WEBSITE
+ */
+Route::apiResource('carousel', CarouselController::class);
