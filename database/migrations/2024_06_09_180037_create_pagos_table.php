@@ -28,6 +28,7 @@ return new class extends Migration
             $table->string('comprobante');
             $table->string('monto');
             $table->string('referencia');
+            $table->date('fecha_pago');
             $table->timestamps();
         });
     }

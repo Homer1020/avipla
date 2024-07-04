@@ -68,6 +68,21 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="referencia" class="form-label">Fecha de pago</label>
+                        <input
+                            name="fecha_pago"
+                            id="fecha_pago"
+                            type="date"
+                            class="form-control @error('fecha_pago') is-invalid @enderror"
+                            value="{{ old('fecha_pago') }}"
+                            placeholder="Ingrese el número de fecha_pago"
+                        >
+                        @error('fecha_pago')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label for="comprobante" class="form-label">Comprobante</label>
                         <input
                             type="file"

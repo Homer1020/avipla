@@ -10,12 +10,12 @@ class Invoice extends Model
     use HasFactory;
 
     protected $fillable = [
-        'afiliado_id',
-        'monto_total',
-        'documento',
+        'pago_id',
+        'aviso_cobro_id',
         'numero_factura',
-        'estado',
-        'codigo_factura'
+        'codigo_factura',
+        'invoice_path',
+        'observaciones'
     ];
 
     public function user() {

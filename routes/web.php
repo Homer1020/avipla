@@ -107,13 +107,20 @@ Route::resource('noticias', NoticiaController::class)
 Route::get('noticias-avipla', [HomeController::class, 'news'])->name('news');
 Route::get('noticias/{noticia}', [HomeController::class, 'newsItem'])->name('news.item');
 
+/**
+ * INVOICES ROUTES
+ */
+Route::resource('facturas', InvoiceController::class)
+  ->parameters(['facturas', 'invoice'])
+  ->names('invoices');
+
 Route::resource('categorias', CategoryController::class)
   ->names('categories')
   ->parameters(['categorias' => 'category'])
   ->except(['show'])
   ->middleware(['auth', 'is_admin']);
 
-  Route::resource('etiquetas', TagController::class)
+Route::resource('etiquetas', TagController::class)
   ->names('tags')
   ->parameters(['etiquetas' => 'tag'])
   ->except(['show'])
@@ -122,8 +129,6 @@ Route::resource('categorias', CategoryController::class)
 /**
  * PAYMENTS ROUTES
  */
-// Route::get('pagos/{invoice}/modificar', [PagoController::class, 'updatePay'])
-//   ->name('pagos.update_pay');
 Route::resource('pagos', PagoController::class)
   ->middleware(['auth']);
 

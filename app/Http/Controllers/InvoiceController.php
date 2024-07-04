@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreInvoiceRequest;
 use App\Models\Afiliado;
 use App\Models\Invoice;
 use App\Models\User;
@@ -39,30 +40,30 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreInvoiceRequest $request)
     {
-        $payload = $request->validate([
-            'afiliado_id'       => 'required|numeric|exists:afiliados,id',
-            'monto_total'       => 'required|numeric',
-            'numero_factura'    => 'required|numeric|unique:invoices,numero_factura',
-            'documento'         => 'required|file|mimes:pdf'
-        ]);
+        $payload = $request->validated();
 
         $codigo_factura = Str::random(32);
 
-        $documentFile = $request->file('documento');
+        $documentFile = $request->file('invoice_path');
         $documentFileName = $documentFile->hashName();
         $documentFile->storeAs('invoices', $documentFileName);
 
-        $payload['documento'] = $documentFileName;
+        $payload['invoice_path'] = $documentFileName;
         $payload['codigo_factura'] = $codigo_factura;
 
         $user = Auth::user();
 
         if ($user !== null && $user instanceof User) {
             $invoice = $user->invoices()->create($payload);
-            $invoice->afiliado->user->notify(new InvoiceCreated($invoice));
-            return redirect()->route('invoices.index')->with('success', 'Se creó la factura correctamente');
+            return response()->json([
+                'success'   => true,
+                'data'      => [
+                    'message'   => 'Se facturó correctamente el pago ' . '#' . $invoice->numero_factura,
+                    'invoice'   => $invoice
+                ]
+            ]);
         }
         
     }
@@ -95,17 +96,17 @@ class InvoiceController extends Controller
         $invoice->save();
 
         # only notify if the state is diferent
-        if($invoice->estado !== $previous_state) {
-            $administradores = User::whereHas('roles', function ($query) {
-                $query->where('name', 'administrador');
-            })
-            ->where('id', '!=', $request->user()->id)
-            ->get();
-            foreach ($administradores as $administrador) {
-                $administrador->notify(new InvoiceStatusChange($invoice));
-            }
-            $invoice->afiliado->user->notify(new InvoiceStatusChange($invoice));
-        }
+        // if($invoice->estado !== $previous_state) {
+        //     $administradores = User::whereHas('roles', function ($query) {
+        //         $query->where('name', 'administrador');
+        //     })
+        //     ->where('id', '!=', $request->user()->id)
+        //     ->get();
+        //     foreach ($administradores as $administrador) {
+        //         $administrador->notify(new InvoiceStatusChange($invoice));
+        //     }
+        //     $invoice->afiliado->user->notify(new InvoiceStatusChange($invoice));
+        // }
         return redirect()->route('invoices.index', $invoice)->with('success', 'Se actualizó el estado de la factura.');
     }
 

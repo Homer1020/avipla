@@ -50,6 +50,10 @@ class User extends Authenticatable
         return $this->hasOne(Afiliado::class);
     }
 
+    public function invoices() {
+        return $this->hasOne(Invoice::class);
+    }
+
     public function avisosCobros() {
         return $this->hasMany(AvisoCobro::class);
     }

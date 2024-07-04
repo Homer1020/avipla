@@ -8,8 +8,8 @@
     <li class="breadcrumb-item active">Aviso de cobro #{{ $avisoCobro->numero_factura }}</li>
   </ol>
   <div class="row">
+      @if ($avisoCobro->pago)
       <div class="col-lg-6">
-        @if ($avisoCobro->pago)
             @php
                 $pago = $avisoCobro->pago;
             @endphp
@@ -28,8 +28,16 @@
                     {{ $pago->referencia }}
                 </li>
                 <li class="list-group-item">
-                    <span class="fw-bold">Fecha:</span>
-                    {{ $pago->created_at }}
+                    <span class="fw-bold">Empresa:</span>
+                    {{ $avisoCobro->afiliado->razon_social }}
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Correo:</span>
+                    <a href="mailto:{{ $avisoCobro->afiliado->user->email }}">{{ $avisoCobro->afiliado->user->email }}</a>
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Fecha de pago:</span>
+                    {{ $pago->fecha_pago }}
                 </li>
                 <li class="list-group-item">
                     <span class="fw-bold d-block mb-2">Comprobante de pago:</span>
@@ -38,18 +46,20 @@
                         Comprobante
                     </a>
                 </li>
-                @if ($avisoCobro->estado === 'CANCELADO')
+                @if ($avisoCobro->estado === 'DEVUELTO')
                     <li class="list-group-item">
                         <span class="fw-bold d-block mb-2">Modificar pago:</span>
-                        <a href="{{ route('pagos.update_pay', $avisoCobro) }}" type="submit" class="btn btn-warning">
+                        <a href="{{ route('pagos.edit', $pago) }}" type="submit" class="btn btn-warning">
                             <i class="fas fa-file-invoice"></i>
                             Modificar Pago
                         </a>
                     </li>
                 @endif
             </ul>
-        @endif
-        <p class="fw-bold text-uppercase text-muted">Aviso de pago</p>
+        </div>
+    @endif
+    <div class="col-lg-6">
+        <p class="fw-bold text-uppercase text-muted">Datos del aviso</p>
         <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>
@@ -58,6 +68,14 @@
             <li class="list-group-item">
                 <span class="fw-bold">Fecha de emisión:</span>
                 {{ $avisoCobro->created_at }}
+            </li>
+            <li class="list-group-item">
+                <span class="fw-bold">Emisor:</span>
+                {{ $avisoCobro->user->name }}
+            </li>
+            <li class="list-group-item">
+                <span class="fw-bold">Correo del emisor:</span>
+                <a href="mailto:{{ $avisoCobro->user->email }}">{{ $avisoCobro->user->email }}</a>
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Monto total:</span>
@@ -87,31 +105,6 @@
                     <i class="fa fa-file"></i>
                     Documento
                 </a>
-            </li>
-        </ul>
-    </div>
-    <div class="col-lg-6">
-        <p class="fw-bold text-uppercase text-muted">Usuario emisor</p>
-        <ul class="list-group mb-4">
-            <li class="list-group-item">
-                <span class="fw-bold">Nombre:</span>
-                {{ $avisoCobro->user->name }}
-            </li>
-            <li class="list-group-item">
-                <span class="fw-bold">Correo:</span>
-                <a href="mailto:{{ $avisoCobro->user->email }}">{{ $avisoCobro->user->email }}</a>
-            </li>
-        </ul>
-
-        <p class="fw-bold text-uppercase text-muted">Datos del afiliado</p>
-        <ul class="list-group">
-            <li class="list-group-item">
-                <span class="fw-bold">Empresa:</span>
-                {{ $avisoCobro->afiliado->razon_social }}
-            </li>
-            <li class="list-group-item">
-                <span class="fw-bold">Correo:</span>
-                <a href="mailto:{{ $avisoCobro->afiliado->user->email }}">{{ $avisoCobro->afiliado->user->email }}</a>
             </li>
         </ul>
     </div>

@@ -14,7 +14,8 @@ class Pago extends Model
         'metodo_pago_id',
         'aviso_cobro_id',
         'monto',
-        'referencia'
+        'referencia',
+        'fecha_pago'
     ];
 
     public function metodo_pago() {

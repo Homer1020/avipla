@@ -30,4 +30,8 @@ class AvisoCobro extends Model
     public function pago() {
         return $this->hasOne(Pago::class);
     }
+
+    public function invoice() {
+        return $this->hasOne(Invoice::class);
+    }
 }
