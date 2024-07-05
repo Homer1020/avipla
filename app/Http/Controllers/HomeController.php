@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carousel;
 use App\Models\Category;
 use App\Models\Noticia;
 
@@ -9,7 +10,8 @@ class HomeController extends Controller
 {
     public function home() {
         $noticias = Noticia::latest()->limit(3)->get();
-        return view('home', compact('noticias'));
+        $carousels = Carousel::all();
+        return view('home', compact('noticias', 'carousels'));
     }
 
     public function aboutus() {

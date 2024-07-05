@@ -11,18 +11,31 @@
 
 	<!-- carousel -->
 	<div class="owl-carousel">
-        <div>
-            <div class="banner" style="background-image: url(./assets/img/hands.jpg);">
-                <div class="container-sm h-100">
-                    <div class="row h-100 align-items-center">
-                        <div class="col-lg-6">
-                            <h1 class="banner__title text-center text-lg-start">Asociación Venezolana de industrias plásticas</h1>
+        @forelse ($carousels as $carousel)
+            <div>
+                <div class="banner" style="background-image: url({{ Storage::url($carousel->imagen) }});">
+                    <div class="container-sm h-100">
+                        <div class="row h-100 align-items-center">
+                            <div class="col-lg-6">
+                                <h1 class="banner__title text-center text-lg-start">{{ $carousel->titulo }}</h1>
+                            </div>
                         </div>
-                        <!-- <div class="col-lg-6"></div> -->
                     </div>
                 </div>
             </div>
-        </div>
+        @empty
+            <div>
+                <div class="banner" style="background-image: url(./assets/img/hands.jpg);">
+                    <div class="container-sm h-100">
+                        <div class="row h-100 align-items-center">
+                            <div class="col-lg-6">
+                                <h1 class="banner__title text-center text-lg-start">Asociación Venezolana de industrias plásticas</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endforelse
 	</div>
     <!-- /carousel -->
 
@@ -61,7 +74,7 @@
                 <div class="col-md-4">
                     <article class="mb-5 mb-md-0">
                         <a href="{{ route('news.item', $noticia) }}" class="d-block">
-                            <img style="aspect-ratio: 1280/853;" src="{{ Storage::url($noticia->thumbnail) }}" class="figure-img img-fluid rounded shadow-sm object-fit-cover d-block mb-3" alt="{{ $noticia->titulo }}">
+                            <img style="aspect-ratio: 1280/853;" src="{{ Storage::url($noticia->thumbnail) }}" class="figure-img w-100 rounded shadow-sm object-fit-cover d-block mb-3" alt="{{ $noticia->titulo }}">
                         </a>
                         <h3 class="fs-5 article__title mb-3"><a class="text-primary" href="{{ route('news.item', $noticia) }}">{{ $noticia->titulo }}</a></h3>
 

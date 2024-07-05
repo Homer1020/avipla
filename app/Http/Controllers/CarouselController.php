@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carousel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Support\Facades\Storage;
 
 class CarouselController extends Controller
 {
@@ -19,9 +23,30 @@ class CarouselController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'titulo'    => 'required',
+            'imagen'    => 'image|required'
+        ]);
+
+        if ($validator->fails()) {
+            throw new HttpResponseException(response()->json([
+                'success'   => false,
+                'message'   => 'Validation errors',
+                'data'      => $validator->errors()
+            ]));
+        }
+
+        $payload = $validator->validated();
+
+        $path = $request->file('imagen')->store('public/carousel');
+        $payload['imagen'] = $path;
+
+        $carousel = Carousel::create($payload);
+
         return response()->json([
             'success'   => true,
-            'data'      => $request->all()
+            'message'   => 'Imágen agregada correctamente',
+            'data'      => $carousel
         ]);
     }
 
@@ -44,8 +69,14 @@ class CarouselController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Carousel $carousel)
     {
-        //
+        if(Storage::fileExists($carousel->imagen)) {
+            Storage::delete($carousel->imagen);
+        }
+        $carousel->delete();
+        return response()->json([
+            'success'   => true,
+        ]);
     }
 }
