@@ -187,7 +187,7 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">
-                <i class="fa fa-upload"></i>
+                <i class="fa fa-plus"></i>
                 Agragar Organismo
             </button>
         </form>

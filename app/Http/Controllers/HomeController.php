@@ -53,6 +53,7 @@ class HomeController extends Controller
         if($noticia->estatus === 'DRAFT') {
             return abort(404);
         }
+        $noticia->load('tags');
         $relacionadas = Noticia::whereHas('categoria', function ($query) use ($noticia) {
                 $query->where('categoria_id', $noticia->categoria_id);
             })

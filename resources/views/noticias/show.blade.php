@@ -83,9 +83,34 @@
                     <h1 class="text-white text-uppercase fs-2">{{ $noticia->titulo }}</h1>
                 </div>
                 <ul class="metadata mb-3">
-                    <li><span class="fw-bold">Creado por:</span> <a href="#" class="link link-primary">{{ $noticia->usuario->name }}</a></li>
-                    <li><span class="fw-bold">Publicado el:</span> {{ $noticia->created_at->format('d-m-Y') }}</li>
-                    <li><span class="fw-bold">Categorias:</span> <a href="" class="link link-primary">{{ $noticia->categoria->name }}</a></li>
+                    <li>
+                        <span class="me-1">
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <a href="#" class="link link-primary">
+                            {{ $noticia->usuario->name }}
+                        </a>
+                    </li>
+                    <li>
+                        <span class="me-1">
+                            <i class="fa fa-calendar-alt"></i>
+                        </span>
+                        {{ $noticia->created_at->format('d-m-Y') }}
+                    </li>
+                    <li>
+                        <span class="me-1">
+                            <i class="fa fa-tag"></i>
+                        </span>
+                        <a href="" class="link link-primary">{{ $noticia->categoria->name }}</a>
+                    </li>
+                    <li>
+                        <span class="me-1">
+                            <i class="fa fa-tags"></i>
+                        </span>
+                        @foreach ($noticia->tags as $tag)
+                            <a href="" class="link link-primary">{{ $tag->display_name }}</a>{{ $noticia->tags->last()->id !== $tag->id ? ', ' : '' }}
+                        @endforeach
+                    </li>
                 </ul>
                 {!! $noticia->contenido !!}
             </div>
