@@ -36,9 +36,13 @@ class PayUpdated extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Actualización de datos de pago para la factura #' . $this->avisoCobro->numero_factura)
+            ->greeting('¡Hola!')
+            ->line('Te informamos que se han actualizado los datos del pago para la factura #' . $this->avisoCobro->numero_factura . '.')
+            ->line('A continuación, puedes revisar los detalles:')
+            ->line('Fecha de actualización: ' . now())
+            ->action('Entrar a AVIPLA', url('/dashboard'))
+            ->line('¡Gracias por tu atención!');
     }
 
     /**

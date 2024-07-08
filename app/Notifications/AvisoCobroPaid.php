@@ -34,9 +34,13 @@ class AvisoCobroPaid extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Se realizó pago para el aviso de cobro #' . $this->avisoCobro->numero_factura)
+            ->greeting('¡Hola!')
+            ->line('Te informamos que se adjunto un pago para el resivo #' . $this->avisoCobro->numero_factura . '.')
+            ->line('A continuación, puedes revisar los detalles:')
+            ->line('Fecha de actualización: ' . now())
+            ->action('Entrar a AVIPLA', url('/dashboard'))
+            ->line('¡Gracias por tu atención!');
     }
 
     /**

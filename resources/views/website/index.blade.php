@@ -388,7 +388,7 @@
             const imagen = $imagen.data('imagen')
             
             $editCarousel.find('form').attr('action', `/carousel/${ id }`)
-            $editCarousel.find('[name="titulo"]').val(titulo)
+            $editCarousel.find('[name="titulo"]').val(titulo)     
         })
 
         const $carouselEditForm = $('#carousel-edit-form')
@@ -411,6 +411,8 @@
 
                 if(success) {
                     const $carousel = $(`[data-carousel="${ data.id }"]`)
+                    $carousel.data('titulo', data.titulo)
+                    $carousel.data('imagen', data.imagen.replace('public', 'storage'))
                     $carousel.find('p').text(data.titulo)
                     $carousel.find('img').attr('src', data.imagen.replace('public', 'storage'))
                     $carousel.find('img').attr('alt', data.titulo)
@@ -570,6 +572,7 @@
 
                 if(success) {
                     const $organismo = $(`[data-organismo="${ data.id }"]`)
+                    $organismo.data('razonSocial', data.razon_social)
                     $organismo.find('figcaption').text(data.razon_social)
                     $organismo.find('img').attr('src', data.logotipo.replace('public', 'storage'))
                     $organismo.find('img').attr('alt', data.razon_social)

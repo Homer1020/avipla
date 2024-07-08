@@ -34,9 +34,13 @@ class BoletinCreated extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                ->subject('Se creó un nuevo boletin "'. $this->boletine->titulo .'"')
+                ->greeting('¡Hola!')
+                ->line('Te informamos que creó un nuevo boletin "'. $this->boletine->titulo .'"')
+                ->line('A continuación, puedes revisar los detalles:')
+                ->line('Fecha de actualización: ' . now())
+                ->action('Entrar a AVIPLA', url('/dashboard'))
+                ->line('¡Gracias por tu atención!');
     }
 
     /**
