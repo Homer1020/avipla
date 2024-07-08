@@ -132,6 +132,15 @@
                         <input type="url" class="form-control" name="tiktok" id="tiktok" placeholder="Ingrese su perfil de Tiktok" value="{{ $socialNetworks->tiktok }}">
                     </div>  
                 </div>
+                <div class="col-lg-6">
+                    <label for="linkedin" class="form-label">Linkedin</label>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <i class="fab fa-linkedin"></i>
+                        </span>
+                        <input type="url" class="form-control" name="linkedin" id="linkedin" placeholder="Ingrese su perfil de linkedin" value="{{ $socialNetworks->linkedin }}">
+                    </div>  
+                </div>
             </div>
             
             <button type="submit" class="btn btn-primary">

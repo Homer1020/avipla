@@ -19,7 +19,8 @@ class SocialNetworkController extends Controller
             'tiktok'    => 'nullable|url',
             'instagram' => 'nullable|url',
             'youtube'   => 'nullable|url',
-            'twitter'   => 'nullable|url'
+            'twitter'   => 'nullable|url',
+            'linkedin'  => 'nullable|url',
         ]);
 
         if ($validator->fails()) {

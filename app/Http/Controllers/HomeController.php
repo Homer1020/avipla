@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afiliado;
 use App\Models\Carousel;
 use App\Models\Category;
 use App\Models\JuntaDirectiva;
@@ -83,7 +84,22 @@ class HomeController extends Controller
     }
 
     public function directory() {
-        return view('directory');
+        $search = request()->query('search');
+        $afiliados = Afiliado::with('direccion')
+            ->latest()
+            ->where('razon_social', 'LIKE', '%' . $search . '%')
+            ->orWhereHas('direccion', function (Builder $query) use ($search) {
+                $query->whereAny([
+                    'direccion_oficina',
+                    'ciudad_oficina',
+                    'telefono_oficina',
+                    'direccion_planta',
+                    'ciudad_planta',
+                    'telefono_planta'
+                ], 'LIKE', '%' . $search . '%');
+            })
+            ->paginate(5);
+        return view('directory', compact('afiliados'));
     }
 
     public function category(Category $category) {

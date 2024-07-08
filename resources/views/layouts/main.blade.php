@@ -33,7 +33,7 @@
                     <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA">
                 </a>
                 <div class="d-flex align-items-center">
-                    <a href="#" class="btn btn-primary btn-variation me-4 text-uppercase">Afiliación</a>
+                    <a href="#" class="d-none d-md-inline-block btn btn-primary btn-variation me-4 text-uppercase">Afiliación</a>
     
                     <button class="toggle" id="toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
                         aria-controls="offcanvasExample">
@@ -97,6 +97,11 @@
                     @if ($socialNetwork->youtube)
                         <a href="{{ $socialNetwork->youtube }}" target="_blank" class="social-link">
                             <i class="fab fa-xl fa-youtube"></i>
+                        </a>
+                    @endif
+                    @if ($socialNetwork->linkedin)
+                        <a href="{{ $socialNetwork->linkedin }}" target="_blank" class="social-link">
+                            <i class="fab fa-xl fa-linkedin"></i>
                         </a>
                     @endif
                 </div>

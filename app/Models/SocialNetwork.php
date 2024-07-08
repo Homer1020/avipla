@@ -9,7 +9,7 @@ class SocialNetwork extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['facebook', 'tiktok', 'instagram', 'youtube', 'twitter'];
+    protected $fillable = ['facebook', 'tiktok', 'instagram', 'youtube', 'twitter', 'linkedin'];
 
     public $timestamps = false;
 }
