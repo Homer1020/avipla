@@ -26,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
         Route::bind('noticia', function (string $value) {
             return Noticia::where('slug', $value)->firstOrFail();
         });
+        Route::resourceVerbs([
+            'create' => 'crear',
+            'edit' => 'editar',
+        ]);
     }
 }
