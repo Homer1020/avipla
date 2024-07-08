@@ -87,9 +87,9 @@
                         <span class="me-1">
                             <i class="fa fa-user"></i>
                         </span>
-                        <a href="#" class="link link-primary">
+                        <span>
                             {{ $noticia->usuario->name }}
-                        </a>
+                        </span>
                     </li>
                     <li>
                         <span class="me-1">
@@ -101,14 +101,14 @@
                         <span class="me-1">
                             <i class="fa fa-tag"></i>
                         </span>
-                        <a href="" class="link link-primary">{{ $noticia->categoria->name }}</a>
+                        <a href="{{ route('category.show', $noticia->categoria) }}" class="link link-primary">{{ $noticia->categoria->name }}</a>
                     </li>
                     <li>
                         <span class="me-1">
                             <i class="fa fa-tags"></i>
                         </span>
                         @foreach ($noticia->tags as $tag)
-                            <a href="" class="link link-primary">{{ $tag->display_name }}</a>{{ $noticia->tags->last()->id !== $tag->id ? ', ' : '' }}
+                            <a href="{{ route('tags.show', $tag) }}" class="link link-primary">{{ $tag->display_name }}</a>{{ $noticia->tags->last()->id !== $tag->id ? ', ' : '' }}
                         @endforeach
                     </li>
                 </ul>
@@ -149,7 +149,7 @@
                                 <ul>
                                     @foreach ($categorias as $categoria)
                                         <li>
-                                            <a href="" class="link link-primary" style="text-decoration: none;">{{ $categoria->name }} ({{ $categoria->noticias->count() }})</a>
+                                            <a href="{{ route('category.show', $categoria) }}" class="link link-primary" style="text-decoration: none;">{{ $categoria->name }} ({{ $categoria->noticias->count() }})</a>
                                         </li>
                                     @endforeach
                                 </ul>
