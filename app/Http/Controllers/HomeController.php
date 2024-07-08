@@ -8,8 +8,9 @@ use App\Models\JuntaDirectiva;
 use App\Models\Noticia;
 use App\Models\Organismo;
 use App\Models\SocialNetwork;
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\Tag;
 use Illuminate\Support\Facades\View;
+use Illuminate\Database\Eloquent\Builder;
 
 class HomeController extends Controller
 {
@@ -83,5 +84,27 @@ class HomeController extends Controller
 
     public function directory() {
         return view('directory');
+    }
+
+    public function category(Category $category) {
+        $noticias = Noticia::with('categoria')
+            ->where('estatus', 'PUBLISHED')
+            ->whereHas('categoria', function (Builder $query) use ($category) {
+                $query->where('id', $category->id);
+            })
+            ->latest()
+            ->paginate(6);
+        return view('categorias.show', compact('noticias', 'category'));
+    }
+
+    public function tag(Tag $tag) {
+        $noticias = Noticia::with('categoria')
+            ->where('estatus', 'PUBLISHED')
+            ->whereHas('tags', function (Builder $query) use ($tag) {
+                $query->where('id', $tag->id);
+            })
+            ->latest()
+            ->paginate(6);
+        return view('tags.show', compact('noticias', 'tag'));
     }
 }

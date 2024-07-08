@@ -33,7 +33,7 @@
                 <tr>
                     <td>#{{ $categoria->id }}</td>
                     <td>
-                      <a href="">{{ $categoria->display_name }} ({{ $categorias_length }} {{ ($categorias_length > 1 || $categorias_length === 0)? 'noticias' : 'noticia' }})</a>
+                      <a href="{{ route('category.show', $categoria) }}">{{ $categoria->display_name }} ({{ $categorias_length }} {{ ($categorias_length > 1 || $categorias_length === 0)? 'noticias' : 'noticia' }})</a>
                     </td>
                     <td>{{ $categoria->name }}</td>
                     <td style="white-space: nowrap">

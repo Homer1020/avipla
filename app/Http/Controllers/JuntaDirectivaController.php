@@ -109,6 +109,7 @@ class JuntaDirectivaController extends Controller
         $juntaDirectiva->delete();
         return response()->json([
             'success'   => true,
+            'message'   => 'Se eliminó este registro'
         ]);
     }
 }

@@ -120,6 +120,7 @@ class OrganismoController extends Controller
         $organismo->delete();
         return response()->json([
             'success'   => true,
+            'message'   => 'Se eliminó el registro correctamente'
         ]);
     }
 }

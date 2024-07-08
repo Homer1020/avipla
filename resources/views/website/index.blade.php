@@ -314,7 +314,7 @@
             })
             .then(response => response.json())
             .then(response => {
-                const { data, success } = response
+                const { data, success, message } = response
                 <!-- RESET VALIDATIONS -->
                 $('#carousel-form input').each(function() {
                     $(this).parent().find('.invalid-feedback').remove()
@@ -353,6 +353,10 @@
                     
                     $displayImages.append($imagen)
                     $("#carousel-form").get(0).reset()
+                    Swal.fire({
+                        icon: "success",
+                        title: message
+                    })
                 }
 
                 $buttonUpload.removeAttr('disabled')
@@ -371,9 +375,13 @@
             })
             .then(response => response.json())
             .then(response => {
-                const { success } = response
+                const { success, message } = response
                 if(success) {
                     $carousel.remove();
+                    Swal.fire({
+                        icon: "success",
+                        title: message
+                    })
                 }
             })
             $carousel.find('.btn-danger').removeAttr('disabled', true)
@@ -478,7 +486,7 @@
             })
             .then(response => response.json())
             .then(response => {
-                const { data, success } = response
+                const { data, success, message } = response
                 <!-- RESET VALIDATIONS -->
                 $organismosForm.find('input').each(function() {
                     $(this).parent().find('.invalid-feedback').remove()
@@ -513,6 +521,10 @@
                     
                     $displayOrganismos.append($imagen)
                     $("#organismos-form").get(0).reset()
+                    Swal.fire({
+                        icon: "success",
+                        title: message
+                    })
                 }
 
                 $organismosForm.find('[type="submit"]').removeAttr('disabled')
@@ -531,9 +543,13 @@
             })
             .then(response => response.json())
             .then(response => {
-                const { success } = response
+                const { success, message } = response
                 if(success) {
                     $organismo.remove();
+                    Swal.fire({
+                        icon: "success",
+                        title: message
+                    })
                 }
             })
             $organismo.find('.btn-danger').removeAttr('disabled', true)
@@ -600,8 +616,7 @@
             })
             .then(response => response.json())
             .then(response => {
-                console.log(response)
-                const { data, success } = response
+                const { data, success, message } = response
                 <!-- RESET VALIDATIONS -->
                 $juntaForm.find('input, select').each(function() {
                     $(this).parent().find('.invalid-feedback').remove()
@@ -638,6 +653,10 @@
                     
                     $displayJunta.append($juntaItem)
                     $juntaForm.get(0).reset()
+                    Swal.fire({
+                        icon: "success",
+                        title: message
+                    })
                 }
 
                 $juntaForm.find('[type="submit"]').removeAttr('disabled')
@@ -659,9 +678,13 @@
             .then(response => response.json())
             .then(response => {
                 console.log(response)
-                const { success } = response
+                const { success, message } = response
                 if(success) {
                     $junta.remove();
+                    Swal.fire({
+                        icon: "success",
+                        title: message
+                    })
                 }
             })
             $junta.find('.btn-danger').removeAttr('disabled', true)

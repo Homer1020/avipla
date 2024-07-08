@@ -30,7 +30,7 @@
                 <tr>
                     <td>#{{ $etiqueta->id }}</td>
                     <td>
-                      <a href="">{{ $etiqueta->display_name }}</a>
+                      <a href="{{ route('tags.show', $etiqueta) }}">{{ $etiqueta->display_name }}</a>
                     </td>
                     <td>{{ $etiqueta->name }}</td>
                     <td style="white-space: nowrap">

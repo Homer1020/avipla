@@ -88,6 +88,7 @@ class CarouselController extends Controller
         $carousel->delete();
         return response()->json([
             'success'   => true,
+            'message'   => 'Se eliminó la imágen correctamente'
         ]);
     }
 }

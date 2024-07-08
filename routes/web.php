@@ -33,6 +33,8 @@ Route::get('servicios', [HomeController::class, 'services'])->name('services');
 Route::get('afiliacion', [HomeController::class, 'affiliation'])->name('affiliation');
 Route::get('contacto', [HomeController::class, 'contact'])->name('contact');
 Route::get('directorio', [HomeController::class, 'directory'])->name('directory');
+Route::get('categoria/{category}', [HomeController::class, 'category'])->name('category.show');
+Route::get('etiquetas/{tag}', [HomeController::class, 'tag'])->name('tags.show');
 
 /**
  * AUTH ROUTES
