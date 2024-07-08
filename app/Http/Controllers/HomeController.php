@@ -5,17 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Carousel;
 use App\Models\Category;
 use App\Models\Noticia;
+use App\Models\Organismo;
+use App\Models\SocialNetwork;
+use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+        $socialNetwork = SocialNetwork::first() ?? new SocialNetwork();
+        View::share('socialNetwork', $socialNetwork);
+    }
+
     public function home() {
         $noticias = Noticia::latest()->limit(3)->get();
+        $organismos = Organismo::all();
         $carousels = Carousel::all();
-        return view('home', compact('noticias', 'carousels'));
+        return view('home', compact('noticias', 'carousels', 'organismos'));
     }
 
     public function aboutus() {
-        return view('aboutus');
+        $organismos = Organismo::all();
+        return view('aboutus', compact('organismos'));
     }
 
     public function services() {
@@ -51,5 +62,9 @@ class HomeController extends Controller
             ->get();
         $categorias = Category::all();
         return view('noticias.show', compact('noticia', 'relacionadas', 'categorias'));
+    }
+
+    public function directory() {
+        return view('directory');
     }
 }

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carousel;
+use App\Models\JuntaDirectiva;
+use App\Models\JuntaDirectivaRole;
+use App\Models\Organismo;
+use App\Models\SocialNetwork;
 use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
@@ -13,7 +17,11 @@ class WebsiteController extends Controller
     public function index()
     {
         $carousels = Carousel::all();
-        return view('website.index', compact('carousels'));
+        $socialNetworks = SocialNetwork::first() ?? new SocialNetwork();
+        $organismos = Organismo::all();
+        $juntaDirectivaRoles = JuntaDirectivaRole::all();
+        $juntaDirectivas = JuntaDirectiva::with('role')->get();
+        return view('website.index', compact('carousels', 'socialNetworks', 'organismos', 'juntaDirectivaRoles', 'juntaDirectivas'));
     }
 
     /**

@@ -63,84 +63,83 @@
   <section class="section section--with-decoration-under bg-secondary text-white">
       <div class="container-sm">
           <div class="row align-items-center">
-              <h2 class="section__title text-white mb-5">Junta directiva 2024</h2>
-              <div class="col-md-12">
+            <h2 class="section__title text-white mb-5">Junta directiva 2024</h2>
+            <div class="row">
+              <div class="col-xl-10">
+                <div class="col-lg-6">
                   <div class="row align-items-center mb-4">
-                      <div class="col-5 col-lg-2">
-                          <h3 class="fs-6 mb-0 fw-bold text-end">Presidente</h3>
-                      </div>
-                      <div class="col-4">
-                          <p class="mb-0">Rafael González</p>
-                      </div>
+                    <div class="col-6">
+                        <h3 class="fs-6 mb-0 fw-bold text-end">Presidente</h3>
+                    </div>
+                    <div class="col-6">
+                        <p class="mb-0">Rafael González</p>
+                    </div>
                   </div>
-
                   <div class="row align-items-center mb-4">
-                      <div class="col-5 col-lg-2">
-                          <h3 class="fs-6 mb-0 fw-bold text-end">Vice presidente</h3>
-                      </div>
-                      <div class="col-4">
-                          <p class="mb-0">Rafael Perimulter</p>
-                      </div>
+                    <div class="col-6">
+                        <h3 class="fs-6 mb-0 fw-bold text-end">Vice presidente</h3>
+                    </div>
+                    <div class="col-6">
+                        <p class="mb-0">Rafael Perimulter</p>
+                    </div>
                   </div>
-
                   <div class="row align-items-center mb-4">
-                      <div class="col-5 col-lg-2">
-                          <h3 class="fs-6 mb-0 fw-bold text-end">Tesorero</h3>
-                      </div>
-                      <div class="col-4">
-                          <p class="mb-0">Joseph Bentolila</p>
-                      </div>
+                    <div class="col-6">
+                        <h3 class="fs-6 mb-0 fw-bold text-end">Tesorero</h3>
+                    </div>
+                    <div class="col-6">
+                        <p class="mb-0">Joseph Bentolila</p>
+                    </div>
                   </div>
-
-                  <div class="row jus">
-                      <div class="col-12 col-lg-6">
-                          <div class="row align-items-start mb-4">
-                              <div class="col-6 col-sm-5 col-lg-4">
-                                  <h3 class="fs-6 mb-0 fw-bold text-end">Directores principales</h3>
-                              </div>
-                              <div class="col-sm-6">
-                                  <ul class="list">
-                                      <li>Isidora Valentina Monteverde</li>
-                                      <li>Mateo Gael Campos</li>
-                                      <li>Camila Sofía Hidalgo</li>
-                                      <li>Santiago Andrés Fernández</li>
-                                      <li>Mariana Isabella Pérez</li>
-                                      <li>Sebastián Nicolás García</li>
-                                      <li>Valentina Alejandra López</li>
-                                  </ul>
-                              </div>
-                          </div>
+                </div>
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="row align-items-start mb-4">
+                        <div class="col-6">
+                            <h3 class="fs-6 mb-0 fw-bold text-end">Directores principales</h3>
+                        </div>
+                        <div class="col-6">
+                            <p class="mb-2">Isidora Valentina Monteverde</p>
+                            <p class="mb-2">Mateo Gael Campos</p>
+                            <p class="mb-2">Camila Sofía Hidalgo</p>
+                            <p class="mb-2">Santiago Andrés Fernández</p>
+                            <p class="mb-2">Mariana Isabella Pérez</p>
+                            <p class="mb-2">Sebastián Nicolás García</p>
+                            <p class="mb-2">Valentina Alejandra López</p>
+                        </div>
                       </div>
-                      <div class="col-12 col-lg-6">
-                          <div class="row align-items-start mb-4">
-                              <div class="col-6 col-sm-5 col-lg-4">
-                                  <h3 class="fs-6 mb-0 fw-bold text-end">Directores principales</h3>
-                              </div>
-                              <div class="col">
-                                  <ul class="list">
-                                      <li>Isidora Valentina Monteverde</li>
-                                      <li>Mateo Gael Campos</li>
-                                      <li>Camila Sofía Hidalgo</li>
-                                      <li>Santiago Andrés Fernández</li>
-                                      <li>Mariana Isabella Pérez</li>
-                                      <li>Sebastián Nicolás García</li>
-                                      <li>Valentina Alejandra López</li>
-                                  </ul>
-                              </div>
-                          </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="row align-items-start mb-4">
+                        <div class="col-6">
+                            <h3 class="fs-6 mb-0 fw-bold text-end">Directores principales</h3>
+                        </div>
+                        <div class="col-6">
+                            <p class="mb-2">Isidora Valentina Monteverde</p>
+                            <p class="mb-2">Mateo Gael Campos</p>
+                            <p class="mb-2">Camila Sofía Hidalgo</p>
+                            <p class="mb-2">Santiago Andrés Fernández</p>
+                            <p class="mb-2">Mariana Isabella Pérez</p>
+                            <p class="mb-2">Sebastián Nicolás García</p>
+                            <p class="mb-2">Valentina Alejandra López</p>
+                        </div>
                       </div>
+                    </div>
                   </div>
-                  
-
+                </div>
+                <div class="col-lg-6">
                   <div class="row align-items-center mb-4">
-                      <div class="col-5 col-lg-2">
-                          <h3 class="fs-6 mb-0 fw-bold text-end">Director ejecutivo</h3>
-                      </div>
-                      <div class="col-4">
-                          <p class="mb-0">Joseph Bentolila</p>
-                      </div>
+                    <div class="col-6">
+                        <h3 class="fs-6 mb-0 fw-bold text-end">Director ejecutivo</h3>
+                    </div>
+                    <div class="col-6">
+                        <p class="mb-0">Joseph Bentolila</p>
+                    </div>
                   </div>
+                </div>
               </div>
+            </div>
           </div>
       </div>
   </section>
@@ -151,18 +150,11 @@
       <div class="container-sm">
           <h2 class="section__title">Organismos y representaciones</h2>
           <div class="row align-items-center">
-              <div class="col-md-3 mb-5 mb-md-0 text-center">
-                  <img src="./assets/img/busines1.png" alt="Empresa 1" class="img-fluid" width="150">
-              </div>
-              <div class="col-md-3 mb-5 mb-md-0 text-center">
-                  <img src="./assets/img/busines2.png" alt="Empresa 1" class="img-fluid" width="150">
-              </div>
-              <div class="col-md-3 mb-5 mb-md-0 text-center">
-                  <img src="./assets/img/busines3.png" alt="Empresa 1" class="img-fluid" width="150">
-              </div>
-              <div class="col-md-3 mb-5 mb-md-0 text-center">
-                  <img src="./assets/img/busines4.png" alt="Empresa 1" class="img-fluid" width="150">
-              </div>
+            @foreach ($organismos as $organismo)
+                <div class="col-md-3 mb-5 mb-md-0 text-center">
+                    <img src="{{ Storage::url($organismo->logotipo) }}" alt="Logo {{ $organismo->razon_social }}" class="img-fluid" width="150">
+                </div>
+            @endforeach
           </div>
       </div>
   </section>

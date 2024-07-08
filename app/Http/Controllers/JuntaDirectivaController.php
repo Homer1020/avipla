@@ -2,22 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Carousel;
+use App\Models\JuntaDirectiva;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Support\Facades\Storage;
 
-class CarouselController extends Controller
+class JuntaDirectivaController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'titulo'    => 'required',
-            'imagen'    => 'image|required'
+            'junta_directiva_role_id'   => 'required',
+            'nombre'                    => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -30,26 +45,39 @@ class CarouselController extends Controller
 
         $payload = $validator->validated();
 
-        $path = $request->file('imagen')->store('public/carousel');
-        $payload['imagen'] = $path;
-
-        $carousel = Carousel::create($payload);
+        $juntaDirectiva = JuntaDirectiva::create($payload);
 
         return response()->json([
             'success'   => true,
-            'message'   => 'Imágen agregada correctamente',
-            'data'      => $carousel
+            'message'   => 'Persona agregada correctamente',
+            'data'      => $juntaDirectiva
         ]);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(JuntaDirectiva $juntaDirectiva)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(JuntaDirectiva $juntaDirectiva)
+    {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Carousel $carousel)
+    public function update(Request $request, JuntaDirectiva $juntaDirectiva)
     {
         $validator = Validator::make($request->all(), [
-            'titulo'    => 'required',
-            'imagen'    => 'image|nullable'
+            'junta_directiva_role_id'   => 'required',
+            'nombre'                    => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -62,30 +90,23 @@ class CarouselController extends Controller
 
         $payload = $validator->validated();
 
-        if($request->hasFile('imagen') && Storage::fileExists($carousel->imagen)) {
-            Storage::delete($carousel->imagen);
-            $path = $request->file('imagen')->store('public/carousel');
-            $payload['imagen'] = $path;
-        }
+        $juntaDirectiva->update($payload);
 
-        $carousel->update($payload);
+        $juntaDirectiva->load('role');
 
         return response()->json([
             'success'   => true,
             'message'   => 'Imágen actualizada correctamente',
-            'data'      => $carousel
+            'data'      => $juntaDirectiva
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Carousel $carousel)
+    public function destroy(JuntaDirectiva $juntaDirectiva)
     {
-        if(Storage::fileExists($carousel->imagen)) {
-            Storage::delete($carousel->imagen);
-        }
-        $carousel->delete();
+        $juntaDirectiva->delete();
         return response()->json([
             'success'   => true,
         ]);

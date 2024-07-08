@@ -10,11 +10,14 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\JuntaDirectivaController;
 use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OrganismoController;
 use App\Http\Controllers\PagoController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SocialNetworkController;
 use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
@@ -25,10 +28,11 @@ use Illuminate\Support\Facades\Route;
  * WEB ROUTES
  */
 Route::get('/', [HomeController::class, 'home'])->name('home');
-Route::view('quienes-somos', [HomeController::class, 'aboutus'])->name('about');
-Route::view('servicios', [HomeController::class, 'services'])->name('services');
-Route::view('afiliacion', [HomeController::class, 'affiliation'])->name('affiliation');
-Route::view('contacto', [HomeController::class, 'contact'])->name('contact');
+Route::get('quienes-somos', [HomeController::class, 'aboutus'])->name('about');
+Route::get('servicios', [HomeController::class, 'services'])->name('services');
+Route::get('afiliacion', [HomeController::class, 'affiliation'])->name('affiliation');
+Route::get('contacto', [HomeController::class, 'contact'])->name('contact');
+Route::get('directorio', [HomeController::class, 'directory'])->name('directory');
 
 /**
  * AUTH ROUTES
@@ -154,4 +158,17 @@ Route::get('/mailable', function () {
 /**
  * WEBSITE
  */
-Route::apiResource('carousel', CarouselController::class);
+Route::apiResource('carousel', CarouselController::class)
+  ->except([
+    'show',
+    'index'
+  ]);
+
+Route::apiResource('social-networks', SocialNetworkController::class)
+  ->only(['store']);
+
+Route::apiResource('organismos', OrganismoController::class)
+  ->only(['store', 'destroy', 'update']);
+
+Route::apiResource('junta-directiva', JuntaDirectivaController::class)
+  ->only(['store', 'destroy', 'update']);

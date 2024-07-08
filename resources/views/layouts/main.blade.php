@@ -79,18 +79,26 @@
                 </li>
 
                 <div class="social-links">
-                    <a href="#" class="social-link">
-                        <i class="fab fa-xl fa-x-twitter"></i>
-                    </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-xl fa-instagram"></i>
-                    </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-xl fa-facebook"></i>
-                    </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-xl fa-youtube"></i>
-                    </a>
+                    @if ($socialNetwork->twitter)
+                        <a href="{{ $socialNetwork->twitter }}" target="_blank" class="social-link">
+                            <i class="fab fa-xl fa-x-twitter"></i>
+                        </a>
+                    @endif
+                    @if ($socialNetwork->instagram)
+                        <a href="{{ $socialNetwork->instagram }}" target="_blank" class="social-link">
+                            <i class="fab fa-xl fa-instagram"></i>
+                        </a>
+                    @endif
+                    @if ($socialNetwork->facebook)
+                        <a href="{{ $socialNetwork->facebook }}" target="_blank" class="social-link">
+                            <i class="fab fa-xl fa-facebook"></i>
+                        </a>
+                    @endif
+                    @if ($socialNetwork->youtube)
+                        <a href="{{ $socialNetwork->youtube }}" target="_blank" class="social-link">
+                            <i class="fab fa-xl fa-youtube"></i>
+                        </a>
+                    @endif
                 </div>
             </ul>
         </div>
