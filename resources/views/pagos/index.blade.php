@@ -12,7 +12,7 @@
 
   <div class="card mb-5">
     <div class="card-body">
-      <table class="table table-bordered" id="invoices-table">
+      <table class="table table-bordered w-100" id="invoices-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -101,6 +101,7 @@
         { orderable: false, targets: 5 },
       ],
       order: false,
+      scrollX: true,
       language: {
         // url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
       }

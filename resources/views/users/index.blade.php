@@ -12,7 +12,7 @@
 
   <div class="card">
     <div class="card-body">
-      <table class="table table-bordered" id="users-table">
+      <table class="table table-bordered w-100" id="users-table">
         <thead>
           <tr>
             <th>ID</th>
@@ -99,6 +99,7 @@
         { orderable: false, targets: 2 },
       ],
       order: false,
+      scrollX: true,
       language: {
         // url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
       }

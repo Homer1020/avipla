@@ -91,6 +91,7 @@
         { orderable: false, targets: 2 },
       ],
       order: false,
+      scrollX: true,
       language: {
         // url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
       }

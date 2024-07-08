@@ -177,8 +177,6 @@
                 placeholder="Producción total mensual (TM)"
                 name="produccion_total_mensual[]"
                 class="form-control"
-                max="100"
-                min="0"
               />
             </div>
             <div class="col-lg-4 mb-3">
@@ -187,8 +185,6 @@
                 placeholder=" Porcentaje destinados a exportación"
                 name="porcentage_exportacion[]"
                 class="form-control"
-                max="100"
-                min="0"
               />
             </div>
             <div class="col-lg-4 mb-3">
@@ -197,8 +193,6 @@
                 placeholder="Mercados de importación / exportación"
                 name="mercado_exportacion[]"
                 class="form-control"
-                max="100"
-                min="0"
               />
             </div>
           </div>

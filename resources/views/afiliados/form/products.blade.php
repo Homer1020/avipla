@@ -38,8 +38,6 @@
           name="produccion_total_mensual[]"
           class="form-control @error("produccion_total_mensual.$key") is-invalid @enderror"
           value="{{ old('produccion_total_mensual') ? old('produccion_total_mensual')[$key] : $producto->pivot->produccion_total_mensual }}"
-          max="100"
-          min="0"
         />
         @error("produccion_total_mensual.$key")
           <div class="invalid-feedback">{{ $message }}</div>
@@ -52,8 +50,6 @@
           name="porcentage_exportacion[]"
           class="form-control @error("porcentage_exportacion.$key") is-invalid @enderror"
           value="{{ old('porcentage_exportacion') ? old('porcentage_exportacion')[$key] : $producto->pivot->porcentage_exportacion }}"
-          max="100"
-          min="0"
         />
         @error("porcentage_exportacion.$key")
           <div class="invalid-feedback">{{ $message }}</div>
@@ -66,8 +62,6 @@
           name="mercado_exportacion[]"
           class="form-control @error("mercado_exportacion.$key") is-invalid @enderror"
           value="{{ old('mercado_exportacion') ? old('mercado_exportacion')[$key] : $producto->pivot->mercado_exportacion }}"
-          max="100"
-          min="0"
         />
         @error("mercado_exportacion.$key")
           <div class="invalid-feedback">{{ $message }}</div>
