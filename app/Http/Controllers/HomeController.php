@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Carousel;
 use App\Models\Category;
+use App\Models\JuntaDirectiva;
 use App\Models\Noticia;
 use App\Models\Organismo;
 use App\Models\SocialNetwork;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\View;
 
 class HomeController extends Controller
@@ -26,7 +28,21 @@ class HomeController extends Controller
 
     public function aboutus() {
         $organismos = Organismo::all();
-        return view('aboutus', compact('organismos'));
+        $juntaDirectiva  = JuntaDirectiva::with('role')->get();
+        
+        $directoresPrincipales = collect($juntaDirectiva)->filter(function ($item) {
+            return $item['role']['display_name'] === 'Directores principales';
+        })->values();
+        
+        $directoresSecundarios = collect($juntaDirectiva)->filter(function ($item) {
+            return $item['role']['display_name'] === 'Directores secundarios';
+        })->values();
+        
+        $juntaDirectivaPersonal = collect($juntaDirectiva)->reject(function ($item) {
+            return $item['role']['display_name'] === 'Directores principales' || $item['role']['display_name'] === 'Directores secundarios';
+        })->values();
+
+        return view('aboutus', compact('organismos', 'directoresPrincipales', 'directoresSecundarios', 'juntaDirectivaPersonal'));
     }
 
     public function services() {

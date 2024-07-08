@@ -63,16 +63,26 @@
   <section class="section section--with-decoration-under bg-secondary text-white">
       <div class="container-sm">
           <div class="row align-items-center">
-            <h2 class="section__title text-white mb-5">Junta directiva 2024</h2>
+            <h2 class="section__title text-white mb-5">Junta directiva {{ date('Y') }}</h2>
             <div class="row">
               <div class="col-xl-10">
                 <div class="col-lg-6">
                   <div class="row align-items-center mb-4">
                     <div class="col-6">
-                        <h3 class="fs-6 mb-0 fw-bold text-end">Presidente</h3>
+                      <h3 class="fs-6 mb-0 fw-bold text-end">Presidente</h3>
                     </div>
                     <div class="col-6">
-                        <p class="mb-0">Rafael González</p>
+                      {{-- @dump($juntaDirectivaPersonal->toArray()) --}}
+                      <p class="mb-0">
+                        @php
+                          $persona = $juntaDirectivaPersonal->first(function ($item) {
+                            return $item['role']['display_name'] === 'Presidente';
+                          });
+                          if ($persona) {
+                            echo $persona->nombre;
+                          }
+                        @endphp
+                      </p>
                     </div>
                   </div>
                   <div class="row align-items-center mb-4">
@@ -80,7 +90,16 @@
                         <h3 class="fs-6 mb-0 fw-bold text-end">Vice presidente</h3>
                     </div>
                     <div class="col-6">
-                        <p class="mb-0">Rafael Perimulter</p>
+                      <p class="mb-0">
+                        @php
+                          $persona = $juntaDirectivaPersonal->first(function ($item) {
+                            return $item['role']['display_name'] === 'Vice presidente';
+                          });
+                          if ($persona) {
+                            echo $persona->nombre;
+                          }
+                        @endphp
+                      </p>
                     </div>
                   </div>
                   <div class="row align-items-center mb-4">
@@ -88,7 +107,16 @@
                         <h3 class="fs-6 mb-0 fw-bold text-end">Tesorero</h3>
                     </div>
                     <div class="col-6">
-                        <p class="mb-0">Joseph Bentolila</p>
+                        <p class="mb-0">
+                          @php
+                            $persona = $juntaDirectivaPersonal->first(function ($item) {
+                              return $item['role']['display_name'] === 'Tesorero';
+                            });
+                            if ($persona) {
+                              echo $persona->nombre;
+                            }
+                          @endphp
+                        </p>
                     </div>
                   </div>
                 </div>
@@ -100,29 +128,21 @@
                             <h3 class="fs-6 mb-0 fw-bold text-end">Directores principales</h3>
                         </div>
                         <div class="col-6">
-                            <p class="mb-2">Isidora Valentina Monteverde</p>
-                            <p class="mb-2">Mateo Gael Campos</p>
-                            <p class="mb-2">Camila Sofía Hidalgo</p>
-                            <p class="mb-2">Santiago Andrés Fernández</p>
-                            <p class="mb-2">Mariana Isabella Pérez</p>
-                            <p class="mb-2">Sebastián Nicolás García</p>
-                            <p class="mb-2">Valentina Alejandra López</p>
+                            @foreach ($directoresPrincipales as $director)
+                              <p class="mb-2">{{ $director->nombre }}</p>
+                            @endforeach
                         </div>
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="row align-items-start mb-4">
                         <div class="col-6">
-                            <h3 class="fs-6 mb-0 fw-bold text-end">Directores principales</h3>
+                            <h3 class="fs-6 mb-0 fw-bold text-end">Directores secundarios</h3>
                         </div>
                         <div class="col-6">
-                            <p class="mb-2">Isidora Valentina Monteverde</p>
-                            <p class="mb-2">Mateo Gael Campos</p>
-                            <p class="mb-2">Camila Sofía Hidalgo</p>
-                            <p class="mb-2">Santiago Andrés Fernández</p>
-                            <p class="mb-2">Mariana Isabella Pérez</p>
-                            <p class="mb-2">Sebastián Nicolás García</p>
-                            <p class="mb-2">Valentina Alejandra López</p>
+                          @foreach ($directoresSecundarios as $director)
+                            <p class="mb-2">{{ $director->nombre }}</p>
+                          @endforeach
                         </div>
                       </div>
                     </div>
@@ -134,7 +154,16 @@
                         <h3 class="fs-6 mb-0 fw-bold text-end">Director ejecutivo</h3>
                     </div>
                     <div class="col-6">
-                        <p class="mb-0">Joseph Bentolila</p>
+                        <p class="mb-0">
+                          @php
+                            $persona = $juntaDirectivaPersonal->first(function ($item) {
+                              return $item['role']['display_name'] === 'Director ejecutivo';
+                            });
+                            if ($persona) {
+                              echo $persona->nombre;
+                            }
+                          @endphp
+                        </p>
                     </div>
                   </div>
                 </div>
