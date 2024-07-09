@@ -235,6 +235,7 @@
                             Ver factura
                         </a>
                     `)
+                    $('#invoice_status').val('CONCILIADO')
                     Swal.fire({
                         icon: "success",
                         title: data.message

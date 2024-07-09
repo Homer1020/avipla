@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Models\Afiliado;
+use App\Models\AvisoCobro;
 use App\Models\Invoice;
 use App\Models\User;
 use App\Notifications\InvoiceCreated;
@@ -24,7 +25,7 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with('pago')->latest()->get();
+        $invoices = Invoice::with('avisoCobro')->latest()->get();
         return view('invoices.index', compact('invoices'));
     }
 
@@ -33,8 +34,8 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        $afiliados = Afiliado::all();
-        return view('invoices.create', compact('afiliados'));
+        $avisosCobro = AvisoCobro::where('estado', 'REVISION')->get();
+        return view('invoices.create', compact('avisosCobro'));
     }
 
     /**
@@ -57,6 +58,10 @@ class InvoiceController extends Controller
 
         if ($user !== null && $user instanceof User) {
             $invoice = $user->invoices()->create($payload);
+            $AvisoCobro = AvisoCobro::where('id', $payload['aviso_cobro_id'])->first();
+            $AvisoCobro->update([
+                'estado' => 'CONCILIADO'
+            ]);
             return response()->json([
                 'success'   => true,
                 'data'      => [
@@ -66,6 +71,38 @@ class InvoiceController extends Controller
             ]);
         }
         
+    }
+
+    public function formStore(Request $request) {
+        $payload = $request->validate([
+            'aviso_cobro_id'    => 'required',
+            'monto_total'       => 'required|numeric',
+            'observaciones'     => 'nullable',
+            'numero_factura'    => 'required|unique:invoices,numero_factura',
+            'invoice_path'      => 'required'
+        ]);
+
+        $avisoCobro = AvisoCobro::where('id', $payload['aviso_cobro_id'])->first();
+        $payload['pago_id'] = $avisoCobro->pago->id;
+
+        $codigo_factura = Str::random(32);
+
+        $documentFile = $request->file('invoice_path');
+        $documentFileName = $documentFile->hashName();
+        $documentFile->storeAs('invoices', $documentFileName);
+
+        $payload['invoice_path'] = $documentFileName;
+        $payload['codigo_factura'] = $codigo_factura;
+
+        $user = Auth::user();
+
+        if ($user !== null && $user instanceof User) {
+            $invoice = $user->invoices()->create($payload);
+            $avisoCobro->update([
+                'estado' => 'CONCILIADO'
+            ]);
+            return redirect()->route('invoices.index')->with('success', 'Se facturó el recibo correctamente');
+        }
     }
 
     /**

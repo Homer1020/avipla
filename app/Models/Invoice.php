@@ -22,8 +22,8 @@ class Invoice extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function afiliado() {
-        return $this->belongsTo(Afiliado::class);
+    public function avisoCobro() {
+        return $this->belongsTo(AvisoCobro::class);
     }
 
     public function pago() {

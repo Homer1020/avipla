@@ -46,6 +46,13 @@
                 >
                     Avisos de cobro
                 </x-nav-link>
+                <x-nav-link
+                    :to="route('invoices.index')"
+                    active="invoices.*"
+                    icon="fas fa-file-invoice"
+                >
+                    Facturas
+                </x-nav-link>
             @endcan
             @can('viewAny', App\Models\Pago::class)
                 <x-nav-link

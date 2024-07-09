@@ -5,6 +5,11 @@
     .card-stats .card-body {
       padding: 1rem 1.5rem;
     }
+
+    .card-stats h5 {
+      font-size: 14px;
+    }
+
     .icon {
       width: 3rem;
       height: 3rem;
@@ -43,97 +48,25 @@
   </ol>
 
   <div class="row">
-    <div class="col-lg-3">
-      <div class="card card-stats mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title h6 text-uppercase text-muted mb-0">Traffic</h5>
-              <span class="h4 font-weight-bold mb-0">350,897</span>
-            </div>
-            <div class="col-auto">
-              <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                <i class="fas fa-chart-bar"></i>
-              </div>
-            </div>
-          </div>
-          <p class="mt-3 mb-0 text-muted text-sm">
-            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-            <span class="text-nowrap">desde el último mes</span>
-          </p>
-        </div>
-      </div>
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <x-stats.card />
     </div>
 
-    <div class="col-lg-3">
-      <div class="card card-stats mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title h6 text-uppercase text-muted mb-0">Traffic</h5>
-              <span class="h4 font-weight-bold mb-0">350,897</span>
-            </div>
-            <div class="col-auto">
-              <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                <i class="fas fa-chart-bar"></i>
-              </div>
-            </div>
-          </div>
-          <p class="mt-3 mb-0 text-muted text-sm">
-            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-            <span class="text-nowrap">desde el último mes</span>
-          </p>
-        </div>
-      </div>
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <x-stats.card />
     </div>
 
-    <div class="col-lg-3">
-      <div class="card card-stats mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title h6 text-uppercase text-muted mb-0">Traffic</h5>
-              <span class="h4 font-weight-bold mb-0">350,897</span>
-            </div>
-            <div class="col-auto">
-              <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                <i class="fas fa-chart-bar"></i>
-              </div>
-            </div>
-          </div>
-          <p class="mt-3 mb-0 text-muted text-sm">
-            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-            <span class="text-nowrap">desde el último mes</span>
-          </p>
-        </div>
-      </div>
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <x-stats.card />
     </div>
 
-    <div class="col-lg-3">
-      <div class="card card-stats mb-4">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h5 class="card-title h6 text-uppercase text-muted mb-0">Traffic</h5>
-              <span class="h4 font-weight-bold mb-0">350,897</span>
-            </div>
-            <div class="col-auto">
-              <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                <i class="fas fa-chart-bar"></i>
-              </div>
-            </div>
-          </div>
-          <p class="mt-3 mb-0 text-muted text-sm">
-            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-            <span class="text-nowrap">desde el último mes</span>
-          </p>
-        </div>
-      </div>
+    <div class="col-md-6 col-lg-4 col-xl-3">
+      <x-stats.card />
     </div>
   </div>
 
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 mb-4">
       <div class="card">
         <div class="card-header">
           <svg class="svg-inline--fa fa-chart-area me-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chart-area" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm96 288H448c17.7 0 32-14.3 32-32V251.8c0-7.6-2.7-15-7.7-20.8l-65.8-76.8c-12.1-14.2-33.7-15-46.9-1.8l-21 21c-10 10-26.4 9.2-35.4-1.6l-39.2-47c-12.6-15.1-35.7-15.4-48.7-.6L135.9 215c-5.1 5.8-7.9 13.3-7.9 21.1v84c0 17.7 14.3 32 32 32z"></path></svg>
@@ -141,6 +74,44 @@
         </div>
         <div class="card-body">
           <canvas id="acquisitions"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12 mb-4">
+      <div class="card">
+        <div class="card-header">
+          <svg class="svg-inline--fa fa-chart-area me-1" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="chart-area" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm96 288H448c17.7 0 32-14.3 32-32V251.8c0-7.6-2.7-15-7.7-20.8l-65.8-76.8c-12.1-14.2-33.7-15-46.9-1.8l-21 21c-10 10-26.4 9.2-35.4-1.6l-39.2-47c-12.6-15.1-35.7-15.4-48.7-.6L135.9 215c-5.1 5.8-7.9 13.3-7.9 21.1v84c0 17.7 14.3 32 32 32z"></path></svg>
+          Recibos por cobrar
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <td>ID</td>
+                <td>Razón social</td>
+                <td>Diás de mora</td>
+                <td>Número de la factura</td>
+                <td>Acciones</td>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($avisosCobroPendientes as $avisoCobro)
+                <tr>
+                  <td>#{{ $avisoCobro->afiliado->id }}</td>
+                  <td>{{ $avisoCobro->afiliado->razon_social }}</td>
+                  <td>{{ $avisoCobro->afiliado->created_at->diffForHumans() }}</td>
+                  <td>#{{ $avisoCobro->numero_factura }}</td>
+                  <td>
+                    <a href="#" class="btn btn-warning">
+                      <i class="fa fa-unlink"></i>
+                      Desafiliar
+                    </a>
+                  </td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

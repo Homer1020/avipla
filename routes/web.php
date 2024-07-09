@@ -7,6 +7,7 @@ use App\Http\Controllers\BoletineController;
 use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\CategoriaBoletineController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
@@ -52,7 +53,7 @@ Route::middleware('guest')->group(function() {
 });
 Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-Route::view('dashboard', 'dashboard.index')
+Route::get('dashboard', [DashboardController::class, 'index'])
   ->name('dashboard')
   ->middleware(['auth']);
 
@@ -120,6 +121,7 @@ Route::get('noticias/{noticia}', [HomeController::class, 'newsItem'])->name('new
 Route::resource('facturas', InvoiceController::class)
   ->parameters(['facturas', 'invoice'])
   ->names('invoices');
+Route::post('factura/pagar', [InvoiceController::class, 'formStore'])->name('invoices.formStore');
 
 Route::resource('categorias', CategoryController::class)
   ->names('categories')
