@@ -96,10 +96,10 @@
 
     new DataTable('#users-table', {
       columnDefs: [
-        { orderable: false, targets: 2 },
+        { orderable: false, targets: 4 },
       ],
       order: false,
-      scrollX: true,
+      scrollX: false,
       language: {
         // url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
       }
