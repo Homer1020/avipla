@@ -14,13 +14,13 @@
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas tempore corrupti assumenda repudiandae
           nostrum. Nam hic facilis qui nemo soluta maxime cupiditate nulla? Quae sit voluptas, perspiciatis nihil
           labore itaque.</p>
-        <a href="" class="btn btn-outline-primary mt-4 me-2">
+        <a href="{{ route('contact') }}" class="btn btn-outline-primary mt-4 me-2">
           <i class="fa fa-pen"></i>
           Afiliate
         </a>
-        <a href="" class="btn btn-primary mt-4">
-          <i class="fa fa-pen"></i>
-          Afiliate
+        <a href="{{ route('directory') }}" class="btn btn-primary mt-4">
+          <i class="fas fa-address-book"></i>
+          Directorio
         </a>
       </div>
       <div class="col-md-6">
@@ -77,7 +77,7 @@
         </div>
 
         <div class="text-center" style="margin-top: 4rem">
-          <a href="#" class="btn btn-light">
+          <a href="{{ route('contact') }}" class="btn btn-light">
             <i class="fa fa-pen"></i>
             Afiliate
           </a>
@@ -148,21 +148,14 @@
 <!-- section -->
 <section class="section">
   <div class="container-sm">
-    <h2 class="section__title">Organismos y representaciones</h2>
-    <div class="row align-items-center">
-      <div class="col-md-3 mb-5 mb-md-0 text-center">
-        <img src="./assets/img/busines1.png" alt="Empresa 1" class="img-fluid" width="150">
+      <h2 class="section__title">Organismos y representaciones</h2>
+      <div class="row align-items-center">
+          @foreach ($organismos as $organismo)
+              <div class="col-md-3 mb-5 mb-md-0 text-center">
+                  <img src="{{ Storage::url($organismo->logotipo) }}" alt="Logo {{ $organismo->razon_social }}" class="img-fluid" width="150">
+              </div>
+          @endforeach
       </div>
-      <div class="col-md-3 mb-5 mb-md-0 text-center">
-        <img src="./assets/img/busines2.png" alt="Empresa 1" class="img-fluid" width="150">
-      </div>
-      <div class="col-md-3 mb-5 mb-md-0 text-center">
-        <img src="./assets/img/busines3.png" alt="Empresa 1" class="img-fluid" width="150">
-      </div>
-      <div class="col-md-3 mb-5 mb-md-0 text-center">
-        <img src="./assets/img/busines4.png" alt="Empresa 1" class="img-fluid" width="150">
-      </div>
-    </div>
   </div>
 </section>
 <!-- /section -->

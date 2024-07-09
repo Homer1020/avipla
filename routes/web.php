@@ -36,6 +36,7 @@ Route::get('contacto', [HomeController::class, 'contact'])->name('contact');
 Route::get('directorio', [HomeController::class, 'directory'])->name('directory');
 Route::get('categoria/{category}', [HomeController::class, 'category'])->name('category.show');
 Route::get('etiquetas/{tag}/noticias', [HomeController::class, 'tag'])->name('tags.show');
+Route::get('contacto', [HomeController::class, 'contact'])->name('contact');
 
 /**
  * AUTH ROUTES

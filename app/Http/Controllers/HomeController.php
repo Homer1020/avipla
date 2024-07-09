@@ -48,11 +48,13 @@ class HomeController extends Controller
     }
 
     public function services() {
-        return view('services');
+        $organismos = Organismo::all();
+        return view('services', compact('organismos'));
     }
 
     public function affiliation() {
-        return view('affiliation');
+        $organismos = Organismo::all();
+        return view('affiliation', compact('organismos'));
     }
 
     public function news() {

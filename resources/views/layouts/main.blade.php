@@ -33,7 +33,7 @@
                     <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA">
                 </a>
                 <div class="d-flex align-items-center">
-                    <a href="#" class="d-none d-md-inline-block btn btn-primary btn-variation me-4 text-uppercase">Afiliación</a>
+                    <a href="{{ route('affiliation') }}" class="d-none d-md-inline-block btn btn-primary btn-variation me-4 text-uppercase">Afiliación</a>
     
                     <button class="toggle" id="toggle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
                         aria-controls="offcanvasExample">
@@ -75,7 +75,12 @@
                     <a class="nav-link" href="{{ route('contact') }}">Contacto</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('affiliation') }}" class="btn btn-primary btn-variation me-5 text-uppercase">Afiliación</a>
+                    <div class="d-flex justify-content-start align-items-center">
+                        <a href="{{ route('affiliation') }}" class="btn btn-primary me-3 btn-variation text-uppercase">Afiliación</a>
+                        <a href="{{ route('directory') }}">
+                            <i class="fas fa-address-book fa-lg"></i>
+                        </a>
+                    </div>
                 </li>
 
                 <div class="social-links">

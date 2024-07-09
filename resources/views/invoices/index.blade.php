@@ -9,10 +9,11 @@
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item active">Facturas</li>
   </ol>
-  <div class="mb-4">
-    <a href="{{ route('invoices.create') }}" class="btn btn-primary">Generar factura</a>
-  </div>
-
+  @can('create', App\Models\Invoice::class)
+    <div class="mb-4">
+        <a href="{{ route('invoices.create') }}" class="btn btn-primary">Generar factura</a>
+    </div>
+  @endcan
   <div class="card">
     <div class="card-body">
       <table class="table table-bordered w-100" id="invoices-table">
@@ -29,23 +30,25 @@
     
         <tbody>
           @foreach ($invoices as $invoice)
-            <tr>
-              <td>#{{ $invoice->id }}</td>
-              <td>#{{ $invoice->numero_factura }}</td>
-              <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
-              <td>
-                <span class="text-truncate d-inline-block" style="max-width: 150px">
-                  {{ $invoice->avisoCobro->afiliado->razon_social }}
-                </span>
-              </td>
-              <td>{{ $invoice->avisoCobro->pago->monto }}$ </td>
-              <td>
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->invoice_path]) }}" class="btn btn-primary">
-                    <i class="fa fa-file-invoice"></i>
-                    Ver factura
-                </a>
-              </td>
-            </tr>
+            @can('view', $invoice)
+                <tr>
+                    <td>#{{ $invoice->id }}</td>
+                    <td>#{{ $invoice->numero_factura }}</td>
+                    <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
+                    <td>
+                        <span class="text-truncate d-inline-block" style="max-width: 150px">
+                        {{ $invoice->avisoCobro->afiliado->razon_social }}
+                        </span>
+                    </td>
+                    <td>{{ $invoice->avisoCobro->pago->monto }}$ </td>
+                    <td>
+                        <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->invoice_path]) }}" class="btn btn-primary">
+                            <i class="fa fa-file-invoice"></i>
+                            Ver factura
+                        </a>
+                    </td>
+                </tr>
+            @endcan
           @endforeach
         </tbody>
       </table>
