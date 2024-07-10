@@ -9,16 +9,10 @@
     <div class="row">
       <div class="col-md-6 mb-4 mb-md-0">
         <h1 class="section__title">Servicios</h1>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas tempore corrupti assumenda repudiandae
-          nostrum. Nam hic facilis qui nemo soluta maxime cupiditate nulla? Quae sit voluptas, perspiciatis nihil
-          labore itaque.</p>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas tempore corrupti assumenda repudiandae
-          nostrum. Nam hic facilis qui nemo soluta maxime cupiditate nulla? Quae sit voluptas, perspiciatis nihil
-          labore itaque.</p>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas tempore corrupti assumenda repudiandae
-          nostrum. Nam hic facilis qui nemo soluta maxime cupiditate nulla? Quae sit voluptas, perspiciatis nihil
-          labore itaque.</p>
-        <a href="" class="btn btn-outline-primary mt-4">
+        <p>Ser miembro de AVIPLA significa contar con un respaldo institucional de un gremio que agrupa a las empresas más importantes del Sector Plástico en Venezuela, que además vela por los intereses de todos sus asociados.</p>
+        <p>AVIPLA ha cumplido su misión fundacional y ha desarrollado una labor que es conocida tanto a nivel nacional como internacional, convirtiéndola en una de las organizaciones más activas y serias que existen actualmente en el país.</p>
+        <p>Para llevar a cabo sus funciones de apoyo a los asociados, cuenta con una sede propia y una estructura organizacional bastante completa que incluye una dirección ejecutiva, una unidad de asistencia técnica y una unidad de información.</p>
+        <a href="{{ route('contact') }}" class="btn btn-outline-primary mt-4">
           <i class="fa fa-pen"></i>
           Afiliate
         </a>

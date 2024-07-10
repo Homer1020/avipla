@@ -50,11 +50,11 @@
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta quas officiis sapiente harum dolorem inventore rem quidem delectus totam repellat nisi repudiandae ratione doloribus nesciunt, ex magni odit asperiores optio?</p>
+                        <p class="card-text">La asociación venezolana de industrias plásticas ha sido desde 1965 una organización que reúne y representa a las empresas del Sector Plástico, dedicada a promover e impulsar el desarrollo de la industria plástica a nivel Nacional.</p>
                         <ul class="mb-4">
-                            <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta soluta mollitia reiciendis, suscipit ratione quaerat reprehenderit quae quisquam magni provident consectetur excepturi distinctio repellendus non quis obcaecati ipsa officiis dignissimos.</li>
-                            <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta soluta mollitia reiciendis, suscipit ratione quaerat reprehenderit quae quisquam magni provident consectetur excepturi distinctio repellendus non quis obcaecati ipsa officiis dignissimos.</li>
-                            <li>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dicta soluta mollitia reiciendis, suscipit ratione quaerat reprehenderit quae quisquam magni provident consectetur excepturi distinctio repellendus non quis obcaecati ipsa officiis dignissimos.</li>
+                            <li class="mb-3">Fortalecer las alianzas de las industrias que representa, en especial las alianzas de sus empresas afiliadas, a fin de lograr la protección de los intereses de las industrias en el marco de la ley.</li>
+                            <li class="mb-3"> Establecer relaciones con todas las organizaciones representativas de la producción nacional, cuya cooperación redunde en beneficio de los intereses del movimiento industrial.</li>
+                            <li class="mb-3">Promover el aumento del consumo de productos plásticos de producción nacional en todo el país y esforzarse por informar, educar y promover la mejora continua de los productos plásticos.</li>
                         </ul>
                         <a href="{{ route('about') }}" class="btn btn-outline-primary">Saber más</a>
                     </div>
@@ -96,7 +96,7 @@
         <div class="row align-items-center">
             <div class="col-md-6">
                 <h2 class="section__title text-white mb-4">Afiliados</h2>
-                <p class="mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui beatae doloribus velit voluptate totam, minus asperiores sapiente. Vitae, sint id quisquam tempore accusantium reprehenderit eius sit obcaecati labore, praesentium iure.</p>
+                <p class="mb-4">AVIPLA agrupa dentro de sus afiliados a gran parte de la cadena del sector plástico; desde fabricantes y distribuidores de materias primas, distribuidores de maquinaria y equipos, fabricantes y distribuidores transformadores de plástico en todas las modalidades. Consulte nuestros afiliados.</p>
                 <h3 class="section__subtitle mb-4">Colsulte nuestros afiliados</h3>
                 <a href="{{ route('directory') }}" class="btn btn-outline-light me-2">
                     <i class="fa fa-address-book"></i>

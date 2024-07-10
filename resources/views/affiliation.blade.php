@@ -8,12 +8,8 @@
     <div class="row">
       <div class="col-md-6 mb-4 mb-md-0">
         <h1 class="section__title">Afiliación</h1>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas tempore corrupti assumenda repudiandae
-          nostrum. Nam hic facilis qui nemo soluta maxime cupiditate nulla? Quae sit voluptas, perspiciatis nihil
-          labore itaque.</p>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas tempore corrupti assumenda repudiandae
-          nostrum. Nam hic facilis qui nemo soluta maxime cupiditate nulla? Quae sit voluptas, perspiciatis nihil
-          labore itaque.</p>
+        <p>El propósito de AVIPLA es hacer de sus afiliados el motor de desarrollo de la industria plástica nacional.</p>
+        <p>AVIPLA ha cumplido la misión para la cual fue creada y ha desarrollado una labor ampliamente conocida, agrupando dentro de sus afiliados a gran parte de la cadena del sector plástico; desde fabricantes y distribuidores de materias primas, distribuidores de maquinaria y equipos, fabricantes y distribuidores transformadores de plástico en todas las modalidades.</p>
         <a href="{{ route('contact') }}" class="btn btn-outline-primary mt-4 me-2">
           <i class="fa fa-pen"></i>
           Afiliate
@@ -98,7 +94,7 @@
           <div class="number">
             <p class="m-0">1</p>
           </div>
-          <p class="text-center text-primary">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam, commodi ea, distinctio tempora iusto hic labore dolores accusamus debitis asperiores consequatur, possimus eum! Illo mollitia similique obcaecati modi corrupti qui.</p>
+          <p class="text-center text-primary fw-bold">Llenar planilla de afiliación anexando los siguientes documentos; RIF y Registro Mercantil</p>
         </div>
       </div>
 
@@ -107,7 +103,7 @@
           <div class="number">
             <p class="m-0">2</p>
           </div>
-          <p class="text-center text-primary">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam, commodi ea, distinctio tempora iusto hic labore dolores accusamus debitis asperiores consequatur, possimus eum! Illo mollitia similique obcaecati modi corrupti qui.</p>
+          <p class="text-center text-primary fw-bold"> Enviar Solicitud, la cual será sometida a consideración por la junta directiva para su debida aprobación</p>
         </div>
       </div>
 
@@ -116,7 +112,7 @@
           <div class="number">
             <p class="m-0">3</p>
           </div>
-          <p class="text-center text-primary">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam, commodi ea, distinctio tempora iusto hic labore dolores accusamus debitis asperiores consequatur, possimus eum! Illo mollitia similique obcaecati modi corrupti qui.</p>
+          <p class="text-center text-primary fw-bold"> Recepción de correo de aprobación, estatutos de la asociación e información de montos a cancelar, cuotas y cuentas bancarias respectivas para proceder con los pagos pertinentes</p>
         </div>
       </div>
 
@@ -124,7 +120,7 @@
         <div class="number">
           <p class="m-0">4</p>
         </div>
-        <p class="text-center text-primary">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam, commodi ea, distinctio tempora iusto hic labore dolores accusamus debitis asperiores consequatur, possimus eum! Illo mollitia similique obcaecati modi corrupti qui.</p>
+        <p class="text-center text-primary fw-bold"> Recepción correo de bienvenida al gremio, recibos de pago, ingreso al canal de negocios a través de WhatsApp como primer beneficio de afiliación</p>
       </div>
     </div>
   </div>

@@ -9,10 +9,10 @@
       <div class="row">
       <h1 class="section__title">¿Quienes somos?</h1>
       <div class="col-lg-6">
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas tempore corrupti assumenda repudiandae nostrum. Nam hic facilis qui nemo soluta maxime cupiditate nulla? Quae sit voluptas, perspiciatis nihil labore itaque.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas tempore corrupti assumenda repudiandae nostrum. Nam hic facilis qui nemo soluta maxime cupiditate nulla? Quae sit voluptas, perspiciatis nihil labore itaque.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas tempore corrupti assumenda repudiandae nostrum. Nam hic facilis qui nemo soluta maxime cupiditate nulla? Quae sit voluptas, perspiciatis nihil labore itaque.</p>
-          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas tempore corrupti assumenda repudiandae nostrum. Nam hic facilis qui nemo soluta maxime cupiditate nulla? Quae sit voluptas, perspiciatis nihil labore itaque.</p>
+        <p>AVIPLA (Asociación Venezolana de Industrias Plásticas) fue fundada el 22 de octubre de 1965 como una asociación representativa que reúne a las empresas del Sector plástico, con el fin de promover e impulsar el desarrollo de la industria plástica a Nivel Nacional.</p>
+        <p> La asociación se dedica a fortalecer la unión del sector industrial que representa, defender los intereses y buscar soluciones prácticas para sus afiliados, dentro del ámbito legal, a través de comités y grupos de trabajo integrados por la propia asociación.</p>
+        <p> A nivel Nacional AVIPLA fomenta relaciones con todas aquellas organizaciones representativas de la producción nacional, cuya cooperación beneficie los movimientos industriales del País, ya sean económicos, comerciales o relacionados con la sustentabilidad.</p>
+        <p> AVIPLA colabora con el Ejecutivo nacional con todas las iniciativas que previo estudio, propicie el desarrollo del sector industrial y continúa trabajando para participar en las decisiones que afectan a nuestra industria, para informar, educar y promover la producción sostenible de los productos plásticos manufacturados en el País, procurando su continuo mejoramiento.</p>
       </div>
       <div class="col-lg-6 position-relative">
           <div class="figure-reciclaje mt-5 mt-lg-0">
@@ -33,9 +33,9 @@
           <div class="row align-items-center">
               <div class="col-md-6">
                   <h2 class="section__title text-white mb-4">Misión</h2>
-                  <p class="mb-4">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui beatae doloribus velit voluptate totam, minus asperiores sapiente. Vitae, sint id quisquam tempore accusantium reprehenderit eius sit obcaecati labore, praesentium iure.</p>
+                  <p class="mb-4">Promover el desarrollo y crecimiento del sector plástico a nivel global y estimular su competitividad, avance tecnológico y responsabilidad social, con miras a mejorar la calidad de vida del venezolano, al hacer uso racional y ecológico de los productos plásticos.</p>
                   <h2 class="section__title text-white mb-4">Visión</h2>
-                  <p class="mb-0">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui beatae doloribus velit voluptate totam, minus asperiores sapiente. Vitae, sint id quisquam tempore accusantium reprehenderit eius sit obcaecati labore, praesentium iure.</p>
+                  <p class="mb-0">Ser reconocida como la asociación representativa de la industria del plástico en Venezuela por su contribución al desarrollo y fortalecimiento del sector transformador.</p>
               </div>
               <div class="col-md-6">
               </div>
@@ -52,7 +52,7 @@
                   <img src="./assets/img/handshake.jpg" alt="Botellas" class="rounded img-fluid h-100 object-fit-cover shadow-sm">
               </div>
               <div class="col-md-6">
-                  <h2 class="fs-5 fw-bold">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum saepe accusamus recusandae nam expedita ipsam sed ut a quas tenetur.</h2>
+                  <h2 class="fs-5 fw-bold">AVIPLA está afiliada a CONINDUSTRIA como muestra de su articulación a la cadena gremial y mantiene relaciones activas con sus instituciones homólogas en América Latina, Europa y Asia.</h2>
               </div>
           </div>
       </div>
