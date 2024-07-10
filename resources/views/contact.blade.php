@@ -86,6 +86,11 @@
             border-radius: 0;
         }
 
+        .list-group-item {
+            padding-top: 16px;
+            padding-bottom: 16px;
+        }
+
         .list-group-item span:last-child {
             min-width: 162px;
             text-align: center;
@@ -157,34 +162,52 @@
         <div class="row">
             <h2 class="h4 text-uppercase fw-bold mb-4">Contáctanos</h2>
             <div class="col-lg-6 mb-3 mb-lg-0">
-                <form action="">
+                <form action="{{ route('sendContactMail') }}" method="POST">
+                    @csrf
                     <div class="row">
                         <div class="col-lg-6 mb-4">
-                            <input type="text" name="nombre" placeholder="Tu nombre" class="form-control">
+                            <input type="text" name="nombre" placeholder="Tu nombre" class="form-control @error('nombre') is-invalid @enderror">
+                            @error('nombre')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 mb-4">
-                            <input type="text" name="apellido" placeholder="Tu apellido" class="form-control">
+                            <input type="text" name="apellido" placeholder="Tu apellido" class="form-control @error('apellido') is-invalid @enderror">
+                            @error('apellido')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-12 mb-4">
-                            <input type="text" name="correo" placeholder="Tu correo electrónico" class="form-control">
+                            <input type="email" name="correo" placeholder="Tu correo electrónico" class="form-control @error('correo') is-invalid @enderror">
+                            @error('correo')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-12 mb-4">
-                            <select name="" id="" class="form-select">
+                            <select name="asunto" id="asunto" class="form-select @error('asunto') is-invalid @enderror">
                                 <option selected disabled>Seleccione el asunto</option>
+                                <option value="Información sobre afiliaciones">Información sobre afiliaciones</option>
+                                <option value="Información sobre las empresas asociadas">Información sobre las empresas asociadas</option>
+                                <option value="Información sobre programas o eventos">Información sobre programas o eventos</option>
                             </select>
+                            @error('asunto')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-12 mb-4">
-                            <textarea name="mensaje" id="mensaje" rows="7" class="form-control" placeholder="Escribe tu mensaje"></textarea>
+                            <textarea name="mensaje" id="mensaje" rows="7" class="form-control @error('mensaje') is-invalid @enderror" placeholder="Escribe tu mensaje"></textarea>
+                            @error('mensaje')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
-                    <butto class="btn btn-primary">
-                        {{-- <i class="fa fa-paper-plane me-1"></i> --}}
+                    <button class="btn btn-primary" type="submit">
                         Enviar
-                    </butto>
+                    </button>
                 </form>
             </div>
             <div class="col-lg-6">
-                <iframe style="min-height: 450px;" class="w-100 h-100 rounded shadow" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7846.8696256922285!2d-66.818301!3d10.466348!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a581857faaa23%3A0x1e74f81bb9dd9b7e!2sMulticentro%20Macaracuay!5e0!3m2!1ses!2sve!4v1720580254825!5m2!1ses!2sve" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe style="min-height: 450px; max-height: 500px;" class="w-100 h-100 rounded shadow" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7846.8696256922285!2d-66.818301!3d10.466348!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a581857faaa23%3A0x1e74f81bb9dd9b7e!2sMulticentro%20Macaracuay!5e0!3m2!1ses!2sve!4v1720580254825!5m2!1ses!2sve" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>

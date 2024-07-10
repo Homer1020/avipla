@@ -12,6 +12,7 @@ use App\Models\SocialNetwork;
 use App\Models\Tag;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -124,5 +125,16 @@ class HomeController extends Controller
             ->latest()
             ->paginate(6);
         return view('tags.show', compact('noticias', 'tag'));
+    }
+
+    public function sendContactMail(Request $request) {
+        $request->validate([
+            'nombre'    => 'required',
+            'apellido'  => 'required',
+            'correo'    => 'required',
+            'asunto'    => 'required',
+            'mensaje'   => 'required'
+        ]);
+        return 'sending';
     }
 }
