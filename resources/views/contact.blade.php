@@ -43,6 +43,8 @@
         }
 
         .icon {
+            margin-left: auto;
+            margin-right: auto;
             width: 65px;
             height: 65px;
             background-color: var(--color-secondary);
@@ -51,7 +53,7 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            margin-right: 15px;
+            margin-bottom: 15px;
         }
 
         .icon i {
@@ -60,8 +62,21 @@
         }
 
         .card-icon {
-            display: flex;
             padding: 28px;
+            text-align: center;
+        }
+
+        @media (screen and (min-width: 992px)) {
+            .card-icon {
+                text-align: left;
+                display: flex;
+            }
+
+            .icon {
+                margin-right: 15px;
+                margin-bottom: 0;
+                margin-left: initial;
+            }
         }
 
         .form-control,
@@ -69,6 +84,11 @@
             padding: 16px;
             font-size: 16px;
             border-radius: 0;
+        }
+
+        .list-group-item span:last-child {
+            min-width: 162px;
+            text-align: center;
         }
     </style>
 @endpush
@@ -135,8 +155,8 @@
 <section class="section bg-white">
     <div class="container">
         <div class="row">
+            <h2 class="h4 text-uppercase fw-bold mb-4">Contáctanos</h2>
             <div class="col-lg-6 mb-3 mb-lg-0">
-                <h2 class="h4 text-uppercase fw-bold mb-4">Contáctanos</h2>
                 <form action="">
                     <div class="row">
                         <div class="col-lg-6 mb-4">
@@ -158,13 +178,55 @@
                         </div>
                     </div>
                     <butto class="btn btn-primary">
-                        <i class="fa fa-paper-plane me-1"></i>
+                        {{-- <i class="fa fa-paper-plane me-1"></i> --}}
                         Enviar
                     </butto>
                 </form>
             </div>
             <div class="col-lg-6">
-                <iframe class="w-100 h-100 rounded" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7846.8696256922285!2d-66.818301!3d10.466348!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a581857faaa23%3A0x1e74f81bb9dd9b7e!2sMulticentro%20Macaracuay!5e0!3m2!1ses!2sve!4v1720580254825!5m2!1ses!2sve" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe style="min-height: 450px;" class="w-100 h-100 rounded shadow" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7846.8696256922285!2d-66.818301!3d10.466348!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a581857faaa23%3A0x1e74f81bb9dd9b7e!2sMulticentro%20Macaracuay!5e0!3m2!1ses!2sve!4v1720580254825!5m2!1ses!2sve" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container-sm">
+        <div class="row justify-content-center">
+            <div class="col-lg-5">
+                <h2 class="h4 text-uppercase fw-bold text-center mb-3">Horarios de atención</h2>
+                <p class="text-center mb-4">Si deseas conocer mayor información sobre AVIPLA contáctanos en el siguiente horario:</p>
+
+                <ul class="list-group shadow">
+                    <li class="list-group-item d-md-flex justify-content-between align-items-center">
+                        <span class="fw-bold mb-1 mb-md-0 d-block">Lunes</span>
+                        <span class="py-1 px-3 bg-secondary text-white rounded d-block">8:00 am - 5:00 pm</span>
+                    </li>
+                    <li class="list-group-item d-md-flex justify-content-between align-items-center">
+                        <span class="fw-bold mb-1 mb-md-0 d-block">Martes</span>
+                        <span class="py-1 px-3 bg-secondary text-white rounded d-block">8:00 am - 5:00 pm</span>
+                    </li>
+                    <li class="list-group-item d-md-flex justify-content-between align-items-center">
+                        <span class="fw-bold mb-1 mb-md-0 d-block">Miercoles</span>
+                        <span class="py-1 px-3 bg-secondary text-white rounded d-block">8:00 am - 5:00 pm</span>
+                    </li>
+                    <li class="list-group-item d-md-flex justify-content-between align-items-center">
+                        <span class="fw-bold mb-1 mb-md-0 d-block">Jueves</span>
+                        <span class="py-1 px-3 bg-secondary text-white rounded d-block">8:00 am - 5:00 pm</span>
+                    </li>
+                    <li class="list-group-item d-md-flex justify-content-between align-items-center">
+                        <span class="fw-bold mb-1 mb-md-0 d-block">Viernes</span>
+                        <span class="py-1 px-3 bg-secondary text-white rounded d-block">8:00 am - 5:00 pm</span>
+                    </li>
+                    <li class="list-group-item d-md-flex justify-content-between align-items-center">
+                        <span class="fw-bold mb-1 mb-md-0 d-block">Sabado</span>
+                        <span class="py-1 px-3 bg-danger text-white rounded d-block">No laborable</span>
+                    </li>
+                    <li class="list-group-item d-md-flex justify-content-between align-items-center">
+                        <span class="fw-bold mb-1 mb-md-0 d-block">Domingo</span>
+                        <span class="py-1 px-3 bg-danger text-white rounded d-block">No laborable</span>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

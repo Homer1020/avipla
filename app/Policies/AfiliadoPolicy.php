@@ -4,16 +4,22 @@ namespace App\Policies;
 
 use App\Models\Afiliado;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class AfiliadoPolicy
 {
+    public function before(User $user) {
+        if($user->roles()->first()->name === 'administrador'){
+            return true;
+        }
+        return null;
+    }
+    
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->roles->first()->name === 'administrador';
+        return false;
     }
 
     /**

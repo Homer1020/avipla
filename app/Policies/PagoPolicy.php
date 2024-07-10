@@ -8,12 +8,19 @@ use App\Models\User;
 
 class PagoPolicy
 {
+    public function before(User $user) {
+        if($user->roles()->first()->name === 'afiliado'){
+            return true;
+        }
+        return null;
+    }
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->afiliado()->exists();
+        return true;
     }
 
     /**
@@ -29,7 +36,7 @@ class PagoPolicy
      */
     public function create(User $user): bool
     {
-        return $user->afiliado()->exists();
+        return true;
     }
 
     /**

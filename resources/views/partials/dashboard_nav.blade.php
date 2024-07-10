@@ -38,7 +38,7 @@
                     Afiliados
                 </x-nav-link>
             @endcan
-            @can('viewAny', App\Models\Invoice::class)
+            @can('viewAny', App\Models\AvisoCobro::class)
                 <x-nav-link
                     :to="route('avisos-cobro.index')"
                     active="avisos-cobro.*"
@@ -46,6 +46,8 @@
                 >
                     Avisos de cobro
                 </x-nav-link>
+            @endcan
+            @can('viewAny', App\Models\Invoice::class)
                 <x-nav-link
                     :to="route('invoices.index')"
                     active="invoices.*"

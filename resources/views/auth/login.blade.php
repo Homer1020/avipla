@@ -38,7 +38,7 @@
 
                 <!-- correo -->
                 <div class="form-floating mb-3">
-                  <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="johndoe@gmail.com">
+                  <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="johndoe@gmail.com" value="{{ old('email') }}">
                   <label for="email">Correo electrónico</label>
                   @error('email')
                     <div class="invalid-feedback">

@@ -2,10 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Invoice;
+use App\Models\AvisoCobro;
 use App\Models\User;
 
-class InvoicePolicy
+class AvisoCobroPolicy
 {
     public function before(User $user) {
         if($user->roles()->first()->name === 'administrador'){
@@ -19,15 +19,15 @@ class InvoicePolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return false;
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Invoice $invoice): bool
+    public function view(User $user, AvisoCobro $avisoCobro): bool
     {
-        return $user->afiliado->id === $invoice->avisoCobro->afiliado->id;
+        return false;
     }
 
     /**
@@ -41,7 +41,7 @@ class InvoicePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Invoice $invoice): bool
+    public function update(User $user, AvisoCobro $avisoCobro): bool
     {
         return false;
     }
@@ -49,7 +49,7 @@ class InvoicePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Invoice $invoice): bool
+    public function delete(User $user, AvisoCobro $avisoCobro): bool
     {
         return false;
     }
@@ -57,7 +57,7 @@ class InvoicePolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Invoice $invoice): bool
+    public function restore(User $user, AvisoCobro $avisoCobro): bool
     {
         return false;
     }
@@ -65,7 +65,7 @@ class InvoicePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Invoice $invoice): bool
+    public function forceDelete(User $user, AvisoCobro $avisoCobro): bool
     {
         return false;
     }

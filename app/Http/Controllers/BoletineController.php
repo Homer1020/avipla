@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class BoletineController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Boletine::class, 'boletine');
+    }
+
     /**
      * Display a listing of the resource.
      */

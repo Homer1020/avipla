@@ -12,10 +12,12 @@ use Illuminate\Support\Str;
 class SolicitudController extends Controller
 {
     public function requestForm() {
+        $this->authorize('requestForm', SolicitudAfiliado::class);
         return view('afiliados.request');
     }
 
     public function request(Request $request) {
+        $this->authorize('request', SolicitudAfiliado::class);
         $payload = $request->validate([
             'razon_social'  => 'required|string',
             'correo'        => 'required|email|unique:solicitudes_afiliados,correo'
@@ -32,6 +34,7 @@ class SolicitudController extends Controller
     }
 
     public function reminder(SolicitudAfiliado $solicitud) {
+        $this->authorize('reminder', SolicitudAfiliado::class);
         Mail::to($solicitud->correo)->send(new AfiliadoEmailReminder($solicitud));
         return redirect()->route('afiliados.index')->with('success', 'Correo enviado correctamente.');
     }

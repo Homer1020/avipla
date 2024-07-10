@@ -8,6 +8,13 @@ use Illuminate\Auth\Access\Response;
 
 class BoletinePolicy
 {
+    public function before(User $user) {
+        if($user->roles()->first()->name === 'administrador'){
+            return true;
+        }
+        return null;
+    }
+
     /**
      * Determine whether the user can view any models.
      */
@@ -29,7 +36,7 @@ class BoletinePolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->roles()->first()->name === 'editor';
     }
 
     /**
@@ -37,7 +44,7 @@ class BoletinePolicy
      */
     public function update(User $user, Boletine $boletine): bool
     {
-        return true;
+        return $user->id === $boletine->user->id;
     }
 
     /**
@@ -45,7 +52,7 @@ class BoletinePolicy
      */
     public function delete(User $user, Boletine $boletine): bool
     {
-        return true;
+        return $user->id === $boletine->user->id;
     }
 
     /**
@@ -53,7 +60,7 @@ class BoletinePolicy
      */
     public function restore(User $user, Boletine $boletine): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -61,6 +68,6 @@ class BoletinePolicy
      */
     public function forceDelete(User $user, Boletine $boletine): bool
     {
-        return true;
+        return false;
     }
 }

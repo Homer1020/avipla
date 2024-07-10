@@ -5,19 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePagoRequest;
 use App\Http\Requests\UpdatePagoRequest;
 use App\Models\AvisoCobro;
-use App\Models\Invoice;
 use App\Models\MetodoPago;
 use App\Models\Pago;
 use App\Models\User;
 use App\Notifications\AvisoCobroPaid;
-use App\Notifications\InvoicePaid;
 use App\Notifications\PayUpdated;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PagoController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Pago::class, 'pago');
+    }
+
     /**
      * Display a listing of the resource.
      */

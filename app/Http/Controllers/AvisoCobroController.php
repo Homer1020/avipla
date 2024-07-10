@@ -14,6 +14,10 @@ use Illuminate\Support\Str;
 
 class AvisoCobroController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(AvisoCobro::class, 'aviso_cobro');
+    }
     /**
      * Display a listing of the resource.
      */

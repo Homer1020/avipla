@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAfiliadoRequest;
 use App\Http\Requests\UpdateAfiliadoRequest;
-use App\Mail\VerifyAfiliadoEmail;
 use App\Models\Actividad;
 use App\Models\Afiliado;
 use App\Models\MateriaPrima;
@@ -15,6 +13,11 @@ use Illuminate\Support\Facades\Storage;
 
 class AfiliadosController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Afiliado::class, 'afiliado');
+    }
+
     /**
      * Display a listing of the resource.
      */
