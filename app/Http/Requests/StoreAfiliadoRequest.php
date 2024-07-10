@@ -50,6 +50,7 @@ class StoreAfiliadoRequest extends FormRequest
             'correo_administrador'              => 'nullable|email',
             'correo_gerente_exportaciones'      => 'nullable|email',
             'correo_representante_avipla'       => 'nullable|email',
+            'numero_encargado_ws'               => 'nullable|numeric',
 
             'productos'                         => 'required|array|min:1',
             'productos.*'                       => 'required|exists:productos,id',

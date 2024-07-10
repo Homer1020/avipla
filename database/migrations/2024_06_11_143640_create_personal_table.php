@@ -19,24 +19,26 @@ return new class extends Migration
                 ->on('afiliados')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->string('nombre_presidente')->nullable();
+            // $table->string('nombre_presidente')->nullable();
             $table->string('correo_presidente')->nullable();
-            $table->string('nombre_gerente_general')->nullable();
+            // $table->string('nombre_gerente_general')->nullable();
             $table->string('correo_gerente_general')->nullable();
-            $table->string('nombre_gerente_compras')->nullable();
+            // $table->string('nombre_gerente_compras')->nullable();
             $table->string('correo_gerente_compras')->nullable();
-            $table->string('nombre_gerente_marketing_ventas')->nullable();
+            // $table->string('nombre_gerente_marketing_ventas')->nullable();
             $table->string('correo_gerente_marketing_ventas')->nullable();
-            $table->string('nombre_gerente_planta')->nullable();
+            // $table->string('nombre_gerente_planta')->nullable();
             $table->string('correo_gerente_planta')->nullable();
-            $table->string('nombre_gerente_recursos_humanos')->nullable();
+            // $table->string('nombre_gerente_recursos_humanos')->nullable();
             $table->string('correo_gerente_recursos_humanos')->nullable();
-            $table->string('nombre_administrador')->nullable();
+            // $table->string('nombre_administrador')->nullable();
             $table->string('correo_administrador')->nullable();
-            $table->string('nombre_gerente_exportaciones')->nullable();
+            // $table->string('nombre_gerente_exportaciones')->nullable();
             $table->string('correo_gerente_exportaciones')->nullable();
-            $table->string('nombre_representante_avipla')->nullable();
+            // $table->string('nombre_representante_avipla')->nullable();
             $table->string('correo_representante_avipla')->nullable();
+            
+            $table->string('numero_encargado_ws')->nullable();
         });
     }
 

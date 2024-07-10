@@ -85,6 +85,7 @@
             id="brand"
             label="Logotipo de la empresa"
             :error="$errors->first('brand')"
+            accept="image/*"
         />
         @if ($afiliado->brand)
             <div class="text-center">

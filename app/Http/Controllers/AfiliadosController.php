@@ -127,7 +127,8 @@ class AfiliadosController extends Controller
             'correo_gerente_recursos_humanos',
             'correo_administrador',
             'correo_gerente_exportaciones',
-            'correo_representante_avipla'
+            'correo_representante_avipla',
+            'numero_encargado_ws'
         ]));
 
         $data_productos = $request->safe()->only([

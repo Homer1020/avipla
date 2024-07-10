@@ -15,7 +15,7 @@ class ActividadSeeder extends Seeder
     {
         Actividad::insert([
             ['actividad' => 'Industrial / Transformador'],
-            ['actividad' => 'Comercial / Distribuid']
+            ['actividad' => 'Comercial / Distribuidor']
         ]);
     }
 }
