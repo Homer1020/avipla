@@ -457,16 +457,16 @@
             .then(r => r.json())
             .then(response => {
                 const { data, success, message } = response
+                $socialNetworkForm.find('input').each(function() {
+                    $(this).parent().find('.invalid-feedback').remove()
+                    $(this).removeClass('is-invalid')
+                })
                 if(success) {
                     Swal.fire({
                         icon: "success",
                         title: message
                     })
                 } else {
-                    $socialNetworkForm.find('input').each(function() {
-                        $(this).parent().find('.invalid-feedback').remove()
-                        $(this).removeClass('is-invalid')
-                    })
                     <!-- PRINT ERRORS -->
                     for (const name in data) {
                         const $input = $socialNetworkForm.find(`[name="${name}"]`)

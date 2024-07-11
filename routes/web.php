@@ -143,11 +143,6 @@ Route::resource('pagos', PagoController::class)
   ->middleware('auth');
 
 /**
- * WEBSITE CONTROLLER
- */
-Route::get('sitio-web', [WebsiteController::class, 'index'])->name('website.index');
-
-/**
  * MANAGE FILES
  */
 Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
@@ -162,17 +157,23 @@ Route::get('/mailable', function () {
 /**
  * WEBSITE
  */
-Route::apiResource('carousel', CarouselController::class)
-  ->except([
-    'show',
-    'index'
-  ]);
+  
+Route::middleware(['auth', 'is_admin'])->group(function() {
+  Route::get('sitio-web', [WebsiteController::class, 'index'])
+  ->name('website.index');
 
-Route::apiResource('social-networks', SocialNetworkController::class)
-  ->only(['store']);
+  Route::apiResource('carousel', CarouselController::class)
+    ->except([
+      'show',
+      'index'
+    ]);
 
-Route::apiResource('organismos', OrganismoController::class)
-  ->only(['store', 'destroy', 'update']);
+  Route::apiResource('social-networks', SocialNetworkController::class)
+    ->only(['store']);
 
-Route::apiResource('junta-directiva', JuntaDirectivaController::class)
-  ->only(['store', 'destroy', 'update']);
+  Route::apiResource('organismos', OrganismoController::class)
+    ->only(['store', 'destroy', 'update']);
+
+  Route::apiResource('junta-directiva', JuntaDirectivaController::class)
+    ->only(['store', 'destroy', 'update']);
+});
