@@ -49,19 +49,55 @@
 
   <div class="row">
     <div class="col-md-6 col-lg-4 col-xl-3">
-      <x-stats.card />
+      <x-stats.card
+        title="Afiliados al día"
+        number="500"
+      >
+        <x-slot:icon>
+          <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+        </x-slot:icon>
+      </x-stats.card>
     </div>
 
     <div class="col-md-6 col-lg-4 col-xl-3">
-      <x-stats.card />
+      <x-stats.card
+        title="Afiliados morosos"
+        number="500"
+      >
+        <x-slot:icon>
+          <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+        </x-slot:icon>
+      </x-stats.card>
     </div>
 
     <div class="col-md-6 col-lg-4 col-xl-3">
-      <x-stats.card />
+      <x-stats.card
+        title="Pagos conciliados"
+        number="500"
+      >
+        <x-slot:icon>
+          <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+        </x-slot:icon>
+      </x-stats.card>
     </div>
 
     <div class="col-md-6 col-lg-4 col-xl-3">
-      <x-stats.card />
+      <x-stats.card
+        title="Afiliados totales"
+        number="500"
+      >
+        <x-slot:icon>
+          <div class="icon icon-shape bg-success text-white rounded-circle shadow">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+        </x-slot:icon>
+      </x-stats.card>
     </div>
   </div>
 
