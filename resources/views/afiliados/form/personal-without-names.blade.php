@@ -44,7 +44,17 @@
       label="Correo del Presidente"
       :value="old('correo_presidente', $afiliado->personal ? $afiliado->personal->correo_presidente : '')"
       :error="$errors->first('correo_presidente')"
+      :required="true"
     />
+  </div>
+  <div class="col-lg-6">
+    <x-forms.input
+      name="numero_encargado_ws"
+      id="numero_encargado_ws"
+      placeholder="Número del encargado del Whatsapp" label="Número del encargado del Whatsapp"
+      :value="old('numero_encargado_ws', $afiliado->personal ? $afiliado->personal->numero_encargado_ws : '')"
+      :error="$errors->first('numero_encargado_ws')"
+      :required="true" />
   </div>
   <div class="col-lg-6">
     <x-forms.input
@@ -115,13 +125,5 @@
       placeholder="Correo del Representante de AVIPLA" label="Correo del Representante de AVIPLA"
       :value="old('correo_representante_avipla', $afiliado->personal ? $afiliado->personal->correo_representante_avipla : '')"
       :error="$errors->first('correo_representante_avipla')" />
-  </div>
-  <div class="col-lg-6">
-    <x-forms.input
-      name="numero_encargado_ws"
-      id="numero_encargado_ws"
-      placeholder="Número del encargado del Whatsapp" label="Número del encargado del Whatsapp"
-      :value="old('numero_encargado_ws', $afiliado->personal ? $afiliado->personal->numero_encargado_ws : '')"
-      :error="$errors->first('numero_encargado_ws')" />
   </div>
 </div>

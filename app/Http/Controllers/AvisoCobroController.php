@@ -10,7 +10,7 @@ use App\Notifications\AvisoCobroCreated;
 use App\Notifications\AvisoCobroStatusChanged;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 class AvisoCobroController extends Controller
 {
@@ -42,27 +42,29 @@ class AvisoCobroController extends Controller
     public function store(Request $request)
     {
         $payload = $request->validate([
-            'afiliado_id'       => 'required|numeric|exists:afiliados,id',
             'monto_total'       => 'required|numeric',
-            'numero_factura'    => 'required|numeric|unique:aviso_cobros,numero_factura',
             'fecha_limite'      => 'nullable|date_format:Y-m-d|after:today',
-            'documento'         => 'required|file|mimes:pdf'
         ]);
 
-        $codigo_factura = Str::random(32);
+        $fechaActual = Carbon::now();
+        $nombreMes = $fechaActual->translatedFormat('F');
+        $anio = $fechaActual->format('Y');
+        $codigo_aviso = strtoupper($nombreMes) . $anio;
 
-        $documentFile = $request->file('documento');
-        $documentFileName = $documentFile->hashName();
-        $documentFile->storeAs('avisos-cobros', $documentFileName);
-
-        $payload['documento'] = $documentFileName;
-        $payload['codigo_factura'] = $codigo_factura;
+        $payload['codigo_aviso'] = $codigo_aviso;
 
         $user = Auth::user();
 
         if ($user !== null && $user instanceof User) {
-            $avisoCobro = $user->avisosCobros()->create($payload);
-            $avisoCobro->afiliado->user->notify(new AvisoCobroCreated($avisoCobro));
+            $afiliados = Afiliado::where('estado', true)->get();
+
+            foreach($afiliados as $afiliado) {
+                if(!$afiliado->avisosCobros()->exists()) {
+                    $payload['afiliado_id'] = $afiliado->id;
+                    $avisoCobro = $user->avisosCobros()->create($payload);
+                    $afiliado->user->notify(new AvisoCobroCreated($avisoCobro));
+                }
+            }
             return redirect()->route('avisos-cobro.index')->with('success', 'Se generó el aviso correctamente');
         }
     }

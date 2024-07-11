@@ -12,10 +12,8 @@ class AvisoCobro extends Model
     protected $fillable = [
         'afiliado_id',
         'monto_total',
-        'documento',
-        'numero_factura',
         'estado',
-        'codigo_factura',
+        'codigo_aviso',
         'fecha_limite'
     ];
 

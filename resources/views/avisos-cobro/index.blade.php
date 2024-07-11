@@ -19,7 +19,7 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Aviso N°</th>
+            <th>Código</th>
             <th>Fecha</th>
             <th>Afiliado</th>
             <th>Estado</th>
@@ -32,7 +32,7 @@
           @foreach ($avisosCobros as $avisoCobro)
             <tr>
               <td>#{{ $avisoCobro->id }}</td>
-              <td>#{{ $avisoCobro->numero_factura }}</td>
+              <td>#{{ $avisoCobro->codigo_aviso }}</td>
               <td>{{ $avisoCobro->created_at->format('Y-m-d') }}</td>
               <td>
                 <span class="text-truncate d-inline-block" style="max-width: 150px">

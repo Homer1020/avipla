@@ -107,6 +107,37 @@ class AfiliadosController extends Controller
             $payload['brand'] = $path;
         }
 
+        # upload files
+        if($request->hasFile('rif_path')) {
+            if(Storage::fileExists('afiliados/' . $afiliado->rif_path)) {
+                Storage::delete('afiliados/' . $afiliado->rif_path);
+            }
+            $rifDocumentFile = $request->file('rif_path');
+            $rifDocumentFileName = $rifDocumentFile->hashName();
+            $rifDocumentFile->storeAs('afiliados', $rifDocumentFileName);
+            $payload['rif_path'] = $rifDocumentFileName;
+        }
+
+        if($request->hasFile('registro_mercantil_path')) {
+            if(Storage::fileExists('afiliados/' . $afiliado->registro_mercantil_path)) {
+                Storage::delete('afiliados/' . $afiliado->registro_mercantil_path);
+            }
+            $registroMercantilFile = $request->file('registro_mercantil_path');
+            $registroMercantilFileName = $registroMercantilFile->hashName();
+            $registroMercantilFile->storeAs('afiliados', $registroMercantilFileName);
+            $payload['registro_mercantil_path'] = $registroMercantilFileName;
+        }
+
+        if($request->hasFile('estado_financiero_path')) {
+            if(Storage::fileExists('afiliados/' . $afiliado->estado_financiero_path)) {
+                Storage::delete('afiliados/' . $afiliado->estado_financiero_path);
+            }
+            $estadoFinanciero = $request->file('estado_financiero_path');
+            $estadoFinancieroName = $estadoFinanciero->hashName();
+            $estadoFinanciero->storeAs('afiliados', $estadoFinancieroName);
+            $payload['estado_financiero_path'] = $estadoFinancieroName;
+        }
+
         $afiliado->update($payload);
 
         $afiliado->direccion()->update($request->safe()->only([

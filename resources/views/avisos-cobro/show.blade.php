@@ -105,7 +105,7 @@
         <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>
-                #{{ $avisoCobro->numero_factura }}
+                #{{ $avisoCobro->codigo_aviso }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Fecha de emisión:</span>
@@ -113,11 +113,7 @@
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Emisor:</span>
-                {{ $avisoCobro->user->name }}
-            </li>
-            <li class="list-group-item">
-                <span class="fw-bold">Correo del emisor:</span>
-                <a href="mailto:{{ $avisoCobro->user->email }}">{{ $avisoCobro->user->email }}</a>
+                <a href="mailto:{{ $avisoCobro->user->email }}">{{ $avisoCobro->user->name }}</a>
             </li>
             @if (!$avisoCobro->pago)
                 <li class="list-group-item">
@@ -125,7 +121,7 @@
                     {{ $avisoCobro->afiliado->razon_social }}
                 </li>
                 <li class="list-group-item">
-                    <span class="fw-bold">Correo de la epmpresa:</span>
+                    <span class="fw-bold">Correo de la empresa:</span>
                     <a href="mailto:{{ $avisoCobro->afiliado->user->email }}">{{ $avisoCobro->afiliado->user->email }}</a>
                 </li>
             @endif
@@ -138,12 +134,6 @@
             <li class="list-group-item">
                 <span class="fw-bold">Monto total:</span>
                 {{ $avisoCobro->monto_total }}$
-            </li>
-            <li class="list-group-item">
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'avisos-cobros', 'path' => $avisoCobro->documento]) }}" class="btn btn-outline-primary">
-                    <i class="fa fa-file"></i>
-                    Documento
-                </a>
             </li>
             <li class="list-group-item">
                 <form action="{{ route('avisos-cobro.update', $avisoCobro) }}" method="POST">

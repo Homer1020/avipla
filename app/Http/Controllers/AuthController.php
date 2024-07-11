@@ -113,6 +113,22 @@ class AuthController extends Controller
         $path = $request->file('brand')->store('public/brands');
         $payload['brand'] = $path;
 
+        # upload files
+        $rifDocumentFile = $request->file('rif_path');
+        $rifDocumentFileName = $rifDocumentFile->hashName();
+        $rifDocumentFile->storeAs('afiliados', $rifDocumentFileName);
+        $payload['rif_path'] = $rifDocumentFileName;
+
+        $registroMercantilFile = $request->file('registro_mercantil_path');
+        $registroMercantilFileName = $registroMercantilFile->hashName();
+        $registroMercantilFile->storeAs('afiliados', $registroMercantilFileName);
+        $payload['registro_mercantil_path'] = $registroMercantilFileName;
+
+        $estadoFinanciero = $request->file('estado_financiero_path');
+        $estadoFinancieroName = $estadoFinanciero->hashName();
+        $estadoFinanciero->storeAs('afiliados', $estadoFinancieroName);
+        $payload['estado_financiero_path'] = $estadoFinancieroName;
+
         $afiliado = $user->afiliado()->create($payload);
 
         $afiliado->direccion()->create($request->safe()->only([

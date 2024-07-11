@@ -161,3 +161,61 @@
         />
     </div>
 </div>
+
+<p class="text-muted fw-bold text-uppercase">
+    Documentos requeridos
+</p>
+
+<div class="row">
+    <div class="col-lg-6">
+        <x-forms.input
+            type="file"
+            name="rif_path"
+            id="rif_path"
+            label="RIF"
+            :error="$errors->first('rif_path')"
+            accept="application/pdf"
+            :required="true"
+        />
+        @if ($afiliado->rif_path)
+            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->rif_path]) }}" class="btn btn-primary mb-3">
+                <i class="fa fa-file-invoice"></i>
+                Visualizar documento
+            </a>
+        @endif
+    </div>
+    <div class="col-lg-6">
+        <x-forms.input
+            type="file"
+            name="registro_mercantil_path"
+            id="registro_mercantil_path"
+            label="Registro mercantil"
+            :error="$errors->first('registro_mercantil_path')"
+            accept="application/pdf"
+            :required="true"
+        />
+        @if ($afiliado->registro_mercantil_path)
+            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->registro_mercantil_path]) }}" class="btn btn-primary mb-3">
+                <i class="fa fa-file-invoice"></i>
+                Visualizar documento
+            </a>
+        @endif
+    </div>
+    <div class="col-lg-6">
+        <x-forms.input
+            type="file"
+            name="estado_financiero_path"
+            id="estado_financiero_path"
+            label="Estado financiero"
+            :error="$errors->first('estado_financiero_path')"
+            accept="application/pdf"
+            :required="true"
+        />
+        @if ($afiliado->estado_financiero_path)
+            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->estado_financiero_path]) }}" class="btn btn-primary mb-3">
+                <i class="fa fa-file-invoice"></i>
+                Visualizar documento
+            </a>
+        @endif
+    </div>
+</div>

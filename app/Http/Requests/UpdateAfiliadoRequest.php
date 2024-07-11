@@ -24,6 +24,9 @@ class UpdateAfiliadoRequest extends FormRequest
         $afiliado = $this->route('afiliado');
         return [
             'brand'                             => 'nullable|max:2024|image',
+            'rif_path'                          => 'nullable|max:2024|mimes:pdf',
+            'registro_mercantil_path'           => 'nullable|max:2024|mimes:pdf',
+            'estado_financiero_path'            => 'nullable|max:2024|mimes:pdf',
             'razon_social'                      => 'required|string',
             'siglas'                            => 'required|string',
             'pagina_web'                        => 'url|nullable',

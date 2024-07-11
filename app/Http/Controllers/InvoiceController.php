@@ -127,23 +127,11 @@ class InvoiceController extends Controller
      */
     public function update(Request $request, Invoice $invoice)
     {
-        $previous_state = $invoice->estado;
+        // $previous_state = $invoice->estado;
         $invoice->estado = $request->input('invoice_status');
         $invoice->observaciones = $request->input('observaciones');
         $invoice->save();
 
-        # only notify if the state is diferent
-        // if($invoice->estado !== $previous_state) {
-        //     $administradores = User::whereHas('roles', function ($query) {
-        //         $query->where('name', 'administrador');
-        //     })
-        //     ->where('id', '!=', $request->user()->id)
-        //     ->get();
-        //     foreach ($administradores as $administrador) {
-        //         $administrador->notify(new InvoiceStatusChange($invoice));
-        //     }
-        //     $invoice->afiliado->user->notify(new InvoiceStatusChange($invoice));
-        // }
         return redirect()->route('invoices.index', $invoice)->with('success', 'Se actualizó el estado de la factura.');
     }
 

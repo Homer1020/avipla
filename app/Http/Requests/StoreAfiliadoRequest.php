@@ -23,8 +23,11 @@ class StoreAfiliadoRequest extends FormRequest
     {
         return [
             'brand'                             => 'required|max:2024|image',
+            'rif_path'                          => 'required|max:2024|mimes:pdf',
+            'registro_mercantil_path'           => 'required|max:2024|mimes:pdf',
+            'estado_financiero_path'            => 'required|max:2024|mimes:pdf',
             'razon_social'                      => 'required|string',
-            'email'                             => 'required|email',
+            'email'                             => 'required|email|unique:users,email',
             'name'                              => 'required|string',
             'password'                          => 'required|string|confirmed',
             'siglas'                            => 'required|string',
@@ -41,7 +44,7 @@ class StoreAfiliadoRequest extends FormRequest
             'actividad_id'                      => 'required|numeric|exists:actividades,id',
             'relaciones_comercio_exterior'      => 'required|string|in:IMPORTADOR,EXPORTADOR,AMBOS',
             'relaciones_comercio_exterior'      => 'required|string|in:IMPORTADOR,EXPORTADOR,AMBOS',
-            'correo_presidente'                 => 'nullable|email',
+            'correo_presidente'                 => 'required|email',
             'correo_gerente_general'            => 'nullable|email',
             'correo_gerente_compras'            => 'nullable|email',
             'correo_gerente_marketing_ventas'   => 'nullable|email',
@@ -50,7 +53,7 @@ class StoreAfiliadoRequest extends FormRequest
             'correo_administrador'              => 'nullable|email',
             'correo_gerente_exportaciones'      => 'nullable|email',
             'correo_representante_avipla'       => 'nullable|email',
-            'numero_encargado_ws'               => 'nullable|numeric',
+            'numero_encargado_ws'               => 'required|numeric',
 
             'productos'                         => 'required|array|min:1',
             'productos.*'                       => 'required|exists:productos,id',

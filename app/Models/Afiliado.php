@@ -21,7 +21,10 @@ class Afiliado extends Model
         'confirmation_code',
         'siglas',
         'estado',
-        'brand'
+        'brand',
+        'rif_path',
+        'estado_financiero_path',
+        'registro_mercantil_path'
     ];
 
     public function user() {
@@ -30,6 +33,10 @@ class Afiliado extends Model
 
     public function invoices() {
         return $this->hasMany(Invoice::class);
+    }
+
+    public function avisosCobros() {
+        return $this->hasMany(AvisoCobro::class);
     }
 
     public function direccion() {

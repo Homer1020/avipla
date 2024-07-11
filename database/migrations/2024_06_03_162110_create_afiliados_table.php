@@ -36,6 +36,9 @@ return new class extends Migration
             $table->decimal('capital_social');
             $table->string('pagina_web')->nullable();
             $table->enum('relacion_comercio_exterior', ['IMPORTADOR', 'EXPORTADOR', 'AMBOS']);
+            $table->string('rif_path');
+            $table->string('estado_financiero_path');
+            $table->string('registro_mercantil_path');
 
             $table->timestamps();
         });
