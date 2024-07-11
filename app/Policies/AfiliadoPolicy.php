@@ -8,7 +8,8 @@ use App\Models\User;
 class AfiliadoPolicy
 {
     public function before(User $user) {
-        if($user->roles()->first()->name === 'administrador'){
+        $user->load(['roles', 'afiliado']);
+        if($user->roles()->where('name', 'administrador')->exists()){
             return true;
         }
         return null;
@@ -27,7 +28,7 @@ class AfiliadoPolicy
      */
     public function view(User $user, Afiliado $afiliado): bool
     {
-        return $user->roles->first()->name === 'administrador' || ($user->afiliado && $user->afiliado->id === $afiliado->id);
+        return $user->afiliado && $user->afiliado->id === $afiliado->id;
     }
 
     /**
@@ -43,7 +44,7 @@ class AfiliadoPolicy
      */
     public function update(User $user, Afiliado $afiliado): bool
     {
-        return $user->roles->first()->name === 'administrador' || ($user->afiliado && $user->afiliado->id === $afiliado->id);
+        return $user->afiliado && $user->afiliado->id === $afiliado->id;
     }
 
     /**
@@ -51,7 +52,7 @@ class AfiliadoPolicy
      */
     public function delete(User $user, Afiliado $afiliado): bool
     {
-        return $user->roles->first()->name === 'administrador' || ($user->afiliado && $user->afiliado->id === $afiliado->id);
+        return $user->afiliado && $user->afiliado->id === $afiliado->id;
     }
 
     /**
@@ -59,7 +60,7 @@ class AfiliadoPolicy
      */
     public function restore(User $user, Afiliado $afiliado): bool
     {
-        return $user->roles->first()->name === 'administrador' || ($user->afiliado && $user->afiliado->id === $afiliado->id);
+        return $user->afiliado && $user->afiliado->id === $afiliado->id;
     }
 
     /**
@@ -67,6 +68,6 @@ class AfiliadoPolicy
      */
     public function forceDelete(User $user, Afiliado $afiliado): bool
     {
-        return $user->roles->first()->name === 'administrador' || ($user->afiliado && $user->afiliado->id === $afiliado->id);
+        return $user->afiliado && $user->afiliado->id === $afiliado->id;
     }
 }

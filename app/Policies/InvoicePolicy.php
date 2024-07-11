@@ -8,7 +8,8 @@ use App\Models\User;
 class InvoicePolicy
 {
     public function before(User $user) {
-        if($user->roles()->first()->name === 'administrador'){
+        $user->load(['roles', 'afiliado']);
+        if($user->roles()->where('name', 'administrador')->exists()){
             return true;
         }
         return null;
@@ -19,7 +20,7 @@ class InvoicePolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->roles()->where('name', 'afiliado')->exists();
     }
 
     /**

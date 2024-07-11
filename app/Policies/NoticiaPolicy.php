@@ -2,13 +2,13 @@
 
 namespace App\Policies;
 
-use App\Models\AvisoCobro;
+use App\Models\Noticia;
 use App\Models\User;
 
-class AvisoCobroPolicy
+class NoticiaPolicy
 {
     public function before(User $user) {
-        $user->load('roles');
+        $user->load(['roles']);
         if($user->roles()->where('name', 'administrador')->exists()){
             return true;
         }
@@ -20,15 +20,15 @@ class AvisoCobroPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->roles()->where('name', 'editor')->exists();
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, AvisoCobro $avisoCobro): bool
+    public function view(User $user, Noticia $noticia): bool
     {
-        return false;
+        return $user->roles()->where('name', 'editor')->exists();
     }
 
     /**
@@ -36,38 +36,38 @@ class AvisoCobroPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->roles()->where('name', 'editor')->exists();
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, AvisoCobro $avisoCobro): bool
+    public function update(User $user, Noticia $noticia): bool
     {
-        return false;
+        return $noticia->user_id === $user->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, AvisoCobro $avisoCobro): bool
+    public function delete(User $user, Noticia $noticia): bool
     {
-        return false;
+        return $noticia->user_id === $user->id;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, AvisoCobro $avisoCobro): bool
+    public function restore(User $user, Noticia $noticia): bool
     {
-        return false;
+        return $noticia->user_id === $user->id;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, AvisoCobro $avisoCobro): bool
+    public function forceDelete(User $user, Noticia $noticia): bool
     {
-        return false;
+        return $noticia->user_id === $user->id;
     }
 }

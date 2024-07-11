@@ -24,7 +24,6 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
-
 /**
  * WEB ROUTES
  */
@@ -38,6 +37,8 @@ Route::get('categoria/{category}', [HomeController::class, 'category'])->name('c
 Route::get('etiquetas/{tag}/noticias', [HomeController::class, 'tag'])->name('tags.show');
 Route::get('contacto', [HomeController::class, 'contact'])->name('contact');
 Route::post('contacto', [HomeController::class, 'sendContactMail'])->name('sendContactMail');
+Route::get('noticias-avipla', [HomeController::class, 'news'])->name('news');
+Route::get('noticias-avipla/{noticia}', [HomeController::class, 'newsItem'])->name('news.item');
 
 /**
  * AUTH ROUTES
@@ -57,9 +58,9 @@ Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 Route::get('dashboard', [DashboardController::class, 'index'])
   ->name('dashboard')
-  ->middleware(['auth']);
+  ->middleware('auth');
 
-Route::middleware(['auth'])->group(function() {
+Route::middleware('auth')->group(function() {
   Route::get('afiliados/solicitar', [SolicitudController::class, 'requestForm'])
     ->name('afiliados.requestForm');
   Route::post('afiliados/solicitar', [SolicitudController::class, 'request'])
@@ -71,7 +72,7 @@ Route::middleware(['auth'])->group(function() {
 });
 
 Route::resource('usuarios', UserController::class)
-  ->middleware(['auth', 'is_admin'])
+  ->middleware('auth')
   ->parameters(['usuarios' => 'user'])
   ->names('users');
 
@@ -90,7 +91,7 @@ Route::resource('categorias-boletines', CategoriaBoletineController::class)
 
 Route::get('notificaciones', [NotificationController::class, 'index'])
   ->name('notifications.index')
-  ->middleware(['auth']);
+  ->middleware('auth');
 Route::post('notificaciones', [NotificationController::class, 'markAllAsRead'])
   ->name('notifications.markAllAsRead');
 
@@ -106,16 +107,14 @@ Route::get('pagos/{avisoCobro}/pagar', [AvisoCobroController::class, 'payCollect
   ->name('avisos-cobro.payCollectionNotice')
   ->middleware('auth');
 Route::get('pagos/{avisoCobro}/detalle', [AvisoCobroController::class, 'avisoCobroDetails'])
+
   ->name('pagos.invoice');
 /**
  * NEWS ROUTES
  */
 Route::resource('noticias', NoticiaController::class)
   ->except(['show'])
-  ->middleware(['auth', 'is_admin']);
-
-Route::get('noticias-avipla', [HomeController::class, 'news'])->name('news');
-Route::get('noticias/{noticia}', [HomeController::class, 'newsItem'])->name('news.item');
+  ->middleware('auth');
 
 /**
  * INVOICES ROUTES
@@ -129,19 +128,19 @@ Route::resource('categorias', CategoryController::class)
   ->names('categories')
   ->parameters(['categorias' => 'category'])
   ->except(['show'])
-  ->middleware(['auth', 'is_admin']);
+  ->middleware('auth');
 
 Route::resource('etiquetas', TagController::class)
   ->names('tags')
   ->parameters(['etiquetas' => 'tag'])
   ->except(['show'])
-  ->middleware(['auth', 'is_admin']);
+  ->middleware('auth');
 
 /**
  * PAYMENTS ROUTES
  */
 Route::resource('pagos', PagoController::class)
-  ->middleware(['auth']);
+  ->middleware('auth');
 
 /**
  * WEBSITE CONTROLLER
@@ -152,12 +151,11 @@ Route::get('sitio-web', [WebsiteController::class, 'index'])->name('website.inde
  * MANAGE FILES
  */
 Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
-  ->middleware(['auth'])
+  ->middleware('auth')
   ->name('files.getFile');
 
 Route::get('/mailable', function () {
     $solicitud = App\Models\SolicitudAfiliado::find(1);
- 
     return new App\Mail\VerifyAfiliadoEmail($solicitud);
 });
 

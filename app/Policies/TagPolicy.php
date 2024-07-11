@@ -2,14 +2,14 @@
 
 namespace App\Policies;
 
-use App\Models\AvisoCobro;
+use App\Models\Tag;
 use App\Models\User;
 
-class AvisoCobroPolicy
+class TagPolicy
 {
     public function before(User $user) {
-        $user->load('roles');
-        if($user->roles()->where('name', 'administrador')->exists()){
+        $user->load(['roles']);
+        if($user->roles()->where('name', 'administrador')->exists() || $user->roles()->where('name', 'editor')->exists()){
             return true;
         }
         return null;
@@ -26,7 +26,7 @@ class AvisoCobroPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, AvisoCobro $avisoCobro): bool
+    public function view(User $user, Tag $tag): bool
     {
         return false;
     }
@@ -42,7 +42,7 @@ class AvisoCobroPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, AvisoCobro $avisoCobro): bool
+    public function update(User $user, Tag $tag): bool
     {
         return false;
     }
@@ -50,7 +50,7 @@ class AvisoCobroPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, AvisoCobro $avisoCobro): bool
+    public function delete(User $user, Tag $tag): bool
     {
         return false;
     }
@@ -58,7 +58,7 @@ class AvisoCobroPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, AvisoCobro $avisoCobro): bool
+    public function restore(User $user, Tag $tag): bool
     {
         return false;
     }
@@ -66,7 +66,7 @@ class AvisoCobroPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, AvisoCobro $avisoCobro): bool
+    public function forceDelete(User $user, Tag $tag): bool
     {
         return false;
     }

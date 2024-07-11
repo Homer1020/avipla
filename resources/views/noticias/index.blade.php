@@ -51,18 +51,22 @@
                 @endif 
               </td>
               <td style="white-space: nowrap">
-                <a href="{{ route('noticias.edit', $noticia) }}" class="btn btn-warning">
-                  <i class="fa fa-pen"></i>
-                  Editar
-                </a>
-                <form class="d-inline-block" action="{{ route('noticias.destroy', $noticia) }}" onsubmit="submitAfterConfirm(event.target); return false" method="POST">
-                  @csrf
-                  @method('DELETE')
-                  <button class="btn btn-danger" type="submit">
-                    <i class="fa fa-trash"></i>
-                    Eliminar
-                  </button>
-                </form>
+                @can('update', $noticia)
+                  <a href="{{ route('noticias.edit', $noticia) }}" class="btn btn-warning">
+                    <i class="fa fa-pen"></i>
+                    Editar
+                  </a>
+                @endcan
+                @can('delete', $noticia)
+                  <form class="d-inline-block" action="{{ route('noticias.destroy', $noticia) }}" onsubmit="submitAfterConfirm(event.target); return false" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit">
+                      <i class="fa fa-trash"></i>
+                      Eliminar
+                    </button>
+                  </form>
+                  @endcan
               </td>
             </tr>
           @endforeach

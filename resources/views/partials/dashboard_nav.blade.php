@@ -65,7 +65,7 @@
                     Avisos de cobro
                 </x-nav-link>
             @endcan
-            @if (request()->user()->is_admin())
+            @can ('viewAny', App\Models\Noticia::class)
                 <x-nav-link-dropdown
                     title="Noticias"
                     icon="fas fa-newspaper"
@@ -76,7 +76,8 @@
                     <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">Categorías</a>
                     <a href="{{ route('tags.index') }}" class="nav-link {{ request()->routeIs('tags.*') ? 'active' : '' }}">Etiquetas</a>
                 </x-nav-link-dropdown>
-
+            @endcan
+            @can('viewAny', App\Models\User::class)
                 <x-nav-link-dropdown
                     title="Usuarios"
                     icon="fas fa-users"
@@ -85,9 +86,9 @@
                 >
                     <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">Todos los usuarios</a>
                     <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}">Roles</a>
-                </x-nav-link-dropdown>
-            @endif
-            @if (Auth::user()->is_admin())
+                </x-nav-link-dropdown>                
+            @endcan
+            @if (!request()->user()->roles()->where('name', 'afiliado')->exists())
                 <x-nav-link-dropdown
                     title="Boletines"
                     icon="fas fa-envelope"

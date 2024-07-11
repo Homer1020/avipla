@@ -4,12 +4,11 @@ namespace App\Policies;
 
 use App\Models\Boletine;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
-
 class BoletinePolicy
 {
     public function before(User $user) {
-        if($user->roles()->first()->name === 'administrador'){
+        $user->load('roles');
+        if($user->roles()->where('name', 'administrador')->exists()){
             return true;
         }
         return null;
@@ -36,7 +35,7 @@ class BoletinePolicy
      */
     public function create(User $user): bool
     {
-        return $user->roles()->first()->name === 'editor';
+        return $user->roles()->where('name', 'editor')->exists();
     }
 
     /**

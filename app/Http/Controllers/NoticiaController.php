@@ -13,6 +13,11 @@ use Illuminate\Support\Str;
 
 class NoticiaController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Noticia::class, 'noticia');
+    }
+    
     /**
      * Display a listing of the resource.
      */
