@@ -15,7 +15,7 @@ class InvoiceController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(Invoice::class, 'invoice');
+        $this->authorizeResource(Invoice::class, 'factura');
     }
 
     /**
@@ -118,10 +118,10 @@ class InvoiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Invoice $invoice)
+    public function show(Invoice $factura)
     {
-        $invoice->load(['user', 'afiliado', 'pago']);
-        return view('invoices.show', compact('invoice'));
+        $factura->load('avisoCobro', 'pago');
+        return view('invoices.show', compact('factura'));
     }
 
     /**

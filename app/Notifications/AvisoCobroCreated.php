@@ -8,6 +8,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
+
+# le llega al administrafor
+
 class AvisoCobroCreated extends Notification
 {
     use Queueable;

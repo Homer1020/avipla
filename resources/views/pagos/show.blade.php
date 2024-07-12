@@ -24,8 +24,12 @@
                     {{ $pago->monto }}$
                 </li>
                 <li class="list-group-item">
+                    <span class="fw-bold">Banco:</span>
+                    {{ $pago->banco ? $pago->banco->nombre : 'N/A' }}
+                </li>
+                <li class="list-group-item">
                     <span class="fw-bold">Referencia:</span>
-                    {{ $pago->referencia }}
+                    {{ $pago->referencia ? '#' . $pago->referencia : 'N/A' }}
                 </li>
                 <li class="list-group-item">
                     <span class="fw-bold">Empresa:</span>

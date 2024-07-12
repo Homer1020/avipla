@@ -31,11 +31,23 @@
             <tr>
               <td>#{{ $avisoCobro->id }}</td>
               <td>#{{ $avisoCobro->codigo_aviso }}</td>
-              <td>{{ $avisoCobro->pago ? '#' . $avisoCobro->pago->referencia : 'N/A' }}</td>
+              <td>
+                @if ($avisoCobro->pago && $avisoCobro->pago->referencia)
+                  {{ '#' . $avisoCobro->pago->referencia }}
+                @else
+                  N/A
+                @endif
+              </td>
               <td>{{ $avisoCobro->created_at->format('d-m-Y') }}</td>
               <td> @include('partials.invoice_status') </td>
               <td>{{ $avisoCobro->pago ? $avisoCobro->pago->monto . '$' : 'N/A' }}</td>
-              <td>{{ $avisoCobro->pago ? $avisoCobro->pago->tasa : 'N/A' }}</td>
+              <td>
+                @if ($avisoCobro->pago && $avisoCobro->pago->tasa)
+                  {{ 'Bs.s ' . $avisoCobro->pago->tasa }}
+                @else
+                  N/A
+                @endif
+              </td>
               <td>
                 @if ($avisoCobro->estado === 'DEVUELTO')
                   <a href="{{ route('pagos.edit', $avisoCobro->pago) }}" type="submit" class="btn btn-warning">

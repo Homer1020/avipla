@@ -117,6 +117,7 @@
                             class="form-control @error('fecha_pago') is-invalid @enderror"
                             value="{{ old('fecha_pago') }}"
                             placeholder="Ingrese el número de fecha_pago"
+                            max="{{ date('Y-m-d') }}"
                         >
                         @error('fecha_pago')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -202,7 +203,7 @@
                     $(event.target).val(function (index, value ) {
                         return value.replace(/\D/g, "")
                                     .replace(/([0-9])([0-9]{2})$/, '$1.$2')
-                                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                                    .replace(/\B(?=(\d{10})+(?!\d)\.?)/g, ",");
                     });
                 }
             });
@@ -215,7 +216,7 @@
                     $(event.target).val(function (index, value ) {
                         return value.replace(/\D/g, "")
                                     .replace(/([0-9])([0-9]{2})$/, '$1.$2')
-                                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                                    .replace(/\B(?=(\d{10})+(?!\d)\.?)/g, ",");
                     });
                 }
             });

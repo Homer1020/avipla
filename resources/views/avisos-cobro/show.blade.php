@@ -67,15 +67,15 @@
                 </li>
                 <li class="list-group-item">
                     <span class="fw-bold">Monto:</span>
-                    {{ $pago->monto }}
+                    {{ $pago->monto }}$
                 </li>
                 <li class="list-group-item">
                     <span class="fw-bold">Banco:</span>
-                    {{ $pago->banco->nombre }}
+                    {{ $pago->banco ? $pago->banco->nombre : 'N/A' }}
                 </li>
                 <li class="list-group-item">
                     <span class="fw-bold">Referencia:</span>
-                    #{{ $pago->referencia }}
+                    {{ $pago->referencia ? '#' . $pago->referencia : 'N/A' }}
                 </li>
                 <li class="list-group-item">
                     <span class="fw-bold">Empresa:</span>
@@ -240,7 +240,7 @@
             $(event.target).val(function (index, value ) {
               return value.replace(/\D/g, "")
                       .replace(/([0-9])([0-9]{2})$/, '$1.$2')
-                      .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                      .replace(/\B(?=(\d{10})+(?!\d)\.?)/g, ",");
             });
           }
         });

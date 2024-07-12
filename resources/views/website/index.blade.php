@@ -260,13 +260,13 @@
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label for="junta_directiva_anio_inicio" class="form-label">Inicio del periodo</label>
-                        <input id="junta_directiva_anio_inicio" name="junta_directiva_anio_inicio" type="number" class="form-control" class="form-control" placeholder="2023" value="{{ old('junta_directiva_anio_inicio', $aviplaInfo->junta_directiva_anio_inicio) }}">
+                        <input id="junta_directiva_anio_inicio" name="junta_directiva_anio_inicio" type="number" class="form-control" class="form-control" placeholder="2023" value="{{ old('junta_directiva_anio_inicio', $aviplaInfo ? $aviplaInfo->junta_directiva_anio_inicio : '') }}">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="mb-3">
                         <label for="junta_directiva_anio_fin" class="form-label">Fin del periodo</label>
-                        <input id="junta_directiva_anio_inicio" name="junta_directiva_anio_fin" type="number" class="form-control" class="form-control" placeholder="2024" value="{{ old('junta_directiva_anio_fin', $aviplaInfo->junta_directiva_anio_fin) }}">
+                        <input id="junta_directiva_anio_inicio" name="junta_directiva_anio_fin" type="number" class="form-control" class="form-control" placeholder="2024" value="{{ old('junta_directiva_anio_fin', $aviplaInfo ? $aviplaInfo->junta_directiva_anio_fin : '') }}">
                     </div>
                 </div>
             </div>

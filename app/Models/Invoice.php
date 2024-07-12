@@ -27,6 +27,6 @@ class Invoice extends Model
     }
 
     public function pago() {
-        return $this->hasOne(Pago::class);
+        return $this->belongsTo(Pago::class);
     }
 }

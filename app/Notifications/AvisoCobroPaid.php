@@ -12,6 +12,8 @@ class AvisoCobroPaid extends Notification
 {
     use Queueable;
 
+    # llega al director
+
     /**
      * Create a new notification instance.
      */

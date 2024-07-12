@@ -42,10 +42,10 @@
                     </td>
                     <td>{{ $invoice->avisoCobro->pago->monto }}$ </td>
                     <td>
-                        <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->invoice_path]) }}" class="btn btn-primary">
-                            <i class="fa fa-file-invoice"></i>
-                            Ver factura
-                        </a>
+                        <a href="{{ route("invoices.show", $invoice) }}" class="btn btn-primary">
+                          <i class="fa fa-file-invoice"></i>
+                          Ver factura
+                      </a>
                     </td>
                 </tr>
             @endcan
