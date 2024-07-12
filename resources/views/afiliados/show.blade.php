@@ -187,6 +187,10 @@
           <span class="fw-bold">Correo del representante ante AVIPLA: </span>
           {{ $afiliado->personal->correo_representante_avipla }}
         </li>
+        <li class="list-group-item">
+          <span class="fw-bold">Teléfono del encargado del whatsapp: </span>
+          {{ $afiliado->personal->numero_encargado_ws }}
+        </li>
       </ul>
 
       <p class="fw-bold text-uppercase text-muted">Linea de productos</p>

@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 @section('title', 'Modificar pago')
+@push('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+@endpush
 @section('content')
   <h1 class="mt-4">Modificar pago</h1>
   <ol class="breadcrumb mb-4">
@@ -40,12 +44,32 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="banco_id" class="form-label">Banco emisor</label>
+                        <select
+                            name="banco_id"
+                            id="banco_id"
+                            class="form-select @error('banco_id') is-invalid @enderror"
+                        >
+                            <option selected disabled>Seleccion el banco emisor</option>
+                            @foreach ($bancos as $banco)
+                                <option
+                                    value="{{ $banco->id }}"
+                                    @selected(intval(old('banco_id', $pago->banco_id)) === $banco->id)
+                                >{{ $banco->codigo }} - {{ $banco->nombre }}</option>
+                            @endforeach
+                        </select>
+                        @error('banco_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label class="form-label" for="monto">Monto</label>
                         <input
                             required
                             name="monto"
                             id="monto"
-                            type="text"
+                            type="number"
                             class="form-control @error('monto') is-invalid @enderror"
                             value="{{ old('monto', $pago->monto) }}"
                             placeholder="Ingrese el monto"
@@ -107,7 +131,7 @@
             @endphp
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>
-                #{{ $avisoCobro->numero_factura }}
+                #{{ $avisoCobro->codigo_aviso }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Fecha de emisión:</span>
@@ -116,13 +140,6 @@
             <li class="list-group-item">
                 <span class="fw-bold">Monto total:</span>
                 {{ $avisoCobro->monto_total }}$
-            </li>
-            <li class="list-group-item">
-                <span class="fw-bold d-block mb-2">Documento:</span>
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'avisos-cobros', 'path' => $avisoCobro->documento]) }}" class="btn btn-outline-primary">
-                    <i class="fa fa-file"></i>
-                    Documento
-                </a>
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Estado:</span>
@@ -136,3 +153,26 @@
     </div>
   </div>
 @endsection
+@push('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#banco_id').select2({
+                theme: 'bootstrap-5'
+            })
+
+            $("#monto").on({
+                "focus": function (event) {
+                    $(event.target).select();
+                },
+                "keyup": function (event) {
+                    $(event.target).val(function (index, value ) {
+                        return value.replace(/\D/g, "")
+                                    .replace(/([0-9])([0-9]{2})$/, '$1.$2')
+                                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                    });
+                }
+            });
+        })
+    </script>
+@endpush

@@ -43,7 +43,6 @@ class AfiliadosController extends Controller
     {
         $afiliado->load([
             'user',
-            'invoices',
             'direccion',
             'productos',
             'materias_primas',

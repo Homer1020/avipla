@@ -53,5 +53,18 @@
         var now = new Date(),
         minDate = now.toISOString().substring(0,10);
         $('#fecha_limite').prop('min', minDate);
+
+        $("#monto_total").on({
+          "focus": function (event) {
+            $(event.target).select();
+          },
+          "keyup": function (event) {
+            $(event.target).val(function (index, value ) {
+              return value.replace(/\D/g, "")
+                      .replace(/([0-9])([0-9]{2})$/, '$1.$2')
+                      .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+            });
+          }
+        });
     </script>
 @endpush

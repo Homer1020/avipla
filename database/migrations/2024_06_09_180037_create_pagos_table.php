@@ -25,9 +25,17 @@ return new class extends Migration
                 ->on('metodos_pago')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
+            $table
+                ->foreignId('banco_id')
+                ->nullable()
+                ->references('id')
+                ->on('bancos')
+                ->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
             $table->string('comprobante');
+            $table->string('tasa')->nullable();
             $table->string('monto');
-            $table->string('referencia');
+            $table->string('referencia')->nullable();
             $table->date('fecha_pago');
             $table->timestamps();
         });

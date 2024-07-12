@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AviplaInfo;
 use App\Models\Carousel;
 use App\Models\JuntaDirectiva;
 use App\Models\JuntaDirectivaRole;
 use App\Models\Organismo;
 use App\Models\SocialNetwork;
-use Illuminate\Http\Request;
 
 class WebsiteController extends Controller
 {
@@ -21,6 +21,7 @@ class WebsiteController extends Controller
         $organismos = Organismo::all();
         $juntaDirectivaRoles = JuntaDirectivaRole::all();
         $juntaDirectivas = JuntaDirectiva::with('role')->get();
-        return view('website.index', compact('carousels', 'socialNetworks', 'organismos', 'juntaDirectivaRoles', 'juntaDirectivas'));
+        $aviplaInfo = AviplaInfo::first();
+        return view('website.index', compact('carousels', 'socialNetworks', 'organismos', 'juntaDirectivaRoles', 'juntaDirectivas', 'aviplaInfo'));
     }
 }

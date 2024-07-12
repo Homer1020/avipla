@@ -15,8 +15,14 @@ class Pago extends Model
         'aviso_cobro_id',
         'monto',
         'referencia',
-        'fecha_pago'
+        'fecha_pago',
+        'banco_id',
+        'tasa'
     ];
+
+    public function banco() {
+        return $this->belongsTo(Banco::class);
+    }
 
     public function metodo_pago() {
         return $this->belongsTo(MetodoPago::class);

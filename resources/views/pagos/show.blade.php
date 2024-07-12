@@ -5,7 +5,7 @@
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
-    <li class="breadcrumb-item active">Aviso de cobro #{{ $avisoCobro->numero_factura }}</li>
+    <li class="breadcrumb-item active">Aviso de cobro #{{ $avisoCobro->codigo_aviso }}</li>
   </ol>
   <div class="row">
       @if ($avisoCobro->pago)
@@ -63,7 +63,7 @@
         <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>
-                #{{ $avisoCobro->numero_factura }}
+                #{{ $avisoCobro->codigo_aviso }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Fecha de emisión:</span>
@@ -99,13 +99,6 @@
                     </a>
                 </li>
             @endif
-            <li class="list-group-item">
-                <span class="fw-bold d-block mb-2">Documento:</span>
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->documento]) }}" class="btn btn-outline-primary">
-                    <i class="fa fa-file"></i>
-                    Documento
-                </a>
-            </li>
         </ul>
     </div>
   </div>

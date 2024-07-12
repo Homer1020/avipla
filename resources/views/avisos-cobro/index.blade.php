@@ -13,7 +13,7 @@
     <a href="{{ route('avisos-cobro.create') }}" class="btn btn-primary">Generar aviso</a>
   </div>
 
-  <div class="card">
+  <div class="card mb-4">
     <div class="card-body">
       <table class="table table-bordered w-100" id="invoices-table">
         <thead>

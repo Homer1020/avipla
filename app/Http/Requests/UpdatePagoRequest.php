@@ -24,6 +24,7 @@ class UpdatePagoRequest extends FormRequest
         $pago = $this->route('pago');
         return [
             'metodo_pago_id'    => 'numeric|required|exists:metodos_pago,id',
+            'banco_id'          => 'numeric|required|exists:bancos,id',
             'monto'             => 'required|numeric',
             'referencia'        => 'required|unique:pagos,referencia,' . $pago->id,
             'comprobante'       => 'nullable|file|mimes:pdf,png,jpg,jpeg',

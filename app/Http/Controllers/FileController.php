@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AvisoCobro;
 use App\Models\Invoice;
 use App\Models\Pago;
 use Illuminate\Support\Facades\Storage;
@@ -10,14 +9,16 @@ use Illuminate\Support\Facades\Storage;
 class FileController extends Controller
 {
     public function getFile(string $dir, string $path) {
-        $avisoCobro = AvisoCobro::where('documento', $path)->first();
-        $pago = Pago::where('comprobante', $path)->first();
-
-        if(!$avisoCobro && $pago) {
-            $avisoCobro = $pago->invoice;
+        # authorizarions
+        if($dir === 'comprobantes') {
+            $pago = Pago::where('comprobante', $path)->first();
+            $this->authorize('view', $pago);
         }
-        
-        // $this->authorize('view', $avisoCobro);
+
+        if($dir === 'invoices') {
+            $invoice = Invoice::where('invoice_path', $path)->first();
+            $this->authorize('view', $invoice);
+        }
 
         function mapExtensionToContentType(string $extension): string
         {

@@ -34,9 +34,9 @@ class AvisoCobroPaid extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Se realizó pago para el aviso de cobro #' . $this->avisoCobro->numero_factura)
+            ->subject('Se realizó pago para el aviso de cobro #' . $this->avisoCobro->codigo_aviso)
             ->greeting('¡Hola!')
-            ->line('Te informamos que se adjunto un pago para el resivo #' . $this->avisoCobro->numero_factura . '.')
+            ->line('Te informamos que se adjunto un pago para el resivo #' . $this->avisoCobro->codigo_aviso . '.')
             ->line('A continuación, puedes revisar los detalles:')
             ->line('Fecha de actualización: ' . now())
             ->action('Entrar a AVIPLA', url('/dashboard'))
@@ -54,8 +54,8 @@ class AvisoCobroPaid extends Notification
             'icon'              => 'fa fa-file-invoice',
             'bg-class'          => 'bg-secondary',
             'invoice_id'        => $this->avisoCobro->id,
-            'numero_factura'    => $this->avisoCobro->numero_factura,
-            'message'           => 'Se realizó pago para el aviso de cobro #' . $this->avisoCobro->numero_factura
+            'codigo_aviso'      => $this->avisoCobro->codigo_aviso,
+            'message'           => 'Se realizó pago para el aviso de cobro #' . $this->avisoCobro->codigo_aviso
         ];
     }
 }

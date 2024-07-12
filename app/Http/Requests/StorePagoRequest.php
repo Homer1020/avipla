@@ -23,8 +23,10 @@ class StorePagoRequest extends FormRequest
     {
         return [
             'metodo_pago_id'    => 'numeric|required|exists:metodos_pago,id',
+            'banco_id'          => 'numeric|nullable|exists:bancos,id',
+            'tasa'              => 'numeric|nullable',
+            'referencia'        => 'nullable|unique:pagos,referencia',
             'monto'             => 'required|numeric',
-            'referencia'        => 'required|unique:pagos,referencia',
             'comprobante'       => 'file|required|mimes:pdf,png,jpg,jpeg',
             'aviso_cobro_id'    => 'numeric|required|exists:aviso_cobros,id',
             'fecha_pago'        => 'required|date',

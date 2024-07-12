@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Afiliado;
 use App\Models\AvisoCobro;
+use App\Models\Banco;
 use App\Models\MetodoPago;
 use App\Models\User;
 use App\Notifications\AvisoCobroCreated;
@@ -59,7 +60,7 @@ class AvisoCobroController extends Controller
             $afiliados = Afiliado::where('estado', true)->get();
 
             foreach($afiliados as $afiliado) {
-                if(!$afiliado->avisosCobros()->exists()) {
+                if(!$afiliado->avisosCobros()->where('codigo_aviso', $codigo_aviso)->exists()) {
                     $payload['afiliado_id'] = $afiliado->id;
                     $avisoCobro = $user->avisosCobros()->create($payload);
                     $afiliado->user->notify(new AvisoCobroCreated($avisoCobro));
@@ -79,20 +80,15 @@ class AvisoCobroController extends Controller
     }
 
     public function payCollectionNotice(AvisoCobro $avisoCobro) {
+        $this->authorize('view', $avisoCobro);
         $metodos_pago = MetodoPago::all();
-        return view('pagos.create', compact('avisoCobro', 'metodos_pago'));
+        $bancos = Banco::all();
+        return view('pagos.create', compact('avisoCobro', 'metodos_pago', 'bancos'));
     }
 
     public function avisoCobroDetails(AvisoCobro $avisoCobro) {
+        $this->authorize('view', $avisoCobro);
         return view('pagos.show', compact('avisoCobro'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(AvisoCobro $avisoCobro)
-    {
-        //
     }
 
     /**

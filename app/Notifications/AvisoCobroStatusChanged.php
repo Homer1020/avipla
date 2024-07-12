@@ -34,9 +34,9 @@ class AvisoCobroStatusChanged extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                ->subject('Cambió el estado del recibo #'  . $this->avisoCobro->numero_factura)
+                ->subject('Cambió el estado del recibo #'  . $this->avisoCobro->codigo_aviso)
                 ->greeting('¡Hola!')
-                ->line('Te informamos que cambió el estado del recibo #'  . $this->avisoCobro->numero_factura . ' a "' . $this->avisoCobro->estado . '"')
+                ->line('Te informamos que cambió el estado del recibo #'  . $this->avisoCobro->codigo_aviso . ' a "' . $this->avisoCobro->estado . '"')
                 ->line('A continuación, puedes revisar los detalles:')
                 ->line('Fecha de actualización: ' . now())
                 ->action('Entrar a AVIPLA', url('/dashboard'))
@@ -60,9 +60,9 @@ class AvisoCobroStatusChanged extends Notification
             'icon'              => 'fa fa-file-invoice',
             'bg-class'          => $bg_class,
             'invoice_id'        => $this->avisoCobro->id,
-            'numero_factura'    => $this->avisoCobro->numero_factura,
+            'codigo_aviso'      => $this->avisoCobro->codigo_aviso,
             'status'            => $this->avisoCobro->estado,
-            'message'           => 'Hola ' . $notifiable->name . '! Cambió el estado del recibo #'  . $this->avisoCobro->numero_factura . ' a "' . $this->avisoCobro->estado . '"'
+            'message'           => 'Hola ' . $notifiable->name . '! Cambió el estado del recibo #'  . $this->avisoCobro->codigo_aviso . ' a "' . $this->avisoCobro->estado . '"'
         ];
     }
 }

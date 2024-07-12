@@ -12,6 +12,7 @@ use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\JuntaDirectivaController;
+use App\Http\Controllers\JuntaDirectivaPeriodo;
 use App\Http\Controllers\NoticiaController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrganismoController;
@@ -176,4 +177,7 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
 
   Route::apiResource('junta-directiva', JuntaDirectivaController::class)
     ->only(['store', 'destroy', 'update']);
+
+  Route::apiResource('junta-directiva-periodo', JuntaDirectivaPeriodo::class)
+    ->only(['store']);
 });

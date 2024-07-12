@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MetodoPagoSeeder::class);
         $this->call(CategoriaBoletineSeeder::class);
         $this->call(JuntaDirectivaRoleSeeder::class);
+        $this->call(BancoSeeder::class);
     }
 }

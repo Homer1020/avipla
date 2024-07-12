@@ -36,9 +36,9 @@ class PayUpdated extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('Actualización de datos de pago para la factura #' . $this->avisoCobro->numero_factura)
+            ->subject('Actualización de datos de pago para la factura #' . $this->avisoCobro->codigo_aviso)
             ->greeting('¡Hola!')
-            ->line('Te informamos que se han actualizado los datos del pago para la factura #' . $this->avisoCobro->numero_factura . '.')
+            ->line('Te informamos que se han actualizado los datos del pago para la factura #' . $this->avisoCobro->codigo_aviso . '.')
             ->line('A continuación, puedes revisar los detalles:')
             ->line('Fecha de actualización: ' . now())
             ->action('Entrar a AVIPLA', url('/dashboard'))
@@ -56,8 +56,8 @@ class PayUpdated extends Notification
             'icon'              => 'fa fa-file-invoice',
             'bg-class'          => 'bg-danger',
             'invoice_id'        => $this->avisoCobro->id,
-            'numero_factura'    => $this->avisoCobro->numero_factura,
-            'message'           => 'Se actualizaron los datos del pago para la factura #'  . $this->avisoCobro->numero_factura
+            'codigo_aviso'      => $this->avisoCobro->codigo_aviso,
+            'message'           => 'Se actualizaron los datos del pago para la factura #'  . $this->avisoCobro->codigo_aviso
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePagoRequest;
 use App\Http\Requests\UpdatePagoRequest;
 use App\Models\AvisoCobro;
+use App\Models\Banco;
 use App\Models\MetodoPago;
 use App\Models\Pago;
 use App\Models\User;
@@ -65,7 +66,8 @@ class PagoController extends Controller
     public function edit(Pago $pago) {
         $pago->load('avisoCobro');
         $metodos_pago = MetodoPago::all();
-        return view('pagos.edit', compact('pago', 'metodos_pago'));
+        $bancos = Banco::all();
+        return view('pagos.edit', compact('pago', 'metodos_pago', 'bancos'));
     }
 
     /**
@@ -76,7 +78,7 @@ class PagoController extends Controller
         $payload = $request->validated();
 
         if($request->hasFile('comprobante')) {
-            Storage::delete($pago->comprobante);
+            Storage::delete('comprobantes/' . $pago->comprobante);
             $comprobanteFile = $request->file('comprobante');
             $comprobanteFileName = $comprobanteFile->hashName();
             $comprobanteFile->storeAs('comprobantes', $comprobanteFileName);

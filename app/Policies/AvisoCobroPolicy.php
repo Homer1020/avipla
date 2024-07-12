@@ -8,7 +8,7 @@ use App\Models\User;
 class AvisoCobroPolicy
 {
     public function before(User $user) {
-        $user->load('roles');
+        $user->load(['roles', 'afiliado']);
         if($user->roles()->where('name', 'administrador')->exists()){
             return true;
         }
@@ -28,7 +28,7 @@ class AvisoCobroPolicy
      */
     public function view(User $user, AvisoCobro $avisoCobro): bool
     {
-        return false;
+        return $user->afiliado()->where('id', $avisoCobro->afiliado_id)->exists();
     }
 
     /**

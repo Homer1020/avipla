@@ -26,7 +26,7 @@ class StoreInvoiceRequest extends FormRequest
         return [
             'pago_id'           => 'required',
             'aviso_cobro_id'    => 'required',
-            'monto_total'       => 'required|numeric',
+            'monto_total'       => 'nullable|numeric',
             'observaciones'     => 'nullable',
             'numero_factura'    => 'required|unique:invoices,numero_factura',
             'invoice_path'      => 'required'

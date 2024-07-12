@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInvoiceRequest;
-use App\Models\Afiliado;
 use App\Models\AvisoCobro;
 use App\Models\Invoice;
 use App\Models\User;
 use App\Notifications\InvoiceCreated;
-use App\Notifications\InvoiceStatusChange;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -62,6 +60,18 @@ class InvoiceController extends Controller
             $AvisoCobro->update([
                 'estado' => 'CONCILIADO'
             ]);
+
+            # Send notifications
+            $administradores = User::whereHas('roles', function ($query) {
+                $query->where('name', 'administrador');
+            })
+            ->where('id', '!=', $request->user()->id)
+            ->get();
+            foreach ($administradores as $administrador) {
+                $administrador->notify(new InvoiceCreated($invoice));
+            }
+            $AvisoCobro->afiliado->user->notify(new InvoiceCreated($invoice));
+
             return response()->json([
                 'success'   => true,
                 'data'      => [

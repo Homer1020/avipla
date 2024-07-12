@@ -28,12 +28,6 @@
                                 <input name="numero_factura" required id="numero_factura" type="number" class="form-control" placeholder="10203010">    
                             </div> 
                             
-                            <label for="monto_total" class="form-label">Monto total <span class="text-danger fw-bold">*</span></label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">$</span>
-                                <input name="monto_total" required id="monto_total" type="number" class="form-control" placeholder="100">    
-                            </div> 
-
                             <div class="mb-3">
                                 <label for="invoice_path" class="form-label">Cargar factura <span class="text-danger fw-bold">*</span></label>
                                 <input required type="file" name="invoice_path" id="invoice_path" class="form-control">
@@ -73,11 +67,15 @@
                 </li>
                 <li class="list-group-item">
                     <span class="fw-bold">Monto:</span>
-                    {{ $pago->monto }}$
+                    {{ $pago->monto }}
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Banco:</span>
+                    {{ $pago->banco->nombre }}
                 </li>
                 <li class="list-group-item">
                     <span class="fw-bold">Referencia:</span>
-                    {{ $pago->referencia }}
+                    #{{ $pago->referencia }}
                 </li>
                 <li class="list-group-item">
                     <span class="fw-bold">Empresa:</span>
@@ -233,5 +231,18 @@
                 }
             })
         })
+
+        $("#monto_total").on({
+          "focus": function (event) {
+            $(event.target).select();
+          },
+          "keyup": function (event) {
+            $(event.target).val(function (index, value ) {
+              return value.replace(/\D/g, "")
+                      .replace(/([0-9])([0-9]{2})$/, '$1.$2')
+                      .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+            });
+          }
+        });
     </script>
 @endpush

@@ -1,11 +1,15 @@
 @extends('layouts.dashboard')
 @section('title', 'Pago de factura')
+@push('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+@endpush
 @section('content')
   <h1 class="mt-4">Pago de factura</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('pagos.invoice', $avisoCobro) }}">Aviso de cobro #{{ $avisoCobro->numero_factura }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('pagos.invoice', $avisoCobro) }}">Aviso de cobro #{{ $avisoCobro->codigo_aviso }}</a></li>
     <li class="breadcrumb-item active">Adjuntar pago</li>
   </ol>
   
@@ -18,7 +22,7 @@
                     @csrf
                     <input type="hidden" name="aviso_cobro_id" value="{{ $avisoCobro->id }}">
                     <div class="mb-3">
-                        <label for="metodo_pago_id" class="form-label">Método de pago</label>
+                        <label for="metodo_pago_id" class="form-label">Método de pago <span class="text-danger fw-bold">*</span></label>
                         <select
                             name="metodo_pago_id"
                             id="metodo_pago_id"
@@ -38,16 +42,37 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="monto">Monto</label>
+                        <label class="form-label" for="monto">Monto <span class="text-danger fw-bold">*</span></label>
                         <input
                             name="monto"
                             id="monto"
-                            type="text"
+                            type="number"
                             class="form-control @error('monto') is-invalid @enderror"
                             value="{{ old('monto') }}"
                             placeholder="Ingrese el monto"
+                            step="0.01"
                         >
                         @error('monto')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="banco_id" class="form-label">Banco emisor</label>
+                        <select
+                            name="banco_id"
+                            id="banco_id"
+                            class="form-select @error('banco_id') is-invalid @enderror"
+                        >
+                            <option selected disabled>Seleccion el banco emisor</option>
+                            @foreach ($bancos as $banco)
+                                <option
+                                    value="{{ $banco->id }}"
+                                    @selected(intval(old('banco_id')) === $banco->id)
+                                >{{ $banco->codigo }} - {{ $banco->nombre }}</option>
+                            @endforeach
+                        </select>
+                        @error('banco_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -68,7 +93,23 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="referencia" class="form-label">Fecha de pago</label>
+                        <label for="tasa" class="form-label">Tasa en Bs's</label>
+                        <input
+                            name="tasa"
+                            id="tasa"
+                            type="number"
+                            step="0.01"
+                            class="form-control @error('tasa') is-invalid @enderror"
+                            value="{{ old('tasa') }}"
+                            placeholder="Ingrese la tasa en bolivares"
+                        >
+                        @error('tasa')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="referencia" class="form-label">Fecha de pago <span class="text-danger fw-bold">*</span></label>
                         <input
                             name="fecha_pago"
                             id="fecha_pago"
@@ -83,7 +124,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="comprobante" class="form-label">Comprobante</label>
+                        <label for="comprobante" class="form-label">Comprobante <span class="text-danger fw-bold">*</span></label>
                         <input
                             type="file"
                             name="comprobante"
@@ -107,7 +148,7 @@
         <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>
-                #{{ $avisoCobro->numero_factura }}
+                #{{ $avisoCobro->codigo_aviso }}
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Fecha de emisión:</span>
@@ -116,13 +157,6 @@
             <li class="list-group-item">
                 <span class="fw-bold">Monto total:</span>
                 {{ $avisoCobro->monto_total }}$
-            </li>
-            <li class="list-group-item">
-                <span class="fw-bold d-block mb-2">Documento:</span>
-                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->documento]) }}" class="btn btn-outline-primary">
-                    <i class="fa fa-file"></i>
-                    Documento
-                </a>
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Estado:</span>
@@ -152,3 +186,39 @@
     </div>
   </div>
 @endsection
+@push('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#banco_id').select2({
+                theme: 'bootstrap-5'
+            })
+
+            $("#monto").on({
+                "focus": function (event) {
+                    $(event.target).select();
+                },
+                "keyup": function (event) {
+                    $(event.target).val(function (index, value ) {
+                        return value.replace(/\D/g, "")
+                                    .replace(/([0-9])([0-9]{2})$/, '$1.$2')
+                                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                    });
+                }
+            });
+
+            $("#tasa").on({
+                "focus": function (event) {
+                    $(event.target).select();
+                },
+                "keyup": function (event) {
+                    $(event.target).val(function (index, value ) {
+                        return value.replace(/\D/g, "")
+                                    .replace(/([0-9])([0-9]{2})$/, '$1.$2')
+                                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                    });
+                }
+            });
+        })
+    </script>
+@endpush

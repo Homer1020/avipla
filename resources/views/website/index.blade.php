@@ -254,6 +254,28 @@
                 </form>
             </div>
         </div>
+        <form novalidate id="junta-periodo-form" action="{{ route('junta-directiva-periodo.store') }}" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label for="junta_directiva_anio_inicio" class="form-label">Inicio del periodo</label>
+                        <input id="junta_directiva_anio_inicio" name="junta_directiva_anio_inicio" type="number" class="form-control" class="form-control" placeholder="2023" value="{{ old('junta_directiva_anio_inicio', $aviplaInfo->junta_directiva_anio_inicio) }}">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="mb-3">
+                        <label for="junta_directiva_anio_fin" class="form-label">Fin del periodo</label>
+                        <input id="junta_directiva_anio_inicio" name="junta_directiva_anio_fin" type="number" class="form-control" class="form-control" placeholder="2024" value="{{ old('junta_directiva_anio_fin', $aviplaInfo->junta_directiva_anio_fin) }}">
+                    </div>
+                </div>
+            </div>
+            <button id="save_periodo" class="btn btn-primary">
+                <i class="fa fa-save"></i>
+                Guardar periodo
+            </button>
+        </form>
+        <hr>
         <form id="junta-form" action="{{ route('junta-directiva.store') }}" method="POST">
             @csrf
             <div class="row">
@@ -477,6 +499,45 @@
             })
             .finally(() => {
                 $socialNetworkForm.find('[type="submit"]').removeAttr('disabled')
+            })
+        })
+
+        const $juntaPeriodoForm = $('#junta-periodo-form')
+
+        $juntaPeriodoForm.on('submit', function(event) {
+            event.preventDefault()
+            const fd = new FormData(event.target);
+
+            $juntaPeriodoForm.find('[type="submit"]').attr('disabled', true)
+
+            fetch(event.target.action, {
+                method: 'POST',
+                body: fd
+            })
+            .then(r => r.json())
+            .then(response => {
+                console.log(response)
+                const { data, success, message } = response
+                $juntaPeriodoForm.find('input').each(function() {
+                    $(this).parent().find('.invalid-feedback').remove()
+                    $(this).removeClass('is-invalid')
+                })
+                if(success) {
+                    Swal.fire({
+                        icon: "success",
+                        title: message
+                    })
+                } else {
+                    <!-- PRINT ERRORS -->
+                    for (const name in data) {
+                        const $input = $juntaPeriodoForm.find(`[name="${name}"]`)
+                        $input.addClass('is-invalid')
+                        $input.parent().append(`<span class="invalid-feedback">${ data[name][0] }</span>`)
+                    }
+                }
+            })
+            .finally(() => {
+                $juntaPeriodoForm.find('[type="submit"]').removeAttr('disabled')
             })
         })
 

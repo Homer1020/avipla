@@ -16,10 +16,12 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Factura N°</th>
+            <th>Código</th>
+            <th>Referencia</th>
             <th>Fecha</th>
             <th>Estado</th>
             <th>Monto</th>
+            <th>Tasa</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -28,12 +30,12 @@
           @foreach ($avisosCobros as $avisoCobro)
             <tr>
               <td>#{{ $avisoCobro->id }}</td>
-              <td>#{{ $avisoCobro->numero_factura }}</td>
+              <td>#{{ $avisoCobro->codigo_aviso }}</td>
+              <td>{{ $avisoCobro->pago ? '#' . $avisoCobro->pago->referencia : 'N/A' }}</td>
               <td>{{ $avisoCobro->created_at->format('d-m-Y') }}</td>
-              <td>
-                @include('partials.invoice_status')
-              </td>
-              <td>{{ $avisoCobro->monto_total }}$</td>
+              <td> @include('partials.invoice_status') </td>
+              <td>{{ $avisoCobro->pago ? $avisoCobro->pago->monto . '$' : 'N/A' }}</td>
+              <td>{{ $avisoCobro->pago ? $avisoCobro->pago->tasa : 'N/A' }}</td>
               <td>
                 @if ($avisoCobro->estado === 'DEVUELTO')
                   <a href="{{ route('pagos.edit', $avisoCobro->pago) }}" type="submit" class="btn btn-warning">

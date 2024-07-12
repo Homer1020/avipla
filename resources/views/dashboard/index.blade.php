@@ -131,22 +131,6 @@
                 <td>Acciones</td>
               </tr>
             </thead>
-            <tbody>
-              @foreach ($avisosCobroPendientes as $avisoCobro)
-                <tr>
-                  <td>#{{ $avisoCobro->afiliado->id }}</td>
-                  <td>{{ $avisoCobro->afiliado->razon_social }}</td>
-                  <td>{{ $avisoCobro->afiliado->created_at->diffForHumans() }}</td>
-                  <td>#{{ $avisoCobro->numero_factura }}</td>
-                  <td>
-                    <a href="#" class="btn btn-warning">
-                      <i class="fa fa-unlink"></i>
-                      Desafiliar
-                    </a>
-                  </td>
-                </tr>
-              @endforeach
-            </tbody>
           </table>
         </div>
       </div>

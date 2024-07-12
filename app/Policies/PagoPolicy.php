@@ -9,8 +9,8 @@ use App\Models\User;
 class PagoPolicy
 {
     public function before(User $user) {
-        $user->load('roles');
-        if($user->roles()->where('name', 'afiliado')->exists()){
+        $user->load('roles', 'afiliado');
+        if($user->roles()->where('name', 'administrador')->exists()){
             return true;
         }
         return null;
@@ -21,7 +21,7 @@ class PagoPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->roles()->where('name', 'afiliado')->exists();
     }
 
     /**
@@ -29,7 +29,7 @@ class PagoPolicy
      */
     public function view(User $user, Pago $pago): bool
     {
-        return false;
+        return $user->afiliado()->where('id', $pago->avisoCobro->afiliado_id)->exists();
     }
 
     /**
@@ -37,7 +37,7 @@ class PagoPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->roles()->where('name', 'afiliado')->exists();
     }
 
     /**
