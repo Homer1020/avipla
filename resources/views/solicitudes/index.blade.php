@@ -1,58 +1,59 @@
 @extends('layouts.dashboard')
-@section('title', 'Afiliados')
+@section('title', 'Solicitudes')
 @push('css')
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 @endpush
 @section('content')
-  <h1 class="mt-4">Afiliados</h1>
+  <h1 class="mt-4">Solicitudes</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Afiliados</li>
+    <li class="breadcrumb-item active">Solicitudes</li>
   </ol>
+  <div class="mb-4">
+    <a href="{{ route('solicitudes.create') }}" class="btn btn-primary">Solicitar afiliado</a>
+  </div>
+
   <div class="mb-4 card">
     <div class="card-body">
-      {{-- @dump($afiliados->toArray()) --}}
       <table class="table table-bordered w-100" id="afiliados-table">
         <thead>
           <tr>
             <th>ID</th>
+            <th>Solicitado</th>
             <th>Razón social</th>
-            <th>Correo del encargado</th>
-            <th>Correo del presidente</th>
+            <th>Correo</th>
             <th>Acciones</th>
           </tr>
         </thead>
     
         <tbody>
-          @foreach ($afiliados as $afiliado)
+          @foreach ($solicitudes as $solicitud)
             <tr>
-              <td>#{{$afiliado->id}}</td>
-              <td>{{ $afiliado->razon_social }}</td>
-              <td>{{ $afiliado->user->email }}</td>
-              <td>{{ $afiliado->personal->correo_presidente ?: 'N/A' }}</td>
+              <td>#{{$solicitud->id}}</td>
+              <td>{{$solicitud->created_at->diffForHumans()}}</td>
+              <td>
+                <span class="text-truncate d-inline-block" style="max-width: 150px">
+                  {{ $solicitud->afiliado ? $solicitud->afiliado->razon_social : $solicitud->razon_social }}
+                </span>
+              </td>
+              <td>{{ $solicitud->correo }}</td>
               <td style="white-space: nowrap">
-                @can('view', $afiliado)
-                  <a href="{{ route('afiliados.show', $afiliado) }}" class="btn btn-primary">
-                    <i class="fa fa-eye"></i>
-                    Detalles
-                  </a>
-                @endcan
-                @can('delete', $afiliado)
-                  <form action="{{ route('afiliados.destroy', $afiliado) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
+                @if ($solicitud->afiliado)
+                  @can('view', $solicitud->afiliado)
+                    <a href="{{ route('afiliados.show', $solicitud->afiliado) }}" class="btn btn-primary">
+                      <i class="fa fa-eye"></i>
+                      Ver afiliado
+                    </a>
+                  @endcan
+                @else
+                  <form action="{{ route('solicitudes.reminder', $solicitud) }}" method="POST">
                     @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">
-                      <i class="fa fa-trash"></i>
-                      Eliminar
-                    </button>
+                    <a href="#" onclick="event.target.parentElement.submit(); return false;" class="btn btn-outline-primary">
+                      <i class="fa fa-envelope me-1"></i>
+                      Enviar recordatorio
+                    </a>
                   </form>
-                @endcan
-                @can('update', $afiliado)
-                  <a href="{{ route('afiliados.edit', $afiliado) }}" class="btn btn-warning">
-                    <i class="fa fa-pen"></i>
-                    Editar
-                  </a>
-                @endcan
+                @endif
               </td>
             </tr>
           @endforeach
@@ -98,7 +99,7 @@
 
     new DataTable('#afiliados-table', {
       columnDefs: [
-        { orderable: false, targets: 3 },
+        { orderable: false, targets: 4 },
       ],
       order: false,
       scrollX: false,

@@ -23,17 +23,9 @@ class AfiliadosController extends Controller
      */
     public function index()
     {
-        $solicitudes = SolicitudAfiliado::with('afiliado')
-            ->where(function ($query) {
-                $query
-                    ->whereDoesntHave('afiliado')
-                    ->orWhereHas('afiliado', function ($query) {
-                        $query->where('estado', true);
-                    });
-            })
-            ->latest()
+        $afiliados = Afiliado::latest()
             ->get();
-        return view('afiliados.index', compact('solicitudes'));
+        return view('afiliados.index', compact('afiliados'));
     }
 
     /**

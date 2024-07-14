@@ -62,12 +62,11 @@ Route::get('dashboard', [DashboardController::class, 'index'])
   ->middleware('auth');
 
 Route::middleware('auth')->group(function() {
-  Route::get('afiliados/solicitar', [SolicitudController::class, 'requestForm'])
-    ->name('afiliados.requestForm');
-  Route::post('afiliados/solicitar', [SolicitudController::class, 'request'])
-    ->name('afiliados.request');
+  Route::resource('solicitudes', SolicitudController::class)
+    ->parameters(['solicitudes' => 'solicitud']);
   Route::post('afiliados/solicitud/{solicitud}/recordatorio', [SolicitudController::class, 'reminder'])
-    ->name('afiliados.reminder');
+    ->name('solicitudes.reminder');
+  
   Route::resource('afiliados', AfiliadosController::class)
     ->except(['create', 'store']);
 });

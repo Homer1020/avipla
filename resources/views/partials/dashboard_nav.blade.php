@@ -31,6 +31,13 @@
             <div class="sb-sidenav-menu-heading">{{ Auth::user()->roles->first()->name }}</div>
             @can('viewAny', App\Models\Afiliado::class)
                 <x-nav-link
+                    :to="route('solicitudes.index')"
+                    active="solicitudes.*"
+                    icon="fas fa-user-plus"
+                >
+                    Solicitudes
+                </x-nav-link>
+                <x-nav-link
                     :to="route('afiliados.index')"
                     active="afiliados.*"
                     icon="fas fa-handshake"
