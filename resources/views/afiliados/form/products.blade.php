@@ -87,6 +87,9 @@
       >{{ $materia_prima->materia_prima }}</option>
     @endforeach
   </select>
+  @error('materias_primas')
+    <div class="invalid-feedback">{{ $message }}</div>
+  @enderror
 </div>
 
 <div class="mb-3">

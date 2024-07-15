@@ -27,7 +27,6 @@ return new class extends Migration
                 ->on('actividades')
                 ->onDelete('SET NULL')
                 ->onUpdate('CASCADE');
-            $table->boolean('estado')->default(1); // -> estado del afiliado
             $table->string('brand');
             $table->string('razon_social');
             $table->string('rif')->unique();
@@ -39,7 +38,8 @@ return new class extends Migration
             $table->string('rif_path');
             $table->string('estado_financiero_path');
             $table->string('registro_mercantil_path');
-
+            
+            $table->softDeletes();
             $table->timestamps();
         });
     }

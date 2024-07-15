@@ -184,9 +184,7 @@ class AfiliadosController extends Controller
     public function destroy(Afiliado $afiliado)
     {
         // return $afiliado->toArray();
-        $afiliado->update([
-            'estado' => 0
-        ]);
+        $afiliado->delete();
 
         return redirect()
             ->route('afiliados.index')

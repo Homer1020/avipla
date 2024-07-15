@@ -11,6 +11,11 @@
   <div class="row mb-4">
     <div class="col-lg-6">
       <p class="fw-bold text-uppercase text-muted">Datos de la empresa</p>
+      @if ($afiliado->brand)
+        <div class="mb-3">
+          <img src="{{ Storage::url($afiliado->brand) }}" alt="{{ $afiliado->razon_social }}" height="150">
+        </div>
+      @endif
       <ul class="list-group mb-3">
         <li class="list-group-item">
           <span class="fw-bold">Razón social: </span>

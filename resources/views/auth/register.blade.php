@@ -34,7 +34,7 @@
               </div>
               <h1 class="fs-3 fw-bold text-primary text-center mb-4 text-uppercase">Crear cuenta</h1>
 
-              <form novalidate action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data">
+              <form id="afiliado-form" action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="confirmation_code" value="{{ $solicitud->confirmation_code }}">
                 <!-- Nav tabs -->
@@ -60,6 +60,12 @@
                 <div class="tab-content">
                   <div class="tab-pane active" id="business-data" role="tabpanel" tabindex="0">
                     @include('afiliados.form.business')
+                    {{-- <div class="mt-4">
+                      <button type="button" class="btn btn-primary">
+                        Siguiente
+                        <i class="fa fa-angle-right ms-1"></i>
+                      </button>
+                    </div> --}}
                   </div>
                   <div class="tab-pane" id="profile" role="tabpanel" tabindex="0">
                     @include('afiliados.form.personal-without-names')
@@ -206,6 +212,8 @@
         console.log(parameter.toLowerCase().trim().replace(' ', '-'))
         $(`#producto-${parameter.toLowerCase().trim().replace(' ', '-')}`).remove()
       });
+
+      // Array.from(document.getElementById('business-data').querySelectorAll('input, select')).every(item => item.validity.valid)
     })
   </script>
 </body>
