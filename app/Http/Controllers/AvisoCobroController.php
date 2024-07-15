@@ -57,7 +57,7 @@ class AvisoCobroController extends Controller
         $user = Auth::user();
 
         if ($user !== null && $user instanceof User) {
-            $afiliados = Afiliado::where('estado', true)->get();
+            $afiliados = Afiliado::all();
 
             foreach($afiliados as $afiliado) {
                 if(!$afiliado->avisosCobros()->where('codigo_aviso', $codigo_aviso)->exists()) {

@@ -33,7 +33,7 @@
               <td>{{$solicitud->created_at->diffForHumans()}}</td>
               <td>
                 <span class="text-truncate d-inline-block" style="max-width: 150px">
-                  {{ $solicitud->afiliado ? $solicitud->afiliado->razon_social : $solicitud->razon_social }}
+                  {{ $solicitud->razon_social }}
                 </span>
               </td>
               <td>{{ $solicitud->correo }}</td>

@@ -1,4 +1,4 @@
-<div class="card card-stats mb-4">
+<div class="card card-stats h-100">
     <div class="card-body">
         <div class="row">
         <div class="col">
@@ -10,8 +10,15 @@
         </div>
         </div>
         <p class="mt-3 mb-0 text-muted text-sm">
-            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-            <span class="text-nowrap">desde el último mes</span>
+            <span class="{{ intval($percentage) <= 0 ? 'text-danger' : 'text-success' }} mr-2">
+                @if ($percentage <= 0)
+                    <i class="fa fa-arrow-down"></i>
+                @else
+                    <i class="fa fa-arrow-up"></i>
+                @endif
+                {{ $percentage }}%
+            </span>
+            <span class="text-nowrap">{{ $metadata }}</span>
         </p>
     </div>
 </div>

@@ -56,8 +56,8 @@ class InvoiceController extends Controller
 
         if ($user !== null && $user instanceof User) {
             $invoice = $user->invoices()->create($payload);
-            $AvisoCobro = AvisoCobro::where('id', $payload['aviso_cobro_id'])->first();
-            $AvisoCobro->update([
+            $avisoCobro = AvisoCobro::where('id', $payload['aviso_cobro_id'])->first();
+            $avisoCobro->update([
                 'estado' => 'CONCILIADO'
             ]);
 
@@ -70,7 +70,7 @@ class InvoiceController extends Controller
             foreach ($administradores as $administrador) {
                 $administrador->notify(new InvoiceCreated($invoice));
             }
-            $AvisoCobro->afiliado->user->notify(new InvoiceCreated($invoice));
+            $avisoCobro->afiliado->user->notify(new InvoiceCreated($invoice));
 
             return response()->json([
                 'success'   => true,
@@ -108,6 +108,18 @@ class InvoiceController extends Controller
 
         if ($user !== null && $user instanceof User) {
             $invoice = $user->invoices()->create($payload);
+
+            # Send notifications
+            $administradores = User::whereHas('roles', function ($query) {
+                $query->where('name', 'administrador');
+            })
+            ->where('id', '!=', $request->user()->id)
+            ->get();
+            foreach ($administradores as $administrador) {
+                $administrador->notify(new InvoiceCreated($invoice));
+            }
+            $avisoCobro->afiliado->user->notify(new InvoiceCreated($invoice));
+
             $avisoCobro->update([
                 'estado' => 'CONCILIADO'
             ]);
@@ -120,7 +132,7 @@ class InvoiceController extends Controller
      */
     public function show(Invoice $factura)
     {
-        $factura->load('avisoCobro', 'pago');
+        $factura->load('avisoCobro.afiliado', 'pago');
         return view('invoices.show', compact('factura'));
     }
 

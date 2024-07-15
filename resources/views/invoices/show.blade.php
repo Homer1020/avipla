@@ -31,27 +31,27 @@
         <h3 class="text-uppercase fs-6 fw-bold my-4">Datos del pago</h3>
         <p>
             <span class="fw-bold">Método de pago</span>
-            <span>{{ $factura->avisoCobro->pago->metodo_pago->metodo_pago }}</span>
+            <span>{{ $factura->pago->metodo_pago->metodo_pago }}</span>
         </p>
         <p>
             <span class="fw-bold">Referencia</span>
-            <span>{{ $factura->avisoCobro->pago->referencia }}</span>
+            <span>{{ $factura->pago->referencia }}</span>
         </p>
         <p>
             <span class="fw-bold">Banco</span>
-            <span>{{ $factura->avisoCobro->pago->banco->codigo }} - {{ $factura->avisoCobro->pago->banco->nombre }}</span>
+            <span>{{ $factura->pago->banco->codigo }} - {{ $factura->pago->banco->nombre }}</span>
         </p>
         <p>
             <span class="fw-bold">Tasa de cambio</span>
-            <span>Bs.s {{ $factura->avisoCobro->pago->tasa }}</span>
+            <span>Bs.s {{ $factura->pago->tasa }}</span>
         </p>
         <p>
             <span class="fw-bold">Fecha del pago</span>
-            <span>{{ $factura->avisoCobro->pago->fecha_pago }}</span>
+            <span>{{ $factura->pago->fecha_pago }}</span>
         </p>
         <p>
             <span class="fw-bold">Monto</span>
-            <span>{{ $factura->avisoCobro->pago->monto }}$</span>
+            <span>{{ $factura->pago->monto }}$</span>
         </p>
         <hr>
         <h3 class="text-uppercase fs-6 fw-bold my-4">Aviso de cobro</h3>

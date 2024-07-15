@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Contact;
 use App\Models\Afiliado;
 use App\Models\Carousel;
 use App\Models\Category;
@@ -13,6 +14,7 @@ use App\Models\Tag;
 use Illuminate\Support\Facades\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -128,13 +130,14 @@ class HomeController extends Controller
     }
 
     public function sendContactMail(Request $request) {
-        $request->validate([
+        $payload = $request->validate([
             'nombre'    => 'required',
             'apellido'  => 'required',
             'correo'    => 'required',
             'asunto'    => 'required',
             'mensaje'   => 'required'
         ]);
-        return 'sending';
+        Mail::to('infoavipla@avipla.online')->send(new Contact($payload));
+        return redirect()->route('contact')->with('success', 'Mesaje enviado correctamente. Nos comunicaremos pronto con usted.');
     }
 }
