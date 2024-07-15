@@ -16,7 +16,7 @@
                 @else
                     <i class="fa fa-arrow-up"></i>
                 @endif
-                {{ $percentage }}%
+                {{ number_format($percentage, 2) }}%
             </span>
             <span class="text-nowrap">{{ $metadata }}</span>
         </p>

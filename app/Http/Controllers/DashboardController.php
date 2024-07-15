@@ -86,8 +86,6 @@ class DashboardController extends Controller
 
 
         return view('dashboard.index', compact(
-            'afiliadosMorosos',
-            'afiliadosAlDia',
             'currentCodigoAviso',
             'avisosCobrosPorPagar',
             'data',
