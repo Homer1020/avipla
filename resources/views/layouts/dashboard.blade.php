@@ -80,8 +80,6 @@
                                 } else if ($notification->data['boletine_slug']) {
                                     $route = route('boletines.show', $notification->data['boletine_slug']);
                                 }
-
-                                
                             @endphp
                             <li>
                                 <a

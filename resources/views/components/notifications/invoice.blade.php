@@ -22,7 +22,7 @@
             <p class="m-0">
                 {{ $notification->data['message'] }}
             </p>
-            <small>{{ $notification->created_at->diffForHumans() }}</small>
+            <small>{{ $notification->created_at->diffForHumans() }} {{ request()->user()->is_admin() }}</small>
         </div>
         </a>
     </div>
