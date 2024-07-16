@@ -19,6 +19,26 @@
                 width: 18px;
                 text-align: center;
             }
+
+            .note-toolbar button::after {
+                display: none !important;
+            }
+
+            .note-color-all.open .note-dropdown-menu {
+                display: flex;
+            }
+
+            .note-modal-footer {
+                text-align: right;
+                padding-left: 30px;
+                padding-right: 30px;
+                height: auto;
+            }
+
+            .note-modal-footer .note-btn {
+                float: none;
+                margin-bottom: 10px;
+            }
         </style>
     </head>
     <body class="sb-nav-fixed">

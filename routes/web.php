@@ -24,6 +24,7 @@ use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteController;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 /**
  * WEB ROUTES
@@ -180,4 +181,36 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
 
   Route::apiResource('junta-directiva-periodo', JuntaDirectivaPeriodo::class)
     ->only(['store']);
+});
+
+Route::get('test', function() {
+  $content = <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Summernote with Bootstrap 5</title>
+  <!-- include libraries(jQuery, bootstrap) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- include summernote css/js-->
+  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs5.min.css" rel="stylesheet">
+</head>
+<body>
+  <div id="summernote"></div>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs5.min.js"></script>
+  <script>
+      $('#summernote').summernote({
+          placeholder: 'Hello Bootstrap 5',
+          tabsize: 2,
+          height: 100
+      });
+  </script>
+</body>
+</html>
+HTML;
+
+  return response($content)->header('Content-Type', 'text/html');
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\Contact;
 use App\Models\Afiliado;
+use App\Models\AviplaInfo;
 use App\Models\Carousel;
 use App\Models\Category;
 use App\Models\JuntaDirectiva;
@@ -32,6 +33,7 @@ class HomeController extends Controller
     }
 
     public function aboutus() {
+        $aviplaInfo = AviplaInfo::first();
         $organismos = Organismo::all();
         $juntaDirectiva  = JuntaDirectiva::with('role')->get();
         
@@ -47,7 +49,7 @@ class HomeController extends Controller
             return $item['role']['display_name'] === 'Directores principales' || $item['role']['display_name'] === 'Directores secundarios';
         })->values();
 
-        return view('aboutus', compact('organismos', 'directoresPrincipales', 'directoresSecundarios', 'juntaDirectivaPersonal'));
+        return view('aboutus', compact('organismos', 'directoresPrincipales', 'directoresSecundarios', 'juntaDirectivaPersonal', 'aviplaInfo'));
     }
 
     public function services() {

@@ -63,7 +63,7 @@
   <section class="section section--with-decoration-under bg-secondary text-white">
       <div class="container-sm">
           <div class="row align-items-center">
-            <h2 class="section__title text-white mb-5">Junta directiva {{ date('Y') }}</h2>
+            <h2 class="section__title text-white mb-5">Junta directiva {{ $aviplaInfo->junta_directiva_anio_inicio . ' - ' . $aviplaInfo->junta_directiva_anio_fin}}</h2>
             <div class="row">
               <div class="col-xl-10">
                 <div class="col-lg-6">
