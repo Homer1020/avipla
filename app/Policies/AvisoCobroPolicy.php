@@ -20,7 +20,7 @@ class AvisoCobroPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->roles()->where('name', 'usuario')->exists();
     }
 
     /**
@@ -28,7 +28,7 @@ class AvisoCobroPolicy
      */
     public function view(User $user, AvisoCobro $avisoCobro): bool
     {
-        return $user->afiliado()->where('id', $avisoCobro->afiliado_id)->exists();
+        return $user->afiliado()->where('id', $avisoCobro->afiliado_id)->exists() || $user->roles()->where('name', 'usuario')->exists();
     }
 
     /**

@@ -192,10 +192,12 @@
                 <td>{{ $avisoCobro->fecha_limite }}</td>
                   <td>{{ $avisoCobro->estado }}</td>
                   <td>
-                    <a class="btn btn-success" href="{{ route('avisos-cobro.show', $avisoCobro) }}">
-                      <i class="fa fa-eye"></i>
-                      Detalles
-                    </a>
+                    @can('view', $avisoCobro)
+                      <a class="btn btn-success" href="{{ route('avisos-cobro.show', $avisoCobro) }}">
+                        <i class="fa fa-eye"></i>
+                        Detalles
+                      </a>
+                    @endcan
                   </td>
                 </tr>
               @endforeach

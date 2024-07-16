@@ -133,46 +133,57 @@
                 <span class="fw-bold">Monto total:</span>
                 {{ $avisoCobro->monto_total }}$
             </li>
-            <li class="list-group-item">
-                <form action="{{ route('avisos-cobro.update', $avisoCobro) }}" method="POST">
-                    @method('PATCH')
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Estado:</label>
-                        <select name="invoice_status" id="invoice_status" class="form-select">
-                            <option selected disabled>Cambiar estado</option>
-                            <option value="PENDIENTE" @selected($avisoCobro->estado === 'PENDIENTE')>PENDIENTE</option>
-                            <option value="REVISION" @selected($avisoCobro->estado === 'REVISION')>REVISIÓN</option>
-                            <option value="DEVUELTO" @selected($avisoCobro->estado === 'DEVUELTO')>DEVUELTO</option>
-                            <option value="CONCILIADO" @selected($avisoCobro->estado === 'CONCILIADO')>CONCILIADO</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="observaciones" class="fw-bold form-label">Observaciones:</label>
-                        <textarea
-                            name="observaciones"
-                            id="observaciones"
-                            rows="2"
-                            class="form-control @error('observaciones') is-invalid @enderror"
-                        >{{ old('observaciones', $avisoCobro->observaciones) }}</textarea>
-                        @error('is-invalid')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <button type="submit" class="btn btn-outline-success"><i class="fa fa-check"></i> Guardar estado</button>
-                    @if ($avisoCobro->pago && !$avisoCobro->invoice)
-                        <button type="button" id="btn-invoice" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-file-invoice"></i> Generar factura</button>
-                    @endif
-                    <div class="d-inline-block" id="invoice_button_wrapper">
-                        @if ($avisoCobro->invoice)
-                            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-primary">
-                                <i class="fa fa-eye"></i>
-                                Ver factura
-                            </a>
+            @can('update', $avisoCobro)
+                <li class="list-group-item">
+                    <form action="{{ route('avisos-cobro.update', $avisoCobro) }}" method="POST">
+                        @method('PATCH')
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Estado:</label>
+                            <select name="invoice_status" id="invoice_status" class="form-select">
+                                <option selected disabled>Cambiar estado</option>
+                                <option value="PENDIENTE" @selected($avisoCobro->estado === 'PENDIENTE')>PENDIENTE</option>
+                                <option value="REVISION" @selected($avisoCobro->estado === 'REVISION')>REVISIÓN</option>
+                                <option value="DEVUELTO" @selected($avisoCobro->estado === 'DEVUELTO')>DEVUELTO</option>
+                                <option value="CONCILIADO" @selected($avisoCobro->estado === 'CONCILIADO')>CONCILIADO</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observaciones" class="fw-bold form-label">Observaciones:</label>
+                            <textarea
+                                name="observaciones"
+                                id="observaciones"
+                                rows="2"
+                                class="form-control @error('observaciones') is-invalid @enderror"
+                            >{{ old('observaciones', $avisoCobro->observaciones) }}</textarea>
+                            @error('is-invalid')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-outline-success"><i class="fa fa-check"></i> Guardar estado</button>
+                        @if ($avisoCobro->pago && !$avisoCobro->invoice)
+                            <button type="button" id="btn-invoice" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-file-invoice"></i> Generar factura</button>
                         @endif
-                    </div>
-                </form>
-            </li>
+                        <div class="d-inline-block" id="invoice_button_wrapper">
+                            @if ($avisoCobro->invoice)
+                                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-primary">
+                                    <i class="fa fa-eye"></i>
+                                    Ver factura
+                                </a>
+                            @endif
+                        </div>
+                    </form>
+                </li>
+            @else
+                <li class="list-group-item">
+                    <span class="fw-bold">Estado:</span>
+                    @include('partials.invoice_status')
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Observaciones:</span>
+                    {{ $avisoCobro->observaciones }}
+                </li>
+            @endcan
         </ul>
     </div>
   </div>

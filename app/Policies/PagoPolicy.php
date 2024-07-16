@@ -29,7 +29,7 @@ class PagoPolicy
      */
     public function view(User $user, Pago $pago): bool
     {
-        return $user->afiliado()->where('id', $pago->avisoCobro->afiliado_id)->exists();
+        return $user->afiliado()->where('id', $pago->avisoCobro->afiliado_id)->exists() || $user->roles()->where('name', 'usuario')->exists();
     }
 
     /**

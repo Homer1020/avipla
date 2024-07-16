@@ -54,7 +54,9 @@ class PagoController extends Controller
         $avisoCobro->update([ 'estado' => 'REVISION' ]);
 
         $administradores = User::whereHas('roles', function ($query) {
-            $query->where('name', 'administrador');
+            $query
+                ->where('name', 'administrador')
+                ->orWhere('name', 'usuario');
         })->get();
         foreach ($administradores as $administrador) {
             $administrador->notify(new AvisoCobroPaid($avisoCobro));
@@ -91,7 +93,7 @@ class PagoController extends Controller
         $pago->avisoCobro->update([ 'estado' => 'REVISION' ]);
 
         $administradores = User::whereHas('roles', function ($query) {
-            $query->where('name', 'administrador');
+            $query->where('name', 'administrador')->orWhere('name', 'usuario');
         })
         ->get();
 

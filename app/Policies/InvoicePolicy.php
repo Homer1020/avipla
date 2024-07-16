@@ -28,7 +28,7 @@ class InvoicePolicy
      */
     public function view(User $user, Invoice $invoice): bool
     {
-        return $user->afiliado->id === $invoice->avisoCobro->afiliado->id;
+        return $user->afiliado ? $user->afiliado->id === $invoice->avisoCobro->afiliado->id : $user->roles()->where('name', 'usuario')->exists();
     }
 
     /**

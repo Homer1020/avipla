@@ -9,9 +9,11 @@
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item active">Avisos de cobro</li>
   </ol>
-  <div class="mb-4">
-    <a href="{{ route('avisos-cobro.create') }}" class="btn btn-primary">Generar aviso</a>
-  </div>
+  @can('create', App\Models\AvisoCobro::class)
+    <div class="mb-4">
+      <a href="{{ route('avisos-cobro.create') }}" class="btn btn-primary">Generar aviso</a>
+    </div>
+  @endcan
 
   <div class="card mb-4">
     <div class="card-body">
@@ -44,15 +46,19 @@
               </td>
               <td>{{ $avisoCobro->monto_total }}$</td>
               <td>
-                <a class="btn btn-success" href="{{ route('avisos-cobro.show', $avisoCobro) }}">
-                  <i class="fa fa-eye"></i>
-                  Detalles
-                </a>
-                @if ($avisoCobro->invoice)
-                  <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-primary">
-                    <i class="fa fa-file-invoice"></i>
-                    Ver factura
+                @can('view', $avisoCobro)
+                  <a class="btn btn-success" href="{{ route('avisos-cobro.show', $avisoCobro) }}">
+                    <i class="fa fa-eye"></i>
+                    Detalles
                   </a>
+                @endcan
+                @if ($avisoCobro->invoice)
+                  @can('view', $avisoCobro->invoice)
+                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-primary">
+                      <i class="fa fa-file-invoice"></i>
+                      Ver factura
+                    </a>
+                  @endcan
                 @endif
               </td>
             </tr>
