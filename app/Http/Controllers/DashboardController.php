@@ -93,4 +93,8 @@ class DashboardController extends Controller
             'avisosCobrosEstados'
         ));
     }
+
+    public function afiliado() {
+        
+    }
 }

@@ -54,7 +54,7 @@ class InvoiceCreated extends Notification
         return [
             'icon'              => 'fas fa-check',
             'bg-class'          => 'bg-success',
-            'invoice_id'        => $this->invoice->id,
+            'invoice_id'        => $this->invoice->avisoCobro->id,
             'codigo_aviso'      => $this->invoice->avisoCobro->codigo_aviso,
             'message'           => 'Se facturó el recibo #' . $this->invoice->avisoCobro->codigo_aviso . ' con la factura #' . $this->invoice->numero_factura . '.'
         ];

@@ -87,7 +87,8 @@ Route::resource('roles', RoleController::class)
 
 Route::resource('boletines', BoletineController::class);
 Route::resource('categorias-boletines', CategoriaBoletineController::class)
-  ->parameters(['categorias-boletines' => 'category']);
+  ->parameters(['categorias-boletines' => 'category'])
+  ->except(['show']);
 
 Route::get('notificaciones', [NotificationController::class, 'index'])
   ->name('notifications.index')

@@ -9,6 +9,11 @@ use Illuminate\Support\Str;
 
 class CategoriaBoletineController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(CategoriaBoletine::class, 'category');
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -41,14 +46,6 @@ class CategoriaBoletineController extends Controller
         CategoriaBoletine::create($payload);
 
         return redirect()->route('categorias-boletines.index')->with('success', 'Se creó la categoría correctamente.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(CategoriaBoletine $categoriaBoletine)
-    {
-        //
     }
 
     /**

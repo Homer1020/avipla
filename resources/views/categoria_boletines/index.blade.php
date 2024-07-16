@@ -33,23 +33,27 @@
                 <tr>
                     <td>#{{ $categoria->id }}</td>
                     <td>
-                      <a href="{{ route('categorias-boletines.show', $categoria) }}">{{ $categoria->display_name }} ({{ $categorias_length }} {{ ($categorias_length > 1 || $categorias_length === 0)? 'boletines' : 'boletin' }})</a>
+                      {{ $categoria->display_name }} ({{ $categorias_length }} {{ ($categorias_length > 1 || $categorias_length === 0)? 'boletines' : 'boletin' }})
                     </td>
                     <td>{{ $categoria->name }}</td>
                     <td style="white-space: nowrap">
-                      <form action="{{ route('categorias-boletines.destroy', $categoria) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-danger">
-                          <i class="fa fa-trash"></i>
-                          Eliminar
-                      </button>
-                      </form>
+                      @can('delete', $categoria)
+                        <form action="{{ route('categorias-boletines.destroy', $categoria) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger">
+                              <i class="fa fa-trash"></i>
+                              Eliminar
+                          </button>
+                        </form>
+                      @endcan
 
-                      <a href="{{ route('categorias-boletines.edit', $categoria) }}" class="btn btn-warning">
-                      <i class="fa fa-pen"></i>
-                      Editar
-                      </a>
+                      @can('update', $categoria)
+                        <a href="{{ route('categorias-boletines.edit', $categoria) }}" class="btn btn-warning">
+                          <i class="fa fa-pen"></i>
+                          Editar
+                        </a>
+                      @endcan
                   </td>
                 </tr>
             @endforeach
@@ -91,7 +95,7 @@
 
     new DataTable('#categories-table', {
       columnDefs: [
-        { orderable: false, targets: 2 },
+        { orderable: false, targets: 3 },
       ],
       order: false,
       scrollX: false,

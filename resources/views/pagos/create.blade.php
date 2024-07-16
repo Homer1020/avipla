@@ -14,6 +14,36 @@
   </ol>
   
   <div class="row mb-4">
+    <div class="col-12">
+        <a class="btn btn-primary mb-3" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fa fa-info-circle"></i>
+            Leer instrucciones de pago
+        </a>
+        <div class="collapse" id="collapseExample">
+            <div class="alert alert-info">
+                <h6>Estimado Afiliado,</h6>
+
+                <p>Queremos informarle que ya puede realizar el pago correspondiente al mes en curso de la cuota de mantenimiento. Le invitamos a realizar el pago y reportarlo a través del formulario que encontrará a continuación.</p>
+
+                <p>El monto de la cuota puede ser cancelado en dólares en efectivo en nuestra sede, o abonado en las cuentas bancarias señaladas más adelante mediante depósito o transferencia, a la tasa de cambio BCV del día en que se haga efectivo el pago.</p>
+
+                <p>Le recordamos que todo aviso de cobro atrasado deberá ser cancelado a la tasa de cambio BCV del día en que realice la transacción de pago correspondiente.</p>
+
+                {{-- <p>Para facilitar el proceso, por favor reporte su pago en el formulario que se encuentra a continuación.</p> --}}
+
+                <p>A través de esta notificación, nuestros afiliados pueden registrar el abono contablemente en sus libros como un "ADELANTO A CUOTA TRIMESTRAL AVIPLA", y regularizar el mismo una vez recibida la factura correspondiente.</p>
+
+                <p>Las transferencias ÚNICA Y EXCLUSIVAMENTE, a nombre de "Asociación Venezolana de Industrias Plásticas - AVIPLA", Rif J-00126013-7, en los siguientes bancos:</p>
+
+                <ul>
+                    <li>BANESCO: Cuenta Corriente N° 0134-0033-49-0331032580</li>
+                    <li>BNC: Cuenta Corriente N° 0191-0098-76-2198407073</li>
+                    <li>Bancaribe: Cuenta Corriente N° 0114-0174-13-1740077836</li>
+                    <li>Mantenga al día sus obligaciones con AVIPLA y contribuya así con el desarrollo de nuestra industria plástica.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-6 mb-4 mb-lg-0">
         <p class="fw-bold text-uppercase text-muted">Formulario de pago</p>
         <div class="card">
