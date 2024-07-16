@@ -128,7 +128,7 @@
       <x-stats.card
         title="Numero de notificaciones sin leer"
         :number="Auth::user()->unreadNotifications()->count()"
-        :percentage="(Auth::user()->unreadNotifications()->count() / Auth::user()->notifications()->count()) * 100"
+        :percentage="(Auth::user()->unreadNotifications()->count() / (Auth::user()->notifications()->count() ?: 1)) * 100"
         metadata="de las notificaciones"
       >
         <x-slot:icon>
