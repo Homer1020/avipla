@@ -21,6 +21,20 @@ return new class extends Migration
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
             $table
+                ->foreignId('presidente_id')
+                ->nullable()
+                ->references('id')
+                ->on('users')
+                ->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
+            $table
+                ->foreignId('director_id')
+                ->nullable()
+                ->references('id')
+                ->on('users')
+                ->onDelete('CASCADE')
+                ->onUpdate('CASCADE');
+            $table
                 ->foreignId('actividad_id')
                 ->nullable()
                 ->references('id')

@@ -119,7 +119,10 @@ class DashboardController extends Controller
                 'afiliadosAlDiaTotales'
             ));
         } else {
-            $recibosall = AvisoCobro::where('afiliado_id', request()->user()->afiliado->id)->get();
+            $afiliado = optional(request()->user()->afiliado)->first()
+                ?? optional(request()->user()->afiliadoPresidente)->first()
+                ?? optional(request()->user()->afiliadoDirector)->first();
+            $recibosall = AvisoCobro::where('afiliado_id', $afiliado->id)->get();
             $data = [
                 'recibos' => [
                     'total'     => $recibosall->count(),

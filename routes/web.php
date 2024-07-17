@@ -77,8 +77,15 @@ Route::resource('usuarios', UserController::class)
   ->parameters(['usuarios' => 'user'])
   ->names('users');
 
-Route::get('perfil', [ProfileController::class, 'show'])->name('profile.show');
-Route::put('perfil', [ProfileController::class, 'update'])->name('profile.update');
+Route::middleware('auth')->group(function() {
+  Route::get('perfil', [ProfileController::class, 'show'])->name('profile.show');
+  Route::put('perfil', [ProfileController::class, 'update'])->name('profile.update');
+
+  Route::get('perfil/presidente', [ProfileController::class, 'showPresidente'])->name('profile.showPresidente');
+  Route::get('perfil/director', [ProfileController::class, 'showDirector'])->name('profile.showDirector');
+  Route::post('perfil/presidente', [ProfileController::class, 'storePresidente'])->name('profile.storePresidente');
+  Route::post('perfil/director', [ProfileController::class, 'storeDirector'])->name('profile.storeDirector');
+});
 
 Route::get('mi-empresa', [ProfileController::class, 'businessShow'])->name('business.show');
 Route::put('mi-empresa', [ProfileController::class, 'update'])->name('business.update');
@@ -181,36 +188,4 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
 
   Route::apiResource('junta-directiva-periodo', JuntaDirectivaPeriodo::class)
     ->only(['store']);
-});
-
-Route::get('test', function() {
-  $content = <<<HTML
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Summernote with Bootstrap 5</title>
-  <!-- include libraries(jQuery, bootstrap) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- include summernote css/js-->
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs5.min.css" rel="stylesheet">
-</head>
-<body>
-  <div id="summernote"></div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs5.min.js"></script>
-  <script>
-      $('#summernote').summernote({
-          placeholder: 'Hello Bootstrap 5',
-          tabsize: 2,
-          height: 100
-      });
-  </script>
-</body>
-</html>
-HTML;
-
-  return response($content)->header('Content-Type', 'text/html');
 });

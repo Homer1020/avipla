@@ -32,6 +32,14 @@ class Afiliado extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function presidente() {
+        return $this->belongsTo(User::class, 'presidente_id', 'id');
+    }
+
+    public function director() {
+        return $this->belongsTo(User::class, 'director_id', 'id');
+    }
+
     public function invoices() {
         return $this->hasMany(Invoice::class);
     }

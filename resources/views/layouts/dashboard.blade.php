@@ -122,6 +122,16 @@
                                 class="dropdown-item {{ request()->routeIs('profile.show') ? 'active' : '' }}"
                                 href="{{ route('profile.show') }}"
                             >Perfil de usuario</a>
+                            @if (Auth::user()->afiliado()->exists())
+                                <a
+                                    class="dropdown-item {{ request()->routeIs('profile.showPresidente') ? 'active' : '' }}"
+                                    href="{{ route('profile.showPresidente') }}"
+                                >Perfil del presidente</a>
+                                <a
+                                    class="dropdown-item {{ request()->routeIs('profile.showDirector') ? 'active' : '' }}"
+                                    href="{{ route('profile.showDirector') }}"
+                                >Perfil del director ejecutivo</a>
+                            @endif
                         </li>
                         <li><hr class="dropdown-divider" /></li>
                         <li>

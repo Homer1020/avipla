@@ -50,6 +50,14 @@ class User extends Authenticatable
         return $this->hasOne(Afiliado::class);
     }
 
+    public function afiliadoPresidente() {
+        return $this->hasOne(Afiliado::class, 'presidente_id');
+    }
+
+    public function afiliadoDirector() {
+        return $this->hasOne(Afiliado::class, 'director_id');
+    }
+
     public function invoices() {
         return $this->hasOne(Invoice::class);
     }
