@@ -124,7 +124,9 @@ class ProfileController extends Controller
     }
 
     public function businessShow(Request $request) {
-        $afiliado = $request->user()->afiliado;
+        $afiliado = optional(request()->user()->afiliado)->first()
+                ?? optional(request()->user()->afiliadoPresidente)->first()
+                ?? optional(request()->user()->afiliadoDirector)->first();
         $actividades = Actividad::all();
         $productos = Producto::all();
         $materias_primas = MateriaPrima::all();
