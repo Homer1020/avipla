@@ -9,7 +9,7 @@ class CategoriaBoletinePolicy
 {
     public function before(User $user) {
         $user->load(['roles']);
-        if($user->roles()->where('name', 'administrador')->orWhere('name', 'editor')->exists()){
+        if($user->roles()->whereIn('name', ['administrador', 'usuarios'])->exists()){
             return true;
         }
         return null;

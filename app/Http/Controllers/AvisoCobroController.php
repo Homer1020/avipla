@@ -104,7 +104,7 @@ class AvisoCobroController extends Controller
         # only notify if the state is diferent
         if($avisoCobro->estado !== $previous_state) {
             $administradores = User::whereHas('roles', function ($query) {
-                $query->where('name', 'administrador')->orWhere('name', 'usuario');
+                $query->whereIn('name', ['administrador', 'usuarios']);
             })
             ->where('id', '!=', $request->user()->id)
             ->get();

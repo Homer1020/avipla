@@ -34,7 +34,7 @@
         <option selected disabled>Seleccione un rol</option>
         
         @foreach ($roles as $role)
-            <option @selected($role->id === old('role_id', $user->roles->first() ? $user->roles->first()->id : null)) value="{{ $role->id }}">{{ $role->name }}</option>
+            <option @selected($role->id === intval(old('role_id', $user->roles->first() ? $user->roles->first()->id : null))) value="{{ $role->id }}">{{ $role->name }}</option>
         @endforeach
     </select>
 </div>
