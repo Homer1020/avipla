@@ -175,7 +175,6 @@
             label="RIF"
             :error="$errors->first('rif_path')"
             accept="application/pdf"
-            :required="true"
         />
         @if ($afiliado->rif_path)
             <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->rif_path]) }}" class="btn btn-primary mb-3">
@@ -192,7 +191,6 @@
             label="Registro mercantil"
             :error="$errors->first('registro_mercantil_path')"
             accept="application/pdf"
-            :required="true"
         />
         @if ($afiliado->registro_mercantil_path)
             <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->registro_mercantil_path]) }}" class="btn btn-primary mb-3">
@@ -209,7 +207,6 @@
             label="Estado financiero"
             :error="$errors->first('estado_financiero_path')"
             accept="application/pdf"
-            :required="true"
         />
         @if ($afiliado->estado_financiero_path)
             <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->estado_financiero_path]) }}" class="btn btn-primary mb-3">

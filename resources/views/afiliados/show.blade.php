@@ -45,6 +45,26 @@
             <span class="badge bg-success">Inactivo</span>
           @endif
         </li>
+        <li class="list-group-item">
+            @if ($afiliado->rif_path)
+              <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->rif_path]) }}" class="btn btn-primary">
+                <i class="fa fa-file-invoice"></i>
+                RIF
+              </a>
+            @endif
+            @if ($afiliado->registro_mercantil_path)
+              <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->registro_mercantil_path]) }}" class="btn btn-primary">
+                <i class="fa fa-file-invoice"></i>
+                Registro mercantil
+              </a>
+            @endif
+            @if ($afiliado->estado_financiero_path)
+              <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->estado_financiero_path]) }}" class="btn btn-primary">
+                <i class="fa fa-file-invoice"></i>
+                Estado financiero
+              </a>
+            @endif
+          </li>
       </ul>
       <p class="fw-bold text-uppercase text-muted">Direcciones</p>
       <ul class="list-group mb-3">

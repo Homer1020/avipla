@@ -48,6 +48,12 @@
     <li class="breadcrumb-item active">Dashboard</li>
   </ol>
 
+  @if($data['recibos']['mora'])
+    <div class="alert alert-danger">Tienes pagos {{ $data['recibos']['mora'] }} pendientes</div>
+  @else
+    <div class="alert alert-success">Estas al día. No tienes pagos pendientes</div>
+  @endif
+
   <div class="row">
     <div class="col-md-6 col-lg-4 mb-4 ">
         <x-stats.card
@@ -111,7 +117,7 @@
     @else 
       <div class="col-12">
         <div class="alert alert-info">
-          No tienes recibos aún
+          Aún no tienes recibos
         </div>
       </div>
     @endif
@@ -143,7 +149,7 @@
                 labels: Object.keys(avisosCobrosEstados),
                 datasets: [
                 {
-                    label: 'Estado',
+                    label: 'Pagos',
                     data: Object.values(avisosCobrosEstados).map(item => item.length)
                 }
                 ]

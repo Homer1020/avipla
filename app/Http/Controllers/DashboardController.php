@@ -42,15 +42,40 @@ class DashboardController extends Controller
             $afiliadosMorosos = Afiliado::whereHas('avisosCobros', function (Builder $query) use ($currentCodigoAviso) {
                     $query
                         ->where('estado', '!=', 'CONCILIADO')
-                        ->where('codigo_aviso', '!=', $currentCodigoAviso);
+                        ->whereIn('codigo_aviso', [$currentCodigoAviso]);
                 })
                 ->count();
 
-            $afiliadosAlDia = Afiliado::whereHas('avisosCobros', function (Builder $query) {
+            $afiliadosAlDia = Afiliado::whereDoesntHave('avisosCobros', function (Builder $query) {
                     $query
-                        ->where('estado', 'CONCILIADO');
+                        ->where('estado', '<>', 'CONCILIADO');
                 })
                 ->count();
+
+
+            $afiliadosMorososTotales = Afiliado::with(['avisosCobros' => function ($query) {
+                    $query->where('estado', '!=', 'conciliado');
+                }])
+                ->whereHas('avisosCobros', function($query) {
+                    $query->where('estado', '!=', 'conciliado');
+                })
+                ->withCount(['avisosCobros as avisosMorosos' => function ($query) {
+                    $query->where('estado', '!=', 'conciliado');
+                }])
+                ->get();
+
+            $afiliadosAlDiaTotales = Afiliado::with(['avisosCobros' => function ($query) {
+                $query->where('estado', 'conciliado');
+            }])
+            ->whereDoesntHave('avisosCobros', function($query) {
+                $query->where('estado', '<>', 'conciliado');
+            })
+            ->withCount(['avisosCobros as avisosMorosos' => function ($query) {
+                $query->where('estado', 'conciliado');
+            }])
+            ->get();
+
+
             $avisosCobrosPorPagar = AvisoCobro::where('estado', '!=', 'CONCILIADO')->get();
 
             $totalAfiliados = $afiliados->count();     
@@ -89,7 +114,9 @@ class DashboardController extends Controller
                 'avisosCobrosPorPagar',
                 'data',
                 'avisosCobrosAgrupados',
-                'avisosCobrosEstados'
+                'avisosCobrosEstados',
+                'afiliadosMorososTotales',
+                'afiliadosAlDiaTotales'
             ));
         } else {
             $recibosall = AvisoCobro::where('afiliado_id', request()->user()->afiliado->id)->get();

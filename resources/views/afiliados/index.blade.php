@@ -12,54 +12,56 @@
   <div class="mb-4 card">
     <div class="card-body">
       {{-- @dump($afiliados->toArray()) --}}
-      <table class="table table-bordered w-100" id="afiliados-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Razón social</th>
-            <th>Correo del encargado</th>
-            <th>Correo del presidente</th>
-            <th>Encargado del Whatsapp</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-    
-        <tbody>
-          @foreach ($afiliados as $afiliado)
+      <div class="table-responsive">
+        <table class="table table-bordered w-100" id="afiliados-table">
+          <thead>
             <tr>
-              <td>#{{$afiliado->id}}</td>
-              <td>{{ $afiliado->razon_social }}</td>
-              <td>{{ $afiliado->user->email }}</td>
-              <td>{{ $afiliado->personal->correo_presidente ?: 'N/A' }}</td>
-              <td>{{ $afiliado->personal->numero_encargado_ws ?: 'N/A' }}</td>
-              <td style="white-space: nowrap">
-                @can('view', $afiliado)
-                  <a href="{{ route('afiliados.show', $afiliado) }}" class="btn btn-primary">
-                    <i class="fa fa-eye"></i>
-                    Detalles
-                  </a>
-                @endcan
-                @can('delete', $afiliado)
-                  <form action="{{ route('afiliados.destroy', $afiliado) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">
-                      <i class="fa fa-trash"></i>
-                      Eliminar
-                    </button>
-                  </form>
-                @endcan
-                @can('update', $afiliado)
-                  <a href="{{ route('afiliados.edit', $afiliado) }}" class="btn btn-warning">
-                    <i class="fa fa-pen"></i>
-                    Editar
-                  </a>
-                @endcan
-              </td>
+              <th>ID</th>
+              <th>Razón social</th>
+              <th>Correo del encargado</th>
+              <th>Correo del presidente</th>
+              <th>Encargado del Whatsapp</th>
+              <th>Acciones</th>
             </tr>
-          @endforeach
-        </tbody>
-      </table>
+          </thead>
+      
+          <tbody>
+            @foreach ($afiliados as $afiliado)
+              <tr>
+                <td>#{{$afiliado->id}}</td>
+                <td>{{ $afiliado->razon_social }}</td>
+                <td>{{ $afiliado->user->email }}</td>
+                <td>{{ $afiliado->personal->correo_presidente ?: 'N/A' }}</td>
+                <td>{{ $afiliado->personal->numero_encargado_ws ?: 'N/A' }}</td>
+                <td style="white-space: nowrap">
+                  @can('view', $afiliado)
+                    <a href="{{ route('afiliados.show', $afiliado) }}" class="btn btn-primary">
+                      <i class="fa fa-eye"></i>
+                      Detalles
+                    </a>
+                  @endcan
+                  @can('delete', $afiliado)
+                    <form action="{{ route('afiliados.destroy', $afiliado) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                        Eliminar
+                      </button>
+                    </form>
+                  @endcan
+                  @can('update', $afiliado)
+                    <a href="{{ route('afiliados.edit', $afiliado) }}" class="btn btn-warning">
+                      <i class="fa fa-pen"></i>
+                      Editar
+                    </a>
+                  @endcan
+                </td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 @endsection
