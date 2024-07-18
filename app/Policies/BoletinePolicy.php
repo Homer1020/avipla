@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Afiliado;
 use App\Models\Boletine;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -28,7 +29,8 @@ class BoletinePolicy
      */
     public function view(User $user, Boletine $boletine)
     {
-        $afiliadoSolvente = $user->afiliado()->whereDoesntHave('avisosCobros', function($query) {
+        $afiliado = $user->getAfiliado();
+        $afiliadoSolvente = Afiliado::where('id', $afiliado->id)->whereDoesntHave('avisosCobros', function($query) {
             $query->where('estado', '<>', 'conciliado');
         })->exists();
         if($afiliadoSolvente) {

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Afiliado;
 use App\Models\Invoice;
 use App\Models\Pago;
 use App\Models\User;
@@ -29,7 +30,8 @@ class PagoPolicy
      */
     public function view(User $user, Pago $pago): bool
     {
-        return $user->afiliado()->where('id', $pago->avisoCobro->afiliado_id)->exists() || $user->roles()->where('name', 'usuario')->exists();
+        $afiliado = $user->getAfiliado();
+        return $afiliado->id === $pago->avisoCobro->afiliado_id || $user->roles()->where('name', 'usuario')->exists();
     }
 
     /**
@@ -45,7 +47,8 @@ class PagoPolicy
      */
     public function update(User $user, Pago $pago): bool
     {
-        return $user->afiliado->id === $pago->avisoCobro->afiliado_id;
+        $afiliado = $user->getAfiliado();
+        return $afiliado->id === $pago->avisoCobro->afiliado_id;
     }
 
     /**

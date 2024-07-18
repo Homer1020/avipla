@@ -11,7 +11,6 @@ use App\Models\Pago;
 use App\Models\User;
 use App\Notifications\AvisoCobroPaid;
 use App\Notifications\PayUpdated;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PagoController extends Controller
@@ -26,10 +25,11 @@ class PagoController extends Controller
      */
     public function index()
     {
-        $avisosCobros = AvisoCobro::with('afiliado')
-            ->whereHas('afiliado', function ($query) {
-                $query->where('user_id', Auth::user()->id);
-            })
+        $user = request()->user();
+        $afiliado = $user->getAfiliado();
+
+        $avisosCobros = AvisoCobro::with(['afiliado', 'pago'])
+            ->where('afiliado_id', $afiliado->id)
             ->latest()->get();
         return view('pagos.index', compact('avisosCobros'));
     }

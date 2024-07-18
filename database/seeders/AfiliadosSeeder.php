@@ -21,20 +21,20 @@ class AfiliadosSeeder extends Seeder
 
         for ($i = 0; $i < 4; $i++) {
             $solicitud = SolicitudAfiliado::create([
-                'razon_social'  => "Tepuy 21 #{$i}",
-                'correo'        => "ingenieroquero{$i}@gmail.com"  // Correo único para cada iteración
+                'razon_social'  => "Test Empresa #{$i}",
+                'correo'        => "test-{$i}@gmail.com"  // Correo único para cada iteración
             ]);
     
             $user = User::create([
-                'name'      => "Ricardo Briceño #{$i}",
-                'email'     => "ingenieroquero{$i}@gmail.com",    // Correo único para cada iteración
+                'name'      => "Test User #{$i}",
+                'email'     => "test-{$i}@gmail.com",    // Correo único para cada iteración
                 'password'  => bcrypt('admin123'),
             ]);
     
             $user->roles()->sync($afiliado_role);
     
             $afiliado = $user->afiliado()->create([
-                'razon_social'                  => "Tepuy 21 #{$i}",
+                'razon_social'                  => "Test Empresa #{$i}",
                 'rif'                           => "F-00000000{$i}",
                 'anio_fundacion'                => '2001',
                 'capital_social'                => '100',

@@ -81,4 +81,10 @@ class User extends Authenticatable
     public function is_admin(): bool {
         return $this->roles()->whereIn('name', ['administrador', 'usuarios'])->exists();
     }
+
+    public function getAfiliado() {
+        return $this->afiliado
+        ?? $this->afiliadoPresidente
+        ?? $this->afiliadoDirector;
+    }
 }
