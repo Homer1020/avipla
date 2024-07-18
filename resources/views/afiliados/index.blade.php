@@ -20,7 +20,6 @@
               <th>Razón social</th>
               <th>Correo del encargado</th>
               <th>Correo del presidente</th>
-              <th>Encargado del Whatsapp</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -32,7 +31,6 @@
                 <td>{{ $afiliado->razon_social }}</td>
                 <td>{{ $afiliado->user->email }}</td>
                 <td>{{ $afiliado->personal->correo_presidente ?: 'N/A' }}</td>
-                <td>{{ $afiliado->personal->numero_encargado_ws ?: 'N/A' }}</td>
                 <td style="white-space: nowrap">
                   @can('view', $afiliado)
                     <a href="{{ route('afiliados.show', $afiliado) }}" class="btn btn-primary">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Afiliado;
 use App\Models\Invoice;
 use App\Models\Pago;
 use Illuminate\Support\Facades\Storage;
@@ -18,6 +19,11 @@ class FileController extends Controller
         if($dir === 'invoices') {
             $invoice = Invoice::where('invoice_path', $path)->first();
             $this->authorize('view', $invoice);
+        }
+
+        if($dir === 'afiliados') {
+            $afiliado = Afiliado::where('rif_path', $path)->orWhere('estado_financiero_path', $path)->orWhere('registro_mercantil_path', $path)->first();
+            $this->authorize('view', $afiliado);
         }
 
         function mapExtensionToContentType(string $extension): string
