@@ -44,7 +44,8 @@ class AfiliadoPolicy
      */
     public function update(User $user, Afiliado $afiliado): bool
     {
-        return $user->afiliado && $user->afiliado->id === $afiliado->id;
+        $presidente = $user->afiliadoPresidente;
+        return ($user->afiliado && $user->afiliado->id === $afiliado->id) || ($presidente && $presidente->id === $afiliado->id); // esto esta correcto :C
     }
 
     /**

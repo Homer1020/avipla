@@ -9,13 +9,13 @@ use App\Models\User;
 
 class PagoPolicy
 {
-    // public function before(User $user) {
-    //     $user->load('roles', 'afiliado');
-    //     if($user->roles()->where('name', 'administrador')->exists()){
-    //         return true;
-    //     }
-    //     return null;
-    // }
+    public function before(User $user) {
+        $user->load('roles', 'afiliado');
+        if($user->roles()->where('name', 'administrador')->exists()){
+            return true;
+        }
+        return null;
+    }
 
     /**
      * Determine whether the user can view any models.

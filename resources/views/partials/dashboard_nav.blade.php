@@ -95,7 +95,7 @@
                     <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}">Roles</a>
                 </x-nav-link-dropdown>                
             @endcan
-            @if (!request()->user()->roles()->where('name', 'afiliado')->exists())
+            @can('create', App\Models\Boletine::class)
                 <x-nav-link-dropdown
                     title="Boletines"
                     icon="fas fa-envelope"
@@ -105,7 +105,7 @@
                     <a href="{{ route('boletines.index') }}" class="nav-link {{ request()->routeIs('boletines.*') ? 'active' : '' }}">Todos los boletines</a>
                     <a href="{{ route('categorias-boletines.index') }}" class="nav-link {{ request()->routeIs('categorias-boletines.*') ? 'active' : '' }}">Categorías</a>
                 </x-nav-link-dropdown>
-            @else
+            @elsecan('viewAny', App\Models\Boletine::class)
                 <x-nav-link
                     :to="route('boletines.index')"
                     active="boletines.*"
@@ -113,7 +113,7 @@
                 >
                     Boletines
                 </x-nav-link>
-            @endif
+            @endcan
             @if (Auth::user()->is_admin())
                 <x-nav-link
                     :to="route('website.index')"

@@ -8,7 +8,16 @@
   </ol>
   <div class="card mb-4">
     <div class="card-header">
-      <p class="m-0">Datos de mi perfil</p>
+      <p class="m-0">
+        Datos de mi perfil - 
+        @if (Auth::user()->afiliado)
+          Administrador de {{ request()->user()->afiliado->razon_social }}
+        @elseif(Auth::user()->afiliadoPresidente)
+          Presidente de {{ request()->user()->afiliadoPresidente->razon_social }}
+        @elseif(Auth::user()->afiliadoDirector)
+          Administración y cobranzas de {{ request()->user()->afiliadoDirector->razon_social }}
+        @endif
+      </p>
     </div>
     <div class="card-body">
       <form action="{{ route('profile.update') }}" method="POST">

@@ -130,7 +130,7 @@
                                 <a
                                     class="dropdown-item {{ request()->routeIs('profile.showDirector') ? 'active' : '' }}"
                                     href="{{ route('profile.showDirector') }}"
-                                >Perfil del director ejecutivo</a>
+                                >Perfil de administración y cobranzas</a>
                             @endif
                         </li>
                         <li><hr class="dropdown-divider" /></li>

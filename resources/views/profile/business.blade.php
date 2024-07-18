@@ -42,7 +42,9 @@
           <div class="tab-pane" id="messages" role="tabpanel" tabindex="0">
             @include('afiliados.form.products')
           </div>
-          <button class="btn btn-success mt-4" type="submit">Guardar datos de mi empresa</button>
+          @can('update', $afiliado)
+            <button class="btn btn-success mt-4" type="submit">Guardar datos de mi empresa</button>
+          @endcan
         </div>
       </div>
     </div>

@@ -64,6 +64,12 @@ class AvisoCobroController extends Controller
                     $payload['afiliado_id'] = $afiliado->id;
                     $avisoCobro = $user->avisosCobros()->create($payload);
                     $afiliado->user->notify(new AvisoCobroCreated($avisoCobro));
+                    if($afiliado->presidente) {
+                        $afiliado->presidente->notify(new AvisoCobroCreated($avisoCobro));
+                    }
+                    if($afiliado->director) {
+                        $afiliado->director->notify(new AvisoCobroCreated($avisoCobro));
+                    }
                 }
             }
             return redirect()->route('avisos-cobro.index')->with('success', 'Se generó el aviso correctamente');
@@ -112,6 +118,12 @@ class AvisoCobroController extends Controller
                 $administrador->notify(new AvisoCobroStatusChanged($avisoCobro));
             }
             $avisoCobro->afiliado->user->notify(new AvisoCobroStatusChanged($avisoCobro));
+            if($avisoCobro->afiliado->presidente) {
+                $avisoCobro->afiliado->presidente->notify(new AvisoCobroStatusChanged($avisoCobro));
+            }
+            if($avisoCobro->afiliado->director) {
+                $avisoCobro->afiliado->director->notify(new AvisoCobroStatusChanged($avisoCobro));
+            }
         }
         return redirect()->route('avisos-cobro.index', $avisoCobro)->with('success', 'Se actualizó el estado de la factura.');
     }

@@ -72,6 +72,13 @@ class InvoiceController extends Controller
             }
             $avisoCobro->afiliado->user->notify(new InvoiceCreated($invoice));
 
+            if($avisoCobro->afiliado->presidente) {
+                $avisoCobro->afiliado->presidente->notify(new InvoiceCreated($invoice));
+            }
+            if($avisoCobro->afiliado->director) {
+                $avisoCobro->afiliado->director->notify(new InvoiceCreated($invoice));
+            }
+
             return response()->json([
                 'success'   => true,
                 'data'      => [
@@ -119,6 +126,13 @@ class InvoiceController extends Controller
                 $administrador->notify(new InvoiceCreated($invoice));
             }
             $avisoCobro->afiliado->user->notify(new InvoiceCreated($invoice));
+
+            if($avisoCobro->afiliado->presidente) {
+                $avisoCobro->afiliado->presidente->notify(new InvoiceCreated($invoice));
+            }
+            if($avisoCobro->afiliado->director) {
+                $avisoCobro->afiliado->director->notify(new InvoiceCreated($invoice));
+            }
 
             $avisoCobro->update([
                 'estado' => 'CONCILIADO'
