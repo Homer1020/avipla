@@ -118,7 +118,7 @@
                 // Create select element
                 let select = document.createElement('select');
                 select.classList.add('form-select');
-                select.add(new Option('Remover filtro', ''));
+                select.add(new Option(''));
                 column.footer().replaceChildren(select);
  
                 // Apply listener for user change in value

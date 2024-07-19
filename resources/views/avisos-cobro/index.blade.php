@@ -17,6 +17,25 @@
 
   <div class="card mb-4">
     <div class="card-body">
+      <form action="" class="mb-4">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="afiliado" class="form-label">Afiliado</label>
+            <select name="afiliado" id="afiliado" class="form-select mb-3"></select>
+          </div>
+          <div class="col-md-6">
+            <label for="estado" class="form-label">Estado</label>
+            <select name="estado" id="estado" class="form-select mb-3"></select>
+          </div>
+
+          <div class="col-md-6">
+            <input type="date" name="" id="" class="form-control">
+          </div>
+          <div class="col-md-6">
+            <input type="date" name="" id="" class="form-control">
+          </div>
+        </div>
+      </form>
       <table class="table table-bordered w-100" id="invoices-table">
         <thead>
           <tr>
@@ -64,17 +83,6 @@
             </tr>
           @endforeach
         </tbody>
-        <tfoot>
-          <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </tfoot>
       </table>
     </div>
   </div>
@@ -120,37 +128,7 @@
       scrollX: false,
       language: {
         // url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
-      },
-      initComplete: function () {
-        this.api()
-            .columns([1, 2, 3, 4])
-            .every(function () {
-                let column = this;
- 
-                // Create select element
-                let select = document.createElement('select');
-                select.classList.add('form-select');
-                select.add(new Option('Remover filtro', ''));
-                column.footer().replaceChildren(select);
- 
-                // Apply listener for user change in value
-                select.addEventListener('change', function () {
-                    column
-                        .search(select.value, {exact: false})
-                        .draw();
-                });
- 
-                // Add list of options
-                column
-                    .data()
-                    .unique()
-                    .sort()
-                    .each(function (d, j) {
-                      text = d.replace(/<[^>]*>/g, '').trim();
-                      select.add(new Option(text));
-                    });
-            });
-    }
+      }
     })
 
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
