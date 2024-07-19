@@ -47,7 +47,7 @@
               <td>{{ $avisoCobro->monto_total }}$</td>
               <td>
                 @can('view', $avisoCobro)
-                  <a class="btn btn-success" href="{{ route('avisos-cobro.show', $avisoCobro) }}">
+                  <a target="_blank" class="btn btn-success" href="{{ route('avisos-cobro.show', $avisoCobro) }}">
                     <i class="fa fa-eye"></i>
                     Detalles
                   </a>
@@ -64,6 +64,17 @@
             </tr>
           @endforeach
         </tbody>
+        <tfoot>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </div>
@@ -109,7 +120,37 @@
       scrollX: false,
       language: {
         // url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
-      }
+      },
+      initComplete: function () {
+        this.api()
+            .columns([1, 2, 3, 4])
+            .every(function () {
+                let column = this;
+ 
+                // Create select element
+                let select = document.createElement('select');
+                select.classList.add('form-select');
+                select.add(new Option('Remover filtro', ''));
+                column.footer().replaceChildren(select);
+ 
+                // Apply listener for user change in value
+                select.addEventListener('change', function () {
+                    column
+                        .search(select.value, {exact: false})
+                        .draw();
+                });
+ 
+                // Add list of options
+                column
+                    .data()
+                    .unique()
+                    .sort()
+                    .each(function (d, j) {
+                      text = d.replace(/<[^>]*>/g, '').trim();
+                      select.add(new Option(text));
+                    });
+            });
+    }
     })
 
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))

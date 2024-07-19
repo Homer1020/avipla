@@ -70,4 +70,40 @@ class UpdateAfiliadoRequest extends FormRequest
             'afiliados.*'                       => 'exists:afiliados,id',
         ];
     }
+
+    public function attributes() {
+        return [    
+            'brand'                             => 'logo',
+            'anio_fundacion'                    => 'año de fundación',
+            'direccion_oficina'                 => 'dirección oficina',
+            'direccion_planta'                  => 'dirección de planta',
+            'direccion_oficina'                 => 'dirección de oficina',
+            'telefono_oficina'                  => 'teléfono de oficina',
+            'telefono_planta'                   => 'teléfono de planta',
+            'rif_path'                          => 'documento rif',
+            'registro_mercantil_path'           => 'documento registro mercantil',
+            'estado_financiero_path'            => 'documento estado financiero',
+            'correo_presidente'                 => 'correo del presidente',
+            'correo_gerente_general'            => 'correo del gerente general',
+            'correo_gerente_compras'            => 'correo del gerente de compras',
+            'correo_gerente_marketing_ventas'   => 'correo del gerente de marketing y ventas',
+            'correo_gerente_planta'             => 'correo del gerente de planta',
+            'correo_gerente_recursos_humanos'   => 'correo del gerente de recursos humanos',
+            'correo_administrador'              => 'correo del administrador',
+            'correo_gerente_exportaciones'      => 'correo del gerente de exportaciones',
+            'correo_representante_avipla'       => 'correo del representante ante AVIPLA',
+            'numero_encargado_ws'               => 'teléfono del encargado de whatsapp',
+            'servicios'                         => 'servicios prestados',
+        ];
+    }
+
+    public function messages() {
+        return [
+            'actividad_id.required'         => 'La actividad principal es requerida',
+            'productos.required'            => 'La línea de productos es requerida',
+            'produccion_total_mensual.*'    => 'la producción total mensual es obligatoria',
+            'porcentage_exportacion.*'      => 'el porcentage de exportación es obligatoria',
+            'mercado_exportacion.*'         => 'el mercado de exportación es obligatoria'
+        ];
+    }
 }

@@ -44,13 +44,25 @@
                     <td>
                         <a href="{{ route("invoices.show", $invoice) }}" class="btn btn-primary">
                           <i class="fa fa-file-invoice"></i>
-                          Ver factura
+                          Ver detalles
                       </a>
                     </td>
                 </tr>
             @endcan
           @endforeach
         </tbody>
+        @can('create', App\Models\Invoice::class)
+          <tfoot>
+            <tr>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </tfoot>
+        @endcan
       </table>
     </div>
   </div>
@@ -96,6 +108,36 @@
       scrollX: false,
       language: {
         // url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
+      },
+      initComplete: function () {
+        this.api()
+            .columns([2,3])
+            .every(function () {
+                let column = this;
+ 
+                // Create select element
+                let select = document.createElement('select');
+                select.classList.add('form-select');
+                select.add(new Option('Remover filtro', ''));
+                column.footer().replaceChildren(select);
+ 
+                // Apply listener for user change in value
+                select.addEventListener('change', function () {
+                    column
+                        .search(select.value, {exact: false})
+                        .draw();
+                });
+ 
+                // Add list of options
+                column
+                    .data()
+                    .unique()
+                    .sort()
+                    .each(function (d, j) {
+                      text = d.replace(/<[^>]*>/g, '').trim();
+                      select.add(new Option(text));
+                    });
+            });
       }
     })
 

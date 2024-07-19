@@ -21,9 +21,10 @@
               <select class="selectpicker @error('aviso_cobro_id') is-invalid @enderror w-100" name="aviso_cobro_id" id="aviso_cobro_id" data-placeholder="Seleccione un recibo">
                 <option></option>
                 @foreach ($avisosCobro as $avisoCobro)
-                  <option value="{{ $avisoCobro->id }}">#{{ $avisoCobro->codigo_aviso }}</option>
+                  <option value="{{ $avisoCobro->id }}">{{ $avisoCobro->afiliado->razon_social }} - #{{ $avisoCobro->codigo_aviso }}</option>
                 @endforeach
               </select>
+              <div id="aviso_cobro_id_help" class="form-text">Avisos de cobro en estado de revisión.</div>
               @error('aviso_cobro_id')
                 <span class="invalid-feedback">{{ $message }}</span>
               @enderror 

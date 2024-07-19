@@ -32,6 +32,10 @@
                     {{ $pago->referencia ? '#' . $pago->referencia : 'N/A' }}
                 </li>
                 <li class="list-group-item">
+                    <span class="fw-bold">Tasa:</span>
+                    {{ $pago->tasa ? 'Bs.s ' . $pago->tasa : 'N/A' }}
+                </li>
+                <li class="list-group-item">
                     <span class="fw-bold">Empresa:</span>
                     {{ $avisoCobro->afiliado->razon_social }}
                 </li>

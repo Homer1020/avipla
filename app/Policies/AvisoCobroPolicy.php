@@ -29,7 +29,7 @@ class AvisoCobroPolicy
     public function view(User $user, AvisoCobro $avisoCobro): bool
     {
         $afiliado = $user->getAfiliado();
-        return ($afiliado->id === $avisoCobro->afiliado_id) || $user->roles()->where('name', 'usuario')->exists();
+        return ($afiliado && $afiliado->id === $avisoCobro->afiliado_id) || $user->roles()->where('name', 'usuario')->exists();
     }
 
     /**
