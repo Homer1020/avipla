@@ -43,13 +43,15 @@
                     <span class="fw-bold">Fecha de pago:</span>
                     {{ $pago->fecha_pago }}
                 </li>
-                <li class="list-group-item">
-                    <span class="fw-bold d-block mb-2">Comprobante de pago:</span>
-                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'comprobantes', 'path' => $pago->comprobante]) }}" class="btn btn-outline-primary">
-                        <i class="fa fa-file"></i>
-                        Comprobante
-                    </a>
-                </li>
+                @if ($pago->comprobante)
+                    <li class="list-group-item">
+                        <span class="fw-bold d-block mb-2">Comprobante de pago:</span>
+                        <a target="_blank" href="{{ route('files.getFile', ['dir' => 'comprobantes', 'path' => $pago->comprobante]) }}" class="btn btn-outline-primary">
+                            <i class="fa fa-file"></i>
+                            Comprobante
+                        </a>
+                    </li>
+                @endif
                 @if ($avisoCobro->estado === 'DEVUELTO')
                     <li class="list-group-item">
                         <span class="fw-bold d-block mb-2">Modificar pago:</span>

@@ -9,13 +9,13 @@ use App\Models\User;
 
 class PagoPolicy
 {
-    public function before(User $user) {
-        $user->load('roles', 'afiliado');
-        if($user->roles()->where('name', 'administrador')->exists()){
-            return true;
-        }
-        return null;
-    }
+    // public function before(User $user) {
+    //     $user->load('roles', 'afiliado');
+    //     if($user->roles()->where('name', 'administrador')->exists()){
+    //         return true;
+    //     }
+    //     return null;
+    // }
 
     /**
      * Determine whether the user can view any models.
@@ -31,7 +31,7 @@ class PagoPolicy
     public function view(User $user, Pago $pago): bool
     {
         $afiliado = $user->getAfiliado();
-        return $afiliado->id === $pago->avisoCobro->afiliado_id || $user->roles()->where('name', 'usuario')->exists();
+        return ($afiliado && $afiliado->id === $pago->avisoCobro->afiliado_id) || $user->roles()->whereIn('name', ['usuario', 'administrador'])->exists();
     }
 
     /**

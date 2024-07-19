@@ -41,11 +41,13 @@ class PagoController extends Controller
     {
         $payload = $request->validated();
 
-        $comprobanteFile = $request->file('comprobante');
-        $comprobanteFileName = $comprobanteFile->hashName();
-        $comprobanteFile->storeAs('comprobantes', $comprobanteFileName);
+        if($request->hasFile('comprobante')) {
+            $comprobanteFile = $request->file('comprobante');
+            $comprobanteFileName = $comprobanteFile->hashName();
+            $comprobanteFile->storeAs('comprobantes', $comprobanteFileName);
 
-        $payload['comprobante'] = $comprobanteFileName;
+            $payload['comprobante'] = $comprobanteFileName;
+        }
 
         $avisoCobro = AvisoCobro::where('id', $payload['aviso_cobro_id'])->first();
 

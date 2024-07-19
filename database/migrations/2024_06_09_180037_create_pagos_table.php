@@ -32,9 +32,9 @@ return new class extends Migration
                 ->on('bancos')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->string('comprobante');
-            $table->string('tasa')->nullable();
-            $table->string('monto');
+            $table->string('comprobante')->nullable();
+            $table->decimal('tasa')->nullable();
+            $table->decimal('monto');
             $table->string('referencia')->nullable();
             $table->date('fecha_pago');
             $table->timestamps();

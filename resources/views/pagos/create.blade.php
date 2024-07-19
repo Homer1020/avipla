@@ -155,7 +155,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="comprobante" class="form-label">Comprobante <span class="text-danger fw-bold">*</span></label>
+                        <label for="comprobante" class="form-label">Comprobante</label>
                         <input
                             type="file"
                             name="comprobante"
@@ -168,7 +168,7 @@
                     </div>
                     <button type="submit" class="btn btn-outline-success mt-4">
                         <i class="fas fa-money-bill-alt"></i>
-                        Pagar factura
+                        Reportar pago del abono
                     </button>
                 </form>
             </div>

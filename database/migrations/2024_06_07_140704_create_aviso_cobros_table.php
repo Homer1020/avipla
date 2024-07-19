@@ -27,7 +27,7 @@ return new class extends Migration
                 ->onUpdate('CASCADE');
             $table->enum('estado', ['PENDIENTE', 'REVISION', 'CONCILIADO', 'DEVUELTO'])->default('PENDIENTE');
             $table->string('codigo_aviso');
-            $table->string('monto_total');
+            $table->decimal('monto_total');
             $table->text('observaciones')->nullable();
             $table->date('fecha_limite')->nullable();
             $table->timestamps();

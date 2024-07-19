@@ -27,7 +27,7 @@ class StorePagoRequest extends FormRequest
             'tasa'              => 'numeric|nullable',
             'referencia'        => 'nullable|unique:pagos,referencia',
             'monto'             => 'required|numeric',
-            'comprobante'       => 'file|required|mimes:pdf,png,jpg,jpeg',
+            'comprobante'       => 'file|nullable|mimes:pdf,png,jpg,jpeg',
             'aviso_cobro_id'    => 'numeric|required|exists:aviso_cobros,id',
             'fecha_pago'        => 'required|date',
         ];

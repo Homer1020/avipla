@@ -66,7 +66,15 @@
             @can('viewAny', App\Models\Pago::class)
                 <x-nav-link
                     :to="route('pagos.index')"
-                    active="pagos.*"
+                    active="{{
+                    request()->routeIs('pagos.invoice')
+                        ? 'pagos.invoice'
+                        : (
+                            request()->routeIs('avisos-cobro.payCollectionNotice')
+                            ? 'avisos-cobro.payCollectionNotice'
+                            : 'pagos.*'
+                        )
+                    }}"
                     icon="fas fa-credit-card"
                 >
                     Avisos de cobro
