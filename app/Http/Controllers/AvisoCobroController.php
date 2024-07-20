@@ -24,8 +24,39 @@ class AvisoCobroController extends Controller
      */
     public function index()
     {
-        $avisosCobros = AvisoCobro::with('pago')->latest()->get();
-        return view('avisos-cobro.index', compact('avisosCobros'));
+        $afiliados      = Afiliado::all();
+        $afiliado       = request()->input('afiliado');
+        $estado         = request()->input('estado');
+        $date_range     = request()->input('date_range');
+        $queryAvisosCobros   = AvisoCobro::with('pago')->latest();
+
+        if ($afiliado) {
+            $queryAvisosCobros->where('afiliado_id', $afiliado);
+        }
+    
+        if ($estado) {
+            $queryAvisosCobros->where('estado', $estado);
+            
+        }
+
+        if ($date_range) {
+            $dates = explode(' - ', $date_range);
+            if (count($dates) == 2) {
+                $startDate = $this->convertDateFormat($dates[0]);
+                $endDate = $this->convertDateFormat($dates[1]);
+                $queryAvisosCobros->whereBetween('created_at', [$startDate, $endDate]);
+            }
+        }
+
+        $avisosCobros = $queryAvisosCobros->get();
+
+        return view('avisos-cobro.index', compact('avisosCobros', 'afiliados'));
+    }
+
+    private function convertDateFormat($date)
+    {
+        $dateObj = \DateTime::createFromFormat('Y/m/d', $date);
+        return $dateObj ? $dateObj->format('Y-m-d') : null;
     }
 
     /**
@@ -125,7 +156,9 @@ class AvisoCobroController extends Controller
                 $avisoCobro->afiliado->director->notify(new AvisoCobroStatusChanged($avisoCobro));
             }
         }
-        return redirect()->route('avisos-cobro.index', $avisoCobro)->with('success', 'Se actualizó el estado de la factura.');
+        $queryParams = $request->query();
+        $url = route('avisos-cobro.index') . '?' . http_build_query($queryParams);
+        return redirect($url)->with('success', 'Se actualizó el estado de la factura.');
     }
 
     /**

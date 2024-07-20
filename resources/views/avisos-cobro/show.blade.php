@@ -154,7 +154,10 @@
                 </li>
                 @can('update', $avisoCobro)
                     <li class="list-group-item">
-                        <form action="{{ route('avisos-cobro.update', $avisoCobro) }}" method="POST">
+                        @php
+                            $queryParams = request()->query();
+                        @endphp
+                        <form action="{{ route('avisos-cobro.update', $avisoCobro) }}{{ !empty($queryParams) ? '?' . http_build_query($queryParams) : '' }}" method="POST">
                             @method('PATCH')
                             @csrf
                             <div class="mb-3">
