@@ -34,7 +34,7 @@
               </div>
               <h1 class="fs-3 fw-bold text-primary text-center mb-4 text-uppercase">Crear cuenta</h1>
 
-              <form id="afiliado-form" action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data">
+              <form novalidate id="afiliado-form" action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="confirmation_code" value="{{ $solicitud->confirmation_code }}">
                 <!-- Nav tabs -->
@@ -216,6 +216,44 @@
       // Array.from(document.getElementById('business-data').querySelectorAll('input, select')).every(item => item.validity.valid)
     })
   </script>
+
+  @if (old('productos'))
+    <script>
+      const oldProducts = JSON.parse(`{!! json_encode(old('productos')) !!}`)
+      oldProducts.forEach(product => {
+
+        if(isNaN(parseInt(product))) {
+          const option = new Option(product, product, true, true)
+          $('#productos').append(option).trigger('change')
+        }
+      })
+    </script>
+  @endif
+
+  @if (old('servicios'))
+    <script>
+      const oldServicios = JSON.parse(`{!! json_encode(old('servicios')) !!}`)
+      oldServicios.forEach(servicio => {
+        if(isNaN(parseInt(servicio))) {
+          const option = new Option(servicio, servicio, true, true)
+          $('#servicios').append(option).trigger('change')
+        }
+      })
+    </script>
+  @endif
+
+  @if (old('materias_primas'))
+    <script>
+      const oldMaterias = JSON.parse(`{!! json_encode(old('materias_primas')) !!}`)
+      oldMaterias.forEach(materia => {
+        if(isNaN(parseInt(materia))) {
+          const option = new Option(materia, materia, true, true)
+          $('#materias_primas').append(option).trigger('change')
+        }
+      })
+    </script>
+  @endif
+
 </body>
 
 </html>

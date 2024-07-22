@@ -161,16 +161,36 @@ class AuthController extends Controller
         ]);
 
         foreach ($data_productos['productos'] as $key => $producto_id) {
+            if(!is_numeric($producto_id)) {
+                $producto = Producto::create(['nombre' => $producto_id]);
+                $producto_id = $producto->id;
+            }
+
             $pivot_data[$producto_id] = [
                 'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
                 'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
                 'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
             ];
         }
-
         $afiliado->productos()->attach($pivot_data);
-        $afiliado->servicios()->attach($request->input('servicios'));
-        $afiliado->materias_primas()->attach($request->input('materias_primas'));
+
+        foreach($request->input('servicios') as $servicio) {
+            if(is_numeric($servicio)) {
+                $afiliado->servicios()->attach($servicio);
+            } else {
+                $newServicio = Servicio::create(['nombre_servicio' => $servicio]);
+                $afiliado->servicios()->attach($newServicio->id);
+            }
+        }
+
+        foreach($request->input('materias_primas') as $materia) {
+            if(is_numeric($materia)) {
+                $afiliado->materias_primas()->attach($materia);
+            } else {
+                $newMateria = MateriaPrima::create(['materia_prima' => $servicio]);
+                $afiliado->materias_primas()->attach($newMateria->id);
+            }
+        }
         $afiliado->referencias()->attach($request->input('afiliados'));
 
         // and last but not less important

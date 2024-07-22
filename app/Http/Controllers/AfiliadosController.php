@@ -161,16 +161,40 @@ class AfiliadosController extends Controller
         ]);
 
         foreach ($data_productos['productos'] as $key => $producto_id) {
+            if(!is_numeric($producto_id)) {
+                $producto = Producto::create(['nombre' => $producto_id]);
+                $producto_id = $producto->id;
+            }
             $pivot_data[$producto_id] = [
                 'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
                 'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
                 'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
             ];
         }
-
         $afiliado->productos()->sync($pivot_data);
-        $afiliado->servicios()->sync($request->input('servicios'));
-        $afiliado->materias_primas()->sync($request->input('materias_primas'));
+        
+        $serviciosIds = [];
+        foreach ($request->input('servicios') as $servicio) {
+            if (is_numeric($servicio)) {
+                $serviciosIds[] = $servicio; // Añade los serviciosIds existentes al array
+            } else {
+                $newServicio = Servicio::create(['nombre_servicio' => $servicio]);
+                $serviciosIds[] = $newServicio->id; // Añade el ID del nuevo servicio creado al array
+            }
+        }
+        $afiliado->servicios()->sync($serviciosIds);
+
+        $materiasIds = [];
+        foreach ($request->input('materias_primas') as $servicio) {
+            if (is_numeric($servicio)) {
+                $materiasIds[] = $servicio; // Añade los materiasIds existentes al array
+            } else {
+                $newMateria = MateriaPrima::create(['materia_prima' => $servicio]);
+                $materiasIds[] = $newMateria->id; // Añade el ID del nuevo servicio creado al array
+            }
+        }
+        $afiliado->materias_primas()->sync($materiasIds);
+        
         $afiliado->referencias()->sync($request->input('afiliados'));
 
         return request()->user()->is_admin()

@@ -56,7 +56,8 @@ class StoreAfiliadoRequest extends FormRequest
             'numero_encargado_ws'               => 'required|numeric',
 
             'productos'                         => 'required|array|min:1',
-            'productos.*'                       => 'required|exists:productos,id',
+            'productos.*'                       => 'required',
+
             'produccion_total_mensual'          => 'array',
             'produccion_total_mensual.*'        => 'required',
             'porcentage_exportacion'            => 'array', 
@@ -64,10 +65,12 @@ class StoreAfiliadoRequest extends FormRequest
             'mercado_exportacion'               => 'array',
             'mercado_exportacion.*'             => 'required',
             
-            'materias_primas'                   => 'required|array|min:1',
-            'materias_primas.*'                 => 'required|exists:productos,id',
-            'servicios'                         => 'required|array|min:1',
-            'servicios.*'                       => 'required|exists:servicios,id',
+            'materias_primas'                   => 'required|array',
+            'materias_primas.*'                 => 'required',
+            'servicios'                         => 'required|array',
+
+            'servicios.*'                       => 'required',
+            
             'afiliados'                         => 'array',
             'afiliados.*'                       => 'exists:afiliados,id',
         ];

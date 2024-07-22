@@ -25,10 +25,10 @@
 </div>
 <div id="products_details">
   @foreach (old('productos', $afiliado->productos) as $key => $producto)
-    <div class="row" id="producto-{{ strtolower($productos->find($producto)->nombre) }}">
+    <div class="row" id="producto-{{ strtolower($productos->find($producto) ? $productos->find($producto)->nombre : $producto) }}">
       <div class="col-12">
         <p class="fw-bold text-uppercase text-muted">
-          <small>Detalles de {{ $productos->find($producto)->nombre }}</small>
+          <small>Detalles de {{ $productos->find($producto) ? $productos->find($producto)->nombre : $producto }}</small>
         </p>
       </div>
       <div class="col-lg-4 mb-3">

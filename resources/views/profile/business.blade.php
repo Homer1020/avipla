@@ -10,7 +10,6 @@
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item active">Perfil de empresa</li>
   </ol>
-
   <form novalidate action="{{ route('afiliados.update', $afiliado) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
@@ -134,6 +133,42 @@
             icon: "success",
             title: "{{ session('success') }}"
         });
+    </script>
+  @endif
+  @if (old('productos'))
+    <script>
+      const oldProducts = JSON.parse(`{!! json_encode(old('productos')) !!}`)
+      oldProducts.forEach(product => {
+
+        if(isNaN(parseInt(product))) {
+          const option = new Option(product, product, true, true)
+          $('#productos').append(option).trigger('change')
+        }
+      })
+    </script>
+  @endif
+
+  @if (old('servicios'))
+    <script>
+      const oldServicios = JSON.parse(`{!! json_encode(old('servicios')) !!}`)
+      oldServicios.forEach(servicio => {
+        if(isNaN(parseInt(servicio))) {
+          const option = new Option(servicio, servicio, true, true)
+          $('#servicios').append(option).trigger('change')
+        }
+      })
+    </script>
+  @endif
+
+  @if (old('materias_primas'))
+    <script>
+      const oldMaterias = JSON.parse(`{!! json_encode(old('materias_primas')) !!}`)
+      oldMaterias.forEach(materia => {
+        if(isNaN(parseInt(materia))) {
+          const option = new Option(materia, materia, true, true)
+          $('#materias_primas').append(option).trigger('change')
+        }
+      })
     </script>
   @endif
 @endpush

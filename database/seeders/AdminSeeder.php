@@ -15,9 +15,9 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $user = User::create([
-            'email'     => 'homermoncallo@gmail.com',
+            'email'     => 'admin@avipla.com',
             'password'  => bcrypt('admin123'),
-            'name'      => 'Homer Moncayo'
+            'name'      => 'Administrador AVIPLA'
         ]);
 
         $afiliado_role = Role::firstOrCreate(['name' => 'administrador']);

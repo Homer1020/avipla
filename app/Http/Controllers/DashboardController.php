@@ -91,12 +91,12 @@ class DashboardController extends Controller
 
         $data['afiliados_morosos'] = [
             'cantidad'      => $afiliadosMorosos,
-            'porcentaje'    => ($afiliadosMorosos / $totalAfiliados) * 100
+            'porcentaje'    => ($afiliadosMorosos / ($totalAfiliados ?: 1)) * 100
         ];
 
         $data['afiliados_al_dia'] = [
             'cantidad'      => $afiliadosAlDia,
-            'porcentaje'    => ($afiliadosAlDia / $totalAfiliados) * 100
+            'porcentaje'    => ($afiliadosAlDia / ($totalAfiliados ?: 1)) * 100
         ];
 
         $data['afiliados'] = [

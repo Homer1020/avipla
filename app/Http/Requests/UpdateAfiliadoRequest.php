@@ -54,7 +54,7 @@ class UpdateAfiliadoRequest extends FormRequest
             'numero_encargado_ws'               => 'nullable|numeric',
 
             'productos'                         => 'required|array|min:1',
-            'productos.*'                       => 'required|exists:productos,id',
+            'productos.*'                       => 'required',
             'produccion_total_mensual'          => 'array',
             'produccion_total_mensual.*'        => 'required',
             'porcentage_exportacion'            => 'array', 
@@ -63,9 +63,9 @@ class UpdateAfiliadoRequest extends FormRequest
             'mercado_exportacion.*'             => 'required',
             
             'materias_primas'                   => 'required|array|min:1',
-            'materias_primas.*'                 => 'required|exists:productos,id',
+            'materias_primas.*'                 => 'required',
             'servicios'                         => 'required|array|min:1',
-            'servicios.*'                       => 'required|exists:servicios,id',
+            'servicios.*'                       => 'required',
             'afiliados'                         => 'array',
             'afiliados.*'                       => 'exists:afiliados,id',
         ];
