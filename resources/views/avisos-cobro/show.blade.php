@@ -14,7 +14,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Generar factura</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Generar factura trimestral</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -76,7 +76,7 @@
             @if ($avisoCobro->invoice)
                 <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-primary">
                     <i class="fas fa-file-invoice"></i>
-                    Ver factura
+                    Ver factura trimestral
                 </a>
             @endif
         </div>

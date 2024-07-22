@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInvoiceRequest;
+use App\Models\Afiliado;
 use App\Models\AvisoCobro;
 use App\Models\Invoice;
 use App\Models\User;
@@ -23,8 +24,31 @@ class InvoiceController extends Controller
      */
     public function index()
     {
-        $invoices = Invoice::with('avisoCobro')->latest()->get();
-        return view('invoices.index', compact('invoices'));
+        $afiliado       = request()->input('afiliado');
+        $date_range     = request()->input('date_range');
+        $queryInvoices = Invoice::with('avisoCobro')->latest();
+        if ($afiliado) {
+            $queryInvoices->whereHas('avisoCobro', function($query) use ($afiliado) {
+                $query->where('afiliado_id', $afiliado);
+            });
+        }
+        if ($date_range) {
+            $dates = explode(' - ', $date_range);
+            if (count($dates) == 2) {
+                $startDate = $this->convertDateFormat($dates[0]);
+                $endDate = $this->convertDateFormat($dates[1]);
+                $queryInvoices->whereBetween('created_at', [$startDate, $endDate]);
+            }
+        }
+        $invoices = $queryInvoices->get();
+        $afiliados = Afiliado::all();
+        return view('invoices.index', compact('invoices', 'afiliados'));
+    }
+
+    private function convertDateFormat($date)
+    {
+        $dateObj = \DateTime::createFromFormat('Y/m/d', $date);
+        return $dateObj ? $dateObj->format('Y-m-d') : null;
     }
 
     /**

@@ -23,7 +23,7 @@
             <div class="alert alert-info">
                 <h6>Estimado Afiliado,</h6>
 
-                <p>Queremos informarle que ya puede realizar el pago correspondiente al mes en curso de la cuota de mantenimiento. Le invitamos a realizar el pago y reportarlo a través del formulario que encontrará a continuación.</p>
+                <p>Queremos informarle que ya puede realizar el pago correspondiente a #{{ $avisoCobro->codigo_aviso }} de la cuota de mantenimiento. Le invitamos a realizar el pago y reportarlo a través del formulario que encontrará a continuación.</p>
 
                 <p>El monto de la cuota puede ser cancelado en dólares en efectivo en nuestra sede, o abonado en las cuentas bancarias señaladas más adelante mediante depósito o transferencia, a la tasa de cambio BCV del día en que se haga efectivo el pago.</p>
 
