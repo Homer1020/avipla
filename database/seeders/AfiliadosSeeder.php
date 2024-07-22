@@ -22,12 +22,12 @@ class AfiliadosSeeder extends Seeder
         for ($i = 0; $i < 4; $i++) {
             $solicitud = SolicitudAfiliado::create([
                 'razon_social'  => "Test Empresa #{$i}",
-                'correo'        => "test-{$i}@gmail.com"  // Correo único para cada iteración
+                'correo'        => "test{$i}@gmail.com"  // Correo único para cada iteración
             ]);
     
             $user = User::create([
                 'name'      => "Test User #{$i}",
-                'email'     => "test-{$i}@gmail.com",    // Correo único para cada iteración
+                'email'     => "test{$i}@gmail.com",    // Correo único para cada iteración
                 'password'  => bcrypt('admin123'),
             ]);
     

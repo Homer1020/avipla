@@ -27,6 +27,19 @@
                             <span class="input-group-text">#</span>
                             <input name="numero_factura" required id="numero_factura" type="number" class="form-control" placeholder="10203010">    
                         </div> 
+
+                        <label for="monto_total" class="form-label">Monto total</label>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">$</span>
+                            <input
+                                type="number"
+                                name="monto_total"
+                                id="monto_total"
+                                placeholder="00,00"
+                                class="form-control"
+                                step="0.01"
+                            >
+                        </div>
                         
                         <div class="mb-3">
                             <label for="invoice_path" class="form-label">Cargar factura <span class="text-danger fw-bold">*</span></label>

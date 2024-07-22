@@ -79,9 +79,9 @@
         </button>
 
         @if(
-          request()->has('afiliado') ||
-          request()->has('estado') ||
-          request()->has('date_range')
+          request()->input('afiliado') ||
+          request()->input('estado') ||
+          request()->input('date_range')
         )
           <a href="{{ route('avisos-cobro.index') }}" class="btn btn-outline-secondary">
             <i class="fa fa-times"></i>

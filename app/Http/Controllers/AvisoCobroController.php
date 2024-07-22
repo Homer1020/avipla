@@ -12,6 +12,7 @@ use App\Notifications\AvisoCobroStatusChanged;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AvisoCobroController extends Controller
 {

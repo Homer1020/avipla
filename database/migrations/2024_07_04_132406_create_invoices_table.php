@@ -33,6 +33,7 @@ return new class extends Migration
                 ->onUpdate('CASCADE');
             $table->string('numero_factura')->unique();
             $table->string('codigo_factura')->unique();
+            $table->decimal('monto_total');
             $table->string('invoice_path');
             $table->text('observaciones')->nullable();
             $table->timestamps();
