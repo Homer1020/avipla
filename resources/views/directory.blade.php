@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Directorio')
+@section('meta_description', 'Explora el directorio de afiliados de la Asociación Venezolana de Plástico. Encuentra empresas y profesionales dedicados al desarrollo y la innovación en la industria del plástico en Venezuela.')
+@section('meta_keywords', 'directorio de afiliados, asociación venezolana de plástico, afiliados, empresas de plástico, profesionales del plástico, Venezuela, búsqueda de afiliados')
 @section('content')
     <div class="header-separator"></div>
 

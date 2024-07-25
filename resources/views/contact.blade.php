@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Contacto')
+@section('meta_description', 'Ponte en contacto con la Asociación Venezolana de Plástico para obtener más información sobre nuestros servicios, eventos y membresías. Estamos aquí para ayudarte con cualquier consulta que tengas.')
+@section('meta_keywords', 'contacto, Asociación Venezolana de Plástico, formulario de contacto, consultas, eventos, membresías, información')
 @push('css')
     <style>
         .hero {

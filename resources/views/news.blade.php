@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Noticias')
+@section('meta_description', 'Mantente informado con las últimas noticias y actualizaciones de la Asociación Venezolana de Plástico. Encuentra artículos, comunicados y eventos recientes relacionados con la industria del plástico en Venezuela.')
+@section('meta_keywords', 'noticias, Asociación Venezolana de Plástico, actualizaciones, industria del plástico, eventos, comunicados, Venezuela')
 @push('css')
     <style>
         .hero {

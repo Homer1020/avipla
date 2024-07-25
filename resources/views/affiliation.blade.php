@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Afiliación')
+@section('meta_description', 'Únete a la Asociación Venezolana de Plástico y forma parte de nuestra red de empresas y profesionales dedicados al desarrollo y la innovación en la industria del plástico en Venezuela. Descubre los beneficios de ser miembro.')
+@section('meta_keywords', 'afiliación, membresía, asociación venezolana de plástico, beneficios de afiliación, industria del plástico, Venezuela, unirse a la asociación')
 @section('content')
 <div class="header-separator"></div>
 <!-- section -->

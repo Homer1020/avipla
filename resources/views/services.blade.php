@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Servicios')
+@section('meta_description', 'Descubre los servicios que ofrece la Asociación Venezolana de Plástico para apoyar a empresas y profesionales en la industria del plástico en Venezuela. Consulta nuestra oferta de servicios especializados y cómo podemos ayudarte.')
+@section('meta_keywords', 'servicios, Asociación Venezolana de Plástico, apoyo a empresas, servicios especializados, industria del plástico, Venezuela')
 @section('content')
 <div class="header-separator"></div>
 

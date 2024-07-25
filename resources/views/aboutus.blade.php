@@ -1,5 +1,7 @@
 @extends('layouts.main')
 @section('title', '¿Quienes somos?')
+@section('meta_description', 'Conoce más sobre la Asociación Venezolana de Plástico. Descubre nuestra misión, visión y los valores que nos guían en la promoción y desarrollo de la industria del plástico en Venezuela.')
+@section('meta_keywords', 'sobre nosotros, asociación venezolana de plástico, misión, visión, valores, industria del plástico, Venezuela, desarrollo del plástico')
 @section('content')
 <div class="header-separator"></div>
 

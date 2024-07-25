@@ -13,6 +13,7 @@
         <link rel="shortcut icon" href="{{ asset('assets/img/logo.png') }}" type="image/png">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <link href="{{ asset('css/styles.css') }}" rel="stylesheet" />
+        <meta name="robots" content="noindex, nofollow"> <!-- The dashboard isnt should be indexed -->
         @stack('css')
         <style>
             .sb-nav-link-icon {
