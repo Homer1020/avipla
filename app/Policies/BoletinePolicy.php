@@ -31,11 +31,13 @@ class BoletinePolicy
     {
         $afiliado = $user->getAfiliado();
         $afiliadoSolvente = Afiliado::where('id', $afiliado->id)->whereDoesntHave('avisosCobros', function($query) {
-            $query->where('estado', '<>', 'conciliado')
-            ->where(function($query) {
-                $query->whereRaw('YEAR(created_at) = YEAR(CURDATE())')
-                      ->whereRaw('MONTH(created_at) < MONTH(CURDATE())');
-            });
+            $query
+                ->where('estado', '<>', 'conciliado')
+                ->where(function($query) {
+                    $query
+                        ->whereRaw('YEAR(created_at) = YEAR(CURDATE())')
+                        ->whereRaw('MONTH(created_at) < MONTH(CURDATE())');
+                    });
         })->exists();
         if($afiliadoSolvente) {
             return Response::allow();
