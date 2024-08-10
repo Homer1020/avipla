@@ -85,18 +85,18 @@ Route::middleware('auth')->group(function() {
   Route::get('perfil/director', [ProfileController::class, 'showDirector'])->name('profile.showDirector');
   Route::post('perfil/presidente', [ProfileController::class, 'storePresidente'])->name('profile.storePresidente');
   Route::post('perfil/director', [ProfileController::class, 'storeDirector'])->name('profile.storeDirector');
+
+  Route::get('mi-empresa', [ProfileController::class, 'businessShow'])->name('business.show');
+  Route::put('mi-empresa', [ProfileController::class, 'update'])->name('business.update');
+
+  Route::resource('roles', RoleController::class)
+  ->middleware('is_admin');
+
+  Route::resource('boletines', BoletineController::class);
+  Route::resource('categorias-boletines', CategoriaBoletineController::class)
+    ->parameters(['categorias-boletines' => 'category'])
+    ->except(['show']);
 });
-
-Route::get('mi-empresa', [ProfileController::class, 'businessShow'])->name('business.show');
-Route::put('mi-empresa', [ProfileController::class, 'update'])->name('business.update');
-
-Route::resource('roles', RoleController::class)
-  ->middleware(['auth', 'is_admin']);
-
-Route::resource('boletines', BoletineController::class);
-Route::resource('categorias-boletines', CategoriaBoletineController::class)
-  ->parameters(['categorias-boletines' => 'category'])
-  ->except(['show']);
 
 Route::get('notificaciones', [NotificationController::class, 'index'])
   ->name('notifications.index')
@@ -116,8 +116,8 @@ Route::get('pagos/{avisoCobro}/pagar', [AvisoCobroController::class, 'payCollect
   ->name('avisos-cobro.payCollectionNotice')
   ->middleware('auth');
 Route::get('pagos/{avisoCobro}/detalle', [AvisoCobroController::class, 'avisoCobroDetails'])
-
-  ->name('pagos.invoice');
+  ->name('pagos.invoice')
+  ->middleware('auth');
 /**
  * NEWS ROUTES
  */
@@ -130,8 +130,11 @@ Route::resource('noticias', NoticiaController::class)
  */
 Route::resource('facturas', InvoiceController::class)
   ->parameters(['facturas', 'invoice'])
-  ->names('invoices');
-Route::post('factura/pagar', [InvoiceController::class, 'formStore'])->name('invoices.formStore');
+  ->names('invoices')
+  ->middleware('auth');
+Route::post('factura/pagar', [InvoiceController::class, 'formStore'])
+  ->name('invoices.formStore')
+  ->middleware('auth');
 
 Route::resource('categorias', CategoryController::class)
   ->names('categories')
@@ -157,11 +160,6 @@ Route::resource('pagos', PagoController::class)
 Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
   ->middleware('auth')
   ->name('files.getFile');
-
-Route::get('/mailable', function () {
-    $solicitud = App\Models\SolicitudAfiliado::find(1);
-    return new App\Mail\VerifyAfiliadoEmail($solicitud);
-});
 
 /**
  * WEBSITE
