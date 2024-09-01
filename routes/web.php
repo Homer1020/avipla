@@ -55,13 +55,13 @@ Route::middleware('guest')->group(function() {
   Route::get('/reset-password/{token}', [AuthController::class, 'resetPasswordForm'])->name('password.reset');
   Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
-Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
-
-Route::get('dashboard', [DashboardController::class, 'index'])
-  ->name('dashboard')
-  ->middleware('auth');
 
 Route::middleware('auth')->group(function() {
+  Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+  Route::get('dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
+
   Route::resource('solicitudes', SolicitudController::class)
     ->parameters(['solicitudes' => 'solicitud']);
   Route::post('afiliados/solicitud/{solicitud}/recordatorio', [SolicitudController::class, 'reminder'])
@@ -69,14 +69,11 @@ Route::middleware('auth')->group(function() {
   
   Route::resource('afiliados', AfiliadosController::class)
     ->except(['create', 'store']);
-});
 
-Route::resource('usuarios', UserController::class)
-  ->middleware('auth')
-  ->parameters(['usuarios' => 'user'])
-  ->names('users');
+  Route::resource('usuarios', UserController::class)
+    ->parameters(['usuarios' => 'user'])
+    ->names('users');
 
-Route::middleware('auth')->group(function() {
   Route::get('perfil', [ProfileController::class, 'show'])->name('profile.show');
   Route::put('perfil', [ProfileController::class, 'update'])->name('profile.update');
 
@@ -95,75 +92,61 @@ Route::middleware('auth')->group(function() {
   Route::resource('categorias-boletines', CategoriaBoletineController::class)
     ->parameters(['categorias-boletines' => 'category'])
     ->except(['show']);
+
+    Route::get('notificaciones', [NotificationController::class, 'index'])
+      ->name('notifications.index');
+    Route::post('notificaciones', [NotificationController::class, 'markAllAsRead'])
+      ->name('notifications.markAllAsRead');
+    
+    Route::resource('avisos-de-cobro', AvisoCobroController::class)
+      ->names('avisos-cobro')
+      ->parameters(['avisos-de-cobro' => 'aviso_cobro']);
+
+    Route::get('pagos/{avisoCobro}/pagar', [AvisoCobroController::class, 'payCollectionNotice'])
+      ->name('avisos-cobro.payCollectionNotice');
+    Route::get('pagos/{avisoCobro}/detalle', [AvisoCobroController::class, 'avisoCobroDetails'])
+      ->name('pagos.invoice');
+
+    /**
+     * NEWS ROUTES
+     */
+    Route::resource('noticias', NoticiaController::class)
+    ->except(['show']);
+
+    /**
+    * INVOICES ROUTES
+    */
+    Route::resource('facturas', InvoiceController::class)
+      ->parameters(['facturas', 'invoice'])
+      ->names('invoices');
+    Route::post('factura/pagar', [InvoiceController::class, 'formStore'])
+      ->name('invoices.formStore');
+
+    Route::resource('categorias', CategoryController::class)
+      ->names('categories')
+      ->parameters(['categorias' => 'category'])
+      ->except(['show']);
+
+    Route::resource('etiquetas', TagController::class)
+      ->names('tags')
+      ->parameters(['etiquetas' => 'tag'])
+      ->except(['show']);
+
+    /**
+    * PAYMENTS ROUTES
+    */
+    Route::resource('pagos', PagoController::class);
+
+    /**
+    * MANAGE FILES
+    */
+    Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
+      ->name('files.getFile');
 });
-
-Route::get('notificaciones', [NotificationController::class, 'index'])
-  ->name('notifications.index')
-  ->middleware('auth');
-Route::post('notificaciones', [NotificationController::class, 'markAllAsRead'])
-  ->name('notifications.markAllAsRead');
-
-Route::resource('avisos-de-cobro', AvisoCobroController::class)
-  ->names('avisos-cobro')
-  ->parameters(['avisos-de-cobro' => 'aviso_cobro'])
-  ->middleware('auth');
-
-/**
- * Investigar cual seria el mejor nombre para estas rutas
- */
-Route::get('pagos/{avisoCobro}/pagar', [AvisoCobroController::class, 'payCollectionNotice'])
-  ->name('avisos-cobro.payCollectionNotice')
-  ->middleware('auth');
-Route::get('pagos/{avisoCobro}/detalle', [AvisoCobroController::class, 'avisoCobroDetails'])
-  ->name('pagos.invoice')
-  ->middleware('auth');
-/**
- * NEWS ROUTES
- */
-Route::resource('noticias', NoticiaController::class)
-  ->except(['show'])
-  ->middleware('auth');
-
-/**
- * INVOICES ROUTES
- */
-Route::resource('facturas', InvoiceController::class)
-  ->parameters(['facturas', 'invoice'])
-  ->names('invoices')
-  ->middleware('auth');
-Route::post('factura/pagar', [InvoiceController::class, 'formStore'])
-  ->name('invoices.formStore')
-  ->middleware('auth');
-
-Route::resource('categorias', CategoryController::class)
-  ->names('categories')
-  ->parameters(['categorias' => 'category'])
-  ->except(['show'])
-  ->middleware('auth');
-
-Route::resource('etiquetas', TagController::class)
-  ->names('tags')
-  ->parameters(['etiquetas' => 'tag'])
-  ->except(['show'])
-  ->middleware('auth');
-
-/**
- * PAYMENTS ROUTES
- */
-Route::resource('pagos', PagoController::class)
-  ->middleware('auth');
-
-/**
- * MANAGE FILES
- */
-Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
-  ->middleware('auth')
-  ->name('files.getFile');
 
 /**
  * WEBSITE
  */
-  
 Route::middleware(['auth', 'is_admin'])->group(function() {
   Route::get('sitio-web', [WebsiteController::class, 'index'])
   ->name('website.index');

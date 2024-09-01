@@ -132,6 +132,13 @@
                 >
                     Sitio web
                 </x-nav-link>
+                <x-nav-link
+                    :to="route('website.index')"
+                    active="website.*"
+                    icon="fas fa-database"
+                >
+                    Auditorías
+                </x-nav-link>
             @endif
         </div>
     </div>
