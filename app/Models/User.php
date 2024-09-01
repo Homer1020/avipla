@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
-    use HasApiTokens, HasFactory, Notifiable, CanResetPassword, SoftDeletes;
+    use HasApiTokens, HasFactory, Notifiable, CanResetPassword, SoftDeletes, \OwenIt\Auditing\Auditable;
 
     /**
      * The attributes that are mass assignable.
@@ -44,6 +45,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+    ];
+
+    protected $auditEvents = [
+        'created',
+        'deleted',
+        'updated',
+    ];
+
+    protected $auditExclude = [
+        'id',
+        'password',
+        'remember_token'
     ];
 
     public function afiliado() {

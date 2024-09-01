@@ -133,9 +133,9 @@
                     Sitio web
                 </x-nav-link>
                 <x-nav-link
-                    :to="route('website.index')"
-                    active="website.*"
-                    icon="fas fa-database"
+                    :to="route('audits.index')"
+                    active="audits.*"
+                    icon="fas fa-shield-alt"
                 >
                     Auditorías
                 </x-nav-link>

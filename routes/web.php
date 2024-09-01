@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AfiliadosController;
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvisoCobroController;
 use App\Http\Controllers\BoletineController;
@@ -142,6 +143,8 @@ Route::middleware('auth')->group(function() {
     */
     Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
       ->name('files.getFile');
+
+    Route::get('auditorias', AuditController::class)->name('audits.index');
 });
 
 /**
