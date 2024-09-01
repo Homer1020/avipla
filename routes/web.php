@@ -24,7 +24,6 @@ use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteController;
-use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 /**
  * WEB ROUTES

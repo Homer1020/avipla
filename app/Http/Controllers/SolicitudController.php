@@ -35,7 +35,12 @@ class SolicitudController extends Controller
 
         Mail::to($request->input('correo'))->send(new VerifyAfiliadoEmail($solicitud));
 
-        return redirect()->route('solicitudes.index')->with('success', 'Se envio un correo de acceso.');
+        return redirect()->route('solicitudes.index')->with('success', 'Se envió un correo de acceso.');
+    }
+
+    public function destroy(SolicitudAfiliado $solicitud) {
+        $solicitud->delete();
+        return redirect()->route('solicitudes.index')->with('success', 'Se eliminó correctamente.');
     }
 
     public function reminder(SolicitudAfiliado $solicitud) {

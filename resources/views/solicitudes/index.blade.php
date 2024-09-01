@@ -46,7 +46,7 @@
                     </a>
                   @endcan
                 @else
-                  <form action="{{ route('solicitudes.reminder', $solicitud) }}" method="POST">
+                  <form action="{{ route('solicitudes.reminder', $solicitud) }}" method="POST" class="d-inline-block">
                     @csrf
                     <a href="#" onclick="event.target.parentElement.submit(); return false;" class="btn btn-outline-primary">
                       <i class="fa fa-envelope me-1"></i>
@@ -54,6 +54,16 @@
                     </a>
                   </form>
                 @endif
+                @can('delete', App\Models\SolicitudAfiliado::class)
+                  <form action="{{ route('solicitudes.destroy', $solicitud) }}" method="POST" class="d-inline-block">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger">
+                      <i class="fa fa-trash"></i>
+                      ELiminar
+                    </button>
+                  </form>
+                @endcan
               </td>
             </tr>
           @endforeach

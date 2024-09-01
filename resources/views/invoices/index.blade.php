@@ -13,9 +13,9 @@
     <li class="breadcrumb-item active">Facturas</li>
   </ol>
   @can('create', App\Models\Invoice::class)
-    <div class="mb-4">
+    {{-- <div class="mb-4">
         <a href="{{ route('invoices.create') }}" class="btn btn-primary">Generar factura</a>
-    </div>
+    </div> --}}
   @endcan
   <div class="card mb-4">
     <div class="card-body">

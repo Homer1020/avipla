@@ -10,10 +10,14 @@ class SolicitudAfiliadoPolicy
 {
     public function before(User $user) {
         $user->load('roles');
-        if($user->roles()->where('name', 'administrador')->exists()){
+        if($user->roles()->where('name', 'administrador')->orWhere('name', 'usuario')->exists()){
             return true;
         }
         return null;
+    }
+
+    public function viewAny() {
+        return false;
     }
 
     public function requestForm() {
@@ -26,5 +30,10 @@ class SolicitudAfiliadoPolicy
 
     public function reminder() {
         return false;
+    }
+
+    public function delete()
+    {
+       return false;
     }
 }

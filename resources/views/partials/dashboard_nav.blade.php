@@ -29,7 +29,7 @@
                 </span>
             </x-nav-link>
             <div class="sb-sidenav-menu-heading">{{ Auth::user()->roles->first()->name }}</div>
-            @can('viewAny', App\Models\Afiliado::class)
+            @can('viewAny', App\Models\SolicitudAfiliado::class)
                 <x-nav-link
                     :to="route('solicitudes.index')"
                     active="solicitudes.*"
@@ -37,6 +37,8 @@
                 >
                     Solicitudes
                 </x-nav-link>
+            @endcan
+            @can('viewAny', App\Models\Afiliado::class)
                 <x-nav-link
                     :to="route('afiliados.index')"
                     active="afiliados.*"

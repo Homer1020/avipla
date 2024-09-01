@@ -34,7 +34,7 @@
               </div>
               <h1 class="fs-3 fw-bold text-primary text-center mb-4 text-uppercase">Crear cuenta</h1>
 
-              <form novalidate id="afiliado-form" action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data">
+              <form id="afiliado-form" action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="confirmation_code" value="{{ $solicitud->confirmation_code }}">
                 <!-- Nav tabs -->
@@ -141,81 +141,7 @@
   <!-- SELECT2 -->
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <!-- CUSTOM SCRIPT -->
-  <script>
-    $(document).ready(function () {
-      $('#actividad_principal').select2({
-        theme: 'bootstrap-5',
-        tags: true,
-      })
-
-      $('#productos').select2({
-        theme: 'bootstrap-5',
-        tags: true,
-      })
-
-      $('#materias_primas').select2({
-        theme: 'bootstrap-5',
-        tags: true,
-      })
-
-      $('#servicios').select2({
-        theme: 'bootstrap-5',
-        tags: true,
-      })
-
-      $('#afiliados').select2({
-        theme: 'bootstrap-5'
-      })
-
-      $('#productos').on('select2:select', function (e) {
-        const parameter = e.params.data.text
-
-        const newInputProduccionTotalMensual = `
-          <div class="row" id="producto-${parameter.toLowerCase().trim().replace(' ', '-')}">
-            <div class="col-12">
-              <p class="fw-bold text-uppercase text-muted">
-                <small>Detalles de ${parameter}</small>
-              </p>
-            </div>
-            <div class="col-lg-4 mb-3">
-              <input
-                type="number"
-                placeholder="Producción total mensual (TM)"
-                name="produccion_total_mensual[]"
-                class="form-control"
-              />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <input
-                type="number"
-                placeholder=" Porcentaje destinados a exportación"
-                name="porcentage_exportacion[]"
-                class="form-control"
-              />
-            </div>
-            <div class="col-lg-4 mb-3">
-              <input
-                type="number"
-                placeholder="Mercados de importación / exportación"
-                name="mercado_exportacion[]"
-                class="form-control"
-              />
-            </div>
-          </div>
-        `.trim()
-
-        $('#products_details').append(newInputProduccionTotalMensual)
-      })
-
-      $('#productos').on('select2:unselect', function (e) {
-        const parameter = e.params.data.text
-        console.log(parameter.toLowerCase().trim().replace(' ', '-'))
-        $(`#producto-${parameter.toLowerCase().trim().replace(' ', '-')}`).remove()
-      });
-
-      // Array.from(document.getElementById('business-data').querySelectorAll('input, select')).every(item => item.validity.valid)
-    })
-  </script>
+  @include('afiliados.script')
 
   @if (old('productos'))
     <script>

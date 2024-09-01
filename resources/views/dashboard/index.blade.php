@@ -204,7 +204,7 @@
               </tr>
             </thead>
             <tbody>
-              @foreach ($afiliadosMorososTotales as $afiliado)
+              @forelse ($afiliadosMorososTotales as $afiliado)
                 <tr>
                   <td>#{{ $afiliado->id }}</td>
                   <td>{{ $afiliado->rif }}</td>
@@ -217,7 +217,11 @@
                     @endforeach
                   </td>
                 </tr>
-              @endforeach
+              @empty
+                <tr>
+                  <td colspan="4">Si datos</td>
+                </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
@@ -273,14 +277,18 @@
                 </tr>
               </thead>
               <tbody>
-                @foreach ($afiliadosAlDiaTotales as $afiliado)
+                @forelse ($afiliadosAlDiaTotales as $afiliado)
                   <tr>
                     <td>#{{ $afiliado->id }}</td>
                     <td>{{ $afiliado->rif }}</td>
                     <td>{{ $afiliado->razon_social }}</td>
                     <td>{{ $afiliado->pagina_web }}</td>
                   </tr>
-                @endforeach
+                @empty
+                  <tr>
+                    <td colspan="4">Sin datos</td>
+                  </tr>
+                @endforelse
               </tbody>
             </table>
           </div>
