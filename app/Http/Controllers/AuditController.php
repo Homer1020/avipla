@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use OwenIt\Auditing\Models\Audit;
 
 class AuditController extends Controller
 {
@@ -11,6 +12,7 @@ class AuditController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('audits.index');
+        $audits = Audit::latest()->get();
+        return view('audits.index', compact('audits'));
     }
 }

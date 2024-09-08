@@ -125,19 +125,31 @@
                 </x-nav-link>
             @endcan
             @if (Auth::user()->is_admin())
+                <x-nav-link-dropdown
+                    title="Administrador"
+                    icon="fas fa-shield-alt"
+                    target="adminPages"
+                    :active="request()->routeIs('audits.*') || request()->routeIs('database.*')"
+                >
+                    <a
+                        href="{{ route('audits.index') }}"
+                        class="nav-link {{ request()->routeIs('audits.*') ? 'active' : '' }}"
+                    >
+                        Auditorías
+                    </a>
+                    <a
+                        href="{{ route('database.index') }}"
+                        class="nav-link {{ request()->routeIs('database.*') ? 'active' : '' }}"
+                    >
+                        Base de datos
+                    </a>
+                </x-nav-link-dropdown>
                 <x-nav-link
                     :to="route('website.index')"
                     active="website.*"
                     icon="fas fa-database"
                 >
                     Sitio web
-                </x-nav-link>
-                <x-nav-link
-                    :to="route('audits.index')"
-                    active="audits.*"
-                    icon="fas fa-shield-alt"
-                >
-                    Auditorías
                 </x-nav-link>
             @endif
         </div>

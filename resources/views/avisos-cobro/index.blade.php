@@ -18,6 +18,12 @@
     </div>
   @endcan
 
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
+
+  <x-modal
+    id="detall-aviso"
+  />
+
   <div class="card mb-4">
     <div class="card-body">
       <form action="" class="mb-4">
@@ -147,7 +153,6 @@
 @endsection
 
 @push('script')
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="{{ asset('assets/css/datatables.min.js') }}"></script>
@@ -251,21 +256,6 @@
   @endif
 
   <script>
-    function submitAfterConfirm(form) {
-      Swal.fire({
-        title: "¿Estas seguro?",
-        text: "¡Esta acción no se puede revertir!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminalo!",
-        cancelButtonText: "Cancelar"
-      }).then((result) => {
-        if (result.isConfirmed) form.submit()
-      })
-    }
-
     new DataTable('#invoices-table', {
       columnDefs: [
         {

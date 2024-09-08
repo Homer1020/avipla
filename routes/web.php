@@ -9,6 +9,7 @@ use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\CategoriaBoletineController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvoiceController;
@@ -143,8 +144,6 @@ Route::middleware('auth')->group(function() {
     */
     Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
       ->name('files.getFile');
-
-    Route::get('auditorias', AuditController::class)->name('audits.index');
 });
 
 /**
@@ -171,4 +170,9 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
 
   Route::apiResource('junta-directiva-periodo', JuntaDirectivaPeriodo::class)
     ->only(['store']);
+
+    
+  Route::get('auditorias', AuditController::class)->name('audits.index');
+
+  Route::get('database', [DatabaseController::class, 'index'])->name('database.index');
 });

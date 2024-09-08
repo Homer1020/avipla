@@ -321,21 +321,6 @@
         
       }
     })
-    
-    function submitAfterConfirm(form) {
-      Swal.fire({
-        title: "¿Estas seguro?",
-        text: "¡Esta acción no se puede revertir!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminalo!",
-        cancelButtonText: "Cancelar"
-      }).then((result) => {
-        if (result.isConfirmed) form.submit()
-      })
-    }
   </script>
   @if (session('success'))
     <script>

@@ -55,7 +55,7 @@
                   </form>
                 @endif
                 @can('delete', App\Models\SolicitudAfiliado::class)
-                  <form action="{{ route('solicitudes.destroy', $solicitud) }}" method="POST" class="d-inline-block">
+                  <form onsubmit="submitAfterConfirm(event.target); return false" action="{{ route('solicitudes.destroy', $solicitud) }}" method="POST" class="d-inline-block">
                     @method('DELETE')
                     @csrf
                     <button type="submit" class="btn btn-danger">
@@ -88,21 +88,7 @@
   @endif
 
   <script>
-    function submitAfterConfirm(form) {
-      Swal.fire({
-        title: "¿Estas seguro?",
-        text: "¡Esta acción no se puede revertir!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Si, eliminalo!",
-        cancelButtonText: "Cancelar"
-      }).then((result) => {
-        if (result.isConfirmed) form.submit()
-      })
-    }
-
+    
     function resend() {
       console.log(event.target);
     }

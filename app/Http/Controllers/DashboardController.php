@@ -32,8 +32,12 @@ class DashboardController extends Controller
     }
 
     public function index() {
-        $user = request()->user();
-        if($user->roles()->where('name', 'afiliado')->exists()) {
+        $userIsAfiliado = request()
+            ->user()
+            ->roles()
+            ->where('name', 'afiliado')
+            ->exists();
+        if($userIsAfiliado) {
             return $this->afiliado();
         } {
             return $this->administrator();

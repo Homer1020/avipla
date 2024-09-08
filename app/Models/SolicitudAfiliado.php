@@ -18,6 +18,6 @@ class SolicitudAfiliado extends Model
     ];
 
     public function afiliado() {
-        return $this->belongsTo(Afiliado::class, 'afiliado_id');
+        return $this->belongsTo(Afiliado::class, 'afiliado_id')->withTrashed();;
     }
 }

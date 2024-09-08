@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class SolicitudController extends Controller
 {
     public function index() {
-        $solicitudes = SolicitudAfiliado::latest()->get();
+        $solicitudes = SolicitudAfiliado::whereDoesntHave('afiliado')->latest()->get();
         return view('solicitudes.index', compact('solicitudes'));
     }
 

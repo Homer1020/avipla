@@ -22,7 +22,7 @@ class AvisoCobro extends Model
     }
 
     public function afiliado() {
-        return $this->belongsTo(Afiliado::class);
+        return $this->belongsTo(Afiliado::class)->withTrashed();
     }
 
     public function pago() {

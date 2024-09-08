@@ -14,18 +14,31 @@
           <thead>
             <tr>
               <th>Usuario</th>
+              <th>Rol del usuario</th>
               <th>Evento</th>
               <th>Módelo</th>
               <th>IP</th>
-              <th>Hace</th>
+              <th>Fecha</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            @foreach (OwenIt\Auditing\Models\Audit::latest()->get() as $audit)
+            @foreach ($audits as $audit)
               <tr>
-                <td>#{{ $audit->user_id }} {{ $audit->user->name }}</td>
-                <td>{{ $audit->event }}</td>
+                <td>
+                  #{{ $audit->user_id }} {{ $audit->user->name }}
+                </td>
+                <td>
+                  @foreach ($audit->user->roles as $role)
+                    <div class="badge bg-primary">
+                      {{ $role->name }} 
+                    </div>
+                  @endforeach
+                </td>
+                <td>
+                  <div class="badge bg-primary">
+                    {{ $audit->event }}</td>
+                  </div>
                 <td>{{ $audit->auditable_type }}</td>
                 <td>{{ $audit->ip_address }}</td>
                 <td>{{ $audit->created_at->diffForHumans() }}</td>

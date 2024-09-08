@@ -172,6 +172,22 @@
         
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
         <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+        <script>
+            function submitAfterConfirm(form) {
+                Swal.fire({
+                    title: "¿Estas seguro?",
+                    text: "¡Esta acción no se puede revertir!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Si, eliminalo!",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) form.submit()
+                })
+            }
+        </script>
         <script src="{{ asset('js/scripts.js') }}"></script>
         @if (request()->user()->getAfiliado())
             <!-- Smartsupp Live Chat script -->
