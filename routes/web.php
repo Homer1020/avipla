@@ -144,6 +144,20 @@ Route::middleware('auth')->group(function() {
     */
     Route::get('uploads/{dir}/{path}', [FileController::class, 'getFile'])
       ->name('files.getFile');
+
+    /**
+     * MODALES
+     */
+    Route::prefix('modal')->name('modal.')->group(function() {
+      Route::get('aviso-cobro/{avisoCobro}', [AvisoCobroController::class, 'modalDetail'])->name('avisoCobro');
+    });
+
+    /**
+     * DATATABLES
+     */
+    Route::prefix('datatable')->name('datatable.')->group(function() {
+      Route::get('avisos-cobro', [AvisoCobroController::class, 'datatable'])->name('avisosCobro');
+    });
 });
 
 /**

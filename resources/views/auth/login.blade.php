@@ -83,7 +83,6 @@
   <!-- OWL CAROUSEL -->
   <script src="{{ asset('assets/js/owl.carousel.min.js') }}"></script>
   <!-- SWEET ALERT -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- SCRIPT -->
   <script src="{{ asset('assets/js/app.js') }}"></script>
   @if (session('success'))

@@ -124,7 +124,6 @@
   </div>
 @endsection
 @push('script')
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   <script src="{{ asset('assets/css/datatables.min.js') }}"></script>
 

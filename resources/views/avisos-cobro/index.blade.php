@@ -18,10 +18,10 @@
     </div>
   @endcan
 
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Open modal for @mdo</button>
-
   <x-modal
-    id="detall-aviso"
+    id="detalle-aviso"
+    title="Detalle del aviso de cobro"
+    dialogClass="modal-xl"
   />
 
   <div class="card mb-4">
@@ -110,41 +110,7 @@
           </thead>
       
           <tbody>
-            @foreach ($avisosCobros as $avisoCobro)
-              <tr>
-                <td>#{{ $avisoCobro->id }}</td>
-                <td>#{{ $avisoCobro->codigo_aviso }}</td>
-                <td>{{ $avisoCobro->created_at->format('Y-m-d') }}</td>
-                <td>
-                  <span class="text-truncate d-inline-block" style="max-width: 150px">
-                    {{ $avisoCobro->afiliado->razon_social }}
-                  </span>
-                </td>
-                <td>
-                  @include('partials.invoice_status')
-                </td>
-                <td>{{ $avisoCobro->monto_total }}$</td>
-                <td>
-                  @php
-                    $queryParams = request()->query();
-                  @endphp
-                  @can('view', $avisoCobro)
-                    <a class="btn btn-success" href="{{ route('avisos-cobro.show', $avisoCobro) }}{{ !empty($queryParams) ? '?' . http_build_query($queryParams) : '' }}">
-                      <i class="fa fa-eye"></i>
-                      Detalles
-                    </a>
-                  @endcan
-                  @if ($avisoCobro->invoice)
-                    @can('view', $avisoCobro->invoice)
-                      <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-primary">
-                        <i class="fa fa-file-invoice"></i>
-                        Ver factura
-                      </a>
-                    @endcan
-                  @endif
-                </td>
-              </tr>
-            @endforeach
+           
           </tbody>
         </table>
       </div>
@@ -153,7 +119,6 @@
 @endsection
 
 @push('script')
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="{{ asset('assets/css/datatables.min.js') }}"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
@@ -249,8 +214,8 @@
   @if (session('success'))
     <script>
         Swal.fire({
-            icon: "success",
-            title: "{{ session('success') }}"
+          icon: "success",
+          title: "{{ session('success') }}"
         });
     </script>
   @endif
@@ -262,6 +227,16 @@
           orderable: false,
           targets: 6
         }
+      ],
+      ajax: '{{ route("datatable.avisosCobro") }}',
+      columns: [
+        { data: 'id' },
+        { data: 'codigo_aviso' },
+        { data: 'created_at' },
+        { data: 'afiliado_id' },
+        { data: 'estado' },
+        { data: 'monto_total' },
+        { data: '' }
       ],
       stateSave: true,
       order: false,
@@ -512,5 +487,25 @@
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
 
+
+    const $modalDetalleAviso = document.getElementById('detalle-aviso')
+    const $modalDetalleAvisoContent = $modalDetalleAviso.querySelector('.modal-body')
+
+    var modal = new bootstrap.Modal($modalDetalleAviso, {
+      keyboard: false
+    })
+
+    function openModal(id, route) {
+      fetch(route)
+        .then(res => res.text())
+        .then(result => {
+          $modalDetalleAvisoContent.innerHTML = result
+          modal.show();
+        })
+    }
+
+    $modalDetalleAviso.addEventListener('hide.bs.modal', () => {
+      $modalDetalleAvisoContent.innerHTML = ''
+    })
   </script>
 @endpush

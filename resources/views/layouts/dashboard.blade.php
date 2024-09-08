@@ -171,6 +171,7 @@
         </div>
         
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
         <script>
             function submitAfterConfirm(form) {
@@ -186,6 +187,38 @@
                 }).then((result) => {
                     if (result.isConfirmed) form.submit()
                 })
+            }
+
+            function handleSubmitForm(form, method = 'POST', cb = null) {
+                const fd = new FormData(form)
+                
+                console.log(typeof cb)
+
+                fetch(form.action, {
+                    method,
+                    body: JSON.stringify({
+                        invoice_status: fd.get('invoice_status'),
+                        observaciones: fd.get('observaciones')
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(resp => resp.json())
+                .then(result => {
+                    if(result.ok) {
+                        Swal.fire({
+                            title: result.title,
+                            text: result.message,
+                            icon: "success",
+                            confirmButtonColor: "#3085d6"
+                        })
+                        .then(() => {
+                            if(cb && typeof cb === 'function') cb()
+                        })
+                    }
+                })                
             }
         </script>
         <script src="{{ asset('js/scripts.js') }}"></script>

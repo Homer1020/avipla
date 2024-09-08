@@ -157,9 +157,11 @@ class AvisoCobroController extends Controller
                 $avisoCobro->afiliado->director->notify(new AvisoCobroStatusChanged($avisoCobro));
             }
         }
-        $queryParams = $request->query();
-        $url = route('avisos-cobro.index') . '?' . http_build_query($queryParams);
-        return redirect($url)->with('success', 'Se actualizó el estado de la factura.');
+        return response()->json([
+            'ok'        => true,
+            'title'     => '¡Datos actualizados correctamente!',
+            'message'   => 'Se actualizó el estado de la factura a ' . $avisoCobro->estado . '.'
+        ]);
     }
 
     /**
@@ -168,5 +170,42 @@ class AvisoCobroController extends Controller
     public function destroy(AvisoCobro $avisoCobro)
     {
         //
+    }
+
+    public function modalDetail(AvisoCobro $avisoCobro) {
+        $avisoCobro->load(['user', 'afiliado', 'pago']);
+        return view('avisos-cobro.modal.show', compact('avisoCobro'))->render();
+    }
+
+    public function datatable() {
+        $afiliados      = Afiliado::all();
+        $afiliado       = request()->input('afiliado');
+        $estado         = request()->input('estado');
+        $date_range     = request()->input('date_range');
+        $queryAvisosCobros   = AvisoCobro::with('pago')->latest();
+
+        if ($afiliado) {
+            $queryAvisosCobros->where('afiliado_id', $afiliado);
+        }
+    
+        if ($estado) {
+            $queryAvisosCobros->where('estado', $estado);
+            
+        }
+
+        if ($date_range) {
+            $dates = explode(' - ', $date_range);
+            if (count($dates) == 2) {
+                $startDate = $this->convertDateFormat($dates[0]);
+                $endDate = $this->convertDateFormat($dates[1]);
+                $queryAvisosCobros->whereBetween('created_at', [$startDate, $endDate]);
+            }
+        }
+
+        $avisosCobros = $queryAvisosCobros->get();
+
+        return response()->json([
+            'data' => $avisosCobros->toArray()
+        ]);
     }
 }
