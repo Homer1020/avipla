@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.5/css/select.dataTables.css">
 @endpush
 @section('content')
   <h1 class="mt-4">Avisos de cobro</h1>
@@ -219,16 +220,23 @@
         });
     </script>
   @endif
-
   <script>
-    new DataTable('#invoices-table', {
+    const invoicesTable = new DataTable('#invoices-table', {
       columnDefs: [
         {
           orderable: false,
           targets: 6
         }
       ],
-      ajax: '{{ route("datatable.avisosCobro") }}',
+      ajax: {
+        url: '{{ route("datatable.avisosCobro") }}',
+        data: d => {
+          const urlParams = new URLSearchParams(window.location.search)
+          d.afiliado = urlParams.get('afiliado')
+          d.estado = urlParams.get('estado')
+          d.date_range = urlParams.get('date_range')
+        }
+      },
       columns: [
         { data: 'id' },
         { data: 'codigo_aviso' },
@@ -236,9 +244,9 @@
         { data: 'afiliado_id' },
         { data: 'estado' },
         { data: 'monto_total' },
-        { data: '' }
+        { data: 'actions' }
       ],
-      stateSave: true,
+      // stateSave: true,
       order: false,
       scrollX: false,
       language: {

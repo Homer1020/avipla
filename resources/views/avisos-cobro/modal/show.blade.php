@@ -153,6 +153,7 @@
                     @endphp
                     <form
                         onsubmit="handleSubmitForm(event.target, 'PATCH', function() {
+                            invoicesTable.ajax.reload(null, false)
                             modal.hide()
                         }); return false;"
                         action="{{ route('avisos-cobro.update', $avisoCobro) }}"

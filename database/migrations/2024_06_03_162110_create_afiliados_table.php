@@ -52,6 +52,7 @@ return new class extends Migration
             $table->string('rif_path');
             $table->string('estado_financiero_path');
             $table->string('registro_mercantil_path');
+            $table->boolean('account_status')->default(true);
             
             $table->softDeletes();
             $table->timestamps();

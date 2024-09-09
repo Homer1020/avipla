@@ -11,8 +11,6 @@ use App\Notifications\AvisoCobroCreated;
 use App\Notifications\AvisoCobroStatusChanged;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class AvisoCobroController extends Controller
 {
@@ -75,16 +73,10 @@ class AvisoCobroController extends Controller
     public function store(Request $request)
     {
         $payload = $request->validate([
+            'codigo_aviso'      => 'required|string',
             'monto_total'       => 'required|numeric',
             'fecha_limite'      => 'nullable|date_format:Y-m-d|after:today',
         ]);
-
-        $fechaActual = Carbon::now();
-        $nombreMes = $fechaActual->translatedFormat('F');
-        $anio = $fechaActual->format('Y');
-        $codigo_aviso = strtoupper($nombreMes) . $anio;
-
-        $payload['codigo_aviso'] = $codigo_aviso;
 
         $user = Auth::user();
 
@@ -92,7 +84,7 @@ class AvisoCobroController extends Controller
             $afiliados = Afiliado::all();
 
             foreach($afiliados as $afiliado) {
-                if(!$afiliado->avisosCobros()->where('codigo_aviso', $codigo_aviso)->exists()) {
+                if(!$afiliado->avisosCobros()->where('codigo_aviso', $payload['codigo_aviso'])->exists()) {
                     $payload['afiliado_id'] = $afiliado->id;
                     $avisoCobro = $user->avisosCobros()->create($payload);
                     $afiliado->user->notify(new AvisoCobroCreated($avisoCobro));
@@ -178,11 +170,10 @@ class AvisoCobroController extends Controller
     }
 
     public function datatable() {
-        $afiliados      = Afiliado::all();
         $afiliado       = request()->input('afiliado');
         $estado         = request()->input('estado');
         $date_range     = request()->input('date_range');
-        $queryAvisosCobros   = AvisoCobro::with('pago')->latest();
+        $queryAvisosCobros   = AvisoCobro::with(['pago', 'afiliado'])->latest();
 
         if ($afiliado) {
             $queryAvisosCobros->where('afiliado_id', $afiliado);
@@ -205,7 +196,17 @@ class AvisoCobroController extends Controller
         $avisosCobros = $queryAvisosCobros->get();
 
         return response()->json([
-            'data' => $avisosCobros->toArray()
+            'data' => $avisosCobros->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'codigo_aviso' => $item->codigo_aviso,
+                    'created_at' => $item->created_at->diffForHumans(),
+                    'afiliado_id' => $item->afiliado->razon_social,
+                    'estado' => view('partials.invoice_status', ['avisoCobro' => $item])->render(),
+                    'monto_total' => $item->monto_total,
+                    'actions' => view('avisos-cobro.table.actions', ['avisoCobro' => $item])->render()
+                ];
+            })
         ]);
     }
 }
