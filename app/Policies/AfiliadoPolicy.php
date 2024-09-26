@@ -69,6 +69,10 @@ class AfiliadoPolicy
      */
     public function forceDelete(User $user, Afiliado $afiliado): bool
     {
-        return $user->afiliado && $user->afiliado->id === $afiliado->id;
+        return false;
+    }
+
+    public function viewTrash() {
+        return false;
     }
 }

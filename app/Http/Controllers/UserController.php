@@ -18,7 +18,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->latest()->where('id', '!=', request()->user()->id)->get();
+        $users = User::with('roles')->whereHas('roles', function($query) {
+            $query->where('name', '!=', 'afiliado');
+        })->latest()->where('id', '!=', request()->user()->id)->get();
         return view('users.index', compact('users'));
     }
 

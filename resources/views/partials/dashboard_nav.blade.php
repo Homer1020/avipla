@@ -65,7 +65,7 @@
                     Facturas
                 </x-nav-link>
             @endcan
-            @can('viewAny', App\Models\Pago::class)
+           {{--  @can('viewAny', App\Models\Pago::class)
                 <x-nav-link
                     :to="route('pagos.index')"
                     active="{{
@@ -81,7 +81,7 @@
                 >
                     Avisos de cobro
                 </x-nav-link>
-            @endcan
+            @endcan --}}
             @can ('viewAny', App\Models\Noticia::class)
                 <x-nav-link-dropdown
                     title="Noticias"
@@ -93,17 +93,6 @@
                     <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">Categorías</a>
                     <a href="{{ route('tags.index') }}" class="nav-link {{ request()->routeIs('tags.*') ? 'active' : '' }}">Etiquetas</a>
                 </x-nav-link-dropdown>
-            @endcan
-            @can('viewAny', App\Models\User::class)
-                <x-nav-link-dropdown
-                    title="Usuarios"
-                    icon="fas fa-users"
-                    target="usersPage"
-                    :active="request()->routeIs('users.*') || request()->routeIs('roles.*')"
-                >
-                    <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">Todos los usuarios</a>
-                    <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}">Roles</a>
-                </x-nav-link-dropdown>                
             @endcan
             @can('create', App\Models\Boletine::class)
                 <x-nav-link-dropdown
@@ -129,13 +118,19 @@
                     title="Administrador"
                     icon="fas fa-shield-alt"
                     target="adminPages"
-                    :active="request()->routeIs('audits.*') || request()->routeIs('database.*')"
+                    :active="request()->routeIs('audits.*') || request()->routeIs('database.*') || request()->routeIs('users.*')"
                 >
                     <a
                         href="{{ route('audits.index') }}"
                         class="nav-link {{ request()->routeIs('audits.*') ? 'active' : '' }}"
                     >
                         Auditorías
+                    </a>
+                    <a
+                        href="{{ route('users.index') }}"
+                        class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
+                    >
+                        Usuarios
                     </a>
                     <a
                         href="{{ route('database.index') }}"

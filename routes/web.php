@@ -69,6 +69,8 @@ Route::middleware('auth')->group(function() {
   Route::post('afiliados/solicitud/{solicitud}/recordatorio', [SolicitudController::class, 'reminder'])
     ->name('solicitudes.reminder');
   
+  Route::get('afiliados/papelera', [AfiliadosController::class, 'trash'])->name('afiliados.trash');
+  Route::post('afiliados/{id}/restaurar', [AfiliadosController::class, 'restore'])->name('afiliados.restore');
   Route::resource('afiliados', AfiliadosController::class)
     ->except(['create', 'store']);
 

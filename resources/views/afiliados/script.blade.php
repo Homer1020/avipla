@@ -72,5 +72,46 @@
       console.log(parameter.toLowerCase().trim().replace(' ', '-'))
       $(`#producto-${ parameter.toLowerCase().trim().replace(' ', '-') }`).remove()
     });
+  
+    // validatet steps
+    const validateTab = (tab) => {
+      return Array.from(document.getElementById(tab).querySelectorAll('input, select, textarea')).every(item => item.validity.valid)
+    }
+
+    const $afiliadoForm = document.getElementById('afiliado-form')
+    const $allElements = Array.from($afiliadoForm.elements)
+    const buttonsTab = {
+      profile: document.getElementById('profile-tab'),
+      messages: document.getElementById('messages-tab'),
+      final: document.getElementById('final-tab'),
+    }
+
+    const toggleTabs = () => {
+      if(validateTab('business-data')) {
+        buttonsTab.profile.disabled = false
+      } else {
+        buttonsTab.profile.disabled = true
+      }
+
+      if(validateTab('business-data') && validateTab('profile')) {
+        buttonsTab.messages.disabled = false
+      } else {
+        buttonsTab.messages.disabled = false
+      }
+
+      if(validateTab('business-data') && validateTab('profile') && validateTab('messages')) {
+        buttonsTab.messages.disabled = false
+      } else {
+        buttonsTab.messages.disabled = false
+      }
+    }
+
+    $allElements.forEach(element => {
+      element.addEventListener('input', toggleTabs)
+    })
+
+    validateTab('business-data')
+    validateTab('profile')
+    validateTab('messages')
   })
 </script>

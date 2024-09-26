@@ -20,7 +20,7 @@ class AvisoCobroPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->roles()->where('name', 'usuario')->exists();
+        return $user->roles()->whereIn('name', ['usuario', 'afiliado'])->exists();
     }
 
     /**

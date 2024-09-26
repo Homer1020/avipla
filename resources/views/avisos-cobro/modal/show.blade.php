@@ -58,19 +58,21 @@
 @endif
 
 
-<div class="d-flex justify-content-end {{ $avisoCobro->pago || $avisoCobro->invoice ? 'mb-3' : '' }}">
-    @if ($avisoCobro->pago && !$avisoCobro->invoice)
-        <button type="button" id="btn-invoice" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-file-invoice"></i> Generar factura trimestral</button>
-    @endif
-    <div class="d-inline-block" id="invoice_button_wrapper">
-        @if ($avisoCobro->invoice)
-            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-primary">
-                <i class="fas fa-file-invoice"></i>
-                Ver factura trimestral
-            </a>
+@can('create', App\Models\Invoice::class)
+    <div class="d-flex justify-content-end {{ $avisoCobro->pago || $avisoCobro->invoice ? 'mb-3' : '' }}">
+        @if ($avisoCobro->pago && !$avisoCobro->invoice)
+            <button type="button" id="btn-invoice" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-file-invoice"></i> Generar factura trimestral</button>
         @endif
+        <div class="d-inline-block" id="invoice_button_wrapper">
+            @if ($avisoCobro->invoice)
+                <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-primary">
+                    <i class="fas fa-file-invoice"></i>
+                    Ver factura trimestral
+                </a>
+            @endif
+        </div>
     </div>
-</div>
+@endcan
 
 <div class="row">
     @if ($avisoCobro->pago)
@@ -87,6 +89,10 @@
                 <li class="list-group-item">
                     <span class="fw-bold">Monto:</span>
                     {{ $pago->monto }}$
+                </li>
+                <li class="list-group-item">
+                    <span class="fw-bold">Tasa:</span>
+                    {{ $avisoCobro->pago->tasa }} Bs.s
                 </li>
                 <li class="list-group-item">
                     <span class="fw-bold">Banco:</span>
@@ -129,11 +135,7 @@
             @if (!$avisoCobro->pago)
                 <li class="list-group-item">
                     <span class="fw-bold">Empresa:</span>
-                    {{ $avisoCobro->afiliado->razon_social }}
-                </li>
-                <li class="list-group-item">
-                    <span class="fw-bold">Correo de la empresa:</span>
-                    <a href="mailto:{{ $avisoCobro->afiliado->user->email }}">{{ $avisoCobro->afiliado->user->email }}</a>
+                    <a href="mailto:{{ $avisoCobro->afiliado->user->email }}">{{ $avisoCobro->afiliado->razon_social }}</a>
                 </li>
             @endif
             @if ($avisoCobro->fecha_limite)
@@ -193,6 +195,16 @@
                     <span class="fw-bold">Observaciones:</span>
                     {{ $avisoCobro->observaciones }}
                 </li>
+                
+                @if (!$avisoCobro->pago)
+                    <li class="list-group-item">
+                        <span class="fw-bold d-block mb-2">Adjuntar pago:</span>
+                        <a href="{{ route('avisos-cobro.payCollectionNotice', $avisoCobro) }}" type="submit" class="btn btn-primary">
+                            <i class="fas fa-file-invoice"></i>
+                            Adjuntar pago
+                        </a>
+                    </li>
+                @endif
             @endcan
         </ul>
     </div>

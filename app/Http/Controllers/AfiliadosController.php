@@ -214,4 +214,20 @@ class AfiliadosController extends Controller
             ->route('afiliados.index')
             ->with('success', 'Se eliminó el afiliado correctamente.');
     }
+
+    public function trash() {
+        $this->authorize('viewTrash', Afiliado::class);
+        $afiliados = Afiliado::onlyTrashed()
+            ->latest()
+            ->get();
+        return view('afiliados.trash', compact('afiliados'));
+    }
+
+    public function restore($id) {
+        $afiliado = Afiliado::withTrashed()->find($id);
+        $afiliado->restore();
+        return redirect()
+            ->route('afiliados.trash')
+            ->with('success', 'Se restauró el afiliado correctamente');
+    }
 }

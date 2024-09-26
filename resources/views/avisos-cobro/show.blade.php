@@ -68,7 +68,7 @@
     @endif
 
     
-    <div class="d-flex justify-content-end mb-3">
+    <div class="d-flex justify-content-end pb-3 border-bottom mb-3">
         @if ($avisoCobro->pago && !$avisoCobro->invoice)
             <button type="button" id="btn-invoice" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-file-invoice"></i> Generar factura trimestral</button>
         @endif
@@ -81,7 +81,6 @@
             @endif
         </div>
     </div>
-    <hr>
 
     <div class="row">
         @if ($avisoCobro->pago)

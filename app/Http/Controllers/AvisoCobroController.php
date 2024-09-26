@@ -163,8 +163,9 @@ class AvisoCobroController extends Controller
     {
         //
     }
-
+    
     public function modalDetail(AvisoCobro $avisoCobro) {
+        $this->authorize('view', $avisoCobro);
         $avisoCobro->load(['user', 'afiliado', 'pago']);
         return view('avisos-cobro.modal.show', compact('avisoCobro'))->render();
     }
@@ -174,14 +175,14 @@ class AvisoCobroController extends Controller
         $estado         = request()->input('estado');
         $date_range     = request()->input('date_range');
         $queryAvisosCobros   = AvisoCobro::with(['pago', 'afiliado'])->latest();
+        $authAfiliado = Auth::user()->getAfiliado();
 
-        if ($afiliado) {
-            $queryAvisosCobros->where('afiliado_id', $afiliado);
+        if ($afiliado || $authAfiliado) {
+            $queryAvisosCobros->where('afiliado_id', @$authAfiliado->id ? $authAfiliado->id : $afiliado);
         }
     
         if ($estado) {
-            $queryAvisosCobros->where('estado', $estado);
-            
+            $queryAvisosCobros->where('estado', $estado);   
         }
 
         if ($date_range) {
@@ -196,15 +197,17 @@ class AvisoCobroController extends Controller
         $avisosCobros = $queryAvisosCobros->get();
 
         return response()->json([
-            'data' => $avisosCobros->map(function($item) {
+            'data' => $avisosCobros->map(function($item) use ($authAfiliado) {
                 return [
                     'id' => $item->id,
                     'codigo_aviso' => $item->codigo_aviso,
                     'created_at' => $item->created_at->diffForHumans(),
                     'afiliado_id' => $item->afiliado->razon_social,
                     'estado' => view('partials.invoice_status', ['avisoCobro' => $item])->render(),
-                    'monto_total' => $item->monto_total,
-                    'actions' => view('avisos-cobro.table.actions', ['avisoCobro' => $item])->render()
+                    'monto_total' => $item->monto_total . '$',
+                    'actions' => $authAfiliado
+                        ? view('avisos-cobro.table.afiliado-actions', ['avisoCobro' => $item])->render()
+                        : view('avisos-cobro.table.actions', ['avisoCobro' => $item])->render()
                 ];
             })
         ]);

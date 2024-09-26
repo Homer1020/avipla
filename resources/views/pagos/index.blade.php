@@ -42,7 +42,7 @@
                 <td> @include('partials.invoice_status') </td>
                 <td>{{ $avisoCobro->pago ? $avisoCobro->pago->monto . '$' : 'N/A' }}</td>
                 <td>
-                  @if ($avisoCobro->estado === 'DEVUELTO')
+                  @if ($avisoCobro->estado === 'DEVUELTO' && $avisoCobro->pago)
                     <a href="{{ route('pagos.edit', $avisoCobro->pago) }}" type="submit" class="btn btn-warning">
                       <i class="fas fa-file-invoice"></i>
                       Modificar Pago

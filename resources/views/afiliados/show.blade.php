@@ -94,44 +94,38 @@
         </li>
       </ul>
 
-      <p class="fw-bold text-uppercase text-muted">Principales materias primas utilizadas</p>
-      <ul class="list-group mb-3">
-        @forelse ($afiliado->materias_primas as $materia_prima)
-          <li class="list-group-item">
-            {{ $materia_prima->materia_prima }}
-          </li>
-        @empty
-          <li class="list-group-item list-group-item-info">
-            Sin materias primas
-          </li>
-        @endforelse
-      </ul>
+      @if($afiliado->materias_primas->count())
+        <p class="fw-bold text-uppercase text-muted">Principales materias primas utilizadas</p>
+        <ul class="list-group mb-3">
+          @foreach ($afiliado->materias_primas as $materia_prima)
+            <li class="list-group-item">
+              {{ $materia_prima->materia_prima }}
+            </li>
+          @endforeach
+        </ul>
+      @endif
 
-      <p class="fw-bold text-uppercase text-muted">Servicios prestados</p>
-      <ul class="list-group mb-3">
-        @forelse ($afiliado->servicios as $servicio)
-          <li class="list-group-item">
-            {{ $servicio->nombre_servicio }}
-          </li>
-        @empty
-          <li class="list-group-item list-group-item-info">
-            Sin servicios
-          </li>
-        @endforelse
-      </ul>
+      @if($afiliado->servicios->count())
+        <p class="fw-bold text-uppercase text-muted">Servicios prestados</p>
+        <ul class="list-group mb-3">
+          @foreach ($afiliado->servicios as $servicio)
+            <li class="list-group-item">
+              {{ $servicio->nombre_servicio }}
+            </li>
+          @endforeach
+        </ul>
+      @endif
 
-      <p class="fw-bold text-uppercase text-muted">Empresas asociadas a AVIPLA que la refieren</p>
-      <ul class="list-group mb-3">
-        @forelse ($afiliado->referencias as $referencia)
-          <li class="list-group-item">
-            {{ $referencia->razon_social }}
-          </li>
-        @empty
-          <li class="list-group-item list-group-item-info">
-            Sin referencias
-          </li>
-        @endforelse
-      </ul>
+      @if($afiliado->servicios->count())
+        <p class="fw-bold text-uppercase text-muted">Empresas asociadas a AVIPLA que la refieren</p>
+        <ul class="list-group mb-3">
+          @foreach ($afiliado->referencias as $referencia)
+            <li class="list-group-item">
+              {{ $referencia->razon_social }}
+            </li>
+          @endforeach
+        </ul>
+      @endif
     </div>
     <div class="col-lg-6">
       <p class="fw-bold text-uppercase text-muted">Datos del encargado</p>
@@ -218,28 +212,26 @@
         </li>
       </ul>
 
-      <p class="fw-bold text-uppercase text-muted">Linea de productos</p>
-      <ul class="list-group mb-3">
-        @forelse ($afiliado->productos as $producto)
-          <li class="list-group-item">
-            <span class="fw-bold">Producto: </span>
-            {{ $producto->nombre }}
-            <br>
-            <span class="fw-bold">Producción total mensual (TM): </span>
-            {{ $producto->pivot->produccion_total_mensual }}
-            <br>
-            <span class="fw-bold">Porcentaje destinados a exportación: </span>
-            {{ $producto->pivot->porcentage_exportacion }}
-            <br>
-            <span class="fw-bold">Mercados de importación / exportación: </span>
-            {{ $producto->pivot->mercado_exportacion }}
-          </li>
-        @empty
-          <li class="list-group-item list-group-item-info">
-            Sin productos
-          </li>
-        @endforelse
-      </ul>
+      @if ($afiliado->productos->count())
+        <p class="fw-bold text-uppercase text-muted">Linea de productos</p>
+        <ul class="list-group mb-3">
+          @foreach ($afiliado->productos as $producto)
+            <li class="list-group-item">
+              <span class="fw-bold">Producto: </span>
+              {{ $producto->nombre }}
+              <br>
+              <span class="fw-bold">Producción total mensual (TM): </span>
+              {{ $producto->pivot->produccion_total_mensual }}
+              <br>
+              <span class="fw-bold">Porcentaje destinados a exportación: </span>
+              {{ $producto->pivot->porcentage_exportacion }}
+              <br>
+              <span class="fw-bold">Mercados de importación / exportación: </span>
+              {{ $producto->pivot->mercado_exportacion }}
+            </li>
+          @endforeach
+        </ul>
+      @endif
     </div>
   </div>
 @endsection

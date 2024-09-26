@@ -1,27 +1,23 @@
 @extends('layouts.dashboard')
-@section('title', 'Afiliados')
+@section('title', 'Papelera afiliados')
 @push('css')
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 @endpush
 @section('content')
-  <h1 class="mt-4">Afiliados</h1>
+  <h1 class="mt-4">Papelera afiliados</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item active">Afiliados</li>
+    <li class="breadcrumb-item"><a href="{{ route('afiliados.index') }}">Afiliados</a></li>
+    <li class="breadcrumb-item active">Papelera</li>
   </ol>
-
-  @can('viewTrash', App\Models\Afiliado::class)
-    <div class="mb-4">
-      <a href="{{ route('afiliados.trash') }}" class="btn btn-primary">
-        <i class="fa fa-trash"></i>
-        Papelera
-      </a>
-    </div>
-  @endcan
-  
+  <div class="mb-4">
+    <a href="{{ route('afiliados.index') }}" class="btn btn-primary">
+      <i class="fa fa-handshake"></i>
+      Listado
+    </a>
+  </div>
   <div class="mb-4 card">
     <div class="card-body">
-      {{-- @dump($afiliados->toArray()) --}}
       <div class="table-responsive">
         <table class="table table-bordered w-100" id="afiliados-table">
           <thead>
@@ -44,27 +40,14 @@
                 <td>{{ $afiliado->personal->correo_presidente ?: 'N/A' }}</td>
                 <td></td>
                 <td style="white-space: nowrap">
-                  @can('view', $afiliado)
-                    <a href="{{ route('afiliados.show', $afiliado) }}" class="btn btn-primary">
-                      <i class="fa fa-eye"></i>
-                      Detalles
-                    </a>
-                  @endcan
-                  @can('delete', $afiliado)
-                    <form action="{{ route('afiliados.destroy', $afiliado) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
+                  @can('restore', $afiliado)
+                    <form action="{{ route('afiliados.restore', $afiliado) }}" method="POST" class="d-inline-block">
                       @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-danger">
-                        <i class="fa fa-trash"></i>
-                        Eliminar
+                      <button type="submit" class="btn btn-success">
+                        <i class="fa fa-solid fa-undo"></i>
+                        Restaurar
                       </button>
                     </form>
-                  @endcan
-                  @can('update', $afiliado)
-                    <a href="{{ route('afiliados.edit', $afiliado) }}" class="btn btn-warning">
-                      <i class="fa fa-pen"></i>
-                      Editar
-                    </a>
                   @endcan
                 </td>
               </tr>

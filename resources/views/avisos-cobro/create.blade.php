@@ -14,7 +14,7 @@
     <div class="card mb-4">
       <div class="card-body">
         <div class="mb-3">
-          <label for="codigo_aviso" class="form-label">Monto (en dolares)</label>
+          <label for="codigo_aviso" class="form-label">Código del aviso</label>
           <input
             type="text"
             class="form-control @error('codigo_aviso') is-invalid @enderror"

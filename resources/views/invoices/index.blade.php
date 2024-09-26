@@ -18,8 +18,9 @@
     </div> --}}
   @endcan
   <div class="card mb-4">
-    <div class="card-body">
-      <form action="" class="mb-4">
+    
+    <div class="card-body border-bottom">
+      <form action="">
         <div class="row">
           @can('create', App\Models\Invoice::class)
             <div class="col-md-6 mb-3">
@@ -62,6 +63,8 @@
           </a>
         @endif
       </form>
+    </div>
+    <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered w-100" id="invoices-table">
           <thead>

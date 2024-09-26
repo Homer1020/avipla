@@ -210,11 +210,13 @@
                   <td>{{ $afiliado->rif }}</td>
                   <td>{{ $afiliado->razon_social }}</td>
                   <td>
-                    @foreach ($afiliado->avisosCobros->pluck('codigo_aviso') as $codigo)
-                      <span class="badge bg-danger">
-                        #{{ $codigo }}
-                      </span>
-                    @endforeach
+                    <span
+                      class="m-0 badge bg-danger"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="right"
+                      data-bs-html="true"
+                      title="{{ $afiliado->avisosCobros->pluck('codigo_aviso')->join('<br>') }}"
+                    >{{ $afiliado->avisosCobros->count() }} pagos pendientes</span>
                   </td>
                 </tr>
               @empty

@@ -44,15 +44,15 @@
                       type="button" role="tab" aria-controls="home" aria-selected="true">Datos de la empresa</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                    <button disabled class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
                       type="button" role="tab" aria-controls="profile" aria-selected="false">Actividades y personal</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages"
+                    <button disabled class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages"
                       type="button" role="tab" aria-controls="messages" aria-selected="false">Productos y servicios</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="final-tab" data-bs-toggle="tab" data-bs-target="#final"
+                    <button disabled class="nav-link" id="final-tab" data-bs-toggle="tab" data-bs-target="#final"
                       type="button" role="tab" aria-controls="final" aria-selected="false">Registro de encargado</button>
                   </li>
                 </ul>

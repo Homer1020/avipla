@@ -14,7 +14,7 @@
           <h4>Respaldo de Base de Datos</h4>
         </div>
         <div class="card-body">
-          <p class="lead text-center">Introduce la contraseña y haz clic en el botón para generar un respaldo de la base
+          <p class="card-text text-center">Introduce la contraseña y haz clic en el botón para generar un respaldo de la base
             de datos.</p>
 
           <form action="" method="POST">
