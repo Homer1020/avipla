@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -39,18 +40,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $payload = $request->validate([
-            'name'      => 'required|string',
-            'email'     => 'required|string|email|unique:users,email',
-            'password'  => 'required|min:8|confirmed',
-            'role_id'   => 'required|exists:roles,id'
-        ]);
+        try {
+            DB::beginTransaction();
+            $payload = $request->validate([
+                'name'      => 'required|string',
+                'email'     => 'required|string|email|unique:users,email',
+                'password'  => 'required|min:8|confirmed',
+                'role_id'   => 'required|exists:roles,id'
+            ]);
 
-        $user = User::create($payload);
+            $user = User::create($payload);
 
-        $user->roles()->sync([$payload['role_id']]);
+            $user->roles()->sync($request->get('role_id'));
 
-        return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
+            DB::commit();
+            return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
+        } catch(\Excepttion $e) {
+            DB::rollBack();
+            return redirect()->route('users.index')->with('error', 'No se pudo crear el usuario.');
+        }
     }
 
     /**

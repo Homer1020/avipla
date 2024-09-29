@@ -8,32 +8,21 @@ use Illuminate\Auth\Access\Response;
 
 class SolicitudAfiliadoPolicy
 {
-    public function before(User $user) {
-        $user->load('roles');
-        if($user->roles()->where('name', 'administrador')->orWhere('name', 'usuario')->exists()){
-            return true;
-        }
-        return null;
+
+    public function viewAny(User $user) {
+        return $user->can('view_solicitud');
     }
 
-    public function viewAny() {
-        return false;
+    public function create(User $user) {
+        return $user->can('create_solicitud');
     }
 
-    public function requestForm() {
-        return false;
-    }
-
-    public function request() {
-        return false;
+    public function delete(User $user)
+    {
+       return $user->can('delete_solicitud');
     }
 
     public function reminder() {
         return false;
-    }
-
-    public function delete()
-    {
-       return false;
     }
 }

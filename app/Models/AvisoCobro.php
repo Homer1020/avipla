@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use OwenIt\Auditing\Contracts\Auditable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class AvisoCobro extends Model
+class AvisoCobro extends Model implements Auditable
 {
-    use HasFactory;
+    use HasFactory, \OwenIt\Auditing\Auditable, SoftDeletes;
 
     protected $fillable = [
         'afiliado_id',
@@ -16,6 +18,11 @@ class AvisoCobro extends Model
         'estado',
         'codigo_aviso',
         'fecha_limite'
+    ];
+
+    protected $auditEvents = [
+        'deleted',
+        'updated',
     ];
 
     static function getCurrentCodigoAviso() {

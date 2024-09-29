@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Afiliado;
 use App\Models\AvisoCobro;
-use App\Models\Banco;
-use App\Models\MetodoPago;
 use App\Models\User;
 use App\Notifications\AvisoCobroCreated;
 use App\Notifications\AvisoCobroStatusChanged;
@@ -109,18 +107,6 @@ class AvisoCobroController extends Controller
         return view('avisos-cobro.show', compact('avisoCobro'));
     }
 
-    public function payCollectionNotice(AvisoCobro $avisoCobro) {
-        $this->authorize('view', $avisoCobro);
-        $metodos_pago = MetodoPago::all();
-        $bancos = Banco::all();
-        return view('pagos.create', compact('avisoCobro', 'metodos_pago', 'bancos'));
-    }
-
-    public function avisoCobroDetails(AvisoCobro $avisoCobro) {
-        $this->authorize('view', $avisoCobro);
-        return view('pagos.show', compact('avisoCobro'));
-    }
-
     /**
      * Update the specified resource in storage.
      */
@@ -161,7 +147,12 @@ class AvisoCobroController extends Controller
      */
     public function destroy(AvisoCobro $avisoCobro)
     {
-        //
+        $avisoCobro->delete();
+        return response()->json([
+            'ok'        => true,
+            'title'     => '¡Consulta existosa!',
+            'message'   => 'Se eliminó correctamente el avíso de cobro ' . $avisoCobro->codigo_aviso . '.'
+        ]);
     }
     
     public function modalDetail(AvisoCobro $avisoCobro) {
@@ -175,7 +166,7 @@ class AvisoCobroController extends Controller
         $estado         = request()->input('estado');
         $date_range     = request()->input('date_range');
         $queryAvisosCobros   = AvisoCobro::with(['pago', 'afiliado'])->latest();
-        $authAfiliado = Auth::user()->getAfiliado();
+        $authAfiliado = Auth::user()->afiliado;
 
         if ($afiliado || $authAfiliado) {
             $queryAvisosCobros->where('afiliado_id', @$authAfiliado->id ? $authAfiliado->id : $afiliado);

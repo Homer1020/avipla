@@ -6,16 +6,17 @@ use App\Models\Actividad;
 use App\Models\Afiliado;
 use App\Models\MateriaPrima;
 use App\Models\Producto;
-use App\Models\Role;
 use App\Models\Servicio;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class ProfileController extends Controller
 {
     public function show() {
         $user = request()->user();
         $user->load(['afiliado', 'roles']);
+
         return view('profile.show', compact('user'));
     }
 
@@ -59,10 +60,9 @@ class ProfileController extends Controller
                 'email'     => 'required|string|email|unique:users,email',
                 'password'  => 'nullable|min:8|confirmed'
             ]);
-            $presidente = User::create($payload);
+            $payload['tipo_afiliado'] = 1;
+            $presidente = $afiliado->users()->create($payload);
             $presidente->roles()->sync($afiliado_role);
-            $afiliado->presidente()->associate($presidente);
-            $afiliado->save();
         }
 
         return redirect()->route('profile.showPresidente')->with('success', 'Se actualizaron los datos del presidente correctamente');
@@ -92,10 +92,9 @@ class ProfileController extends Controller
                 'email'     => 'required|string|email|unique:users,email',
                 'password'  => 'nullable|min:8|confirmed'
             ]);
-            $director = User::create($payload);
+            $payload['tipo_afiliado'] = 2;
+            $director = $afiliado->users()->create($payload);
             $director->roles()->sync($afiliado_role);
-            $afiliado->director()->associate($director);
-            $afiliado->save();
         }
 
         return redirect()->route('profile.showDirector')->with('success', 'Se actualizaron los datos del director ejecutivo correctamente');
@@ -124,7 +123,7 @@ class ProfileController extends Controller
     }
 
     public function businessShow(Request $request) {
-        $afiliado = request()->user()->getAfiliado();
+        $afiliado = $request->user()->afiliado;
         $actividades = Actividad::all();
         $productos = Producto::all();
         $materias_primas = MateriaPrima::all();

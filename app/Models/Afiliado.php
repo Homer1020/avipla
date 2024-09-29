@@ -28,16 +28,20 @@ class Afiliado extends Model
         'registro_mercantil_path'
     ];
 
+    public function users() {
+        return $this->hasMany(User::class);
+    }
+
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class)->where('tipo_afiliado', 0);
     }
 
     public function presidente() {
-        return $this->belongsTo(User::class, 'presidente_id', 'id');
+        return $this->hasOne(User::class)->where('tipo_afiliado', 1);
     }
 
     public function director() {
-        return $this->belongsTo(User::class, 'director_id', 'id');
+        return $this->hasOne(User::class)->where('tipo_afiliado', 2);
     }
 
     public function invoices() {

@@ -8,8 +8,8 @@
   <h1 class="mt-4">Pago de factura</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('pagos.invoice', $avisoCobro) }}">Aviso de cobro #{{ $avisoCobro->codigo_aviso }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('avisos-cobro.index') }}">Avisos de cobro</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('avisos-cobro.show', $avisoCobro) }}">Aviso de cobro #{{ $avisoCobro->codigo_aviso }}</a></li>
     <li class="breadcrumb-item active">Adjuntar pago</li>
   </ol>
   
@@ -28,8 +28,6 @@
                 <p>El monto de la cuota puede ser cancelado en dólares en efectivo en nuestra sede, o abonado en las cuentas bancarias señaladas más adelante mediante depósito o transferencia, a la tasa de cambio BCV del día en que se haga efectivo el pago.</p>
 
                 <p>Le recordamos que todo aviso de cobro atrasado deberá ser cancelado a la tasa de cambio BCV del día en que realice la transacción de pago correspondiente.</p>
-
-                {{-- <p>Para facilitar el proceso, por favor reporte su pago en el formulario que se encuentra a continuación.</p> --}}
 
                 <p>A través de esta notificación, nuestros afiliados pueden registrar el abono contablemente en sus libros como un "ADELANTO A CUOTA TRIMESTRAL AVIPLA", y regularizar el mismo una vez recibida la factura correspondiente.</p>
 
@@ -145,7 +143,7 @@
                             id="fecha_pago"
                             type="date"
                             class="form-control @error('fecha_pago') is-invalid @enderror"
-                            value="{{ old('fecha_pago') }}"
+                            value="{{ old('fecha_pago', date('Y-m-d')) }}"
                             placeholder="Ingrese el número de fecha_pago"
                             max="{{ date('Y-m-d') }}"
                         >

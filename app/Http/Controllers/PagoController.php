@@ -11,6 +11,7 @@ use App\Models\Pago;
 use App\Models\User;
 use App\Notifications\AvisoCobroPaid;
 use App\Notifications\PayUpdated;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class PagoController extends Controller
@@ -26,7 +27,7 @@ class PagoController extends Controller
     public function index()
     {
         $user = request()->user();
-        $afiliado = $user->getAfiliado();
+        $afiliado = $user->afiliado;
 
         $avisosCobros = AvisoCobro::with(['afiliado', 'pago'])
             ->where('afiliado_id', $afiliado->id)
@@ -34,12 +35,33 @@ class PagoController extends Controller
         return view('pagos.index', compact('avisosCobros'));
     }
 
+    public function create(AvisoCobro $avisoCobro) {
+        $afiliado = Auth::user()->afiliado;
+        if($avisoCobro->afiliado_id !== $afiliado->id) {
+            return abort(403);
+        }
+        $metodos_pago = MetodoPago::all();
+        $bancos = Banco::all();
+        return view('pagos.create', compact('avisoCobro', 'metodos_pago', 'bancos'));
+    }
+
+    public function show(AvisoCobro $avisoCobro) {
+        return view('pagos.show', compact('avisoCobro'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(StorePagoRequest $request)
     {
+
         $payload = $request->validated();
+        $avisoCobro = AvisoCobro::where('id', $payload['aviso_cobro_id'])->first();
+
+        $afiliado = Auth::user()->afiliado;
+        if($avisoCobro->afiliado_id !== $afiliado->id) {
+            return abort(403);
+        }
 
         if($request->hasFile('comprobante')) {
             $comprobanteFile = $request->file('comprobante');
@@ -48,8 +70,6 @@ class PagoController extends Controller
 
             $payload['comprobante'] = $comprobanteFileName;
         }
-
-        $avisoCobro = AvisoCobro::where('id', $payload['aviso_cobro_id'])->first();
 
         Pago::create($payload);
 
@@ -62,7 +82,7 @@ class PagoController extends Controller
             $administrador->notify(new AvisoCobroPaid($avisoCobro));
         }
 
-        return redirect()->route('pagos.index')->with('success', 'Pago realizado correctamente.');
+        return redirect()->route('avisos-cobro.index')->with('success', 'Pago realizado correctamente.');
     }
 
     public function edit(Pago $pago) {

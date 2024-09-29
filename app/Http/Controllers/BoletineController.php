@@ -54,10 +54,6 @@ class BoletineController extends Controller
         $afiliados = User::whereHas('roles', function ($query) {
             $query->where('name', 'afiliado');
         })
-        ->doesntHave('afiliadoDirector')
-        ->whereDoesntHave('afiliado.avisosCobros', function($query) {
-            $query->where('estado', '<>', 'conciliado');
-        })
         ->get();
         foreach ($afiliados as $afiliado) {
             $afiliado->notify(new BoletinCreated($boletine));

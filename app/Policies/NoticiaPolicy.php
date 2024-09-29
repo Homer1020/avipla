@@ -7,20 +7,12 @@ use App\Models\User;
 
 class NoticiaPolicy
 {
-    public function before(User $user) {
-        $user->load(['roles']);
-        if($user->roles()->where('name', 'administrador')->exists()){
-            return true;
-        }
-        return null;
-    }
-
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->roles()->where('name', 'editor')->exists();
+        return $user->can('view_noticia');
     }
 
     /**
@@ -28,7 +20,7 @@ class NoticiaPolicy
      */
     public function view(User $user, Noticia $noticia): bool
     {
-        return $user->roles()->where('name', 'editor')->exists();
+        return $user->can('view_noticia');
     }
 
     /**
@@ -36,7 +28,7 @@ class NoticiaPolicy
      */
     public function create(User $user): bool
     {
-        return $user->roles()->where('name', 'editor')->exists();
+        return $user->can('create_noticia');
     }
 
     /**
@@ -44,7 +36,7 @@ class NoticiaPolicy
      */
     public function update(User $user, Noticia $noticia): bool
     {
-        return $noticia->user_id === $user->id;
+        return $user->can('update_noticia');
     }
 
     /**
@@ -52,7 +44,7 @@ class NoticiaPolicy
      */
     public function delete(User $user, Noticia $noticia): bool
     {
-        return $noticia->user_id === $user->id;
+        return $user->can('delete_noticia');
     }
 
     /**
@@ -60,7 +52,7 @@ class NoticiaPolicy
      */
     public function restore(User $user, Noticia $noticia): bool
     {
-        return $noticia->user_id === $user->id;
+        return false;
     }
 
     /**
@@ -68,6 +60,6 @@ class NoticiaPolicy
      */
     public function forceDelete(User $user, Noticia $noticia): bool
     {
-        return $noticia->user_id === $user->id;
+        return false;
     }
 }

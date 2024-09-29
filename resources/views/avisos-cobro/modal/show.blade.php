@@ -58,13 +58,13 @@
 @endif
 
 
-@can('create', App\Models\Invoice::class)
+@canany(['create_factura', 'view_factura'])
     <div class="d-flex justify-content-end {{ $avisoCobro->pago || $avisoCobro->invoice ? 'mb-3' : '' }}">
-        @if ($avisoCobro->pago && !$avisoCobro->invoice)
+        @if ($avisoCobro->pago && !$avisoCobro->invoice && Auth::user()->can('create_factura'))
             <button type="button" id="btn-invoice" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-file-invoice"></i> Generar factura trimestral</button>
         @endif
         <div class="d-inline-block" id="invoice_button_wrapper">
-            @if ($avisoCobro->invoice)
+            @if ($avisoCobro->invoice && Auth::user()->can('view_factura'))
                 <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $avisoCobro->invoice->invoice_path]) }}" class="btn btn-primary">
                     <i class="fas fa-file-invoice"></i>
                     Ver factura trimestral
@@ -72,7 +72,7 @@
             @endif
         </div>
     </div>
-@endcan
+@endcanany
 
 <div class="row">
     @if ($avisoCobro->pago)
@@ -163,7 +163,11 @@
                     >
                         <div class="mb-3">
                             <label class="form-label fw-bold">Estado:</label>
-                            <select name="invoice_status" id="invoice_status" class="form-select">
+                            <select
+                                @disabled(Auth::user()->cannot('update_aviso'))
+                                name="invoice_status" id="invoice_status"
+                                class="form-select"
+                            >
                                 <option selected disabled>Cambiar estado</option>
                                 <option value="PENDIENTE" @selected($avisoCobro->estado === 'PENDIENTE')>PENDIENTE</option>
                                 <option value="REVISION" @selected($avisoCobro->estado === 'REVISION')>REVISIÓN</option>
@@ -191,11 +195,12 @@
                     <span class="fw-bold">Estado:</span>
                     @include('partials.invoice_status')
                 </li>
-                <li class="list-group-item">
-                    <span class="fw-bold">Observaciones:</span>
-                    {{ $avisoCobro->observaciones }}
-                </li>
-                
+                @if($avisoCobro->observaciones)
+                    <li class="list-group-item">
+                        <span class="fw-bold">Observaciones:</span>
+                        {{ $avisoCobro->observaciones }}
+                    </li>
+                @endif
                 @if (!$avisoCobro->pago)
                     <li class="list-group-item">
                         <span class="fw-bold d-block mb-2">Adjuntar pago:</span>

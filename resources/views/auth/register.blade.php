@@ -52,7 +52,7 @@
                       type="button" role="tab" aria-controls="messages" aria-selected="false">Productos y servicios</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button disabled class="nav-link" id="final-tab" data-bs-toggle="tab" data-bs-target="#final"
+                    <button class="nav-link" id="final-tab" data-bs-toggle="tab" data-bs-target="#final"
                       type="button" role="tab" aria-controls="final" aria-selected="false">Registro de encargado</button>
                   </li>
                 </ul>

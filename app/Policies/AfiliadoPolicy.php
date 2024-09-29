@@ -8,8 +8,7 @@ use App\Models\User;
 class AfiliadoPolicy
 {
     public function before(User $user) {
-        $user->load(['roles', 'afiliado']);
-        if($user->roles()->where('name', 'administrador')->exists()){
+        if($user->roles()->where('name', 'admin')->exists()){
             return true;
         }
         return null;
@@ -20,7 +19,7 @@ class AfiliadoPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->can('view_afiliado');
     }
 
     /**
@@ -28,7 +27,7 @@ class AfiliadoPolicy
      */
     public function view(User $user, Afiliado $afiliado): bool
     {
-        return $user->afiliado && $user->afiliado->id === $afiliado->id;
+        return $user->can('view_afiliado');
     }
 
     /**
@@ -44,8 +43,10 @@ class AfiliadoPolicy
      */
     public function update(User $user, Afiliado $afiliado): bool
     {
-        $presidente = $user->afiliadoPresidente;
-        return ($user->afiliado && $user->afiliado->id === $afiliado->id) || ($presidente && $presidente->id === $afiliado->id); // esto esta correcto :C
+        if($user->afiliado_id === $afiliado->id) {
+            return true;
+        }
+        return $user->can('update_afiliado');
     }
 
     /**
@@ -53,7 +54,7 @@ class AfiliadoPolicy
      */
     public function delete(User $user, Afiliado $afiliado): bool
     {
-        return $user->afiliado && $user->afiliado->id === $afiliado->id;
+        return $user->can('delete_afiliado');
     }
 
     /**
@@ -61,7 +62,7 @@ class AfiliadoPolicy
      */
     public function restore(User $user, Afiliado $afiliado): bool
     {
-        return $user->afiliado && $user->afiliado->id === $afiliado->id;
+        return false;
     }
 
     /**

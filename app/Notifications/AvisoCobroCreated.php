@@ -58,7 +58,7 @@ class AvisoCobroCreated extends Notification
         return [
             'icon'              => 'fas fa-exclamation-triangle',
             'bg-class'          => 'bg-warning',
-            'invoice_id'        => $this->avisoCobro->id,
+            'aviso_id'          => $this->avisoCobro->id,
             'codigo_aviso'      => $this->avisoCobro->codigo_aviso,
             'message'           => 'Aviso de cobro #' . $this->avisoCobro->codigo_aviso
         ];

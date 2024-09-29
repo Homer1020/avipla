@@ -8,20 +8,12 @@ use Illuminate\Auth\Access\Response;
 
 class CategoryPolicy
 {
-    public function before(User $user) {
-        $user->load(['roles']);
-        if($user->roles()->where('name', 'administrador')->exists() || $user->roles()->where('name', 'editor')->exists()){
-            return true;
-        }
-        return null;
-    }
-    
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->can('view_category');
     }
 
     /**
@@ -29,7 +21,7 @@ class CategoryPolicy
      */
     public function view(User $user, Category $category): bool
     {
-        return false;
+        return $user->can('view_category');
     }
 
     /**
@@ -37,7 +29,7 @@ class CategoryPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->can('create_category');
     }
 
     /**
@@ -45,7 +37,7 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category): bool
     {
-        return false;
+        return $user->can('update_category');
     }
 
     /**
@@ -53,7 +45,7 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category): bool
     {
-        return false;
+        return $user->can('delete_category');
     }
 
     /**

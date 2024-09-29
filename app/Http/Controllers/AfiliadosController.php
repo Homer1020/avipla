@@ -24,6 +24,7 @@ class AfiliadosController extends Controller
     public function index()
     {
         $afiliados = Afiliado::latest()
+            ->with('user')
             ->get();
         return view('afiliados.index', compact('afiliados'));
     }

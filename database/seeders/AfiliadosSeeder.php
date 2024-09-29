@@ -3,11 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Afiliado;
-use App\Models\Role;
 use App\Models\SolicitudAfiliado;
-use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class AfiliadosSeeder extends Seeder
 {
@@ -17,23 +15,15 @@ class AfiliadosSeeder extends Seeder
     public function run(): void
     {
 
-        $afiliado_role = Role::where('name', 'afiliado')->get();
+        $afiliado_role = Role::create(['name' => 'afiliado']);
 
         for ($i = 0; $i < 4; $i++) {
             $solicitud = SolicitudAfiliado::create([
                 'razon_social'  => "Test Empresa #{$i}",
                 'correo'        => "test{$i}@gmail.com"  // Correo único para cada iteración
             ]);
-    
-            $user = User::create([
-                'name'      => "Test User #{$i}",
-                'email'     => "test{$i}@gmail.com",    // Correo único para cada iteración
-                'password'  => bcrypt('admin123'),
-            ]);
-    
-            $user->roles()->sync($afiliado_role);
-    
-            $afiliado = $user->afiliado()->create([
+
+            $afiliado = Afiliado::create([
                 'razon_social'                  => "Test Empresa #{$i}",
                 'rif'                           => "F-00000000{$i}",
                 'anio_fundacion'                => '2001',
@@ -42,12 +32,12 @@ class AfiliadosSeeder extends Seeder
                 'actividad_id'                  => 1,
                 'relacion_comercio_exterior'    => 'EXPORTADOR',
                 'siglas'                        => 'FC',
-                'brand'                         => 'brand.png',
+                'brand'                         => 'logo.png',
                 'rif_path'                      => 'brand.pdf',
                 'estado_financiero_path'        => 'brand.pdf',
                 'registro_mercantil_path'       => 'brand.pdf',
             ]);
-    
+
             $afiliado->direccion()->create([
                 'direccion_oficina'     => 'Plaza Bolivar',
                 'ciudad_oficina'        => 'Caracas',
@@ -68,6 +58,15 @@ class AfiliadosSeeder extends Seeder
                 'correo_gerente_exportaciones'      => '',
                 'correo_representante_avipla'       => ''
             ]);
+
+            $user = $afiliado->users()->create([
+                'name'          => "Test User #{$i}",
+                'email'         => "test{$i}@gmail.com",    // Correo único para cada iteración
+                'password'      => bcrypt('admin123'),
+                'tipo_afiliado' => 0
+            ]);
+    
+            $user->roles()->sync($afiliado_role);
     
             $solicitud->afiliado_id = $afiliado->id;
             $solicitud->save();

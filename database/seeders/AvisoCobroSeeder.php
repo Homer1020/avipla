@@ -15,7 +15,7 @@ class AvisoCobroSeeder extends Seeder
     {
         $afiliados = Afiliado::all();
         $user = User::whereHas('roles', function ($query) {
-            $query->where('name', 'administrador');
+            $query->where('name', 'admin');
         })->first();
         $codigos = ['FEBRERO2024', 'MARZO2024', 'ABRIL2024', 'MAYO2024', 'JUNIO2024', 'JULIO2024'];
         foreach($codigos as $index => $codigo) {

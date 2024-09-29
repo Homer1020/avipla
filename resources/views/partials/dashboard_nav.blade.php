@@ -9,7 +9,7 @@
             >
                 Dashboard
             </x-nav-link>
-            @if (Auth::user()->roles->first()->name === 'afiliado')
+            @if (Auth::user()->afiliado)
                 <x-nav-link
                     :to="route('business.show')"
                     active="business.*"
@@ -29,7 +29,7 @@
                 </span>
             </x-nav-link>
             <div class="sb-sidenav-menu-heading">{{ Auth::user()->roles->first()->name }}</div>
-            @can('viewAny', App\Models\SolicitudAfiliado::class)
+            @can('view_solicitud')
                 <x-nav-link
                     :to="route('solicitudes.index')"
                     active="solicitudes.*"
@@ -38,7 +38,7 @@
                     Solicitudes
                 </x-nav-link>
             @endcan
-            @can('viewAny', App\Models\Afiliado::class)
+            @can('view_afiliado')
                 <x-nav-link
                     :to="route('afiliados.index')"
                     active="afiliados.*"
@@ -56,7 +56,7 @@
                     Avisos de cobro
                 </x-nav-link>
             @endcan
-            @can('viewAny', App\Models\Invoice::class)
+            @can('view_factura')
                 <x-nav-link
                     :to="route('invoices.index')"
                     active="invoices.*"
@@ -65,24 +65,7 @@
                     Facturas
                 </x-nav-link>
             @endcan
-           {{--  @can('viewAny', App\Models\Pago::class)
-                <x-nav-link
-                    :to="route('pagos.index')"
-                    active="{{
-                    request()->routeIs('pagos.invoice')
-                        ? 'pagos.invoice'
-                        : (
-                            request()->routeIs('avisos-cobro.payCollectionNotice')
-                            ? 'avisos-cobro.payCollectionNotice'
-                            : 'pagos.*'
-                        )
-                    }}"
-                    icon="fas fa-credit-card"
-                >
-                    Avisos de cobro
-                </x-nav-link>
-            @endcan --}}
-            @can ('viewAny', App\Models\Noticia::class)
+            @can('view_noticia')
                 <x-nav-link-dropdown
                     title="Noticias"
                     icon="fas fa-newspaper"
@@ -90,11 +73,15 @@
                     :active="request()->routeIs('noticias.*') || request()->routeIs('categories.*') || request()->routeIs('tags.*')"
                 >
                     <a href="{{ route('noticias.index') }}" class="nav-link {{ request()->routeIs('noticias.*')  ? 'active' : '' }}">Todas las noticias</a>
-                    <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">Categorías</a>
-                    <a href="{{ route('tags.index') }}" class="nav-link {{ request()->routeIs('tags.*') ? 'active' : '' }}">Etiquetas</a>
+                    @can('view_category')
+                        <a href="{{ route('categories.index') }}" class="nav-link {{ request()->routeIs('categories.*') ? 'active' : '' }}">Categorías</a>
+                    @endcan
+                    @can('view_tag')
+                        <a href="{{ route('tags.index') }}" class="nav-link {{ request()->routeIs('tags.*') ? 'active' : '' }}">Etiquetas</a>
+                    @endcan
                 </x-nav-link-dropdown>
             @endcan
-            @can('create', App\Models\Boletine::class)
+            @can('view_boletine')
                 <x-nav-link-dropdown
                     title="Boletines"
                     icon="fas fa-envelope"
@@ -102,23 +89,22 @@
                     :active="request()->routeIs('boletines.*') || request()->routeIs('categorias-boletines.*')"
                 >
                     <a href="{{ route('boletines.index') }}" class="nav-link {{ request()->routeIs('boletines.*') ? 'active' : '' }}">Todos los boletines</a>
-                    <a href="{{ route('categorias-boletines.index') }}" class="nav-link {{ request()->routeIs('categorias-boletines.*') ? 'active' : '' }}">Categorías</a>
+                    @can('view_category_boletine')
+                        <a href="{{ route('categorias-boletines.index') }}" class="nav-link {{ request()->routeIs('categorias-boletines.*') ? 'active' : '' }}">Categorías</a>
+                    @endcan
                 </x-nav-link-dropdown>
-            @elsecan('viewAny', App\Models\Boletine::class)
-                <x-nav-link
-                    :to="route('boletines.index')"
-                    active="boletines.*"
-                    icon="fas fa-envelope"
-                >
-                    Boletines
-                </x-nav-link>
             @endcan
-            @if (Auth::user()->is_admin())
+            @can('view_role')
                 <x-nav-link-dropdown
                     title="Administrador"
                     icon="fas fa-shield-alt"
                     target="adminPages"
-                    :active="request()->routeIs('audits.*') || request()->routeIs('database.*') || request()->routeIs('users.*')"
+                    :active="
+                        request()->routeIs('audits.*')
+                        || request()->routeIs('database.*')
+                        || request()->routeIs('users.*')
+                        || request()->routeIs('roles.*')
+                    "
                 >
                     <a
                         href="{{ route('audits.index') }}"
@@ -131,6 +117,12 @@
                         class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
                     >
                         Usuarios
+                    </a>
+                    <a
+                        href="{{ route('roles.index') }}"
+                        class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}"
+                    >
+                        Roles
                     </a>
                     <a
                         href="{{ route('database.index') }}"
@@ -146,7 +138,7 @@
                 >
                     Sitio web
                 </x-nav-link>
-            @endif
+            @endcan
         </div>
     </div>
     <div class="sb-sidenav-footer">

@@ -28,8 +28,8 @@
   <div class="card mb-4">
     <div class="card-body border-bottom">
       <form action="">
-        <div class="row">
-          @if(!request()->user()->roles()->where('name', 'afiliado')->exists())
+        <div class="row {{ request()->user()->afiliado ? 'justify-content-center' : '' }}">
+          @if(!request()->user()->afiliado)
             <div class="col-md-6 col-xl-4 mb-3">
               <label for="afiliado" class="form-label">Afiliado</label>
               <select

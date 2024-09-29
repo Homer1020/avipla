@@ -7,20 +7,12 @@ use App\Models\User;
 
 class TagPolicy
 {
-    public function before(User $user) {
-        $user->load(['roles']);
-        if($user->roles()->where('name', 'administrador')->exists() || $user->roles()->where('name', 'editor')->exists()){
-            return true;
-        }
-        return null;
-    }
-
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->can('view_tag');
     }
 
     /**
@@ -28,7 +20,7 @@ class TagPolicy
      */
     public function view(User $user, Tag $tag): bool
     {
-        return false;
+        return $user->can('view_tag');
     }
 
     /**
@@ -36,7 +28,7 @@ class TagPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->can('create_tag');
     }
 
     /**
@@ -44,7 +36,7 @@ class TagPolicy
      */
     public function update(User $user, Tag $tag): bool
     {
-        return false;
+        return $user->can('update_tag');
     }
 
     /**
@@ -52,7 +44,7 @@ class TagPolicy
      */
     public function delete(User $user, Tag $tag): bool
     {
-        return false;
+        return $user->can('edit_tag');
     }
 
     /**

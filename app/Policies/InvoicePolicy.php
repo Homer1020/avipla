@@ -7,20 +7,12 @@ use App\Models\User;
 
 class InvoicePolicy
 {
-    public function before(User $user) {
-        $user->load(['roles', 'afiliado']);
-        if($user->roles()->where('name', 'administrador')->exists()){
-            return true;
-        }
-        return null;
-    }
-
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->roles()->where('name', 'afiliado')->exists();
+        return $user->can('view_factura');
     }
 
     /**
@@ -28,8 +20,7 @@ class InvoicePolicy
      */
     public function view(User $user, Invoice $invoice): bool
     {
-        $afiliado = $user->getAfiliado();
-        return $afiliado ? $afiliado->id === $invoice->avisoCobro->afiliado->id : $user->roles()->where('name', 'usuario')->exists();
+        return $user->can('view_factura');
     }
 
     /**
@@ -37,7 +28,7 @@ class InvoicePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->can('create_factura');
     }
 
     /**
@@ -45,7 +36,7 @@ class InvoicePolicy
      */
     public function update(User $user, Invoice $invoice): bool
     {
-        return false;
+        return $user->can('update_factura');
     }
 
     /**
@@ -53,7 +44,7 @@ class InvoicePolicy
      */
     public function delete(User $user, Invoice $invoice): bool
     {
-        return false;
+        return $user->can('delete_factura');
     }
 
     /**

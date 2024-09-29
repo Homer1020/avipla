@@ -55,7 +55,7 @@ class AvisoCobroPaid extends Notification
         return [
             'icon'              => 'fa fa-file-invoice',
             'bg-class'          => 'bg-secondary',
-            'invoice_id'        => $this->avisoCobro->id,
+            'aviso_id'          => $this->avisoCobro->id,
             'codigo_aviso'      => $this->avisoCobro->codigo_aviso,
             'message'           => 'Se realizó pago para el aviso de cobro #' . $this->avisoCobro->codigo_aviso
         ];

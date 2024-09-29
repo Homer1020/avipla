@@ -30,6 +30,7 @@ return new class extends Migration
             $table->decimal('monto_total');
             $table->text('observaciones')->nullable();
             $table->date('fecha_limite')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

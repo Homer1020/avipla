@@ -13,27 +13,27 @@ return new class extends Migration
     {
         Schema::create('afiliados', function (Blueprint $table) {
             $table->id();
-            $table
-                ->foreignId('user_id')
-                ->nullable()
-                ->references('id')
-                ->on('users')
-                ->onDelete('CASCADE')
-                ->onUpdate('CASCADE');
-            $table
-                ->foreignId('presidente_id')
-                ->nullable()
-                ->references('id')
-                ->on('users')
-                ->onDelete('CASCADE')
-                ->onUpdate('CASCADE');
-            $table
-                ->foreignId('director_id')
-                ->nullable()
-                ->references('id')
-                ->on('users')
-                ->onDelete('CASCADE')
-                ->onUpdate('CASCADE');
+            // $table
+            //     ->foreignId('user_id')
+            //     ->nullable()
+            //     ->references('id')
+            //     ->on('users')
+            //     ->onDelete('CASCADE')
+            //     ->onUpdate('CASCADE');
+            // $table
+            //     ->foreignId('presidente_id')
+            //     ->nullable()
+            //     ->references('id')
+            //     ->on('users')
+            //     ->onDelete('CASCADE')
+            //     ->onUpdate('CASCADE');
+            // $table
+            //     ->foreignId('director_id')
+            //     ->nullable()
+            //     ->references('id')
+            //     ->on('users')
+            //     ->onDelete('CASCADE')
+            //     ->onUpdate('CASCADE');
             $table
                 ->foreignId('actividad_id')
                 ->nullable()

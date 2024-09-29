@@ -2,27 +2,20 @@
 
 namespace App\Policies;
 
-use App\Models\Afiliado;
-use App\Models\Invoice;
 use App\Models\Pago;
 use App\Models\User;
 
 class PagoPolicy
 {
-    // public function before(User $user) {
-    //     $user->load('roles', 'afiliado');
-    //     if($user->roles()->where('name', 'administrador')->exists()){
-    //         return true;
-    //     }
-    //     return null;
-    // }
-
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->roles()->where('name', 'afiliado')->exists();
+        if($user->afiliado) {
+            return true;
+        }
+        return $user->can('view_pago');
     }
 
     /**
@@ -30,8 +23,7 @@ class PagoPolicy
      */
     public function view(User $user, Pago $pago): bool
     {
-        $afiliado = $user->getAfiliado();
-        return ($afiliado && $afiliado->id === $pago->avisoCobro->afiliado_id) || $user->roles()->whereIn('name', ['usuario', 'administrador'])->exists();
+        return true;
     }
 
     /**

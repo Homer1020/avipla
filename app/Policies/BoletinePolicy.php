@@ -8,20 +8,12 @@ use App\Models\User;
 use Illuminate\Auth\Access\Response;
 class BoletinePolicy
 {
-    public function before(User $user) {
-        $user->load('roles');
-        if($user->roles()->whereIn('name', ['administrador', 'editor', 'usuario'])->exists()){
-            return true;
-        }
-        return null;
-    }
-
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->afiliado()->exists() || $user->afiliadoPresidente()->exists();
+        return $user->can('view_boletine');
     }
 
     /**
@@ -29,21 +21,22 @@ class BoletinePolicy
      */
     public function view(User $user, Boletine $boletine)
     {
-        $afiliado = $user->getAfiliado();
-        $afiliadoSolvente = Afiliado::where('id', $afiliado->id)->whereDoesntHave('avisosCobros', function($query) {
-            $query
-                ->where('estado', '<>', 'conciliado')
-                ->where(function($query) {
-                    $query
-                        ->whereRaw('YEAR(created_at) = YEAR(CURDATE())')
-                        ->whereRaw('MONTH(created_at) < MONTH(CURDATE())');
-                    });
-        })->exists();
-        if($afiliadoSolvente) {
-            return Response::allow();
-        } else {
-            return Response::deny('Usted tiene recibos pendientes por pagar.');
-        }
+        return $user->can('view_boletine');
+        // $afiliado = $user->getAfiliado();
+        // $afiliadoSolvente = Afiliado::where('id', $afiliado->id)->whereDoesntHave('avisosCobros', function($query) {
+        //     $query
+        //         ->where('estado', '<>', 'conciliado')
+        //         ->where(function($query) {
+        //             $query
+        //                 ->whereRaw('YEAR(created_at) = YEAR(CURDATE())')
+        //                 ->whereRaw('MONTH(created_at) < MONTH(CURDATE())');
+        //             });
+        // })->exists();
+        // if($afiliadoSolvente) {
+        //     return Response::allow();
+        // } else {
+        //     return Response::deny('Usted tiene recibos pendientes por pagar.');
+        // }
     }
 
     /**
@@ -51,7 +44,7 @@ class BoletinePolicy
      */
     public function create(User $user): bool
     {
-        return $user->roles()->where('name', 'editor')->exists();
+        return $user->can('create_boletine');
     }
 
     /**
@@ -59,7 +52,7 @@ class BoletinePolicy
      */
     public function update(User $user, Boletine $boletine): bool
     {
-        return $user->id === $boletine->user->id;
+        return $user->can('update_boletine');
     }
 
     /**
@@ -67,7 +60,7 @@ class BoletinePolicy
      */
     public function delete(User $user, Boletine $boletine): bool
     {
-        return $user->id === $boletine->user->id;
+        return $user->can('delete_boletine');
     }
 
     /**

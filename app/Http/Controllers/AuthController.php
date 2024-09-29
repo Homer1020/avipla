@@ -7,7 +7,6 @@ use App\Models\Actividad;
 use App\Models\Afiliado;
 use App\Models\MateriaPrima;
 use App\Models\Producto;
-use App\Models\Role;
 use App\Models\Servicio;
 use App\Models\SolicitudAfiliado;
 use App\Models\User;
@@ -19,6 +18,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 
 class AuthController extends Controller
 {
@@ -66,7 +66,7 @@ class AuthController extends Controller
         if(Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('dashboard')->with('success', 'Bienvenido ' . Auth::user()->name . '!');
+            return redirect()->intended('admin')->with('success', 'Bienvenido ' . Auth::user()->name . '!');
         }
 
         /**
@@ -103,15 +103,6 @@ class AuthController extends Controller
 
         DB::beginTransaction();
         try {
-            $user = User::create([
-                'name'      => $data_user['name'],
-                'email'     => $data_user['email'],
-                'password'  => bcrypt($data_user['password']),
-            ]);
-
-            $afiliado_role = Role::firstOrCreate(['name' => 'afiliado']);
-            $user->roles()->sync($afiliado_role);
-
             # upload image
             $path = $request->file('brand')->store('public/brands');
             $payload['brand'] = $path;
@@ -132,7 +123,7 @@ class AuthController extends Controller
             $estadoFinanciero->storeAs('afiliados', $estadoFinancieroName);
             $payload['estado_financiero_path'] = $estadoFinancieroName;
 
-            $afiliado = $user->afiliado()->create($payload);
+            $afiliado = Afiliado::create($payload);
 
             $afiliado->direccion()->create($request->safe()->only([
                 'direccion_oficina',
@@ -196,6 +187,17 @@ class AuthController extends Controller
             }
             $afiliado->referencias()->attach($request->input('afiliados'));
 
+            $user = $afiliado->users()->create([
+                'name'          => $data_user['name'],
+                'email'         => $data_user['email'],
+                'password'      => bcrypt($data_user['password']),
+                'tipo_afiliado' => 0
+            ]);
+
+            $afiliado_role = Role::firstOrCreate(['name' => 'afiliado']);
+            $user->roles()->sync($afiliado_role);
+
+
             // and last but not less important
             $solicitud->afiliado_id = $afiliado->id;
             $solicitud->confirmation_code = null;
@@ -205,7 +207,7 @@ class AuthController extends Controller
 
             Auth::login($user);
 
-            return redirect()->intended('dashboard')->with('success', 'Bienvenido ' . $user->name . '!');
+            return redirect()->intended('admin')->with('success', 'Bienvenido ' . $user->name . '!');
         } catch (Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', 'Error al crear la cuenta.');

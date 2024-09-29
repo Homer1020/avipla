@@ -7,11 +7,7 @@ use App\Models\User;
 class UserPolicy
 {
     public function before(User $user) {
-        $user->load(['roles']);
-        if($user->roles()->where('name', 'administrador')->exists()){
-            return true;
-        }
-        return false;
+        return $user->can('view_user');
     }
 
     /**

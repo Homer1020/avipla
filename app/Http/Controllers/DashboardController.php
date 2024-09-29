@@ -136,7 +136,7 @@ class DashboardController extends Controller
     }
 
     public function afiliado() {
-        $afiliado = request()->user()->getAfiliado();
+        $afiliado = request()->user()->afiliado;
         $recibosall = AvisoCobro::where('afiliado_id', $afiliado->id)->get();
         $data = [
             'recibos' => [

@@ -8,8 +8,7 @@ use App\Models\User;
 class AvisoCobroPolicy
 {
     public function before(User $user) {
-        $user->load(['roles', 'afiliado']);
-        if($user->roles()->where('name', 'administrador')->exists()){
+        if($user->roles()->where('name', 'admin')->exists()){
             return true;
         }
         return null;
@@ -20,7 +19,10 @@ class AvisoCobroPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->roles()->whereIn('name', ['usuario', 'afiliado'])->exists();
+        if($user->afiliado) {
+            return true;
+        }
+        return $user->can('view_aviso');
     }
 
     /**
@@ -28,8 +30,10 @@ class AvisoCobroPolicy
      */
     public function view(User $user, AvisoCobro $avisoCobro): bool
     {
-        $afiliado = $user->getAfiliado();
-        return ($afiliado && $afiliado->id === $avisoCobro->afiliado_id) || $user->roles()->where('name', 'usuario')->exists();
+        if($user->afiliado && $user->afiliado->id === $avisoCobro->afiliado_id) {
+            return true;
+        }
+        return $user->can('view_aviso');
     }
 
     /**
@@ -37,7 +41,7 @@ class AvisoCobroPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->can('create_aviso');
     }
 
     /**
@@ -45,7 +49,7 @@ class AvisoCobroPolicy
      */
     public function update(User $user, AvisoCobro $avisoCobro): bool
     {
-        return false;
+        return $user->can('update_aviso');
     }
 
     /**
@@ -53,7 +57,7 @@ class AvisoCobroPolicy
      */
     public function delete(User $user, AvisoCobro $avisoCobro): bool
     {
-        return false;
+        return $user->can('delete_aviso');
     }
 
     /**

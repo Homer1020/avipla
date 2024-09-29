@@ -4,7 +4,7 @@
 <h1 class="mt-4">Solicitar Afiliado</h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-  <li class="breadcrumb-item"><a href="{{ route('afiliados.index') }}">Afiliados</a></li>
+  <li class="breadcrumb-item"><a href="{{ route('solicitudes.index') }}">Solicitudes</a></li>
   <li class="breadcrumb-item active">Solicitar Afiliado</li>
 </ol>
 

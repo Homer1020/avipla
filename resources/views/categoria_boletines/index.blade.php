@@ -10,9 +10,11 @@
     <li class="breadcrumb-item"><a href="{{ route('boletines.index') }}">Boletines</a></li>
     <li class="breadcrumb-item active">Categorías</li>
   </ol>
-  <div class="mb-4">
-    <a href="{{ route('categorias-boletines.create') }}" class="btn btn-primary">Crear categoría</a>
-  </div>
+  @can('create_category_boletine')
+    <div class="mb-4">
+      <a href="{{ route('categorias-boletines.create') }}" class="btn btn-primary">Crear categoría</a>
+    </div>
+  @endcan
 
   <div class="mb-4 card">
     <div class="card-body">

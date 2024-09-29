@@ -11,18 +11,20 @@ use Illuminate\Support\Str;
 
 class SolicitudController extends Controller
 {
+    public function __construct() {
+        $this->authorizeResource(SolicitudAfiliado::class, 'solicitud');
+    }
+
     public function index() {
         $solicitudes = SolicitudAfiliado::whereDoesntHave('afiliado')->latest()->get();
         return view('solicitudes.index', compact('solicitudes'));
     }
 
     public function create() {
-        $this->authorize('requestForm', SolicitudAfiliado::class);
         return view('solicitudes.create');
     }
 
     public function store(Request $request) {
-        $this->authorize('request', SolicitudAfiliado::class);
         $payload = $request->validate([
             'razon_social'  => 'required|string',
             'correo'        => 'required|email|unique:solicitudes_afiliados,correo'

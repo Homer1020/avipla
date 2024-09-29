@@ -7,20 +7,12 @@ use App\Models\User;
 
 class CategoriaBoletinePolicy
 {
-    public function before(User $user) {
-        $user->load(['roles']);
-        if($user->roles()->whereIn('name', ['administrador', 'usuarios'])->exists()){
-            return true;
-        }
-        return null;
-    }
-    
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->roles()->where('name', 'usuario')->exists();
+        return $user->can('view_category_boletine');
     }
 
     /**
@@ -28,7 +20,7 @@ class CategoriaBoletinePolicy
      */
     public function view(User $user, CategoriaBoletine $category): bool
     {
-        return false;
+        return $user->can('view_category_boletine');
     }
 
     /**
@@ -36,7 +28,7 @@ class CategoriaBoletinePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->can('create_category_boletine');
     }
 
     /**
@@ -44,7 +36,7 @@ class CategoriaBoletinePolicy
      */
     public function update(User $user, CategoriaBoletine $categoriaBoletine): bool
     {
-        return false;
+        return $user->can('update_category_boletine');
     }
 
     /**
@@ -52,7 +44,7 @@ class CategoriaBoletinePolicy
      */
     public function delete(User $user, CategoriaBoletine $categoriaBoletine): bool
     {
-        return false;
+        return $user->can('delete_category_boletine');
     }
 
     /**

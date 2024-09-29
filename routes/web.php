@@ -40,8 +40,8 @@ Route::get('categoria/{category}', [HomeController::class, 'category'])->name('c
 Route::get('etiquetas/{tag}/noticias', [HomeController::class, 'tag'])->name('tags.show');
 Route::get('contacto', [HomeController::class, 'contact'])->name('contact');
 Route::post('contacto', [HomeController::class, 'sendContactMail'])->name('sendContactMail');
-Route::get('noticias-avipla', [HomeController::class, 'news'])->name('news');
-Route::get('noticias-avipla/{noticia}', [HomeController::class, 'newsItem'])->name('news.item');
+Route::get('noticias', [HomeController::class, 'news'])->name('news');
+Route::get('noticias/{noticia}', [HomeController::class, 'newsItem'])->name('news.item');
 
 /**
  * AUTH ROUTES
@@ -58,10 +58,10 @@ Route::middleware('guest')->group(function() {
   Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
 
-Route::middleware('auth')->group(function() {
+Route::prefix('admin')->middleware('auth')->group(function() {
   Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
-  Route::get('dashboard', [DashboardController::class, 'index'])
+  Route::get('/', [DashboardController::class, 'index'])
     ->name('dashboard');
 
   Route::resource('solicitudes', SolicitudController::class)
@@ -89,8 +89,7 @@ Route::middleware('auth')->group(function() {
   Route::get('mi-empresa', [ProfileController::class, 'businessShow'])->name('business.show');
   Route::put('mi-empresa', [ProfileController::class, 'update'])->name('business.update');
 
-  Route::resource('roles', RoleController::class)
-  ->middleware('is_admin');
+  Route::resource('roles', RoleController::class);
 
   Route::resource('boletines', BoletineController::class);
   Route::resource('categorias-boletines', CategoriaBoletineController::class)
@@ -106,16 +105,11 @@ Route::middleware('auth')->group(function() {
       ->names('avisos-cobro')
       ->parameters(['avisos-de-cobro' => 'aviso_cobro']);
 
-    Route::get('pagos/{avisoCobro}/pagar', [AvisoCobroController::class, 'payCollectionNotice'])
-      ->name('avisos-cobro.payCollectionNotice');
-    Route::get('pagos/{avisoCobro}/detalle', [AvisoCobroController::class, 'avisoCobroDetails'])
-      ->name('pagos.invoice');
-
     /**
      * NEWS ROUTES
      */
     Route::resource('noticias', NoticiaController::class)
-    ->except(['show']);
+      ->except(['show']);
 
     /**
     * INVOICES ROUTES
@@ -123,6 +117,7 @@ Route::middleware('auth')->group(function() {
     Route::resource('facturas', InvoiceController::class)
       ->parameters(['facturas', 'invoice'])
       ->names('invoices');
+
     Route::post('factura/pagar', [InvoiceController::class, 'formStore'])
       ->name('invoices.formStore');
 
@@ -139,7 +134,12 @@ Route::middleware('auth')->group(function() {
     /**
     * PAYMENTS ROUTES
     */
-    Route::resource('pagos', PagoController::class);
+    Route::resource('pagos', PagoController::class)
+      ->except(['create', 'show', 'index']);
+    Route::get('avisos-de-cobro/{avisoCobro}/pagar', [PagoController::class, 'create'])
+      ->name('avisos-cobro.payCollectionNotice');
+    Route::get('avisos-de-cobro/{avisoCobro}/detalle', [PagoController::class, 'show'])
+      ->name('pagos.invoice');
 
     /**
     * MANAGE FILES
@@ -165,7 +165,7 @@ Route::middleware('auth')->group(function() {
 /**
  * WEBSITE
  */
-Route::middleware(['auth', 'is_admin'])->group(function() {
+Route::middleware(['auth'])->group(function() {
   Route::get('sitio-web', [WebsiteController::class, 'index'])
   ->name('website.index');
 

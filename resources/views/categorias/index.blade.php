@@ -37,19 +37,23 @@
                     </td>
                     <td>{{ $categoria->name }}</td>
                     <td style="white-space: nowrap">
-                      <form action="{{ route('categories.destroy', $categoria) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
-                      @csrf
-                      @method('DELETE')
-                      <button type="submit" class="btn btn-danger">
-                          <i class="fa fa-trash"></i>
-                          Eliminar
-                      </button>
-                      </form>
+                      @can('delete_category')
+                        <form action="{{ route('categories.destroy', $categoria) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger">
+                              <i class="fa fa-trash"></i>
+                              Eliminar
+                          </button>
+                        </form>
+                      @endcan
 
-                      <a href="{{ route('categories.edit', $categoria) }}" class="btn btn-warning">
-                      <i class="fa fa-pen"></i>
-                      Editar
-                      </a>
+                      @can('update_category')
+                        <a href="{{ route('categories.edit', $categoria) }}" class="btn btn-warning">
+                          <i class="fa fa-pen"></i>
+                          Editar
+                        </a>
+                      @endcan
                   </td>
                 </tr>
             @endforeach

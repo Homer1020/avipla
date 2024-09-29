@@ -14,7 +14,6 @@
           <thead>
             <tr>
               <th>Usuario</th>
-              <th>Rol del usuario</th>
               <th>Evento</th>
               <th>Módelo</th>
               <th>IP</th>
@@ -27,13 +26,6 @@
               <tr>
                 <td>
                   #{{ $audit->user_id }} {{ $audit->user->name }}
-                </td>
-                <td>
-                  @foreach ($audit->user->roles as $role)
-                    <div class="badge bg-primary">
-                      {{ $role->name }} 
-                    </div>
-                  @endforeach
                 </td>
                 <td>
                   <div class="badge bg-primary">

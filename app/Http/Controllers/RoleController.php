@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -21,7 +22,9 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::all();
+        $role = new Role();
+        return view('roles.create', compact('permissions', 'role'));
     }
 
     /**
@@ -29,7 +32,11 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $role = Role::create([
+            'name' => $request->role
+        ]);
+        $role->syncPermissions($request->input('permissions'));
+        return redirect()->route('roles.index')->with('success', 'El role fué creado con exíto.');
     }
 
     /**
@@ -45,7 +52,8 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        //
+        $permissions = Permission::all();
+        return view('roles.edit', compact('permissions', 'role'));
     }
 
     /**
@@ -53,7 +61,8 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     {
-        //
+        $role->syncPermissions($request->input('permissions'));
+        return redirect()->route('roles.index')->with('success', 'El role fué actualizado con exíto.');
     }
 
     /**
@@ -61,6 +70,7 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return redirect()->route('roles.index')->with('success', 'Se eliminó el rol correctamente.');
     }
 }

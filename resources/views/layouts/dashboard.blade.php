@@ -473,7 +473,7 @@
             }
         </script>
         <script src="{{ asset('js/scripts.js') }}"></script>
-        @if (request()->user()->getAfiliado())
+        @if (request()->user()->afiliado)
             <!-- Smartsupp Live Chat script -->
             <script type="text/javascript">
                 var _smartsupp = _smartsupp || {};

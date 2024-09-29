@@ -7,27 +7,49 @@
     <li class="breadcrumb-item active">Roles</li>
   </ol>
   <div class="mb-4">
-    <a href="{{ route('users.create') }}" class="btn btn-primary">Crear role</a>
+    <a href="{{ route('roles.create') }}" class="btn btn-primary">Crear role</a>
   </div>
-  <div class="card">
-    <div class="card-body">
-      <table class="table table-bordered w-100" id="invoices-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Rol</th>
-          </tr>
-        </thead>
-    
-        <tbody>
-          @foreach ($roles as $role)
-            <tr>
-              <td>#{{ $role->id }}</td>
-              <td>{{ $role->name }}</td>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
-    </div>
+  <div class="row">
+    @foreach ($roles as $role)
+      <div class="col-md-3">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="h5">{{ $role->name }}</h2>
+            <p>Permisos: {{ $role->permissions->count() }}</p>
+            <div>
+              <a href="{{ route('roles.edit', $role) }}" class="btn btn-primary btn-sm">
+                <i class="fa fa-eye"></i>
+                Permisos
+              </a>
+
+              <a href="{{ route('roles.edit', $role) }}" class="btn btn-warning btn-sm">
+                <i class="fa fa-pen"></i>
+                Editar
+              </a>
+
+              <form action="{{ route('roles.destroy', $role) }}" method="POST" class="d-inline-block">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-sm">
+                  <i class="fa fa-trash"></i>
+                  Eliminar
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endforeach
   </div>
 @endsection
+
+@push('script')
+  @if (session('success'))
+    <script>
+      Swal.fire({
+        icon: "success",
+        title: "{{ session('success') }}"
+      });
+    </script>
+  @endif
+@endpush

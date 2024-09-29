@@ -6,7 +6,7 @@
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item active">Boletines</li>
   </ol>
-  @can('create', App\Models\Boletine::class)
+  @can('create_boletine')
     <div class="mb-4">
       <a href="{{ route('boletines.create') }}" class="btn btn-primary">Crear Boletin</a>
     </div>
