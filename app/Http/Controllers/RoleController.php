@@ -13,7 +13,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
+        $roles = Role::whereNot('name', 'afiliado')->get();
         return view('roles.index', compact('roles'));
     }
 
@@ -52,6 +52,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        if($role->name === 'afiliado') return abort(403);
         $permissions = Permission::all();
         return view('roles.edit', compact('permissions', 'role'));
     }

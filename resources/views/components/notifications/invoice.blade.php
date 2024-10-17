@@ -1,14 +1,5 @@
 <div class="card mb-3 shadow shadow-sm">
     <div class="card-body">
-        {{-- @php
-            if(isset($notification->data['aviso_id'])) {
-                $route = !request()->user()->roles()->where('name', 'afiliado')->exists()
-                    ? route('avisos-cobro.show', $notification->data['invoice_id'])
-                    : route('pagos.invoice', $notification->data['invoice_id']);
-            } else if ($notification->data['boletine_slug']) {
-                $route = route('boletines.show', $notification->data['boletine_slug']);
-            }
-        @endphp --}}
         <a href="{{ $notification->data['url'] }}" class="d-flex" style="text-decoration: none; color: #000;">
             <div class="flex-shrink-0">
                 <div

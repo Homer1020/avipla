@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Afiliado;
 use App\Models\Boletine;
+use App\Models\AvisoCobro;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 class BoletinePolicy
@@ -13,6 +14,7 @@ class BoletinePolicy
      */
     public function viewAny(User $user): bool
     {
+        if($user->afiliado) return true;
         return $user->can('view_boletine');
     }
 
@@ -21,22 +23,15 @@ class BoletinePolicy
      */
     public function view(User $user, Boletine $boletine)
     {
+        if($user->afiliado) {
+            $avisoCobro = AvisoCobro::where('afiliado_id', $user->afiliado->id)
+                ->where('estado', '<>', 'conciliado')
+                ->whereRaw('YEAR(created_at) = YEAR(CURDATE())')
+                ->whereRaw('MONTH(created_at) < MONTH(CURDATE())')
+                ->exists();
+            if(!$avisoCobro) return true;
+        }
         return $user->can('view_boletine');
-        // $afiliado = $user->getAfiliado();
-        // $afiliadoSolvente = Afiliado::where('id', $afiliado->id)->whereDoesntHave('avisosCobros', function($query) {
-        //     $query
-        //         ->where('estado', '<>', 'conciliado')
-        //         ->where(function($query) {
-        //             $query
-        //                 ->whereRaw('YEAR(created_at) = YEAR(CURDATE())')
-        //                 ->whereRaw('MONTH(created_at) < MONTH(CURDATE())');
-        //             });
-        // })->exists();
-        // if($afiliadoSolvente) {
-        //     return Response::allow();
-        // } else {
-        //     return Response::deny('Usted tiene recibos pendientes por pagar.');
-        // }
     }
 
     /**

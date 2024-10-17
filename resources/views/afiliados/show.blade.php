@@ -10,7 +10,7 @@
 
   <div class="row mb-4">
     <div class="col-lg-6">
-      <p class="fw-bold text-uppercase text-muted">Datos de la empresa</p>
+      <p class="fw-bold text-uppercase">Datos de la empresa</p>
       @if ($afiliado->brand)
         <div class="mb-3">
           <img src="{{ Storage::url($afiliado->brand) }}" alt="{{ $afiliado->razon_social }}" height="150">
@@ -66,7 +66,7 @@
             @endif
           </li>
       </ul>
-      <p class="fw-bold text-uppercase text-muted">Direcciones</p>
+      <p class="fw-bold text-uppercase">Direcciones</p>
       <ul class="list-group mb-3">
         <li class="list-group-item">
           <span class="fw-bold">Dirección (oficina): </span>
@@ -95,7 +95,7 @@
       </ul>
 
       @if($afiliado->materias_primas->count())
-        <p class="fw-bold text-uppercase text-muted">Principales materias primas utilizadas</p>
+        <p class="fw-bold text-uppercase">Principales materias primas utilizadas</p>
         <ul class="list-group mb-3">
           @foreach ($afiliado->materias_primas as $materia_prima)
             <li class="list-group-item">
@@ -106,7 +106,7 @@
       @endif
 
       @if($afiliado->servicios->count())
-        <p class="fw-bold text-uppercase text-muted">Servicios prestados</p>
+        <p class="fw-bold text-uppercase">Servicios prestados</p>
         <ul class="list-group mb-3">
           @foreach ($afiliado->servicios as $servicio)
             <li class="list-group-item">
@@ -116,8 +116,8 @@
         </ul>
       @endif
 
-      @if($afiliado->servicios->count())
-        <p class="fw-bold text-uppercase text-muted">Empresas asociadas a AVIPLA que la refieren</p>
+      @if($afiliado->referencias->count())
+        <p class="fw-bold text-uppercase">Empresas asociadas a AVIPLA que la refieren</p>
         <ul class="list-group mb-3">
           @foreach ($afiliado->referencias as $referencia)
             <li class="list-group-item">
@@ -128,7 +128,7 @@
       @endif
     </div>
     <div class="col-lg-6">
-      <p class="fw-bold text-uppercase text-muted">Datos del encargado</p>
+      <p class="fw-bold text-uppercase">Datos del encargado</p>
       <ul class="list-group mb-3">
         @if($afiliado->user()->exists())
         @php
@@ -168,7 +168,7 @@
           </li>
         @endif
       </ul>
-      <p class="fw-bold text-uppercase text-muted">Datos del personal</p>
+      <p class="fw-bold text-uppercase">Datos del personal</p>
       <ul class="list-group mb-3">
         <li class="list-group-item">
           <span class="fw-bold">Correo del presidente: </span>
@@ -213,7 +213,7 @@
       </ul>
 
       @if ($afiliado->productos->count())
-        <p class="fw-bold text-uppercase text-muted">Linea de productos</p>
+        <p class="fw-bold text-uppercase">Linea de productos</p>
         <ul class="list-group mb-3">
           @foreach ($afiliado->productos as $producto)
             <li class="list-group-item">

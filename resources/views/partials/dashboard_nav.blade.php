@@ -24,9 +24,11 @@
                 icon="fas fa-bell"
             >
                 Notificaciones
-                <span class="badge bg-danger ms-auto">
-                    {{ Auth::user()->unreadNotifications()->count() }}
-                </span>
+                @if(Auth::user()->unreadNotifications()->count() > 0)
+                    <span class="badge bg-danger ms-auto">
+                        {{ Auth::user()->unreadNotifications()->count() }}
+                    </span>
+                @endif
             </x-nav-link>
             <div class="sb-sidenav-menu-heading">{{ Auth::user()->roles->first()->name }}</div>
             @can('view_solicitud')
@@ -81,7 +83,7 @@
                     @endcan
                 </x-nav-link-dropdown>
             @endcan
-            @can('view_boletine')
+            @can('viewAny', App\Models\Boletine::class)
                 <x-nav-link-dropdown
                     title="Boletines"
                     icon="fas fa-envelope"

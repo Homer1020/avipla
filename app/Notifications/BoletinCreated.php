@@ -55,6 +55,7 @@ class BoletinCreated extends Notification
         return [
             'icon'              => 'fa fa-envelope',
             'bg-class'          => 'bg-warning',
+            'url'               => route('boletines.show', $this->boletine),
             'boletine_id'       => $this->boletine->id,
             'boletine_slug'     => $this->boletine->slug,
             'titulo'            => $this->boletine->titulo,

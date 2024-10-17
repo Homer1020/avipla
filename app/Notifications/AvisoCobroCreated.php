@@ -60,6 +60,7 @@ class AvisoCobroCreated extends Notification
             'bg-class'          => 'bg-warning',
             'aviso_id'          => $this->avisoCobro->id,
             'codigo_aviso'      => $this->avisoCobro->codigo_aviso,
+            'url'               => route('avisos-cobro.show', $this->avisoCobro->id),
             'message'           => 'Aviso de cobro #' . $this->avisoCobro->codigo_aviso
         ];
     }

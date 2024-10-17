@@ -43,19 +43,23 @@
                     @endforeach
                 </td>
                 <td style="white-space: nowrap">
-                    <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fa fa-trash"></i>
-                        Eliminar
-                    </button>
-                    </form>
+                    @can('delete_user')
+                      <form action="{{ route('users.destroy', $user) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fa fa-trash"></i>
+                            Eliminar
+                        </button>
+                      </form>
+                    @endcan
 
-                    <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">
-                    <i class="fa fa-pen"></i>
-                    Editar
-                    </a>
+                    @can('update_user')
+                      <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">
+                        <i class="fa fa-pen"></i>
+                        Editar
+                      </a>
+                    @endcan
                 </td>
             </tr>
           @endforeach

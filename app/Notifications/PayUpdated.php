@@ -55,7 +55,8 @@ class PayUpdated extends Notification
         return [
             'icon'              => 'fa fa-file-invoice',
             'bg-class'          => 'bg-danger',
-            'invoice_id'        => $this->avisoCobro->id,
+            'aviso_id'        => $this->avisoCobro->id,
+            'url'               => route('avisos-cobro.show', $this->avisoCobro->id),
             'codigo_aviso'      => $this->avisoCobro->codigo_aviso,
             'message'           => 'Se actualizaron los datos del pago para la factura #'  . $this->avisoCobro->codigo_aviso
         ];

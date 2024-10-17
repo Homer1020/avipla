@@ -75,9 +75,10 @@ class PagoController extends Controller
 
         $avisoCobro->update([ 'estado' => 'REVISION' ]);
 
-        $administradores = User::whereHas('roles', function ($query) {
-            $query->whereIn('name', ['administrador', 'usuarios']);
-        })->get();
+        // $administradores = User::whereHas('roles', function ($query) {
+        //     $query->whereIn('name', ['administrador', 'usuarios']);
+        // })->get();
+        $administradores = User::permission('view_aviso')->get();
         foreach ($administradores as $administrador) {
             $administrador->notify(new AvisoCobroPaid($avisoCobro));
         }

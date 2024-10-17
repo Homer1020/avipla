@@ -57,6 +57,7 @@ class AvisoCobroPaid extends Notification
             'bg-class'          => 'bg-secondary',
             'aviso_id'          => $this->avisoCobro->id,
             'codigo_aviso'      => $this->avisoCobro->codigo_aviso,
+            'url'               => route('avisos-cobro.show', $this->avisoCobro->id),
             'message'           => 'Se realizó pago para el aviso de cobro #' . $this->avisoCobro->codigo_aviso
         ];
     }

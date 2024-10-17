@@ -61,6 +61,7 @@ class AvisoCobroStatusChanged extends Notification
             'invoice_id'        => $this->avisoCobro->id,
             'codigo_aviso'      => $this->avisoCobro->codigo_aviso,
             'status'            => $this->avisoCobro->estado,
+            'url'               => route('avisos-cobro.show', $this->avisoCobro->id),
             'message'           => 'Hola ' . $notifiable->name . '! Cambió el estado del recibo #'  . $this->avisoCobro->codigo_aviso . ' a "' . $this->avisoCobro->estado . '"'
         ];
     }
