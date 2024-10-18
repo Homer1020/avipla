@@ -4,20 +4,27 @@
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 @endpush
 @section('content')
-  <h1 class="mt-4">Afiliados</h1>
+  <h1 class="mt-4 fs-3">Afiliados</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item active">Afiliados</li>
   </ol>
 
-  @can('viewTrash', App\Models\Afiliado::class)
-    <div class="mb-4">
-      <a href="{{ route('afiliados.trash') }}" class="btn btn-primary">
+  <div>
+    @can('create_afiliado')
+      <a href="{{ route('afiliados.trash') }}" class="btn btn-success mb-4">
+        <i class="fa fa-file-excel"></i>
+        Cargar excel
+      </a>
+    @endcan
+
+    @can('viewTrash', App\Models\Afiliado::class)
+      <a href="{{ route('afiliados.trash') }}" class="btn btn-primary me-1 mb-4">
         <i class="fa fa-trash"></i>
         Papelera
       </a>
-    </div>
-  @endcan
+    @endcan
+  </div>
   
   <div class="mb-4 card">
     <div class="card-body">

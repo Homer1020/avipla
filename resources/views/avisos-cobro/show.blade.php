@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'Detalle Factura')
 @section('content')
-  <h1 class="mt-4">Detalles del aviso</h1>
+  <h1 class="mt-4 fs-3">Detalles del aviso</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('avisos-cobro.index') }}">Avisos de cobro</a></li>

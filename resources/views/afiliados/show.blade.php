@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'Detalle de ' . $afiliado->razon_social)
 @section('content')
-  <h1 class="mt-4">Detalle de {{ $afiliado->razon_social }}</h1>
+  <h1 class="mt-4 fs-3">Detalle de {{ $afiliado->razon_social }}</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('afiliados.index') }}">Afiliados</a></li>

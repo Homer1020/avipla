@@ -130,7 +130,7 @@
             </li>
             <li class="list-group-item">
                 <span class="fw-bold">Fecha de emisión:</span>
-                {{ $avisoCobro->created_at }}
+                {{ $avisoCobro->created_at->toDateString() }}
             </li>
             @if (!$avisoCobro->pago)
                 <li class="list-group-item">

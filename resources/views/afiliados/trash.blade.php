@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 @endpush
 @section('content')
-  <h1 class="mt-4">Papelera afiliados</h1>
+  <h1 class="mt-4 fs-3">Papelera afiliados</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('afiliados.index') }}">Afiliados</a></li>
@@ -13,7 +13,7 @@
   <div class="mb-4">
     <a href="{{ route('afiliados.index') }}" class="btn btn-primary">
       <i class="fa fa-handshake"></i>
-      Listado
+      Volver al listado
     </a>
   </div>
   <div class="mb-4 card">

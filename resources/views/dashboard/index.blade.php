@@ -43,7 +43,7 @@
   </style>
 @endpush
 @section('content')
-  <h1 class="mt-4">Dashboard</h1>
+  <h1 class="mt-4 fs-3">Dashboard</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Dashboard</li>
   </ol>
@@ -409,6 +409,15 @@
         Swal.fire({
             icon: "success",
             title: "{{ session('success') }}"
+        });
+    </script>
+  @endif
+
+  @if (session('error'))
+    <script>
+        Swal.fire({
+            icon: "error",
+            title: "{{ session('error') }}"
         });
     </script>
   @endif

@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 @endpush
 @section('content')
-<h1 class="mt-4">Editar Noticia</h1>
+<h1 class="mt-4 fs-3">Editar Noticia</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('noticias.index') }}">Noticias</a></li>

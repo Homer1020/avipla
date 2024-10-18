@@ -1,4 +1,4 @@
-<div class="card mb-3 shadow shadow-sm">
+<div class="card mb-2 shadow shadow-sm">
     <div class="card-body">
         <a href="{{ $notification->data['url'] }}" class="d-flex" style="text-decoration: none; color: #000;">
             <div class="flex-shrink-0">

@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.5/css/select.dataTables.css">
 @endpush
 @section('content')
-  <h1 class="mt-4">Avisos de cobro</h1>
+  <h1 class="mt-4 fs-3">Avisos de cobro</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item active">Avisos de cobro</li>
@@ -28,7 +28,7 @@
   <div class="card mb-4">
     <div class="card-body border-bottom">
       <form action="">
-        <div class="row {{ request()->user()->afiliado ? 'justify-content-center' : '' }}">
+        <div class="row">
           @if(!request()->user()->afiliado)
             <div class="col-md-6 col-xl-4 mb-3">
               <label for="afiliado" class="form-label">Afiliado</label>
@@ -48,7 +48,7 @@
               </select>
             </div>
           @endif
-          <div class="col-md-6 col-xl-4 mb-3">
+          <div class="col-md-6 {{ request()->user()->afiliado ? '' : 'col-xl-4' }} mb-3">
             <label for="estado" class="form-label">Estado</label>
             <select
               name="estado"
@@ -76,7 +76,7 @@
             </select>
           </div>
   
-          <div class="col-md-6 col-xl-4 mb-3">
+          <div class="col-md-6 {{ request()->user()->afiliado ? '' : 'col-xl-4' }} mb-3">
             <label for="date_range" class="form-label">Rango de fechas</label>
             <input type="text" name="date_range" id="date_range" class="form-control" value="{{ request()->has('date_range') ? request()->input('date_range') : '' }}" autocomplete="off">
           </div>

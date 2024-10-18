@@ -124,6 +124,10 @@ class ProfileController extends Controller
 
     public function businessShow(Request $request) {
         $afiliado = $request->user()->afiliado;
+        // return $afiliado;
+        if(!$afiliado) {
+            return redirect()->route('dashboard')->with('error', 'No eres un afiliado');
+        }
         $actividades = Actividad::all();
         $productos = Producto::all();
         $materias_primas = MateriaPrima::all();
