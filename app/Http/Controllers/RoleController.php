@@ -22,9 +22,16 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = Permission::all();
         $role = new Role();
-        return view('roles.create', compact('permissions', 'role'));
+        $permissionsGroup = Permission::all()->groupBy(function($action) {
+            $actionArray = explode('_', $action->name);
+            $suffix = $actionArray[1];
+            if(count($actionArray) === 3) {
+                return $actionArray[1] . ' ' . $actionArray[2];
+            }
+            return $suffix;
+        });
+        return view('roles.create', compact('permissionsGroup', 'role'));
     }
 
     /**
@@ -53,8 +60,15 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         if($role->name === 'afiliado') return abort(403);
-        $permissions = Permission::all();
-        return view('roles.edit', compact('permissions', 'role'));
+        $permissionsGroup = Permission::all()->groupBy(function($action) {
+            $actionArray = explode('_', $action->name);
+            $suffix = $actionArray[1];
+            if(count($actionArray) === 3) {
+                return $actionArray[1] . ' ' . $actionArray[2];
+            }
+            return $suffix;
+        });
+        return view('roles.edit', compact('permissionsGroup', 'role'));
     }
 
     /**

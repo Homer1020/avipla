@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'Crear role')
 @section('content')
-  <h1 class="mt-4 fs-3">Crear role</h1>
+  <h1 class="mt-4 fs-4">Crear role</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('roles.index') }}">Roles</a></li>
@@ -9,7 +9,7 @@
   </ol>
   <div>
     <div class="row justify-content-center">
-      <form action="{{ route('roles.store') }}" method="POST" class="col-md-8">
+      <form action="{{ route('roles.store') }}" method="POST">
         @include('roles.form')
       </form>
     </div>

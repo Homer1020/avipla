@@ -69,10 +69,14 @@ Route::prefix('admin')->middleware('auth')->group(function() {
   Route::post('afiliados/solicitud/{solicitud}/recordatorio', [SolicitudController::class, 'reminder'])
     ->name('solicitudes.reminder');
   
+  /**
+   * RUTAS AFILIADO
+   */
   Route::get('afiliados/papelera', [AfiliadosController::class, 'trash'])->name('afiliados.trash');
   Route::post('afiliados/{id}/restaurar', [AfiliadosController::class, 'restore'])->name('afiliados.restore');
-  Route::resource('afiliados', AfiliadosController::class)
-    ->except(['create', 'store']);
+  Route::get('afiliados/excel-crear', [AfiliadosController::class, 'createByExcel'])->name('afiliados.createByExcel');
+  Route::post('afiliados/excel-crear', [AfiliadosController::class, 'importExcel'])->name('afiliados.importExcel');
+  Route::resource('afiliados', AfiliadosController::class);
 
   Route::resource('usuarios', UserController::class)
     ->parameters(['usuarios' => 'user'])

@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 @endpush
 @section('content')
-  <h1 class="mt-4 fs-3">Modificar pago</h1>
+  <h1 class="mt-4 fs-4">Modificar pago</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
@@ -15,7 +15,7 @@
   
   <div class="row mb-4">
     <div class="col-lg-6 mb-4 mb-lg-0">
-        <p class="fw-bold text-uppercase text-muted">Formulario de pago</p>
+        <p class="fw-bold text-uppercase">Formulario de pago</p>
         <div class="card">
             <div class="card-body">
                 <form action="{{ route('pagos.update', $pago) }}" method="POST" enctype="multipart/form-data">
@@ -124,7 +124,7 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <p class="fw-bold text-uppercase text-muted">Aviso de cobro</p>
+        <p class="fw-bold text-uppercase">Aviso de cobro</p>
         <ul class="list-group mb-4">
             @php
                 $avisoCobro = $pago->avisoCobro;

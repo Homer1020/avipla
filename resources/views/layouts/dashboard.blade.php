@@ -40,6 +40,10 @@
                 float: none;
                 margin-bottom: 10px;
             }
+
+            h1 {
+                text-transform: capitalize;
+            }
         </style>
     </head>
     <body class="sb-nav-fixed">

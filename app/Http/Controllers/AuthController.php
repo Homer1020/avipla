@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
@@ -23,7 +22,6 @@ use Spatie\Permission\Models\Role;
 class AuthController extends Controller
 {
     public function registerForm(string $confirmation_code = '') {
-        
         $solicitud = SolicitudAfiliado::where('confirmation_code', $confirmation_code)->first();
         $actividades = Actividad::all();
         $productos = Producto::all();
@@ -33,7 +31,7 @@ class AuthController extends Controller
         $afiliados = Afiliado::all();
 
         if(!$solicitud) {
-            return redirect()->route('auth.login');
+            abort(403);
         }
     
         return view('auth.register', compact(

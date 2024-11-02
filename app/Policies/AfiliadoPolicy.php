@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Afiliado;
+use App\Models\SolicitudAfiliado;
 use App\Models\User;
 
 class AfiliadoPolicy
@@ -35,7 +36,7 @@ class AfiliadoPolicy
      */
     public function create(User $user): bool
     {
-        return true;
+        return $user->can('create_afiliado');
     }
 
     /**

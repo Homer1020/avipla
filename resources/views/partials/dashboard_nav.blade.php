@@ -31,23 +31,18 @@
                 @endif
             </x-nav-link>
             <div class="sb-sidenav-menu-heading">{{ Auth::user()->roles->first()->name }}</div>
-            @can('view_solicitud')
-                <x-nav-link
-                    :to="route('solicitudes.index')"
-                    active="solicitudes.*"
-                    icon="fas fa-user-plus"
-                >
-                    Solicitudes
-                </x-nav-link>
-            @endcan
             @can('view_afiliado')
-                <x-nav-link
-                    :to="route('afiliados.index')"
-                    active="afiliados.*"
+                <x-nav-link-dropdown
+                    title="Afiliados"
                     icon="fas fa-handshake"
+                    target="afiliadosPage"
+                    :active="request()->routeIs('afiliados.*') || request()->routeIs('solicitudes.*')"
                 >
-                    Afiliados
-                </x-nav-link>
+                    <a href="{{ route('solicitudes.index') }}" class="nav-link {{ request()->routeIs('solicitudes.*')  ? 'active' : '' }}">Solicitudes</a>
+                    <a href="{{ route('afiliados.index') }}" class="nav-link {{ request()->routeIs('afiliados.index')  ? 'active' : '' }}">Todos los afiliados</a>
+                    <a href="{{ route('afiliados.create') }}" class="nav-link {{ request()->routeIs('afiliados.create')  ? 'active' : '' }}">Crear afiliado</a>
+                    <a href="{{ route('afiliados.createByExcel') }}" class="nav-link {{ request()->routeIs('afiliados.createByExcel')  ? 'active' : '' }}">Importar excel</a>
+                </x-nav-link-dropdown>
             @endcan
             @can('viewAny', App\Models\AvisoCobro::class)
                 <x-nav-link

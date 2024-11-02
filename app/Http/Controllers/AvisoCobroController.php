@@ -81,19 +81,19 @@ class AvisoCobroController extends Controller
         if ($user !== null && $user instanceof User) {
             $afiliados = Afiliado::all();
 
-            foreach($afiliados as $afiliado) {
-                if(!$afiliado->avisosCobros()->where('codigo_aviso', $payload['codigo_aviso'])->exists()) {
-                    $payload['afiliado_id'] = $afiliado->id;
-                    $avisoCobro = $user->avisosCobros()->create($payload);
-                    $afiliado->user->notify(new AvisoCobroCreated($avisoCobro));
-                    if($afiliado->presidente) {
-                        $afiliado->presidente->notify(new AvisoCobroCreated($avisoCobro));
-                    }
-                    if($afiliado->director) {
-                        $afiliado->director->notify(new AvisoCobroCreated($avisoCobro));
-                    }
-                }
-            }
+            // foreach($afiliados as $afiliado) {
+            //     if(!$afiliado->avisosCobros()->where('codigo_aviso', $payload['codigo_aviso'])->exists()) {
+            //         $payload['afiliado_id'] = $afiliado->id;
+            //         $avisoCobro = $user->avisosCobros()->create($payload);
+            //         $afiliado->user->notify(new AvisoCobroCreated($avisoCobro));
+            //         if($afiliado->presidente) {
+            //             $afiliado->presidente->notify(new AvisoCobroCreated($avisoCobro));
+            //         }
+            //         if($afiliado->director) {
+            //             $afiliado->director->notify(new AvisoCobroCreated($avisoCobro));
+            //         }
+            //     }
+            // }
             return redirect()->route('avisos-cobro.index')->with('success', 'Se generó el aviso correctamente');
         }
     }

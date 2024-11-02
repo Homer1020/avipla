@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('titulo')->unique();
             $table->longText('contenido');
             $table->string('thumbnail');
-            $table->enum('estatus', ['DRAFT', 'PUBLISHED', 'DELETED'])->default('PUBLISHED');
+            $table->enum('estatus', ['DRAFT', 'PUBLISHED', 'DELETED'])->default('PUBLISHED'); // expaniol
             $table->timestamps();
         });
     }

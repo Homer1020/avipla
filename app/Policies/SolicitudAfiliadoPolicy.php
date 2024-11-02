@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\SolicitudAfiliado;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Http\Request;
 
 class SolicitudAfiliadoPolicy
 {
@@ -22,7 +23,7 @@ class SolicitudAfiliadoPolicy
        return $user->can('delete_solicitud');
     }
 
-    public function reminder() {
-        return false;
+    public function reminder(User $user) {
+        return $user->can('create_solicitud');
     }
 }

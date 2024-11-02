@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'Editar Categoría')
 @section('content')
-  <h1 class="mt-4 fs-3">Editar Usuario</h1>
+  <h1 class="mt-4 fs-4">Editar Usuario</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Usuarios</a></li>

@@ -22,24 +22,35 @@
   </button>
 </div>
 
-<div class="mb-3">
+<div class="row g-3">
   {{-- @dump() --}}
-  <ul class="list-group">
-    @foreach($permissions as $permission)
-      <li class="list-group-item">
-        <label class="form-check form-switch">
-          <input
-            @checked(in_array($permission->id, $role->permissions->pluck('id')->toArray()))
-            class="form-check-input"
-            type="checkbox"
-            name="permissions[]"
-            value="{{ $permission->name }}"
-          >
-          <div class="form-check-label">
-            {{ $permission->name }}
-          </div>
-        </label>
-      </li>
+  @foreach($permissionsGroup as $group => $permissions)
+    <div class="col-12 col-md-4 col-lg-4">
+      <div class="card">
+        <div class="card-header">
+          <p class="card-title mb-0">{{ $group }}</p>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            @foreach ($permissions as $permission)
+              <li class="list-group-item">
+                <label class="form-check form-switch">
+                <input
+                  @checked(in_array($permission->id, $role->permissions->pluck('id')->toArray()))
+                  class="form-check-input"
+                  type="checkbox"
+                  name="permissions[]"
+                  value="{{ $permission->name }}"
+                >
+                <div class="form-check-label">
+                  {{ $permission->name }}
+                </div>
+                </label>
+              </li>
+            @endforeach
+          </ul>
+        </div>
+      </div>
+    </div>
     @endforeach
-  </ul>
 </div>

@@ -30,7 +30,7 @@
       const newInputProduccionTotalMensual = `
         <div class="row" id="producto-${ parameter.toLowerCase().trim().replace(' ', '-') }">
           <div class="col-12">
-            <p class="fw-bold text-uppercase text-muted">
+            <p class="fw-bold text-uppercase">
               <small>Detalles de ${parameter}</small>
             </p>
           </div>
@@ -75,43 +75,41 @@
   
     // validatet steps
     const validateTab = (tab) => {
-      return Array.from(document.getElementById(tab).querySelectorAll('input, select, textarea')).every(item => item.validity.valid)
+      const $tab = document.getElementById(tab)
+
+      const $previousesInvalid = $tab.querySelectorAll(':is(input, select, textarea).is-invalid')
+      $previousesInvalid.forEach($element => {
+        $element.classList.remove('is-invalid')
+      })
+
+      const isValidTab = Array
+        .from($tab.querySelectorAll('input, select, textarea'))
+        .every(item => item.validity.valid)
+
+        
+      if(!isValidTab) {
+        const $invalidElements = Array.from($tab.querySelectorAll(':is(input, select, textarea):invalid'))
+        $invalidElements.forEach($element => {
+          $element.classList.add('is-invalid')
+        })
+      }
+
+      return isValidTab
     }
 
     const $afiliadoForm = document.getElementById('afiliado-form')
-    const $allElements = Array.from($afiliadoForm.elements)
-    const buttonsTab = {
-      profile: document.getElementById('profile-tab'),
-      messages: document.getElementById('messages-tab'),
-      final: document.getElementById('final-tab'),
-    }
 
-    const toggleTabs = () => {
-      if(validateTab('business-data')) {
-        buttonsTab.profile.disabled = false
-      } else {
-        buttonsTab.profile.disabled = true
-      }
+    const $triggerTabList = [].slice.call(document.querySelectorAll('#myTab button'))
+    $triggerTabList.forEach(function ($triggerEl) {
+      var tabTrigger = new bootstrap.Tab($triggerEl)
+      $triggerEl.addEventListener('click', function (event) {
+        event.preventDefault()
 
-      if(validateTab('business-data') && validateTab('profile')) {
-        buttonsTab.messages.disabled = false
-      } else {
-        buttonsTab.messages.disabled = false
-      }
-
-      if(validateTab('business-data') && validateTab('profile') && validateTab('messages')) {
-        buttonsTab.messages.disabled = false
-      } else {
-        buttonsTab.messages.disabled = false
-      }
-    }
-
-    $allElements.forEach(element => {
-      element.addEventListener('input', toggleTabs)
+        // TODO: verificar a que tab se manda
+        const $currentTab = document.querySelector('.tab-pane.active')
+        const isValid = validateTab($currentTab.id)
+        if(isValid) tabTrigger.show()
+      })
     })
-
-    validateTab('business-data')
-    validateTab('profile')
-    validateTab('messages')
   })
 </script>

@@ -1,7 +1,10 @@
 @extends('layouts.dashboard')
 @section('title', 'Solicitar Afiliado')
 @section('content')
-<h1 class="mt-4 fs-3">Solicitar Afiliado</h1>
+<h1 class="mt-4 fs-4">
+  <i class="fa fa-handshake fa-sm"></i>
+  Solicitar Afiliado
+</h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
   <li class="breadcrumb-item"><a href="{{ route('solicitudes.index') }}">Solicitudes</a></li>

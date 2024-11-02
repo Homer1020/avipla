@@ -4,27 +4,14 @@
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 @endpush
 @section('content')
-  <h1 class="mt-4 fs-3">Afiliados</h1>
+  <h1 class="mt-4 fs-4">
+    <i class="fa fa-handshake fa-sm"></i>
+    Afiliados
+  </h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item active">Afiliados</li>
   </ol>
-
-  <div>
-    @can('create_afiliado')
-      <a href="{{ route('afiliados.trash') }}" class="btn btn-success mb-4">
-        <i class="fa fa-file-excel"></i>
-        Cargar excel
-      </a>
-    @endcan
-
-    @can('viewTrash', App\Models\Afiliado::class)
-      <a href="{{ route('afiliados.trash') }}" class="btn btn-primary me-1 mb-4">
-        <i class="fa fa-trash"></i>
-        Papelera
-      </a>
-    @endcan
-  </div>
   
   <div class="mb-4 card">
     <div class="card-body">
@@ -35,9 +22,8 @@
             <tr>
               <th>ID</th>
               <th>Razón social</th>
-              <th>Correo del encargado</th>
-              <th>Correo del presidente</th>
-              <th>Estado de cuenta</th>
+              <th>RIF</th>
+              <th>Usuario encargado</th>
               <th>Acciones</th>
             </tr>
           </thead>
@@ -45,20 +31,25 @@
           <tbody>
             @foreach ($afiliados as $afiliado)
               <tr>
-                <td>#{{$afiliado->id}}</td>
+                <td>#{{ $afiliado->id }}</td>
                 <td>{{ $afiliado->razon_social }}</td>
-                <td>{{ $afiliado->user->email }}</td>
-                <td>{{ $afiliado->personal->correo_presidente ?: 'N/A' }}</td>
-                <td></td>
+                <td>{{ $afiliado->rif }}</td>
+                <td>
+                  @if($afiliado->user)
+                    {{ $afiliado->user->email }}
+                  @else
+                    <span class="badge bg-warning">Sin asignar</span>
+                  @endif
+                </td>
                 <td style="white-space: nowrap">
                   @can('view', $afiliado)
-                    <a href="{{ route('afiliados.show', $afiliado) }}" class="btn btn-primary">
+                    <a href="{{ route('afiliados.show', @$afiliado) }}" class="btn btn-primary">
                       <i class="fa fa-eye"></i>
                       Detalles
                     </a>
                   @endcan
                   @can('delete', $afiliado)
-                    <form action="{{ route('afiliados.destroy', $afiliado) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
+                    <form action="{{ route('afiliados.destroy', @$afiliado) }}" method="POST" class="d-inline-block" onsubmit="submitAfterConfirm(event.target); return false">
                       @csrf
                       @method('DELETE')
                       <button type="submit" class="btn btn-danger">
@@ -103,7 +94,7 @@
 
     new DataTable('#afiliados-table', {
       columnDefs: [
-        { orderable: false, targets: 3 },
+        { orderable: false, targets: 4 },
       ],
       order: false,
       scrollX: false,

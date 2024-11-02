@@ -1,4 +1,4 @@
-<p class="text-muted fw-bold text-uppercase">
+<p class="fw-bold text-uppercase">
     Datos empresa
 </p>
 
@@ -20,7 +20,6 @@
             id="siglas"
             placeholder="AVIPLA"
             label="Siglas"
-            required
             :value="old('siglas', $afiliado->siglas)"
             :error="$errors->first('siglas')"
         />
@@ -47,7 +46,6 @@
             id="anio_fundacion"
             placeholder="2004"
             label="Año de fundación"
-            required
             :value="old('anio_fundacion', $afiliado->anio_fundacion)"
             :error="$errors->first('anio_fundacion')"
         />
@@ -57,7 +55,6 @@
             type="number"
             name="capital_social"
             id="capital_social"
-            required
             placeholder="0"
             label="Capital Social"
             :value="old('capital_social', $afiliado->capital_social)"
@@ -95,7 +92,7 @@
     </div>
 </div>
 
-<p class="text-muted fw-bold text-uppercase">
+<p class="fw-bold text-uppercase">
     Direcciones
 </p>
 
@@ -106,7 +103,6 @@
             id="direccion_oficina"
             label="Dirección de oficina"
             placeholder="Ingrese una dirección"
-            required
             :value="old('direccion_oficina', $afiliado->direccion ? $afiliado->direccion->direccion_oficina : '')"
             :error="$errors->first('direccion_oficina')"
         />
@@ -115,7 +111,6 @@
             id="ciudad_oficina"
             label="Ciudad - Estado (Oficina)"
             placeholder="Ingrese una ciudad o estado"
-            required
             :value="old('ciudad_oficina', $afiliado->direccion ? $afiliado->direccion->ciudad_oficina : '')"
             :error="$errors->first('ciudad_oficina')"
         />
@@ -123,7 +118,6 @@
             type="tel"
             name="telefono_oficina"
             id="telefono_oficina"
-            required
             label="Teléfono (Oficina)"
             placeholder="Ingrese un teléfono"
             :value="old('telefono_oficina', $afiliado->direccion ? $afiliado->direccion->telefono_oficina : '')"
@@ -136,7 +130,6 @@
             id="direccion_planta"
             label="Dirección de planta"
             placeholder="Ingrese una dirección"
-            required
             :value="old('direccion_planta', $afiliado->direccion ? $afiliado->direccion->direccion_planta : '')"
             :error="$errors->first('direccion_planta')"
         />
@@ -145,7 +138,6 @@
             id="ciudad_planta"
             label="Ciudad - Estado (Planta)"
             placeholder="Ingrese una ciudad o estado"
-            required
             :value="old('ciudad_planta', $afiliado->direccion ? $afiliado->direccion->ciudad_planta : '')"
             :error="$errors->first('ciudad_planta')"
         />
@@ -154,7 +146,6 @@
             id="telefono_planta"
             label="Teléfono (Planta)"
             placeholder="Ingrese un teléfono"
-            required
             type="tel"
             :value="old('telefono_planta', $afiliado->direccion ? $afiliado->direccion->telefono_planta : '')"
             :error="$errors->first('telefono_planta')"
@@ -162,12 +153,12 @@
     </div>
 </div>
 
-<p class="text-muted fw-bold text-uppercase">
-    Documentos requeridos
+<p class="fw-bold text-uppercase">
+    Documentos
 </p>
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-md-4 col-lg-4">
         <x-forms.input
             type="file"
             name="rif_path"
@@ -176,14 +167,8 @@
             :error="$errors->first('rif_path')"
             accept="application/pdf"
         />
-        @if ($afiliado->rif_path)
-            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->rif_path]) }}" class="btn btn-primary mb-3">
-                <i class="fa fa-file-invoice"></i>
-                Visualizar documento
-            </a>
-        @endif
     </div>
-    <div class="col-lg-6">
+    <div class="col-md-4 col-lg-4">
         <x-forms.input
             type="file"
             name="registro_mercantil_path"
@@ -192,14 +177,8 @@
             :error="$errors->first('registro_mercantil_path')"
             accept="application/pdf"
         />
-        @if ($afiliado->registro_mercantil_path)
-            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->registro_mercantil_path]) }}" class="btn btn-primary mb-3">
-                <i class="fa fa-file-invoice"></i>
-                Visualizar documento
-            </a>
-        @endif
     </div>
-    <div class="col-lg-6">
+    <div class="col-md-4 col-lg-4">
         <x-forms.input
             type="file"
             name="estado_financiero_path"
@@ -208,11 +187,5 @@
             :error="$errors->first('estado_financiero_path')"
             accept="application/pdf"
         />
-        @if ($afiliado->estado_financiero_path)
-            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->estado_financiero_path]) }}" class="btn btn-primary mb-3">
-                <i class="fa fa-file-invoice"></i>
-                Visualizar documento
-            </a>
-        @endif
     </div>
 </div>

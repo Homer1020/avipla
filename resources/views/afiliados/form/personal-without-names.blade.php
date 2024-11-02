@@ -1,4 +1,4 @@
-<p class="fw-bold text-uppercase text-muted">Actividades</p>
+<p class="fw-bold text-uppercase">Actividades</p>
 <div class="row">
   <div class="col-lg-6">
     <x-forms.select
@@ -20,6 +20,7 @@
       name="relaciones_comercio_exterior"
       id="relaciones_comercio_exterior"
       label="Relaciones de comercio exterior"
+      required
       :error="$errors->first('relaciones_comercio_exterior')"
     >
       <option disabled selected>Seleccione una relación</option>
@@ -33,11 +34,12 @@
   </div>
 </div>
 
-<p class="fw-bold text-uppercase text-muted">Datos del personal</p>
+<p class="fw-bold text-uppercase">Datos del personal</p>
 
 <div class="row">
   <div class="col-lg-6">
     <x-forms.input
+      type="email"
       name="correo_presidente"
       id="correo_presidente"
       placeholder="Correo del Presidente"
@@ -49,6 +51,7 @@
   </div>
   <div class="col-lg-6">
     <x-forms.input
+      type="tel"
       name="numero_encargado_ws"
       id="numero_encargado_ws"
       placeholder="Número del encargado del Whatsapp" label="Número del encargado del Whatsapp"
@@ -58,6 +61,7 @@
   </div>
   <div class="col-lg-6">
     <x-forms.input
+      type="email"
       name="correo_gerente_general"
       id="correo_gerente_general"
       placeholder="Correo del Gerente General"
@@ -67,6 +71,7 @@
   </div>
   <div class="col-lg-6">
     <x-forms.input
+      type="email"
       name="correo_gerente_compras"
       id="correo_gerente_compras"
       placeholder="Correo del Gerente de Compras"
@@ -77,6 +82,7 @@
 
   <div class="col-lg-6">
     <x-forms.input
+      type="email"
       name="correo_gerente_marketing_ventas"
       id="correo_gerente_marketing_ventas"
       placeholder="Correo del Gerente de Marketing y Ventas" label="Correo del Gerente de Marketing y Ventas"
@@ -85,6 +91,7 @@
   </div>
   <div class="col-lg-6">
     <x-forms.input
+      type="email"
       name="correo_gerente_planta"
       id="correo_gerente_planta"
       placeholder="Correo del Gerente de Planta"
@@ -95,6 +102,7 @@
 
   <div class="col-lg-6">
     <x-forms.input
+      type="email"
       name="correo_gerente_recursos_humanos"
       id="correo_gerente_recursos_humanos"
       placeholder="Correo del Gerente de Recursos Humanos" label="Correo del Gerente de Recursos Humanos"
@@ -103,6 +111,7 @@
   </div>
   <div class="col-lg-6">
     <x-forms.input
+      type="email"
       name="correo_administrador"
       id="correo_administrador"
       placeholder="Correo del Administrador"
@@ -112,6 +121,7 @@
 
   <div class="col-lg-6">
     <x-forms.input
+      type="email"
       name="correo_gerente_exportaciones"
       id="correo_gerente_exportaciones"
       placeholder="Correo del Gerente de Exportaciones" label="Correo del Gerente de Exportaciones"
@@ -120,6 +130,7 @@
   </div>
   <div class="col-lg-6">
     <x-forms.input
+      type="email"
       name="correo_representante_avipla"
       id="correo_representante_avipla"
       placeholder="Correo del Representante de AVIPLA" label="Correo del Representante de AVIPLA"

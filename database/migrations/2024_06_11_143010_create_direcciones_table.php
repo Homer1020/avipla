@@ -19,12 +19,12 @@ return new class extends Migration
                 ->on('afiliados')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->string('direccion_oficina');
-            $table->string('ciudad_oficina');
-            $table->string('telefono_oficina');
-            $table->string('direccion_planta');
-            $table->string('ciudad_planta');
-            $table->string('telefono_planta');
+            $table->string('direccion_oficina')->nullable();
+            $table->string('ciudad_oficina')->nullable();
+            $table->string('telefono_oficina')->nullable();
+            $table->string('direccion_planta')->nullable();
+            $table->string('ciudad_planta')->nullable();
+            $table->string('telefono_planta')->nullable();
         });
     }
 

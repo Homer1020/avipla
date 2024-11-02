@@ -13,27 +13,6 @@ return new class extends Migration
     {
         Schema::create('afiliados', function (Blueprint $table) {
             $table->id();
-            // $table
-            //     ->foreignId('user_id')
-            //     ->nullable()
-            //     ->references('id')
-            //     ->on('users')
-            //     ->onDelete('CASCADE')
-            //     ->onUpdate('CASCADE');
-            // $table
-            //     ->foreignId('presidente_id')
-            //     ->nullable()
-            //     ->references('id')
-            //     ->on('users')
-            //     ->onDelete('CASCADE')
-            //     ->onUpdate('CASCADE');
-            // $table
-            //     ->foreignId('director_id')
-            //     ->nullable()
-            //     ->references('id')
-            //     ->on('users')
-            //     ->onDelete('CASCADE')
-            //     ->onUpdate('CASCADE');
             $table
                 ->foreignId('actividad_id')
                 ->nullable()
@@ -41,17 +20,17 @@ return new class extends Migration
                 ->on('actividades')
                 ->onDelete('SET NULL')
                 ->onUpdate('CASCADE');
-            $table->string('brand');
             $table->string('razon_social');
+            $table->string('brand')->nullable();
             $table->string('rif')->unique();
-            $table->string('siglas');
-            $table->string('anio_fundacion');
-            $table->decimal('capital_social');
+            $table->string('siglas')->nullable();
+            $table->string('anio_fundacion')->nullable();
+            $table->decimal('capital_social')->nullable();
             $table->string('pagina_web')->nullable();
             $table->enum('relacion_comercio_exterior', ['IMPORTADOR', 'EXPORTADOR', 'AMBOS']);
-            $table->string('rif_path');
-            $table->string('estado_financiero_path');
-            $table->string('registro_mercantil_path');
+            $table->string('rif_path')->nullable();
+            $table->string('estado_financiero_path')->nullable();
+            $table->string('registro_mercantil_path')->nullable();
             $table->boolean('account_status')->default(true);
             
             $table->softDeletes();

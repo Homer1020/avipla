@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'Detalle Factura')
 @section('content')
-  <h1 class="mt-4 fs-3">Detalles del aviso</h1>
+  <h1 class="mt-4 fs-4">Detalles del aviso</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('avisos-cobro.index') }}">Avisos de cobro</a></li>
@@ -13,7 +13,7 @@
             @php
                 $pago = $avisoCobro->pago;
             @endphp
-            <p class="fw-bold text-uppercase text-muted">Datos del pago</p>
+            <p class="fw-bold text-uppercase">Datos del pago</p>
             <ul class="list-group mb-4">
                 <li class="list-group-item">
                     <span class="fw-bold">Método de pago:</span>
@@ -69,7 +69,7 @@
         </div>
     @endif
     <div class="col-lg-6">
-        <p class="fw-bold text-uppercase text-muted">Datos del aviso</p>
+        <p class="fw-bold text-uppercase">Datos del aviso</p>
         <ul class="list-group mb-4">
             <li class="list-group-item">
                 <span class="fw-bold">Código:</span>

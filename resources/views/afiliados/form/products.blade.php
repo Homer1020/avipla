@@ -1,4 +1,4 @@
-<p class="fw-bold text-uppercase text-muted">Productos y servicios</p>
+<p class="fw-bold text-uppercase">Productos y servicios</p>
 
 <div class="mb-3 mb-3">
   <label for="productos" class="form-label">Linea de productos</label>
@@ -27,7 +27,7 @@
   @foreach (old('productos', $afiliado->productos) as $key => $producto)
     <div class="row" id="producto-{{ strtolower($productos->find($producto) ? $productos->find($producto)->nombre : $producto) }}">
       <div class="col-12">
-        <p class="fw-bold text-uppercase text-muted">
+        <p class="fw-bold text-uppercase">
           <small>Detalles de {{ $productos->find($producto) ? $productos->find($producto)->nombre : $producto }}</small>
         </p>
       </div>

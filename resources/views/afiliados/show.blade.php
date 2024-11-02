@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title', 'Detalle de ' . $afiliado->razon_social)
 @section('content')
-  <h1 class="mt-4 fs-3">Detalle de {{ $afiliado->razon_social }}</h1>
+  <h1 class="mt-4 fs-4">Detalle de {{ $afiliado->razon_social }}</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('afiliados.index') }}">Afiliados</a></li>
@@ -29,10 +29,12 @@
           <span class="fw-bold">Página web: </span>
           <a href="{{ $afiliado->pagina_web }}">{{ $afiliado->pagina_web }}</a>
         </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Actividad principal: </span>
-          {{ $afiliado->actividad->actividad }}
-        </li>
+        @if($afiliado->actividad)
+          <li class="list-group-item">
+            <span class="fw-bold">Actividad principal: </span>
+            {{ $afiliado->actividad->actividad }}
+          </li>
+        @endif
         <li class="list-group-item">
           <span class="fw-bold">Relaciones de comercio exterior: </span>
           {{ $afiliado->relacion_comercio_exterior }}
@@ -45,7 +47,8 @@
             <span class="badge bg-success">Inactivo</span>
           @endif
         </li>
-        <li class="list-group-item">
+        @if ($afiliado->rif_path || $afiliado->registro_mercantil_path || $afiliado->estado_financiero_path)
+          <li class="list-group-item">
             @if ($afiliado->rif_path)
               <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->rif_path]) }}" class="btn btn-primary">
                 <i class="fa fa-file-invoice"></i>
@@ -65,6 +68,7 @@
               </a>
             @endif
           </li>
+        @endif
       </ul>
       <p class="fw-bold text-uppercase">Direcciones</p>
       <ul class="list-group mb-3">
@@ -139,7 +143,7 @@
         @else
           <li class="list-group-item">
             <span class="fw-bold">Solicitar registro por correo:</span>
-            <form action="{{ route('afiliados.sendConfirmationEmail', $afiliado) }}" method="POST">
+            <form action="#" method="POST">
               @csrf
               <button type="submit" class="btn btn-success mt-2">
                 <i class="fa fa-envelope"></i>

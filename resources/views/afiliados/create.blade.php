@@ -5,56 +5,22 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 @endpush
 @section('content')
-<h1 class="mt-4 fs-3">Crear Afiliado</h1>
+<h1 class="mt-4 fs-4">
+  <i class="fa fa-handshake fa-sm"></i>
+  Crear Afiliado
+</h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
   <li class="breadcrumb-item"><a href="{{ route('afiliados.index') }}">Afiliados</a></li>
   <li class="breadcrumb-item active">Crear Afiliado</li>
 </ol>
 
-<form action="{{ route('afiliados.store') }}" novalidate method="POST">
+<form id="afiliado-form" action="{{ route('afiliados.store') }}" novalidate method="POST">
   @csrf
   <div class="card mb-4">
     <div class="card-body">
       <!-- Nav tabs -->
-      <ul class="nav nav-tabs nav-fill mb-3" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link active"
-            id="home-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#business-data"
-            type="button"
-            role="tab"
-            aria-controls="home"
-            aria-selected="true"
-          >Paso #1</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="profile-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#profile"
-            type="button"
-            role="tab"
-            aria-controls="profile"
-            aria-selected="false"
-          >Paso #2</button>
-        </li>
-        <li class="nav-item" role="presentation">
-          <button
-            class="nav-link"
-            id="messages-tab"
-            data-bs-toggle="tab"
-            data-bs-target="#messages"
-            type="button"
-            role="tab"
-            aria-controls="messages"
-            aria-selected="false"
-          >Paso #3</button>
-        </li>
-      </ul>
+      @include('afiliados.form.nav')
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane active" id="business-data" role="tabpanel" tabindex="0">
