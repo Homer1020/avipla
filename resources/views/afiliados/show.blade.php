@@ -174,46 +174,66 @@
       </ul>
       <p class="fw-bold text-uppercase">Datos del personal</p>
       <ul class="list-group mb-3">
-        <li class="list-group-item">
-          <span class="fw-bold">Correo del presidente: </span>
-          {{ $afiliado->personal->correo_presidente }}
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Correo del gerente general: </span>
-          {{ $afiliado->personal->correo_gerente_general }}
-        </li>
+        @if ($afiliado->personal->correo_presidente)
+          <li class="list-group-item">
+            <span class="fw-bold">Correo del presidente: </span>
+            {{ $afiliado->personal->correo_presidente }}
+          </li>  
+        @endif
+        @if ($afiliado->personal->correo_gerente_general)
+          <li class="list-group-item">
+            <span class="fw-bold">Correo del gerente general: </span>
+            {{ $afiliado->personal->correo_gerente_general }}
+          </li>
+        @endif
+        @if($afiliado->personal->correo_gerente_compras)
         <li class="list-group-item">
           <span class="fw-bold">Correo del gerente de compras: </span>
           {{ $afiliado->personal->correo_gerente_compras }}
         </li>
+        @endif
+        @if($afiliado->personal->correo_gerente_marketing_ventas)
         <li class="list-group-item">
           <span class="fw-bold">Correo del gerente de mercadeo y/o ventas: </span>
           {{ $afiliado->personal->correo_gerente_marketing_ventas }}
         </li>
+        @endif
+        @if($afiliado->personal->correo_gerente_planta)
         <li class="list-group-item">
           <span class="fw-bold">Correo del gerente de planta: </span>
           {{ $afiliado->personal->correo_gerente_planta }}
         </li>
+        @endif
+        @if($afiliado->personal->correo_gerente_recursos_humanos)
         <li class="list-group-item">
           <span class="fw-bold">Correo del gerente de recursos humanos: </span>
           {{ $afiliado->personal->correo_gerente_recursos_humanos }}
         </li>
+        @endif
+        @if($afiliado->personal->correo_administrador)
         <li class="list-group-item">
           <span class="fw-bold">Correo del administrador: </span>
           {{ $afiliado->personal->correo_administrador }}
         </li>
+        @endif
+        @if($afiliado->personal->correo_gerente_exportaciones)
         <li class="list-group-item">
           <span class="fw-bold">Correo del gerente de exportaciones: </span>
           {{ $afiliado->personal->correo_gerente_exportaciones }}
         </li>
+        @endif
+        @if($afiliado->personal->correo_representante_avipla)
         <li class="list-group-item">
           <span class="fw-bold">Correo del representante ante AVIPLA: </span>
           {{ $afiliado->personal->correo_representante_avipla }}
         </li>
+        @endif
+        @if($afiliado->personal->numero_encargado_ws)
         <li class="list-group-item">
           <span class="fw-bold">Teléfono del encargado del whatsapp: </span>
           {{ $afiliado->personal->numero_encargado_ws }}
         </li>
+        @endif
       </ul>
 
       @if ($afiliado->productos->count())

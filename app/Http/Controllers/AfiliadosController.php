@@ -258,7 +258,7 @@ class AfiliadosController extends Controller
         ]);
 
         if($request->hasFile('brand')) {
-            if(Storage::fileExists($afiliado->brand)) {
+            if($afiliado->brand && Storage::fileExists($afiliado->brand)) {
                 Storage::delete($afiliado->brand);
             }
             $path = $request->file('brand')->store('public/brands');
@@ -267,7 +267,7 @@ class AfiliadosController extends Controller
 
         # upload files
         if($request->hasFile('rif_path')) {
-            if(Storage::fileExists('afiliados/' . $afiliado->rif_path)) {
+            if($afiliado->rif_path && Storage::fileExists('afiliados/' . $afiliado->rif_path)) {
                 Storage::delete('afiliados/' . $afiliado->rif_path);
             }
             $rifDocumentFile = $request->file('rif_path');
@@ -277,7 +277,7 @@ class AfiliadosController extends Controller
         }
 
         if($request->hasFile('registro_mercantil_path')) {
-            if(Storage::fileExists('afiliados/' . $afiliado->registro_mercantil_path)) {
+            if($afiliado->registro_mercantil_path && Storage::fileExists('afiliados/' . $afiliado->registro_mercantil_path)) {
                 Storage::delete('afiliados/' . $afiliado->registro_mercantil_path);
             }
             $registroMercantilFile = $request->file('registro_mercantil_path');
@@ -287,7 +287,7 @@ class AfiliadosController extends Controller
         }
 
         if($request->hasFile('estado_financiero_path')) {
-            if(Storage::fileExists('afiliados/' . $afiliado->estado_financiero_path)) {
+            if($afiliado->estado_financiero_path && Storage::fileExists('afiliados/' . $afiliado->estado_financiero_path)) {
                 Storage::delete('afiliados/' . $afiliado->estado_financiero_path);
             }
             $estadoFinanciero = $request->file('estado_financiero_path');
@@ -364,9 +364,9 @@ class AfiliadosController extends Controller
         
         $afiliado->referencias()->sync($request->input('afiliados'));
 
-        return request()->user()->is_admin()
-        ? redirect()->route('afiliados.index')->with('success', 'Se actualizó la información del afiliado')
-        : redirect()->route('business.show')->with('success', 'Se guardó tu información');
+        return request()->user()->afiliado
+            ? redirect()->route('business.show')->with('success', 'Se guardó tu información')
+            : redirect()->route('afiliados.index')->with('success', 'Se actualizó la información del afiliado');
     }
 
     /**

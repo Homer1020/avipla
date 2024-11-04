@@ -105,10 +105,21 @@
       $triggerEl.addEventListener('click', function (event) {
         event.preventDefault()
 
-        // TODO: verificar a que tab se manda
-        const $currentTab = document.querySelector('.tab-pane.active')
-        const isValid = validateTab($currentTab.id)
-        if(isValid) tabTrigger.show()
+        const target = $triggerEl.getAttribute('data-bs-target')
+        
+        if(target === '#business-data') {
+          tabTrigger.show()
+        }
+
+        if(target === '#profile') {
+          const isValid = validateTab('business-data')
+          if(isValid) tabTrigger.show()
+        }
+
+        if(target === '#messages') {
+          const isValid = validateTab('profile') && validateTab('business-data')
+          if(isValid) tabTrigger.show()
+        }
       })
     })
   })

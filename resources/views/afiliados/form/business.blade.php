@@ -3,6 +3,21 @@
 </p>
 
 <div class="row">
+    <div class="col-12">
+        @if ($afiliado->brand)
+            <div>
+                <img width="150" class="mb-3 rounded-2" src="{{ Storage::url($afiliado->brand) }}" alt="Logo: {{ $afiliado->razon_social }}">
+            </div>
+        @endif
+        <x-forms.input
+            type="file"
+            name="brand"
+            id="brand"
+            label="Logotipo de la empresa"
+            :error="$errors->first('brand')"
+            accept="image/*"
+        />
+    </div>
     <div class="col-lg-4">
         <x-forms.input
             name="razon_social"
@@ -74,24 +89,6 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <x-forms.input
-            type="file"
-            name="brand"
-            id="brand"
-            label="Logotipo de la empresa"
-            :error="$errors->first('brand')"
-            accept="image/*"
-        />
-        @if ($afiliado->brand)
-            <div class="text-center">
-                <img width="200" class="mb-3" src="{{ Storage::url($afiliado->brand) }}" alt="Logo: {{ $afiliado->razon_social }}">
-            </div>
-        @endif
-    </div>
-</div>
-
 <p class="fw-bold text-uppercase">
     Direcciones
 </p>
@@ -158,7 +155,7 @@
 </p>
 
 <div class="row">
-    <div class="col-md-4 col-lg-4">
+    <div class="col-md-4">
         <x-forms.input
             type="file"
             name="rif_path"
@@ -168,7 +165,7 @@
             accept="application/pdf"
         />
     </div>
-    <div class="col-md-4 col-lg-4">
+    <div class="col-md-4">
         <x-forms.input
             type="file"
             name="registro_mercantil_path"
@@ -178,7 +175,7 @@
             accept="application/pdf"
         />
     </div>
-    <div class="col-md-4 col-lg-4">
+    <div class="col-md-4">
         <x-forms.input
             type="file"
             name="estado_financiero_path"
