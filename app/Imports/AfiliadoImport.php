@@ -45,8 +45,8 @@ class AfiliadoImport implements ToModel, WithHeadingRow
 
         // Guardamos los correos del personal asociado
         $afiliado->personal()->create([
-            'correo_presidente'             => $row['correo_presidente'] ?? 'N/A',
-            'numero_encargado_ws'           => $row['numero_encargado_ws'] ?? 0,
+            'correo_presidente'             => $row['correo_presidente'] ?? null,
+            'numero_encargado_ws'           => $row['numero_encargado_ws'] ?? null,
             'correo_gerente_general'        => '',
             'correo_gerente_compras'        => '',
             'correo_gerente_marketing_ventas' => '',

@@ -82,7 +82,7 @@ class AvisoCobroController extends Controller
             $afiliados = Afiliado::whereDoesntHave('avisosCobros', function($query) use ($payload) {
                 $query->where('codigo_aviso', $payload['codigo_aviso']);
             })
-            ->whereHas('users')
+            // ->whereHas('users')
             ->get();
 
             foreach($afiliados as $afiliado) {

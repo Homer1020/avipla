@@ -65,48 +65,46 @@
       </form>
     </div>
     <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered w-100" id="invoices-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Factura N°</th>
-              <th>Fecha</th>
-              <th>Afiliado</th>
-              <th>Monto</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-      
-          <tbody>
-            @foreach ($invoices as $invoice)
-              @can('view', $invoice)
-                  <tr>
-                      <td>#{{ $invoice->id }}</td>
-                      <td>#{{ $invoice->numero_factura }}</td>
-                      <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
-                      <td>
-                          <span class="text-truncate d-inline-block" style="max-width: 150px">
-                          {{ $invoice->avisoCobro->afiliado->razon_social }}
-                          </span>
-                      </td>
-                      <td>{{ $invoice->avisoCobro->pago->monto }}$ </td>
-                      <td>
-                        @if ($invoice)
-                          @can('view', $invoice)
-                            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->invoice_path]) }}" class="btn btn-primary">
-                              <i class="fa fa-file-invoice"></i>
-                              Ver factura
-                            </a>
-                          @endcan
-                        @endif
-                      </td>
-                  </tr>
-              @endcan
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+      <table class="table table-bordered w-100" id="invoices-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Factura N°</th>
+            <th>Fecha</th>
+            <th>Afiliado</th>
+            <th>Monto</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+    
+        <tbody>
+          @foreach ($invoices as $invoice)
+            @can('view', $invoice)
+                <tr>
+                    <td>#{{ $invoice->id }}</td>
+                    <td>#{{ $invoice->numero_factura }}</td>
+                    <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
+                    <td>
+                        <span class="text-truncate d-inline-block" style="max-width: 150px">
+                        {{ $invoice->avisoCobro->afiliado->razon_social }}
+                        </span>
+                    </td>
+                    <td>{{ $invoice->avisoCobro->pago->monto }}$ </td>
+                    <td>
+                      @if ($invoice)
+                        @can('view', $invoice)
+                          <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->invoice_path]) }}" class="btn btn-primary">
+                            <i class="fa fa-file-invoice"></i>
+                            Ver factura
+                          </a>
+                        @endcan
+                      @endif
+                    </td>
+                </tr>
+            @endcan
+          @endforeach
+        </tbody>
+      </table>
     </div>
   </div>
 @endsection
@@ -214,7 +212,7 @@
         }
       ],
       order: false,
-      scrollX: false,
+      scrollX: true,
       language: {
           "processing": "Procesando...",
           "lengthMenu": "Mostrar _MENU_ registros",

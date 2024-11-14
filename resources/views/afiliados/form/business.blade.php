@@ -41,7 +41,7 @@
     </div>
     <div class="col-lg-4">
         <x-forms.input
-            type="url"
+            type="text"
             name="pagina_web"
             id="pagina_web"
             label="Página web"

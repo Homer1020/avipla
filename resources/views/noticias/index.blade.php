@@ -15,65 +15,63 @@
 
   <div class="mb-4 card">
     <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered w-100" id="afiliados-table">
-          <thead>
+      <table class="table table-bordered w-100" id="afiliados-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Fecha</th>
+            <th>Categoría</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($noticias as $noticia)
             <tr>
-              <th>ID</th>
-              <th>Título</th>
-              <th>Fecha</th>
-              <th>Categoría</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($noticias as $noticia)
-              <tr>
-                <td>#{{ $noticia->id }}</td>
-                <td>
-                  <a href="{{ route('news.item', $noticia) }}" target="_blank">
-                    {{ $noticia->titulo }}
+              <td>#{{ $noticia->id }}</td>
+              <td>
+                <a href="{{ route('news.item', $noticia) }}" target="_blank">
+                  {{ $noticia->titulo }}
+                </a>
+              </td>
+              <td>{{ $noticia->created_at }}</td>
+              <td>
+                @if ($noticia->categoria)
+                  <span class="badge bg-primary">{{ $noticia->categoria->display_name }}</span>
+                @else
+                  <span class="badge bg-secondary">Sin categoría</span>
+                @endif
+              </td>
+              <td>
+                @if ($noticia->estatus === 'PUBLISHED')
+                  <span class="bg-success badge">{{ $noticia->estatus }}</span>
+                @else
+                  <span class="bg-secondary badge">{{ $noticia->estatus }}</span>
+                @endif 
+              </td>
+              <td style="white-space: nowrap">
+                @can('update', $noticia)
+                  <a href="{{ route('noticias.edit', $noticia) }}" class="btn btn-warning">
+                    <i class="fa fa-pen"></i>
+                    Editar
                   </a>
-                </td>
-                <td>{{ $noticia->created_at }}</td>
-                <td>
-                  @if ($noticia->categoria)
-                    <span class="badge bg-primary">{{ $noticia->categoria->display_name }}</span>
-                  @else
-                    <span class="badge bg-secondary">Sin categoría</span>
-                  @endif
-                </td>
-                <td>
-                  @if ($noticia->estatus === 'PUBLISHED')
-                    <span class="bg-success badge">{{ $noticia->estatus }}</span>
-                  @else
-                    <span class="bg-secondary badge">{{ $noticia->estatus }}</span>
-                  @endif 
-                </td>
-                <td style="white-space: nowrap">
-                  @can('update', $noticia)
-                    <a href="{{ route('noticias.edit', $noticia) }}" class="btn btn-warning">
-                      <i class="fa fa-pen"></i>
-                      Editar
-                    </a>
+                @endcan
+                @can('delete', $noticia)
+                  <form class="d-inline-block" action="{{ route('noticias.destroy', $noticia) }}" onsubmit="submitAfterConfirm(event.target); return false" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit">
+                      <i class="fa fa-trash"></i>
+                      Eliminar
+                    </button>
+                  </form>
                   @endcan
-                  @can('delete', $noticia)
-                    <form class="d-inline-block" action="{{ route('noticias.destroy', $noticia) }}" onsubmit="submitAfterConfirm(event.target); return false" method="POST">
-                      @csrf
-                      @method('DELETE')
-                      <button class="btn btn-danger" type="submit">
-                        <i class="fa fa-trash"></i>
-                        Eliminar
-                      </button>
-                    </form>
-                    @endcan
-                </td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
     </div>
   </div>
 @endsection
@@ -96,7 +94,7 @@
         { orderable: false, targets: 5 },
       ],
       order: false,
-      scrollX: false,
+      scrollX: true,
       language: {
           "processing": "Procesando...",
           "lengthMenu": "Mostrar _MENU_ registros",

@@ -31,7 +31,7 @@ return new class extends Migration
                 ->string('titulo')
                 ->unique();
             $table->string('slug');
-            $table->string('contenido')->change();
+            $table->longText('contenido');
             $table->timestamps();
             $table->softDeletes();
         });

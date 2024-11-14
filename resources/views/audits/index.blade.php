@@ -1,5 +1,8 @@
 @extends('layouts.dashboard')
 @section('title', 'Auditorías')
+@push('css')
+  <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
+@endpush
 @section('content')
   <h1 class="mt-4 fs-4">Auditorías</h1>
   <ol class="breadcrumb mb-4">
@@ -8,42 +11,40 @@
   </ol>
   <div class="mb-4 card">
     <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered w-100" id="audits-table">
-          <thead>
+      <table class="table table-bordered w-100" id="audits-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Evento</th>
+            <th>Módelo</th>
+            <th>IP</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach ($audits as $audit)
             <tr>
-              <th>Usuario</th>
-              <th>Evento</th>
-              <th>Módelo</th>
-              <th>IP</th>
-              <th>Fecha</th>
-              <th>Acciones</th>
+              <td>
+                #{{ $audit->user_id }} {{ $audit->user->name }}
+              </td>
+              <td>
+                <div class="badge bg-primary">
+                  {{ $audit->event }}</td>
+                </div>
+              <td>{{ $audit->auditable_type }}</td>
+              <td>{{ $audit->ip_address }}</td>
+              <td>{{ $audit->created_at->diffForHumans() }}</td>
+              <td>
+                <button onclick="openModal('audit-details', '{{ route('audits.show', $audit) }}')" class="btn btn-primary">
+                  <i class="fa fa-file"></i>
+                  Detalles
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            @foreach ($audits as $audit)
-              <tr>
-                <td>
-                  #{{ $audit->user_id }} {{ $audit->user->name }}
-                </td>
-                <td>
-                  <div class="badge bg-primary">
-                    {{ $audit->event }}</td>
-                  </div>
-                <td>{{ $audit->auditable_type }}</td>
-                <td>{{ $audit->ip_address }}</td>
-                <td>{{ $audit->created_at->diffForHumans() }}</td>
-                <td>
-                  <button onclick="openModal('audit-details', '{{ route('audits.show', $audit) }}')" class="btn btn-primary">
-                    <i class="fa fa-file"></i>
-                    Detalles
-                  </button>
-                </td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+          @endforeach
+        </tbody>
+      </table>
     </div>
   </div>
 @endsection
@@ -62,7 +63,7 @@
         { orderable: false, targets: 3 },
       ],
       order: false,
-      scrollX: false,
+      scrollX: true,
       language: {
           "processing": "Procesando...",
           "lengthMenu": "Mostrar _MENU_ registros",

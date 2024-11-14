@@ -100,25 +100,23 @@
       </form>
     </div>
     <div class="card-body">
-      <div class="table-responsive">
-        <table class="table table-bordered w-100" id="invoices-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Código</th>
-              <th>Fecha</th>
-              <th>Afiliado</th>
-              <th>Estado del pago</th>
-              <th>Monto</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-      
-          <tbody>
-           
-          </tbody>
-        </table>
-      </div>
+      <table class="table table-bordered w-100" id="invoices-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Fecha</th>
+            <th>Afiliado</th>
+            <th>Estado del pago</th>
+            <th>Monto</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+    
+        <tbody>
+          
+        </tbody>
+      </table>
     </div>
   </div>
 @endsection
@@ -252,7 +250,7 @@
       ],
       // stateSave: true,
       order: false,
-      scrollX: false,
+      scrollX: true,
       language: datatableES(),
     })
 

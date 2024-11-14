@@ -5,7 +5,6 @@
       name="actividad_id"
       id="actividad_id"
       label="Actividad principal"
-      required
       :value="old('actividad_id', $afiliado->actividad_id)"
       :error="$errors->first('actividad_id')"
     >
@@ -20,7 +19,6 @@
       name="relaciones_comercio_exterior"
       id="relaciones_comercio_exterior"
       label="Relaciones de comercio exterior"
-      required
       :error="$errors->first('relaciones_comercio_exterior')"
     >
       <option disabled selected>Seleccione una relación</option>
@@ -46,7 +44,6 @@
       label="Correo del Presidente"
       :value="old('correo_presidente', $afiliado->personal ? $afiliado->personal->correo_presidente : '')"
       :error="$errors->first('correo_presidente')"
-      :required="true"
     />
   </div>
   <div class="col-lg-6">
@@ -57,7 +54,7 @@
       placeholder="Número del encargado del Whatsapp" label="Número del encargado del Whatsapp"
       :value="old('numero_encargado_ws', $afiliado->personal ? $afiliado->personal->numero_encargado_ws : '')"
       :error="$errors->first('numero_encargado_ws')"
-      :required="true" />
+    />
   </div>
   <div class="col-lg-6">
     <x-forms.input

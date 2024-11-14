@@ -44,6 +44,10 @@
             h1 {
                 text-transform: capitalize;
             }
+
+            table th {
+                white-space: nowrap;
+            }
         </style>
     </head>
     <body class="sb-nav-fixed">
