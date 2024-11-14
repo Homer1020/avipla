@@ -44,7 +44,7 @@ Route::get('noticias', [HomeController::class, 'news'])->name('news');
 Route::get('noticias/{noticia}', [HomeController::class, 'newsItem'])->name('news.item');
 
 /**
- * AUTH ROUTES
+ * WEB ROUTES
  */
 Route::middleware('guest')->group(function() {
   Route::get('login', [AuthController::class, 'loginForm'])->name('auth.loginForm');
@@ -58,6 +58,9 @@ Route::middleware('guest')->group(function() {
   Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 });
 
+/**
+ * ADMIN ROUTES
+ */
 Route::prefix('admin')->middleware('auth')->group(function() {
   Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
@@ -168,6 +171,7 @@ Route::prefix('admin')->middleware('auth')->group(function() {
 
 /**
  * WEBSITE
+ * Todo lo que se necesite pasar por el middleware isAdmin
  */
 Route::middleware(['auth', 'is_admin'])->group(function() {
   Route::get('sitio-web', [WebsiteController::class, 'index'])
