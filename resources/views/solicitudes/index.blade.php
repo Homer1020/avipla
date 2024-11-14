@@ -51,9 +51,9 @@
                 @else
                   <form action="{{ route('solicitudes.reminder', $solicitud) }}" method="POST" class="d-inline-block">
                     @csrf
-                    <a href="#" onclick="event.target.parentElement.submit(); return false;" class="btn btn-outline-primary">
+                    <a href="#" onclick="event.target.parentElement.submit(); return false;" class="btn btn-primary">
                       <i class="fa fa-envelope me-1"></i>
-                      Enviar recordatorio
+                      Recordatorio
                     </a>
                   </form>
                 @endif
@@ -63,7 +63,7 @@
                     @csrf
                     <button type="submit" class="btn btn-danger">
                       <i class="fa fa-trash"></i>
-                      ELiminar
+                      Eliminar
                     </button>
                   </form>
                 @endcan

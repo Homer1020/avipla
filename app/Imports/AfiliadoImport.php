@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\Actividad;
 use App\Models\Afiliado;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -15,13 +16,20 @@ class AfiliadoImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        $actividadPrincipal = '';
+        if(isset($row['actividad_principal'])) {
+            $actividadPrincipal = Actividad::firstOrNew([
+                'actividad' => $row['actividad_principal']
+            ]);
+        }
+
         $afiliado = new Afiliado([
             'razon_social'                  => $row['empresa_afiliada'],
             'rif'                           => $row['rif'],
             'anio_fundacion'                => $row['ano_de_fundacion'],
             // 'capital_social'                => $row['capital_social'],
             // 'pagina_web'                    => $row['pagina_web'],
-            'actividad_id'                  => $row['actividad_principal'],
+            'actividad_id'                  => $actividadPrincipal,
             'relacion_comercio_exterior'    => $row['relacion_comercio_exterior'] ?? 'EXPORTADOR', // Valor por defecto
         ]);
 

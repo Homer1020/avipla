@@ -8,6 +8,7 @@ use App\Models\Boletine;
 use App\Models\Noticia;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -136,6 +137,7 @@ class DashboardController extends Controller
     }
 
     public function afiliado() {
+        DB::enableQueryLog();
         $afiliado = request()->user()->afiliado;
         $recibosall = AvisoCobro::where('afiliado_id', $afiliado->id)->get();
         $data = [

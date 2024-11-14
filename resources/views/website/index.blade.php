@@ -52,7 +52,7 @@
             </div>
             <button type="submit" class="btn btn-primary">
                 <i class="fa fa-upload"></i>
-                Subir imágen
+                Subir imagen
             </button>
         </form>
 

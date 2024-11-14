@@ -34,7 +34,7 @@
                 <td>{{ $audit->ip_address }}</td>
                 <td>{{ $audit->created_at->diffForHumans() }}</td>
                 <td>
-                  <button class="btn btn-primary">
+                  <button onclick="openModal('audit-details', '{{ route('audits.show', $audit) }}')" class="btn btn-primary">
                     <i class="fa fa-file"></i>
                     Detalles
                   </button>
@@ -47,6 +47,12 @@
     </div>
   </div>
 @endsection
+
+<x-modal
+  id="audit-details"
+  title="Detalles de la acción"
+  dialogClass="modal-md"
+/>
 
 @push('script')
   <script src="{{ asset('assets/css/datatables.min.js') }}"></script>
@@ -297,5 +303,26 @@
         
       }
     })
+  </script>
+  <script>
+    function openModal(modalId, route) {
+      const $modalDetalleAviso = document.getElementById(modalId)
+      const $modalDetalleAvisoContent = $modalDetalleAviso.querySelector('.modal-body')
+
+      const modal = new bootstrap.Modal($modalDetalleAviso, {
+        keyboard: false
+      })
+
+      fetch(route)
+        .then(res => res.text())
+        .then(result => {
+          $modalDetalleAvisoContent.innerHTML = result
+          modal.show()
+        })
+
+      $modalDetalleAviso.addEventListener('hide.bs.modal', () => {
+        $modalDetalleAvisoContent.innerHTML = ''
+      })
+    }
   </script>
 @endpush

@@ -15,7 +15,7 @@
   <li class="breadcrumb-item active">Crear Afiliado</li>
 </ol>
 
-<form id="afiliado-form" action="{{ route('afiliados.store') }}" novalidate method="POST">
+<form id="afiliado-form" enctype="multipart/form-data" action="{{ route('afiliados.store') }}" novalidate method="POST">
   @csrf
   <div class="card mb-4">
     <div class="card-body">

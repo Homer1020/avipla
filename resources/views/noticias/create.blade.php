@@ -24,7 +24,7 @@
         <div class="col-lg-8">
             <div class="card mb-4">
                 <div class="card-body">
-                    <p class="text-uppercase fw-bold text-muted">Noticia</p>
+                    <p class="text-uppercase fw-bold">Noticia</p>
                     <div class="mb-3">
                         <label for="titulo" class="form-label">Título</label>
                         <input
@@ -64,7 +64,7 @@
         <div class="col-lg-4">
             <div class="card">
                 <div class="card-body">
-                    <p class="text-uppercase fw-bold text-muted">Otros datos</p>
+                    <p class="text-uppercase fw-bold">Otros datos</p>
                     <div class="mb-3">
                         <label for="categoria_id" class="form-label">Categoría</label>
                         <select

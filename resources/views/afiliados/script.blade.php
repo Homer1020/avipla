@@ -106,7 +106,7 @@
         event.preventDefault()
 
         const target = $triggerEl.getAttribute('data-bs-target')
-        
+
         if(target === '#business-data') {
           tabTrigger.show()
         }
@@ -118,6 +118,11 @@
 
         if(target === '#messages') {
           const isValid = validateTab('profile') && validateTab('business-data')
+          if(isValid) tabTrigger.show()
+        }
+
+        if(target === '#final') {
+          const isValid = validateTab('profile') && validateTab('business-data') && true
           if(isValid) tabTrigger.show()
         }
       })

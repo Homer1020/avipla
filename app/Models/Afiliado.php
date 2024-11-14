@@ -35,15 +35,7 @@ class Afiliado extends Model
     public function user() {
         return $this->hasOne(User::class)->where('tipo_afiliado', 0);
     }
-
-    public function presidente() {
-        return $this->hasOne(User::class)->where('tipo_afiliado', 1);
-    }
-
-    public function director() {
-        return $this->hasOne(User::class)->where('tipo_afiliado', 2);
-    }
-
+    
     public function invoices() {
         return $this->hasMany(Invoice::class);
     }

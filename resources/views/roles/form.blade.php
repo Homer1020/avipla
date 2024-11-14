@@ -43,7 +43,7 @@
                   value="{{ $permission->name }}"
                 >
                 <div class="form-check-label">
-                  {{ $permission->name }}
+                  {{ __('permissions.' . $permission->name) }}
                 </div>
                 </label>
               </li>

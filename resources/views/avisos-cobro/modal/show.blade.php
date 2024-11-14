@@ -135,7 +135,7 @@
             @if (!$avisoCobro->pago)
                 <li class="list-group-item">
                     <span class="fw-bold">Empresa:</span>
-                    <a href="mailto:{{ $avisoCobro->afiliado->user->email }}">{{ $avisoCobro->afiliado->razon_social }}</a>
+                    <a href="mailto:">{{ $avisoCobro->afiliado->razon_social }}</a>
                 </li>
             @endif
             @if ($avisoCobro->fecha_limite)

@@ -9,253 +9,252 @@
   </ol>
 
   <div class="row mb-4">
-    <div class="col-lg-6">
-      <p class="fw-bold text-uppercase">Datos de la empresa</p>
-      @if ($afiliado->brand)
-        <div class="mb-3">
-          <img src="{{ Storage::url($afiliado->brand) }}" alt="{{ $afiliado->razon_social }}" height="150">
-        </div>
-      @endif
-      <ul class="list-group mb-3">
-        <li class="list-group-item">
-          <span class="fw-bold">Razón social: </span>
-          {{ $afiliado->razon_social }}
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">RIF: </span>
-          {{ $afiliado->rif }}
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Página web: </span>
-          <a href="{{ $afiliado->pagina_web }}">{{ $afiliado->pagina_web }}</a>
-        </li>
-        @if($afiliado->actividad)
-          <li class="list-group-item">
-            <span class="fw-bold">Actividad principal: </span>
-            {{ $afiliado->actividad->actividad }}
-          </li>
-        @endif
-        <li class="list-group-item">
-          <span class="fw-bold">Relaciones de comercio exterior: </span>
-          {{ $afiliado->relacion_comercio_exterior }}
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Estado: </span>
-          @if ($afiliado->estado)
-            <span class="badge bg-success">Activo</span>
-          @else
-            <span class="badge bg-success">Inactivo</span>
+    <div class="col-lg-4">
+      <div class="card h-100">
+        <div class="card-body py-4">
+          @if ($afiliado->brand)
+            <div class="mb-3 text-center">
+              <img src="{{ Storage::url($afiliado->brand) }}" alt="{{ $afiliado->razon_social }}" height="100">
+            </div>
           @endif
-        </li>
-        @if ($afiliado->rif_path || $afiliado->registro_mercantil_path || $afiliado->estado_financiero_path)
-          <li class="list-group-item">
-            @if ($afiliado->rif_path)
-              <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->rif_path]) }}" class="btn btn-primary">
-                <i class="fa fa-file-invoice"></i>
-                RIF
-              </a>
-            @endif
-            @if ($afiliado->registro_mercantil_path)
-              <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->registro_mercantil_path]) }}" class="btn btn-primary">
-                <i class="fa fa-file-invoice"></i>
-                Registro mercantil
-              </a>
-            @endif
-            @if ($afiliado->estado_financiero_path)
-              <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->estado_financiero_path]) }}" class="btn btn-primary">
-                <i class="fa fa-file-invoice"></i>
-                Estado financiero
-              </a>
-            @endif
-          </li>
-        @endif
-      </ul>
-      <p class="fw-bold text-uppercase">Direcciones</p>
-      <ul class="list-group mb-3">
-        <li class="list-group-item">
-          <span class="fw-bold">Dirección (oficina): </span>
-          {{ $afiliado->direccion->direccion_oficina }}
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Ciudad / estado (oficina): </span>
-          {{ $afiliado->direccion->ciudad_oficina }}
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Teléfono (oficina): </span>
-          {{ $afiliado->direccion->telefono_oficina }}
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Dirección (planta): </span>
-          {{ $afiliado->direccion->direccion_planta }}
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Ciudad / estado (planta): </span>
-          {{ $afiliado->direccion->ciudad_planta }}
-        </li>
-        <li class="list-group-item">
-          <span class="fw-bold">Teléfono (planta): </span>
-          {{ $afiliado->direccion->telefono_planta }}
-        </li>
-      </ul>
-
-      @if($afiliado->materias_primas->count())
-        <p class="fw-bold text-uppercase">Principales materias primas utilizadas</p>
-        <ul class="list-group mb-3">
-          @foreach ($afiliado->materias_primas as $materia_prima)
+          <ul class="list-group list-group-flush mb-3">
             <li class="list-group-item">
-              {{ $materia_prima->materia_prima }}
+              <span class="fw-bold">Razón social: </span>
+              {{ $afiliado->razon_social }}
             </li>
-          @endforeach
-        </ul>
-      @endif
-
-      @if($afiliado->servicios->count())
-        <p class="fw-bold text-uppercase">Servicios prestados</p>
-        <ul class="list-group mb-3">
-          @foreach ($afiliado->servicios as $servicio)
             <li class="list-group-item">
-              {{ $servicio->nombre_servicio }}
+              <span class="fw-bold">RIF: </span>
+              {{ $afiliado->rif }}
             </li>
-          @endforeach
-        </ul>
-      @endif
-
-      @if($afiliado->referencias->count())
-        <p class="fw-bold text-uppercase">Empresas asociadas a AVIPLA que la refieren</p>
-        <ul class="list-group mb-3">
-          @foreach ($afiliado->referencias as $referencia)
             <li class="list-group-item">
-              {{ $referencia->razon_social }}
+              <span class="fw-bold">Página web: </span>
+              <a href="{{ $afiliado->pagina_web }}">{{ $afiliado->pagina_web }}</a>
             </li>
-          @endforeach
-        </ul>
-      @endif
+            @if($afiliado->actividad)
+              <li class="list-group-item">
+                <span class="fw-bold">Actividad principal: </span>
+                {{ $afiliado->actividad->actividad }}
+              </li>
+            @endif
+            <li class="list-group-item">
+              <span class="fw-bold">Relaciones de comercio exterior: </span>
+              {{ $afiliado->relacion_comercio_exterior }}
+            </li>
+            <li class="list-group-item">
+              <span class="fw-bold">Estado: </span>
+              @if ($afiliado->estado)
+                <span class="badge bg-success">Activo</span>
+              @else
+                <span class="badge bg-success">Inactivo</span>
+              @endif
+            </li>
+          </ul> 
+        </div>
+      </div>
     </div>
-    <div class="col-lg-6">
-      <p class="fw-bold text-uppercase">Datos del encargado</p>
-      <ul class="list-group mb-3">
-        @if($afiliado->user()->exists())
-        @php
-          $afiliado->load('user');    
-        @endphp
-          <li class="list-group-item"><span class="fw-bold">Encargado:</span> {{ $afiliado->user->name }}</li>
-          <li class="list-group-item"><span class="fw-bold">Correo del encargado:</span> <a href="mailto:{{ $afiliado->user->email }}">{{ $afiliado->user->email }}</a></li>
-        @else
-          <li class="list-group-item">
-            <span class="fw-bold">Solicitar registro por correo:</span>
-            <form action="#" method="POST">
-              @csrf
-              <button type="submit" class="btn btn-success mt-2">
-                <i class="fa fa-envelope"></i>
-                Enviar correo
-              </button>
-            </form>
-            @if ($afiliado->confirmation_code)
-              <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                </symbol>
-                <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                </symbol>
-                <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-                  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                </symbol>
-              </svg>
-              <div class="alert alert-primary d-flex align-items-center mt-2 mb-0" role="alert">
-                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-                <div>
-                  Ya se envió un enlace pare el registro.
+    <div class="col-lg-8">
+      <div class="card h-100">
+        <div class="card-body">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Direcciones</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Actividades</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" type="button" role="tab" aria-controls="messages" aria-selected="false">Personal</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Productos</button>
+            </li>
+          </ul>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <p class="fw-bold text-uppercase my-3">Direcciones</p>
+              <div class="row">
+                <div class="col-md-6">
+                  <ul class="list-group mb-0">
+                    <li class="list-group-item">
+                      <span class="fw-bold">Dirección (oficina): </span>
+                      {{ $afiliado->direccion->direccion_oficina }}
+                    </li>
+                    <li class="list-group-item">
+                      <span class="fw-bold">Ciudad / estado (oficina): </span>
+                      {{ $afiliado->direccion->ciudad_oficina }}
+                    </li>
+                    <li class="list-group-item">
+                      <span class="fw-bold">Teléfono (oficina): </span>
+                      {{ $afiliado->direccion->telefono_oficina }}
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <span class="fw-bold">Dirección (planta): </span>
+                      {{ $afiliado->direccion->direccion_planta }}
+                    </li>
+                    <li class="list-group-item">
+                      <span class="fw-bold">Ciudad / estado (planta): </span>
+                      {{ $afiliado->direccion->ciudad_planta }}
+                    </li>
+                    <li class="list-group-item">
+                      <span class="fw-bold">Teléfono (planta): </span>
+                      {{ $afiliado->direccion->telefono_planta }}
+                    </li>
+                  </ul>
                 </div>
               </div>
-            @endif
-          </li>
-        @endif
-      </ul>
-      <p class="fw-bold text-uppercase">Datos del personal</p>
-      <ul class="list-group mb-3">
-        @if ($afiliado->personal->correo_presidente)
-          <li class="list-group-item">
-            <span class="fw-bold">Correo del presidente: </span>
-            {{ $afiliado->personal->correo_presidente }}
-          </li>  
-        @endif
-        @if ($afiliado->personal->correo_gerente_general)
-          <li class="list-group-item">
-            <span class="fw-bold">Correo del gerente general: </span>
-            {{ $afiliado->personal->correo_gerente_general }}
-          </li>
-        @endif
-        @if($afiliado->personal->correo_gerente_compras)
-        <li class="list-group-item">
-          <span class="fw-bold">Correo del gerente de compras: </span>
-          {{ $afiliado->personal->correo_gerente_compras }}
-        </li>
-        @endif
-        @if($afiliado->personal->correo_gerente_marketing_ventas)
-        <li class="list-group-item">
-          <span class="fw-bold">Correo del gerente de mercadeo y/o ventas: </span>
-          {{ $afiliado->personal->correo_gerente_marketing_ventas }}
-        </li>
-        @endif
-        @if($afiliado->personal->correo_gerente_planta)
-        <li class="list-group-item">
-          <span class="fw-bold">Correo del gerente de planta: </span>
-          {{ $afiliado->personal->correo_gerente_planta }}
-        </li>
-        @endif
-        @if($afiliado->personal->correo_gerente_recursos_humanos)
-        <li class="list-group-item">
-          <span class="fw-bold">Correo del gerente de recursos humanos: </span>
-          {{ $afiliado->personal->correo_gerente_recursos_humanos }}
-        </li>
-        @endif
-        @if($afiliado->personal->correo_administrador)
-        <li class="list-group-item">
-          <span class="fw-bold">Correo del administrador: </span>
-          {{ $afiliado->personal->correo_administrador }}
-        </li>
-        @endif
-        @if($afiliado->personal->correo_gerente_exportaciones)
-        <li class="list-group-item">
-          <span class="fw-bold">Correo del gerente de exportaciones: </span>
-          {{ $afiliado->personal->correo_gerente_exportaciones }}
-        </li>
-        @endif
-        @if($afiliado->personal->correo_representante_avipla)
-        <li class="list-group-item">
-          <span class="fw-bold">Correo del representante ante AVIPLA: </span>
-          {{ $afiliado->personal->correo_representante_avipla }}
-        </li>
-        @endif
-        @if($afiliado->personal->numero_encargado_ws)
-        <li class="list-group-item">
-          <span class="fw-bold">Teléfono del encargado del whatsapp: </span>
-          {{ $afiliado->personal->numero_encargado_ws }}
-        </li>
-        @endif
-      </ul>
+              @if ($afiliado->rif_path || $afiliado->registro_mercantil_path || $afiliado->estado_financiero_path)
+                <p class="fw-bold text-uppercase my-3">Documentos</p>
+                <div>
+                  @if ($afiliado->rif_path)
+                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->rif_path]) }}" class="btn btn-light me-2 border-dark">
+                      <i class="fa fa-file-invoice me-1"></i>
+                      RIF
+                    </a>
+                  @endif
+                  @if ($afiliado->registro_mercantil_path)
+                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->registro_mercantil_path]) }}" class="btn btn-light me-2 border-dark">
+                      <i class="fa fa-file-invoice me-1"></i>
+                      Registro mercantil
+                    </a>
+                  @endif
+                  @if ($afiliado->estado_financiero_path)
+                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->estado_financiero_path]) }}" class="btn btn-light me-2 border-dark">
+                      <i class="fa fa-file-invoice me-1"></i>
+                      Estado financiero
+                    </a>
+                  @endif
+                </div>
+              @endif
+            </div>
+            <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <p class="fw-bold text-uppercase my-3">Actividades</p>
+              <div class="card">
+                <div class="card-body">
+                  @if($afiliado->materias_primas->count())
+                    <p class="card-title fw-bold">Principales materias primas utilizadas</p>
+                    <p class="card-text">
+                      {{ implode(', ', $afiliado->materias_primas->pluck('materia_prima')->toArray()) }}
+                    </p>
+                  @endif
+        
+                  <hr>
+        
+                  @if($afiliado->servicios->count())
+                    <p class="card-title fw-bold">Servicios prestados</p>
+                    <p class="card-text">
+                      {{ implode(', ', $afiliado->servicios->pluck('nombre_servicio')->toArray()) }}
+                    </p>
+                  @endif
+        
+                  <hr>
+        
+                  @if($afiliado->referencias->count())
+                    <p class="card-title fw-bold">Empresas asociadas a AVIPLA que la refieren</p>
+                    <p class="card-text">
+                      {{ implode(', ', $afiliado->referencias->pluck('razon_social')->toArray()) }}
+                    </p>
+                  @endif
+                </div>
+              </div>    
+            </div>
+            <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+              <p class="fw-bold text-uppercase my-3">Datos del personal</p>
+              <ul class="list-group mb-3">
+                @if ($afiliado->personal->correo_presidente)
+                  <li class="list-group-item">
+                    <span class="fw-bold">Correo del presidente: </span>
+                    {{ $afiliado->personal->correo_presidente }}
+                  </li>  
+                @endif
+                @if ($afiliado->personal->correo_gerente_general)
+                  <li class="list-group-item">
+                    <span class="fw-bold">Correo del gerente general: </span>
+                    {{ $afiliado->personal->correo_gerente_general }}
+                  </li>
+                @endif
+                @if($afiliado->personal->correo_gerente_compras)
+                <li class="list-group-item">
+                  <span class="fw-bold">Correo del gerente de compras: </span>
+                  {{ $afiliado->personal->correo_gerente_compras }}
+                </li>
+                @endif
+                @if($afiliado->personal->correo_gerente_marketing_ventas)
+                <li class="list-group-item">
+                  <span class="fw-bold">Correo del gerente de mercadeo y/o ventas: </span>
+                  {{ $afiliado->personal->correo_gerente_marketing_ventas }}
+                </li>
+                @endif
+                @if($afiliado->personal->correo_gerente_planta)
+                <li class="list-group-item">
+                  <span class="fw-bold">Correo del gerente de planta: </span>
+                  {{ $afiliado->personal->correo_gerente_planta }}
+                </li>
+                @endif
+                @if($afiliado->personal->correo_gerente_recursos_humanos)
+                <li class="list-group-item">
+                  <span class="fw-bold">Correo del gerente de recursos humanos: </span>
+                  {{ $afiliado->personal->correo_gerente_recursos_humanos }}
+                </li>
+                @endif
+                @if($afiliado->personal->correo_administrador)
+                <li class="list-group-item">
+                  <span class="fw-bold">Correo del administrador: </span>
+                  {{ $afiliado->personal->correo_administrador }}
+                </li>
+                @endif
+                @if($afiliado->personal->correo_gerente_exportaciones)
+                <li class="list-group-item">
+                  <span class="fw-bold">Correo del gerente de exportaciones: </span>
+                  {{ $afiliado->personal->correo_gerente_exportaciones }}
+                </li>
+                @endif
+                @if($afiliado->personal->correo_representante_avipla)
+                <li class="list-group-item">
+                  <span class="fw-bold">Correo del representante ante AVIPLA: </span>
+                  {{ $afiliado->personal->correo_representante_avipla }}
+                </li>
+                @endif
+                @if($afiliado->personal->numero_encargado_ws)
+                <li class="list-group-item">
+                  <span class="fw-bold">Teléfono del encargado del whatsapp: </span>
+                  {{ $afiliado->personal->numero_encargado_ws }}
+                </li>
+                @endif
+              </ul>
 
-      @if ($afiliado->productos->count())
-        <p class="fw-bold text-uppercase">Linea de productos</p>
-        <ul class="list-group mb-3">
-          @foreach ($afiliado->productos as $producto)
-            <li class="list-group-item">
-              <span class="fw-bold">Producto: </span>
-              {{ $producto->nombre }}
-              <br>
-              <span class="fw-bold">Producción total mensual (TM): </span>
-              {{ $producto->pivot->produccion_total_mensual }}
-              <br>
-              <span class="fw-bold">Porcentaje destinados a exportación: </span>
-              {{ $producto->pivot->porcentage_exportacion }}
-              <br>
-              <span class="fw-bold">Mercados de importación / exportación: </span>
-              {{ $producto->pivot->mercado_exportacion }}
-            </li>
-          @endforeach
-        </ul>
-      @endif
+            </div>
+            <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+              @if ($afiliado->productos->count())
+                <p class="fw-bold text-uppercase my-3">Línea de productos</p>
+                <ul class="list-group mb-3">
+                  @foreach ($afiliado->productos as $producto)
+                    <li class="list-group-item">
+                      <span class="fw-bold">Producto: </span>
+                      {{ $producto->nombre }}
+                      <br>
+                      <span class="fw-bold">Producción total mensual (TM): </span>
+                      {{ $producto->pivot->produccion_total_mensual }}
+                      <br>
+                      <span class="fw-bold">Porcentaje destinados a exportación: </span>
+                      {{ $producto->pivot->porcentage_exportacion }}
+                      <br>
+                      <span class="fw-bold">Mercados de importación / exportación: </span>
+                      {{ $producto->pivot->mercado_exportacion }}
+                    </li>
+                  @endforeach
+                </ul>
+              @endif
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 @endsection

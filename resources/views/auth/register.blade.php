@@ -29,10 +29,10 @@
         <div class="col-lg-11">
           <div class="card shadow">
             <div class="card-body p-4">
-              <div class="text-center mb-4">
-                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA" width="100px">
+              <div class="text-center mb-1">
+                <img src="{{ asset('assets/img/logo.png') }}" alt="Logo AVIPLA" width="150">
               </div>
-              <h1 class="fs-3 fw-bold text-primary text-center mb-4 text-uppercase">Crear cuenta</h1>
+              <h1 class="fs-4 fw-bold text-primary text-center mb-4 text-uppercase">Crear cuenta</h1>
 
               <form id="afiliado-form" action="{{ route('auth.register') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -40,19 +40,19 @@
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs nav-fill mb-3" id="myTab" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#business-data"
+                    <button class="nav-link active" id="home-tab" data-bs-target="#business-data"
                       type="button" role="tab" aria-controls="home" aria-selected="true">Datos de la empresa</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button disabled class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                    <button class="nav-link" id="profile-tab" data-bs-target="#profile"
                       type="button" role="tab" aria-controls="profile" aria-selected="false">Actividades y personal</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button disabled class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages"
+                    <button class="nav-link" id="messages-tab" data-bs-target="#messages"
                       type="button" role="tab" aria-controls="messages" aria-selected="false">Productos y servicios</button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="final-tab" data-bs-toggle="tab" data-bs-target="#final"
+                    <button class="nav-link" id="final-tab" data-bs-target="#final"
                       type="button" role="tab" aria-controls="final" aria-selected="false">Registro de encargado</button>
                   </li>
                 </ul>
@@ -60,12 +60,6 @@
                 <div class="tab-content">
                   <div class="tab-pane active" id="business-data" role="tabpanel" tabindex="0">
                     @include('afiliados.form.business')
-                    {{-- <div class="mt-4">
-                      <button type="button" class="btn btn-primary">
-                        Siguiente
-                        <i class="fa fa-angle-right ms-1"></i>
-                      </button>
-                    </div> --}}
                   </div>
                   <div class="tab-pane" id="profile" role="tabpanel" tabindex="0">
                     @include('afiliados.form.personal-without-names')

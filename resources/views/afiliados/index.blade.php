@@ -35,8 +35,11 @@
                 <td>{{ $afiliado->razon_social }}</td>
                 <td>{{ $afiliado->rif }}</td>
                 <td>
-                  @if($afiliado->user)
-                    {{ $afiliado->user->email }}
+                  @php
+                    $usuarioAfiliado = $afiliado->users->where('tipo_afiliado', 0)->first();
+                  @endphp
+                  @if($usuarioAfiliado)
+                    {{ $usuarioAfiliado->email }}
                   @else
                     <span class="badge bg-warning">Sin asignar</span>
                   @endif

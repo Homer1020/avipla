@@ -39,7 +39,16 @@
                     :active="request()->routeIs('afiliados.*') || request()->routeIs('solicitudes.*')"
                 >
                     <a href="{{ route('solicitudes.index') }}" class="nav-link {{ request()->routeIs('solicitudes.*')  ? 'active' : '' }}">Solicitudes</a>
-                    <a href="{{ route('afiliados.index') }}" class="nav-link {{ request()->routeIs('afiliados.index')  ? 'active' : '' }}">Todos los afiliados</a>
+                    @php
+                        $activeAfiliados =
+                            request()->routeIs('afiliados.*')
+                            && !request()->routeIs('afiliados.create')
+                            && !request()->routeIs('afiliados.createByExcel')
+                    @endphp
+                    <a
+                        href="{{ route('afiliados.index') }}"
+                        class="nav-link {{ $activeAfiliados  ? 'active' : '' }}"
+                    >Todos los afiliados</a>
                     <a href="{{ route('afiliados.create') }}" class="nav-link {{ request()->routeIs('afiliados.create')  ? 'active' : '' }}">Crear afiliado</a>
                     <a href="{{ route('afiliados.createByExcel') }}" class="nav-link {{ request()->routeIs('afiliados.createByExcel')  ? 'active' : '' }}">Importar excel</a>
                 </x-nav-link-dropdown>

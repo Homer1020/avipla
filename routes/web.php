@@ -193,6 +193,7 @@ Route::middleware(['auth'])->group(function() {
 
     
   Route::get('auditorias', AuditController::class)->name('audits.index');
+  Route::get('auditorias/{audit}/detalles', [AuditController::class, 'show'])->name('audits.show');
 
   Route::get('database', [DatabaseController::class, 'index'])->name('database.index');
 });

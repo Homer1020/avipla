@@ -15,4 +15,8 @@ class AuditController extends Controller
         $audits = Audit::latest()->get();
         return view('audits.index', compact('audits'));
     }
+
+    public function show(Audit $audit) {
+        dump($audit->toArray());
+    }
 }

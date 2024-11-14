@@ -42,11 +42,11 @@
                 </td>
                 <td>
                   @can('view', $boletin)
-                  <a href="{{ route('boletines.show', $boletin) }}" class="btn btn-primary">
-                    <i class="fa fa-envelope-open"></i>
-                    Ver boletin
-                  </a>
-                @endcan
+                    <a href="{{ route('boletines.show', $boletin) }}" class="btn btn-primary">
+                      <i class="fa fa-envelope-open"></i>
+                      Ver boletin
+                    </a>
+                  @endcan
                   @can('update', $boletin)
                     <a href="{{ route('boletines.edit', $boletin) }}" class="btn btn-warning">
                       <i class="fa fa-pen"></i>

@@ -7,7 +7,7 @@
     <li class="breadcrumb-item active">Roles</li>
   </ol>
   <div class="mb-4">
-    <a href="{{ route('roles.create') }}" class="btn btn-primary">Crear role</a>
+    <a href="{{ route('roles.create') }}" class="btn btn-primary">Crear rol</a>
   </div>
   <div class="row">
     @foreach ($roles as $role)

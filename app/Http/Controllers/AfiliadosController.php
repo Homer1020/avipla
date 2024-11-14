@@ -12,11 +12,9 @@ use App\Models\Producto;
 use App\Models\Servicio;
 use App\Models\SolicitudAfiliado;
 use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
-use Spatie\Permission\Models\Role;
 
 class AfiliadosController extends Controller
 {
@@ -31,7 +29,7 @@ class AfiliadosController extends Controller
     public function index()
     {
         $afiliados = Afiliado::latest()
-            ->with('user')
+            ->with('users')
             ->get();
         return view('afiliados.index', compact('afiliados'));
     }
@@ -181,7 +179,7 @@ class AfiliadosController extends Controller
     public function show(Afiliado $afiliado)
     {
         $afiliado->load([
-            'user',
+            'users',
             'direccion',
             'productos',
             'materias_primas',
@@ -374,7 +372,7 @@ class AfiliadosController extends Controller
      */
     public function destroy(Afiliado $afiliado)
     {
-        // return $afiliado->toArray();
+        $afiliado->users()->delete();
         $afiliado->delete();
 
         return redirect()
