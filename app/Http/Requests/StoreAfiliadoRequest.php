@@ -31,7 +31,7 @@ class StoreAfiliadoRequest extends FormRequest
             'name'                              => 'nullable|string',
             'password'                          => 'nullable|string|confirmed',
             'siglas'                            => 'nullable|string',
-            'pagina_web'                        => 'url|nullable',
+            'pagina_web'                        => 'nullable',
             'anio_fundacion'                    => 'nullable|unique:afiliados,rif',
             'capital_social'                    => 'nullable|numeric|min:0',
             'rif'                               => 'required|unique:afiliados,rif',

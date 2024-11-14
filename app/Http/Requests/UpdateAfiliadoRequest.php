@@ -29,7 +29,7 @@ class UpdateAfiliadoRequest extends FormRequest
             'estado_financiero_path'            => 'nullable|max:2024|mimes:pdf',
             'razon_social'                      => 'required|string',
             'siglas'                            => 'nullable|string',
-            'pagina_web'                        => 'url|nullable',
+            'pagina_web'                        => 'nullable',
             'anio_fundacion'                    => 'nullable|unique:afiliados,rif',
             'capital_social'                    => 'nullable|numeric|min:0',
             'rif'                               => 'required|unique:afiliados,rif,' . $afiliado->id,

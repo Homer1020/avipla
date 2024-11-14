@@ -16,44 +16,45 @@ class AfiliadoImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $actividadPrincipal = '';
-        if(isset($row['actividad_principal'])) {
+        $actividadPrincipal = null;
+        if (isset($row['actividad_id'])) {
             $actividadPrincipal = Actividad::firstOrNew([
-                'actividad' => $row['actividad_principal']
+                'id' => $row['actividad_id']
             ]);
         }
 
         $afiliado = new Afiliado([
-            'razon_social'                  => $row['empresa_afiliada'],
+            'razon_social'                  => $row['razon_social'],
             'rif'                           => $row['rif'],
-            'anio_fundacion'                => $row['ano_de_fundacion'],
-            // 'capital_social'                => $row['capital_social'],
-            // 'pagina_web'                    => $row['pagina_web'],
-            'actividad_id'                  => $actividadPrincipal,
-            'relacion_comercio_exterior'    => $row['relacion_comercio_exterior'] ?? 'EXPORTADOR', // Valor por defecto
+            'anio_fundacion'                => $row['anio_fundacion'] ?? 0,
+            'actividad_id'                  => $actividadPrincipal ? $actividadPrincipal->id : null,
+            'pagina_web'                    => $row['pagina_web'] ?? null,
         ]);
 
         $afiliado->save();
 
+        // Guardamos la dirección relacionada con la oficina y la planta
         $afiliado->direccion()->create([
-            'direccion_oficina'     => $row['direccion_1'],
-            'ciudad_oficina'        => $row['estado'],
-            'telefono_oficina'      => $row['número_telefónico_1'],
-            'direccion_planta'      => $row['direccion_2'],
-            'ciudad_planta'         => $row['estado'] ?? 'Caracas',
-            'telefono_planta'       => $row['número_telefónico_2'],
+            'direccion_oficina'     => $row['direccion_oficina'],
+            'ciudad_oficina'        => $row['ciudad_oficina'],
+            'telefono_oficina'      => $row['telefono_oficina'],
+            'direccion_planta'      => $row['direccion_planta'],
+            'ciudad_planta'         => $row['ciudad_planta'] ?? 'Caracas',
+            'telefono_planta'       => $row['telefono_planta'],
         ]);
 
+        // Guardamos los correos del personal asociado
         $afiliado->personal()->create([
-            'correo_presidente'                 => $row['correo_representante_ante_avipla'],
-            'correo_gerente_general'            => '',
-            'correo_gerente_compras'            => '',
-            'correo_gerente_marketing_ventas'   => '',
-            'correo_gerente_planta'             => '',
-            'correo_gerente_recursos_humanos'   => '',
-            'correo_administrador'              => '',
-            'correo_gerente_exportaciones'      => '',
-            'correo_representante_avipla'       => ''
+            'correo_presidente'             => $row['correo_presidente'] ?? 'N/A',
+            'numero_encargado_ws'           => $row['numero_encargado_ws'] ?? 0,
+            'correo_gerente_general'        => '',
+            'correo_gerente_compras'        => '',
+            'correo_gerente_marketing_ventas' => '',
+            'correo_gerente_planta'         => '',
+            'correo_gerente_recursos_humanos' => '',
+            'correo_administrador'          => '',
+            'correo_gerente_exportaciones'  => '',
+            'correo_representante_avipla'   => ''
         ]);
 
         return $afiliado;
