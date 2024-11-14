@@ -42,10 +42,10 @@
             </li>
             <li class="list-group-item">
               <span class="fw-bold">Estado: </span>
-              @if ($afiliado->estado)
+              @if ($afiliado->account_status)
                 <span class="badge bg-success">Activo</span>
               @else
-                <span class="badge bg-success">Inactivo</span>
+                <span class="badge bg-danger">Inactivo</span>
               @endif
             </li>
           </ul> 
@@ -144,18 +144,16 @@
                     </p>
                   @endif
         
-                  <hr>
-        
                   @if($afiliado->servicios->count())
+                    <hr>
                     <p class="card-title fw-bold">Servicios prestados</p>
                     <p class="card-text">
                       {{ implode(', ', $afiliado->servicios->pluck('nombre_servicio')->toArray()) }}
                     </p>
                   @endif
         
-                  <hr>
-        
                   @if($afiliado->referencias->count())
+                    <hr>
                     <p class="card-title fw-bold">Empresas asociadas a AVIPLA que la refieren</p>
                     <p class="card-text">
                       {{ implode(', ', $afiliado->referencias->pluck('razon_social')->toArray()) }}

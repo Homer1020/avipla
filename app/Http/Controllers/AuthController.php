@@ -102,24 +102,32 @@ class AuthController extends Controller
         DB::beginTransaction();
         try {
             # upload image
-            $path = $request->file('brand')->store('public/brands');
-            $payload['brand'] = $path;
+            if($request->hasFile('brand')) {
+                $path = $request->file('brand')->store('public/brands');
+                $payload['brand'] = $path;
+            }
 
             # upload files
-            $rifDocumentFile = $request->file('rif_path');
-            $rifDocumentFileName = $rifDocumentFile->hashName();
-            $rifDocumentFile->storeAs('afiliados', $rifDocumentFileName);
-            $payload['rif_path'] = $rifDocumentFileName;
+            if($request->hasFile('rif_path')) {
+                $rifDocumentFile = $request->file('rif_path');
+                $rifDocumentFileName = $rifDocumentFile->hashName();
+                $rifDocumentFile->storeAs('afiliados', $rifDocumentFileName);
+                $payload['rif_path'] = $rifDocumentFileName;
+            }
 
-            $registroMercantilFile = $request->file('registro_mercantil_path');
-            $registroMercantilFileName = $registroMercantilFile->hashName();
-            $registroMercantilFile->storeAs('afiliados', $registroMercantilFileName);
-            $payload['registro_mercantil_path'] = $registroMercantilFileName;
+            if($request->hasFile('registro_mercantil_path')) {
+                $registroMercantilFile = $request->file('registro_mercantil_path');
+                $registroMercantilFileName = $registroMercantilFile->hashName();
+                $registroMercantilFile->storeAs('afiliados', $registroMercantilFileName);
+                $payload['registro_mercantil_path'] = $registroMercantilFileName;
+            }
 
-            $estadoFinanciero = $request->file('estado_financiero_path');
-            $estadoFinancieroName = $estadoFinanciero->hashName();
-            $estadoFinanciero->storeAs('afiliados', $estadoFinancieroName);
-            $payload['estado_financiero_path'] = $estadoFinancieroName;
+            if($request->hasFile('estado_financiero_path')) {
+                $estadoFinanciero = $request->file('estado_financiero_path');
+                $estadoFinancieroName = $estadoFinanciero->hashName();
+                $estadoFinanciero->storeAs('afiliados', $estadoFinancieroName);
+                $payload['estado_financiero_path'] = $estadoFinancieroName;
+            }
 
             $afiliado = Afiliado::create($payload);
 
@@ -152,37 +160,44 @@ class AuthController extends Controller
                 'mercado_exportacion'
             ]);
 
-            foreach ($data_productos['productos'] as $key => $producto_id) {
-                if(!is_numeric($producto_id)) {
-                    $producto = Producto::create(['nombre' => $producto_id]);
-                    $producto_id = $producto->id;
+            if(isset($data_productos['productos'])) {
+                foreach ($data_productos['productos'] as $key => $producto_id) {
+                    if(!is_numeric($producto_id)) {
+                        $producto = Producto::create(['nombre' => $producto_id]);
+                        $producto_id = $producto->id;
+                    }
+    
+                    $pivot_data[$producto_id] = [
+                        'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
+                        'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
+                        'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
+                    ];
                 }
-
-                $pivot_data[$producto_id] = [
-                    'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
-                    'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
-                    'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
-                ];
-            }
-            $afiliado->productos()->attach($pivot_data);
-
-            foreach($request->input('servicios') as $servicio) {
-                if(is_numeric($servicio)) {
-                    $afiliado->servicios()->attach($servicio);
-                } else {
-                    $newServicio = Servicio::create(['nombre_servicio' => $servicio]);
-                    $afiliado->servicios()->attach($newServicio->id);
-                }
+                $afiliado->productos()->attach($pivot_data);
             }
 
-            foreach($request->input('materias_primas') as $materia) {
-                if(is_numeric($materia)) {
-                    $afiliado->materias_primas()->attach($materia);
-                } else {
-                    $newMateria = MateriaPrima::create(['materia_prima' => $servicio]);
-                    $afiliado->materias_primas()->attach($newMateria->id);
+            if($request->input('servicios')) {
+                foreach($request->input('servicios') as $servicio) {
+                    if(is_numeric($servicio)) {
+                        $afiliado->servicios()->attach($servicio);
+                    } else {
+                        $newServicio = Servicio::create(['nombre_servicio' => $servicio]);
+                        $afiliado->servicios()->attach($newServicio->id);
+                    }
                 }
             }
+
+            if($request->input('materias_primas')) {
+                foreach($request->input('materias_primas') as $materia) {
+                    if(is_numeric($materia)) {
+                        $afiliado->materias_primas()->attach($materia);
+                    } else {
+                        $newMateria = MateriaPrima::create(['materia_prima' => $servicio]);
+                        $afiliado->materias_primas()->attach($newMateria->id);
+                    }
+                }
+            }
+
             $afiliado->referencias()->attach($request->input('afiliados'));
 
             $user = $afiliado->users()->create([
@@ -206,7 +221,7 @@ class AuthController extends Controller
             Auth::login($user);
 
             return redirect()->intended('admin')->with('success', 'Bienvenido ' . $user->name . '!');
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', 'Error al crear la cuenta.');
         }

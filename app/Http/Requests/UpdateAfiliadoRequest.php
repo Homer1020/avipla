@@ -52,7 +52,6 @@ class UpdateAfiliadoRequest extends FormRequest
             'correo_gerente_exportaciones'      => 'nullable|email',
             'correo_representante_avipla'       => 'nullable|email',
             'numero_encargado_ws'               => 'nullable|numeric',
-
             'productos'                         => 'nullable|array',
             'productos.*'                       => 'required',
             'produccion_total_mensual'          => 'array',
@@ -61,7 +60,6 @@ class UpdateAfiliadoRequest extends FormRequest
             'porcentage_exportacion.*'          => 'required', 
             'mercado_exportacion'               => 'array',
             'mercado_exportacion.*'             => 'required',
-            
             'materias_primas'                   => 'nullable|array',
             'materias_primas.*'                 => 'required',
             'servicios'                         => 'nullable|array',

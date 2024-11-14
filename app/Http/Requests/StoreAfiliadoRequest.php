@@ -53,24 +53,19 @@ class StoreAfiliadoRequest extends FormRequest
             'correo_gerente_exportaciones'      => 'nullable|email',
             'correo_representante_avipla'       => 'nullable|email',
             'numero_encargado_ws'               => 'required|numeric',
-
-            'productos'                         => 'required|array|min:1',
+            'productos'                         => 'nullable|array',
             'productos.*'                       => 'required',
-
             'produccion_total_mensual'          => 'array',
             'produccion_total_mensual.*'        => 'required',
             'porcentage_exportacion'            => 'array', 
             'porcentage_exportacion.*'          => 'required', 
             'mercado_exportacion'               => 'array',
             'mercado_exportacion.*'             => 'required',
-            
-            'materias_primas'                   => 'required|array',
+            'materias_primas'                   => 'nullable|array',
             'materias_primas.*'                 => 'required',
-            'servicios'                         => 'required|array',
-
+            'servicios'                         => 'nullable|array',
             'servicios.*'                       => 'required',
-            
-            'afiliados'                         => 'array',
+            'afiliados'                         => 'nullable|array',
             'afiliados.*'                       => 'exists:afiliados,id',
         ];
     }

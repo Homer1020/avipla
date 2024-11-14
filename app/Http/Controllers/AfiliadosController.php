@@ -127,35 +127,41 @@ class AfiliadosController extends Controller
                 'mercado_exportacion'
             ]);
 
-            foreach ($data_productos['productos'] as $key => $producto_id) {
-                if(!is_numeric($producto_id)) {
-                    $producto = Producto::create(['nombre' => $producto_id]);
-                    $producto_id = $producto->id;
+            if(isset($data_productos['productos'])) {
+                foreach ($data_productos['productos'] as $key => $producto_id) {
+                    if(!is_numeric($producto_id)) {
+                        $producto = Producto::create(['nombre' => $producto_id]);
+                        $producto_id = $producto->id;
+                    }
+    
+                    $pivot_data[$producto_id] = [
+                        'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
+                        'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
+                        'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
+                    ];
                 }
-
-                $pivot_data[$producto_id] = [
-                    'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
-                    'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
-                    'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
-                ];
-            }
-            $afiliado->productos()->attach($pivot_data);
-
-            foreach($request->input('servicios') as $servicio) {
-                if(is_numeric($servicio)) {
-                    $afiliado->servicios()->attach($servicio);
-                } else {
-                    $newServicio = Servicio::create(['nombre_servicio' => $servicio]);
-                    $afiliado->servicios()->attach($newServicio->id);
-                }
+                $afiliado->productos()->attach($pivot_data);
             }
 
-            foreach($request->input('materias_primas') as $materia) {
-                if(is_numeric($materia)) {
-                    $afiliado->materias_primas()->attach($materia);
-                } else {
-                    $newMateria = MateriaPrima::create(['materia_prima' => $servicio]);
-                    $afiliado->materias_primas()->attach($newMateria->id);
+            if($request->input('servicios')) {
+                foreach($request->input('servicios') as $servicio) {
+                    if(is_numeric($servicio)) {
+                        $afiliado->servicios()->attach($servicio);
+                    } else {
+                        $newServicio = Servicio::create(['nombre_servicio' => $servicio]);
+                        $afiliado->servicios()->attach($newServicio->id);
+                    }
+                }
+            }
+
+            if($request->input('materias_primas')) {
+                foreach($request->input('materias_primas') as $materia) {
+                    if(is_numeric($materia)) {
+                        $afiliado->materias_primas()->attach($materia);
+                    } else {
+                        $newMateria = MateriaPrima::create(['materia_prima' => $servicio]);
+                        $afiliado->materias_primas()->attach($newMateria->id);
+                    }
                 }
             }
 
@@ -325,40 +331,52 @@ class AfiliadosController extends Controller
             'mercado_exportacion'
         ]);
 
-        foreach ($data_productos['productos'] as $key => $producto_id) {
-            if(!is_numeric($producto_id)) {
-                $producto = Producto::create(['nombre' => $producto_id]);
-                $producto_id = $producto->id;
+        if(isset($data_productos['productos'])) {
+            foreach ($data_productos['productos'] as $key => $producto_id) {
+                if(!is_numeric($producto_id)) {
+                    $producto = Producto::create(['nombre' => $producto_id]);
+                    $producto_id = $producto->id;
+                }
+                $pivot_data[$producto_id] = [
+                    'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
+                    'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
+                    'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
+                ];
             }
-            $pivot_data[$producto_id] = [
-                'produccion_total_mensual'  => $data_productos['produccion_total_mensual'][$key],
-                'porcentage_exportacion'    => $data_productos['porcentage_exportacion'][$key],
-                'mercado_exportacion'       => $data_productos['mercado_exportacion'][$key]
-            ];
+            $afiliado->productos()->sync($pivot_data);
+        } else {
+            $afiliado->productos()->detach();
         }
-        $afiliado->productos()->sync($pivot_data);
         
-        $serviciosIds = [];
-        foreach ($request->input('servicios') as $servicio) {
-            if (is_numeric($servicio)) {
-                $serviciosIds[] = $servicio; // Añade los serviciosIds existentes al array
-            } else {
-                $newServicio = Servicio::create(['nombre_servicio' => $servicio]);
-                $serviciosIds[] = $newServicio->id; // Añade el ID del nuevo servicio creado al array
+        if($request->input('servicios')) {
+            $serviciosIds = [];
+            foreach ($request->input('servicios') as $servicio) {
+                if (is_numeric($servicio)) {
+                    $serviciosIds[] = $servicio; // Añade los serviciosIds existentes al array
+                } else {
+                    $newServicio = Servicio::create(['nombre_servicio' => $servicio]);
+                    $serviciosIds[] = $newServicio->id; // Añade el ID del nuevo servicio creado al array
+                }
             }
+            $afiliado->servicios()->sync($serviciosIds);
+        } else {
+            $afiliado->servicios()->detach();
         }
-        $afiliado->servicios()->sync($serviciosIds);
 
-        $materiasIds = [];
-        foreach ($request->input('materias_primas') as $servicio) {
-            if (is_numeric($servicio)) {
-                $materiasIds[] = $servicio; // Añade los materiasIds existentes al array
-            } else {
-                $newMateria = MateriaPrima::create(['materia_prima' => $servicio]);
-                $materiasIds[] = $newMateria->id; // Añade el ID del nuevo servicio creado al array
+        if($request->input('materias_primas')) {
+            $materiasIds = [];
+            foreach ($request->input('materias_primas') as $servicio) {
+                if (is_numeric($servicio)) {
+                    $materiasIds[] = $servicio; // Añade los materiasIds existentes al array
+                } else {
+                    $newMateria = MateriaPrima::create(['materia_prima' => $servicio]);
+                    $materiasIds[] = $newMateria->id; // Añade el ID del nuevo servicio creado al array
+                }
             }
+            $afiliado->materias_primas()->sync($materiasIds);
+        } else {
+            $afiliado->materias_primas()->detach();
         }
-        $afiliado->materias_primas()->sync($materiasIds);
         
         $afiliado->referencias()->sync($request->input('afiliados'));
 
