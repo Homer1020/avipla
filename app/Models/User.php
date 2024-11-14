@@ -75,6 +75,6 @@ class User extends Authenticatable implements Auditable
     }
 
     public function is_admin(): bool {
-        return $this->roles()->whereIn('name', ['administrador', 'usuarios'])->exists();
+        return $this->roles()->whereIn('name', ['admin', 'usuarios'])->exists();
     }
 }

@@ -118,18 +118,22 @@
                     >
                         Auditorías
                     </a>
-                    <a
-                        href="{{ route('users.index') }}"
-                        class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
-                    >
-                        Usuarios
-                    </a>
-                    <a
-                        href="{{ route('roles.index') }}"
-                        class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}"
-                    >
-                        Roles
-                    </a>
+                    @can('view_user')
+                        <a
+                            href="{{ route('users.index') }}"
+                            class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}"
+                        >
+                            Usuarios
+                        </a>
+                    @endcan
+                    @can('view_rol')
+                        <a
+                            href="{{ route('roles.index') }}"
+                            class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}"
+                        >
+                            Roles
+                        </a>
+                    @endcan
                     <a
                         href="{{ route('database.index') }}"
                         class="nav-link {{ request()->routeIs('database.*') ? 'active' : '' }}"

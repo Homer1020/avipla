@@ -19,6 +19,6 @@ class IsAdmin
     {
         $user = Auth::user();
         if($user instanceof User && $user->is_admin()) { return $next($request); }
-        return redirect('dashboard')->with('error', 'Acción no permitida.');
+        return redirect('admin')->with('error', 'Acción no permitida.');
     }
 }

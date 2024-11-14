@@ -169,7 +169,7 @@ Route::prefix('admin')->middleware('auth')->group(function() {
 /**
  * WEBSITE
  */
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth', 'is_admin'])->group(function() {
   Route::get('sitio-web', [WebsiteController::class, 'index'])
   ->name('website.index');
 
