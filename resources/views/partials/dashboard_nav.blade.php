@@ -100,7 +100,7 @@
                     @endcan
                 </x-nav-link-dropdown>
             @endcan
-            @can('view_role')
+            @canany(['view_role', 'view_user'])
                 <x-nav-link-dropdown
                     title="Administrador"
                     icon="fas fa-shield-alt"
@@ -137,6 +137,8 @@
                         Base de datos
                     </a>
                 </x-nav-link-dropdown>
+            @endcan
+            @can('create_role')
                 <x-nav-link
                     :to="route('website.index')"
                     active="website.*"

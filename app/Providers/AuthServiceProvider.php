@@ -6,7 +6,9 @@ namespace App\Providers;
 
 use App\Models\Afiliado;
 use App\Policies\AfiliadoPolicy;
+use App\Policies\RolePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Spatie\Permission\Contracts\Role;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Afiliado::class => AfiliadoPolicy::class,
+        Role::class => RolePolicy::class
     ];
 
     /**

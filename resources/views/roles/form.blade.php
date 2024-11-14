@@ -1,7 +1,7 @@
 <div class="d-flex mb-3 align-items-end gap-2">
   <div class="flex-grow-1">
     @csrf
-    <label for="role" class="form-label">Role</label>
+    <label for="role" class="form-label">Rol</label>
     <input
       type="text"
       name="role"
@@ -18,7 +18,7 @@
 
   <button type="submit" class="btn btn-primary">
     <i class="fa fa-save"></i>
-    Guardar role
+    Guardar rol
   </button>
 </div>
 
@@ -28,7 +28,7 @@
     <div class="col-12 col-md-4 col-lg-4">
       <div class="card">
         <div class="card-header">
-          <p class="card-title mb-0">{{ $group }}</p>
+          <p class="card-title mb-0 text-capitalize">{{ $group }}</p>
         </div>
         <div class="card-body">
           <ul class="list-group">
@@ -42,7 +42,7 @@
                   name="permissions[]"
                   value="{{ $permission->name }}"
                 >
-                <div class="form-check-label">
+                <div class="form-check-label text-capitalize">
                   {{ __('permissions.' . $permission->name) }}
                 </div>
                 </label>
