@@ -126,7 +126,7 @@
                             Usuarios
                         </a>
                     @endcan
-                    @can('view_rol')
+                    @can('view_role')
                         <a
                             href="{{ route('roles.index') }}"
                             class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}"
