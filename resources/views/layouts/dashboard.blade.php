@@ -121,7 +121,7 @@
                                 class="dropdown-item {{ request()->routeIs('profile.show') ? 'active' : '' }}"
                                 href="{{ route('profile.show') }}"
                             >Perfil de usuario</a>
-                            @if (Auth::user()->tipo_afiliado === 0)
+                            @if (Auth::user()->afiliado && Auth::user()->tipo_afiliado === 0)
                                 <a
                                     class="dropdown-item {{ request()->routeIs('profile.showPresidente') ? 'active' : '' }}"
                                     href="{{ route('profile.showPresidente') }}"
