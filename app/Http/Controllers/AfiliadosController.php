@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Permission\Models\Role;
 
 class AfiliadosController extends Controller
 {
@@ -223,6 +224,7 @@ class AfiliadosController extends Controller
     public function edit(Afiliado $afiliado)
     {
         $actividades = Actividad::all();
+        $solicitud = new SolicitudAfiliado();
         $productos = Producto::all();
         $materias_primas = MateriaPrima::all();
         $servicios = Servicio::all();
@@ -240,7 +242,8 @@ class AfiliadosController extends Controller
             'productos',
             'materias_primas',
             'servicios',
-            'afiliados'
+            'afiliados',
+            'solicitud'
         ));
     }
 
@@ -259,6 +262,12 @@ class AfiliadosController extends Controller
             'relacion_comercio_exterior',
             'correo',
             'siglas'
+        ]);
+
+        $data_user = $request->safe()->only([
+            'name',
+            'email',
+            'password'
         ]);
 
         if($request->hasFile('brand')) {
@@ -379,6 +388,18 @@ class AfiliadosController extends Controller
         }
         
         $afiliado->referencias()->sync($request->input('afiliados'));
+
+        if(isset($data_user['name']) && isset($data_user['email']) && isset($data_user['password'])) {
+            $user = $afiliado->users()->create([
+                'name'          => $data_user['name'],
+                'email'         => $data_user['email'],
+                'password'      => bcrypt($data_user['password']),
+                'tipo_afiliado' => 0
+            ]);
+    
+            $afiliado_role = Role::firstOrCreate(['name' => 'afiliado']);
+            $user->roles()->sync($afiliado_role);
+        }
 
         return request()->user()->afiliado
             ? redirect()->route('business.show')->with('success', 'Se guardó tu información')

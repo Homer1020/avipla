@@ -32,4 +32,17 @@
       </div>
     </button>
   </li>
+  @if(!$afiliado->user)
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="final-tab" data-bs-target="#final"
+      type="button" role="tab" aria-controls="final" aria-selected="false">
+      <div class="mb-1">
+        <i class="fa fa-lg fa-user-plus"></i>
+      </div>
+      <div>
+        Registro de usuario
+      </div>
+    </button>
+  </li>
+  @endif
 </ul>

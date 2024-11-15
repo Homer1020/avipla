@@ -23,7 +23,9 @@ class FileController extends Controller
 
         if($dir === 'afiliados') {
             $afiliado = Afiliado::where('rif_path', $path)->orWhere('estado_financiero_path', $path)->orWhere('registro_mercantil_path', $path)->first();
-            $this->authorize('view', $afiliado);
+            if(request()->user()->afiliado->id !== $afiliado->id) {
+                $this->authorize('view', $afiliado);
+            }
         }
 
         function mapExtensionToContentType(string $extension): string

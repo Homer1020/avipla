@@ -50,7 +50,7 @@
                         class="nav-link {{ $activeAfiliados  ? 'active' : '' }}"
                     >Todos los afiliados</a>
                     <a href="{{ route('afiliados.create') }}" class="nav-link {{ request()->routeIs('afiliados.create')  ? 'active' : '' }}">Crear afiliado</a>
-                    <a href="{{ route('afiliados.createByExcel') }}" class="nav-link {{ request()->routeIs('afiliados.createByExcel')  ? 'active' : '' }}">Importar excel</a>
+                    {{-- <a href="{{ route('afiliados.createByExcel') }}" class="nav-link {{ request()->routeIs('afiliados.createByExcel')  ? 'active' : '' }}">Importar excel</a> --}}
                 </x-nav-link-dropdown>
             @endcan
             @can('viewAny', App\Models\AvisoCobro::class)
