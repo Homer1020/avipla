@@ -168,6 +168,18 @@ class AfiliadosController extends Controller
 
             $afiliado->referencias()->attach($request->input('afiliados'));
 
+            if(isset($data_user['name']) && isset($data_user['email']) && isset($data_user['password'])) {
+                $user = $afiliado->users()->create([
+                    'name'          => $data_user['name'],
+                    'email'         => $data_user['email'],
+                    'password'      => bcrypt($data_user['password']),
+                    'tipo_afiliado' => 0
+                ]);
+        
+                $afiliado_role = Role::firstOrCreate(['name' => 'afiliado']);
+                $user->roles()->sync($afiliado_role);
+            }
+
             DB::commit();
 
             return redirect()

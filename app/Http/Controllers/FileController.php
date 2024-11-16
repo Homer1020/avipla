@@ -23,7 +23,7 @@ class FileController extends Controller
 
         if($dir === 'afiliados') {
             $afiliado = Afiliado::where('rif_path', $path)->orWhere('estado_financiero_path', $path)->orWhere('registro_mercantil_path', $path)->first();
-            if(request()->user()->afiliado->id !== $afiliado->id) {
+            if(!request()->user()->afiliado || request()->user()->afiliado->id !== $afiliado->id) {
                 $this->authorize('view', $afiliado);
             }
         }
