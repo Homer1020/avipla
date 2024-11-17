@@ -8,7 +8,7 @@
   <h1 class="mt-4 fs-4">Modificar pago</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li>
+    {{-- <li class="breadcrumb-item"><a href="{{ route('pagos.index') }}">Estado de cuenta</a></li> --}}
     {{-- <li class="breadcrumb-item"><a href="{{ route('pagos.invoice', $pago->avisoCobro) }}">Factura #{{ $pago->avisoCobro->numero_factura }}</a></li> --}}
     <li class="breadcrumb-item active">Modificar pago</li>
   </ol>
