@@ -134,11 +134,14 @@ class AvisoCobroController extends Controller
                 $avisoCobro->afiliado->director->notify(new AvisoCobroStatusChanged($avisoCobro));
             }
         }
-        return response()->json([
-            'ok'        => true,
-            'title'     => '¡Datos actualizados correctamente!',
-            'message'   => 'Se actualizó el estado de la factura a ' . $avisoCobro->estado . '.'
-        ]);
+        if ($request->ajax()) {
+            return response()->json([
+                'ok'        => true,
+                'title'     => '¡Datos actualizados correctamente!',
+                'message'   => 'Se actualizó el estado de la factura a ' . $avisoCobro->estado . '.'
+            ]);
+        }
+        return redirect()->back()->with('success', '¡Datos actualizados correctamente!');
     }
 
     /**

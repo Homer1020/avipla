@@ -95,7 +95,7 @@
                         @can('view', $invoice)
                           <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->invoice_path]) }}" class="btn btn-primary">
                             <i class="fa fa-file-invoice"></i>
-                            Ver factura
+                            Ver documento
                           </a>
                         @endcan
                       @endif

@@ -41,11 +41,15 @@ class AfiliadosController extends Controller
     }
 
     public function importExcel() {
-        request()->validate([
-            'afiliado' => 'required|file|mimes:xlsx,xls,csv'
-        ]);
-        Excel::import(new AfiliadoImport, request()->file('afiliado'));
-        return redirect('/admin')->with('success', 'All good!');
+        try {
+            request()->validate([
+                'afiliado' => 'required|file|mimes:xlsx,xls,csv'
+            ]);
+            Excel::import(new AfiliadoImport, request()->file('afiliado'));
+            return redirect()->route('afiliados.index')->with('success', 'Se importaron los usuarios');
+        } catch(Exception $e) {
+            return redirect()->back()->with('error', 'Error al importar los usuarios. Por favor verifique la estructura del excel.');
+        }
     }
 
     public function store(StoreAfiliadoRequest $request) {

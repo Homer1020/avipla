@@ -6,6 +6,7 @@ use App\Models\Actividad;
 use App\Models\Afiliado;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Spatie\Permission\Models\Role;
 
 class AfiliadoImport implements ToModel, WithHeadingRow
 {
@@ -32,6 +33,18 @@ class AfiliadoImport implements ToModel, WithHeadingRow
         ]);
 
         $afiliado->save();
+
+        if(isset($row['name']) && isset($row['email'])) {
+            $user = $afiliado->users()->create([
+                'name'          => $row['name'],
+                'email'         => $row['email'],
+                'password'      => bcrypt(123456),
+                'tipo_afiliado' => 0
+            ]);
+
+            $afiliado_role = Role::firstOrCreate(['name' => 'afiliado']);
+            $user->roles()->sync($afiliado_role);
+        }
 
         // Guardamos la dirección relacionada con la oficina y la planta
         $afiliado->direccion()->create([

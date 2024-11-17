@@ -122,6 +122,6 @@ class PagoController extends Controller
             $administrador->notify(new PayUpdated($pago->avisoCobro));
         }
 
-        return redirect()->route('pagos.index')->with('success', 'Se actualizó la información del pago correctamente.');
+        return redirect()->route('avisos-cobro.show', $pago->avisoCobro)->with('success', 'Se actualizó la información del pago correctamente.');
     }
 }
