@@ -56,7 +56,7 @@
                         </a>
                     </li>
                 @endif
-                @if ($avisoCobro->estado === 'DEVUELTO')
+                @if ($avisoCobro->estado === 'DEVUELTO' && Auth::user()->afiliado)
                     <li class="list-group-item">
                         <span class="fw-bold d-block mb-2">Modificar pago:</span>
                         <a href="{{ route('pagos.edit', $pago) }}" type="submit" class="btn btn-warning">
@@ -91,16 +91,64 @@
                 <span class="fw-bold">Monto total:</span>
                 {{ $avisoCobro->monto_total }}$
             </li>
-            <li class="list-group-item">
-                <span class="fw-bold">Estado:</span>
-                @include('partials.invoice_status')
-            </li>
-            @if ($avisoCobro->observaciones)
+            @can('update', $avisoCobro)
                 <li class="list-group-item">
-                    <span class="fw-bold">Observaciones:</span>
-                    {{ $avisoCobro->observaciones }}
+                    <form
+                        action="{{ route('avisos-cobro.update', $avisoCobro) }}"
+                        method="POST"
+                    >
+                        @csrf
+                        @method('PATCH')
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Estado:</label>
+                            <select
+                                @disabled(Auth::user()->cannot('update_aviso'))
+                                name="invoice_status" id="invoice_status"
+                                class="form-select"
+                            >
+                                <option selected disabled>Cambiar estado</option>
+                                <option value="PENDIENTE" @selected($avisoCobro->estado === 'PENDIENTE')>PENDIENTE</option>
+                                <option value="REVISION" @selected($avisoCobro->estado === 'REVISION')>REVISIÓN</option>
+                                <option value="DEVUELTO" @selected($avisoCobro->estado === 'DEVUELTO')>DEVUELTO</option>
+                                <option value="CONCILIADO" @selected($avisoCobro->estado === 'CONCILIADO')>CONCILIADO</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="observaciones" class="fw-bold form-label">Observaciones:</label>
+                            <textarea
+                                name="observaciones"
+                                id="observaciones"
+                                rows="2"
+                                class="form-control @error('observaciones') is-invalid @enderror"
+                            >{{ old('observaciones', $avisoCobro->observaciones) }}</textarea>
+                            @error('is-invalid')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-outline-success"><i class="fa fa-check"></i> Guardar estado</button>
+                    </form>
                 </li>
-            @endif
+            @else
+                <li class="list-group-item">
+                    <span class="fw-bold">Estado:</span>
+                    @include('partials.invoice_status')
+                </li>
+                @if($avisoCobro->observaciones)
+                    <li class="list-group-item">
+                        <span class="fw-bold">Observaciones:</span>
+                        {{ $avisoCobro->observaciones }}
+                    </li>
+                @endif
+                @if (!$avisoCobro->pago)
+                    <li class="list-group-item">
+                        <span class="fw-bold d-block mb-2">Adjuntar pago:</span>
+                        <a href="{{ route('avisos-cobro.payCollectionNotice', $avisoCobro) }}" type="submit" class="btn btn-primary">
+                            <i class="fas fa-file-invoice"></i>
+                            Adjuntar pago
+                        </a>
+                    </li>
+                @endif
+            @endcan
             
             @if (!$avisoCobro->pago)
                 <li class="list-group-item">
@@ -115,3 +163,13 @@
     </div>
   </div>
 @endsection
+@push('script')
+    @if (session('success'))
+        <script>
+            Swal.fire({
+            icon: "success",
+            title: "{{ session('success') }}"
+            });
+        </script>
+    @endif
+@endpush

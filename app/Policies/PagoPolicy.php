@@ -39,7 +39,7 @@ class PagoPolicy
      */
     public function update(User $user, Pago $pago): bool
     {
-        $afiliado = $user->getAfiliado();
+        $afiliado = $user->afiliado;
         return $afiliado->id === $pago->avisoCobro->afiliado_id;
     }
 

@@ -164,6 +164,12 @@
             :error="$errors->first('rif_path')"
             accept="application/pdf"
         />
+        @if ($afiliado->rif_path)
+            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->rif_path]) }}" class="btn btn-light me-2 border-dark">
+                <i class="fa fa-file-invoice me-1"></i>
+                RIF
+            </a>
+        @endif
     </div>
     <div class="col-md-4">
         <x-forms.input
@@ -174,6 +180,12 @@
             :error="$errors->first('registro_mercantil_path')"
             accept="application/pdf"
         />
+        @if ($afiliado->registro_mercantil_path)
+            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->registro_mercantil_path]) }}" class="btn btn-light me-2 border-dark">
+            <i class="fa fa-file-invoice me-1"></i>
+            Registro mercantil
+            </a>
+        @endif
     </div>
     <div class="col-md-4">
         <x-forms.input
@@ -184,5 +196,11 @@
             :error="$errors->first('estado_financiero_path')"
             accept="application/pdf"
         />
+        @if ($afiliado->estado_financiero_path)
+            <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->estado_financiero_path]) }}" class="btn btn-light me-2 border-dark">
+            <i class="fa fa-file-invoice me-1"></i>
+            Estado financiero
+            </a>
+        @endif
     </div>
 </div>

@@ -1,15 +1,29 @@
 <!-- Modal -->
 @if ($avisoCobro->pago)
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modalInvoice" tabindex="-1" aria-labelledby="modalInvoiceLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Generar factura trimestral</h5>
+                    <h5 class="modal-title" id="modalInvoiceLabel">Generar factura trimestral</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form novalidate action="{{ route('invoices.store') }}" method="POST" id="invoice-form" enctype="multipart/form-data">
-                        @csrf
+                    <form
+                        onsubmit="handleSubmitNormalForm(event.target, 'POST', function() {
+                            invoicesTable.ajax.reload(null, false)
+                            console.log('Sometinh')
+                            const modalElement = document.querySelector('#modalInvoice')
+                            if (modalElement) {
+                                const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
+                                modalInstance.hide();
+                            }
+                        }); return false;"
+                        novalidate
+                        action="{{ route('invoices.store') }}"
+                        method="POST"
+                        id="invoice-form"
+                        enctype="multipart/form-data"
+                    >
                         <input type="hidden" name="aviso_cobro_id" value="{{ $avisoCobro->id }}">
                         <input type="hidden" name="pago_id" value="{{ $avisoCobro->pago->id }}">
                         <label for="numero_factura" class="form-label">Número de factura <span class="text-danger fw-bold">*</span></label>
@@ -61,7 +75,7 @@
 @canany(['create_factura', 'view_factura'])
     <div class="d-flex justify-content-end {{ $avisoCobro->pago || $avisoCobro->invoice ? 'mb-3' : '' }}">
         @if ($avisoCobro->pago && !$avisoCobro->invoice && Auth::user()->can('create_factura'))
-            <button type="button" id="btn-invoice" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-file-invoice"></i> Generar factura trimestral</button>
+            <button type="button" id="btn-invoice" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalInvoice"><i class="fas fa-file-invoice"></i> Generar factura trimestral</button>
         @endif
         <div class="d-inline-block" id="invoice_button_wrapper">
             @if ($avisoCobro->invoice && Auth::user()->can('view_factura'))

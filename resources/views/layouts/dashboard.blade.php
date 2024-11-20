@@ -121,7 +121,7 @@
                                 class="dropdown-item {{ request()->routeIs('profile.show') ? 'active' : '' }}"
                                 href="{{ route('profile.show') }}"
                             >Perfil de usuario</a>
-                            @if (Auth::user()->afiliado()->exists())
+                            @if (Auth::user()->afiliado && Auth::user()->tipo_afiliado === 0)
                                 <a
                                     class="dropdown-item {{ request()->routeIs('profile.showPresidente') ? 'active' : '' }}"
                                     href="{{ route('profile.showPresidente') }}"
@@ -440,8 +440,6 @@
 
             function handleSubmitForm(form, method = 'POST', cb = null) {
                 const fd = new FormData(form)
-                
-                console.log(typeof cb)
 
                 fetch(form.action, {
                     method,
@@ -456,10 +454,38 @@
                 })
                 .then(resp => resp.json())
                 .then(result => {
+                    console.log({result})
                     if(result.ok) {
                         Swal.fire({
                             title: result.title,
                             text: result.message,
+                            icon: "success",
+                            confirmButtonColor: "#3085d6"
+                        })
+                        .then(() => {
+                            if(cb && typeof cb === 'function') cb()
+                        })
+                    }
+                })                
+            }
+
+            function handleSubmitNormalForm(form, method = 'POST', cb = null) {
+                const fd = new FormData(form)
+
+                fetch(form.action, {
+                    method,
+                    body: fd,
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                })
+                .then(resp => resp.json())
+                .then(result => {
+                    const { data } = result
+                    if(data) {
+                        Swal.fire({
+                            title: data.title,
+                            text: data.message,
                             icon: "success",
                             confirmButtonColor: "#3085d6"
                         })

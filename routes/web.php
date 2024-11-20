@@ -26,6 +26,7 @@ use App\Http\Controllers\SolicitudController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 /**
  * WEB ROUTES
@@ -174,6 +175,10 @@ Route::prefix('admin')->middleware('auth')->group(function() {
  * Todo lo que se necesite pasar por el middleware isAdmin
  */
 Route::middleware(['auth', 'is_admin'])->group(function() {
+  Route::get('create-symlink', function() {
+    Artisan::call('storage:link');
+  });
+
   Route::get('sitio-web', [WebsiteController::class, 'index'])
   ->name('website.index');
 

@@ -30,7 +30,8 @@
               </td>
               <td>
                 <div class="badge bg-primary">
-                  {{ $audit->event }}</td>
+                  {{ __($audit->event) }}
+                </td>
                 </div>
               <td>{{ $audit->auditable_type }}</td>
               <td>{{ $audit->ip_address }}</td>

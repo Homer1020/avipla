@@ -18,7 +18,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::whereNot('name', 'afiliado')->get();
+        $roles = Role::whereNotIn('name', ['afiliado', 'admin'])->get();
         return view('roles.index', compact('roles'));
     }
 

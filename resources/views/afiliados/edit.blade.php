@@ -30,6 +30,11 @@
           <div class="tab-pane" id="messages" role="tabpanel" tabindex="0">
             @include('afiliados.form.products')
           </div>
+          @if(!$afiliado->user)
+            <div class="tab-pane" id="final" role="tabpanel" tabindex="0">
+              @include('afiliados.form.user')
+            </div>
+          @endif
           <div class="text-end">
             <button class="btn btn-success mt-4" type="submit">Guardar afiliado</button>
           </div>

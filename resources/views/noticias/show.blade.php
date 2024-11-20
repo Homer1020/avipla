@@ -97,12 +97,14 @@
                         </span>
                         {{ $noticia->created_at->format('d-m-Y') }}
                     </li>
-                    <li>
-                        <span class="me-1">
-                            <i class="fa fa-tag"></i>
-                        </span>
-                        <a href="{{ route('category.show', $noticia->categoria) }}" class="link link-primary">{{ $noticia->categoria->name }}</a>
-                    </li>
+                    @if ($noticia->categoria)
+                        <li>
+                            <span class="me-1">
+                                <i class="fa fa-tag"></i>
+                            </span>
+                            <a href="{{ route('category.show', $noticia->categoria) }}" class="link link-primary">{{ $noticia->categoria->name }}</a>
+                        </li>
+                    @endif
                     <li>
                         <span class="me-1">
                             <i class="fa fa-tags"></i>

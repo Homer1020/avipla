@@ -23,10 +23,12 @@
                   <i class="fa fa-phone me-1"></i>
                   {{ $afiliado->direccion->telefono_oficina }}
                 </li>
-                <li>
-                  <i class="fa fa-envelope me-1"></i>
-                  {{ $afiliado->user->email }}
-                </li>
+                @if($afiliado->user)
+                  <li>
+                    <i class="fa fa-envelope me-1"></i>
+                    {{ $afiliado->user->email }}
+                  </li>
+                @endif
                 <li>
                   <i class="fa fa-map-marker-alt me-1"></i>
                   {{ $afiliado->direccion->direccion_oficina }}
