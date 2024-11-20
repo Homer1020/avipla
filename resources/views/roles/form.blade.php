@@ -28,7 +28,7 @@
     <div class="col-12 col-md-4 col-lg-4">
       <div class="card">
         <div class="card-header">
-          <p class="card-title mb-0 text-capitalize">{{ $group }}</p>
+          <p class="card-title mb-0 text-capitalize">{{ __('permissions.' . $group) }}</p>
         </div>
         <div class="card-body">
           <ul class="list-group">

@@ -1,6 +1,19 @@
 <?php
 
 return [
+  'user' => 'usuario',
+  'afiliado' => 'afiliado',
+  'role' => 'rol',
+  'boletine' => 'boletín',
+  'tag' => 'etiqueta',
+  'category' => 'categoría',
+  'noticia' => 'noticia',
+  'solicitud' => 'solicitud',
+  'factura' => 'factura',
+  'aviso' => 'aviso',
+  'category boletine' => 'categoría de boletín',
+  'pago' => 'Pago',
+
   'view_user' => 'ver usuario',
   'create_user' => 'crear usuario',
   'update_user' => 'actualizar usuario',
