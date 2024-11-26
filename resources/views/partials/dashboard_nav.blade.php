@@ -112,12 +112,6 @@
                         || request()->routeIs('roles.*')
                     "
                 >
-                    {{-- <a
-                        href="{{ route('audits.index') }}"
-                        class="nav-link {{ request()->routeIs('audits.*') ? 'active' : '' }}"
-                    >
-                        Auditorías
-                    </a> --}}
                     @can('view_user')
                         <a
                             href="{{ route('users.index') }}"
@@ -134,12 +128,20 @@
                             Roles
                         </a>
                     @endcan
-                    {{-- <a
-                        href="{{ route('database.index') }}"
-                        class="nav-link {{ request()->routeIs('database.*') ? 'active' : '' }}"
-                    >
-                        Base de datos
-                    </a> --}}
+                    @if (Auth::user()->is_admin())
+                        <a
+                            href="{{ route('audits.index') }}"
+                            class="nav-link {{ request()->routeIs('audits.*') ? 'active' : '' }}"
+                        >
+                            Auditorías
+                        </a>
+                        <a
+                            href="{{ route('database.index') }}"
+                            class="nav-link {{ request()->routeIs('database.*') ? 'active' : '' }}"
+                        >
+                            Base de datos
+                        </a>
+                    @endif
                 </x-nav-link-dropdown>
             @endcan
             @can('create_role')

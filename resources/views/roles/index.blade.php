@@ -10,7 +10,7 @@
     <a href="{{ route('roles.create') }}" class="btn btn-primary">Crear rol</a>
   </div>
   <div class="row">
-    @foreach ($roles as $role)
+    @forelse ($roles as $role)
       <div class="col-md-3">
         <div class="card">
           <div class="card-body">
@@ -39,7 +39,11 @@
           </div>
         </div>
       </div>
-    @endforeach
+    @empty
+      <div class="col-12">
+        <div class="alert alert-info">Aún no hay roles en el sistema.</div>
+      </div>
+    @endforelse
   </div>
 @endsection
 

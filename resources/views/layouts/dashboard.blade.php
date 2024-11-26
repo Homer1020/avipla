@@ -158,9 +158,9 @@
                         <div class=" small">
                             <div class="text-muted">Copyright &copy; avipla.com {{ date('Y') }}</div>
                             <div>
-                                <a href="#">Privacy Policy</a>
+                                <a href="#">Políticas de privacidad</a>
                                 &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                <a href="#">Términos y condiciones</a>
                             </div>
                         </div>
                     </div>
@@ -471,17 +471,19 @@
 
             function handleSubmitNormalForm(form, method = 'POST', cb = null) {
                 const fd = new FormData(form)
+                fd.append('_method', method)
 
                 fetch(form.action, {
-                    method,
+                    method: 'POST',
                     body: fd,
                     headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-Requested-With': 'XMLHttpRequest'
                     }
                 })
                 .then(resp => resp.json())
                 .then(result => {
-                    const { data } = result
+                    const data = result.data || result
                     if(data) {
                         Swal.fire({
                             title: data.title,

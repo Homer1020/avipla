@@ -168,7 +168,7 @@
                         $queryParams = request()->query();
                     @endphp
                     <form
-                        onsubmit="handleSubmitForm(event.target, 'PATCH', function() {
+                        onsubmit="handleSubmitNormalForm(event.target, 'PUT', function() {
                             invoicesTable.ajax.reload(null, false)
                             modal.hide()
                         }); return false;"
