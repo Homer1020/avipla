@@ -31,9 +31,9 @@
               <td>
                 <div class="badge bg-primary">
                   {{ __($audit->event) }}
-                </td>
                 </div>
-              <td>{{ $audit->auditable_type }}</td>
+              </td>
+              <td>{{ __($audit->auditable_type) }}</td>
               <td>{{ $audit->ip_address }}</td>
               <td>{{ $audit->created_at->diffForHumans() }}</td>
               <td>
@@ -61,7 +61,7 @@
   <script>
     new DataTable('#audits-table', {
       columnDefs: [
-        { orderable: false, targets: 3 },
+        { orderable: false, targets: 5 },
       ],
       order: false,
       scrollX: true,

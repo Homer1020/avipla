@@ -17,10 +17,6 @@
             <h2 class="h5">{{ $role->name }}</h2>
             <p>Permisos: {{ $role->permissions->count() }}</p>
             <div>
-              <a href="{{ route('roles.edit', $role) }}" class="btn btn-primary btn-sm">
-                <i class="fa fa-eye"></i>
-                Permisos
-              </a>
 
               <a href="{{ route('roles.edit', $role) }}" class="btn btn-warning btn-sm">
                 <i class="fa fa-pen"></i>

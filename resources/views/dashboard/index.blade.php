@@ -397,9 +397,7 @@
         ],
         order: false,
         scrollX: false,
-        language: {
-          // url: '//cdn.datatables.net/plug-ins/2.0.8/i18n/es-ES.json',
-        }
+        language: datatableES()
       })
     </script>
   @endcan

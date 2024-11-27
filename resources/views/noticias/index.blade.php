@@ -45,9 +45,9 @@
               </td>
               <td>
                 @if ($noticia->estatus === 'PUBLISHED')
-                  <span class="bg-success badge">{{ $noticia->estatus }}</span>
+                  <span class="bg-success badge">{{ __($noticia->estatus) }}</span>
                 @else
-                  <span class="bg-secondary badge">{{ $noticia->estatus }}</span>
+                  <span class="bg-secondary badge">{{ __($noticia->estatus) }}</span>
                 @endif 
               </td>
               <td style="white-space: nowrap">

@@ -6,6 +6,11 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
   <link rel="stylesheet" href="https://cdn.datatables.net/select/2.0.5/css/select.dataTables.css">
+  <style>
+    td:last-child {
+      white-space: nowrap;
+    }
+  </style>
 @endpush
 @section('content')
   <h1 class="mt-4 fs-4">Avisos de cobro</h1>

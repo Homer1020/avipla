@@ -144,7 +144,7 @@
                     @endif
                 </x-nav-link-dropdown>
             @endcan
-            @can('create_role')
+            @if (Auth::user()->is_admin())
                 <x-nav-link
                     :to="route('website.index')"
                     active="website.*"
@@ -152,7 +152,7 @@
                 >
                     Sitio web
                 </x-nav-link>
-            @endcan
+            @endif
         </div>
     </div>
     <div class="sb-sidenav-footer">
