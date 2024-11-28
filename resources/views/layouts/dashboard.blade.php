@@ -438,7 +438,22 @@
                 })
             }
 
-            function handleSubmitForm(form, method = 'POST', cb = null) {
+            async function handleSubmitForm(form, method = 'POST', cb = null, needConfirmation = false) {
+                if(needConfirmation) {
+                    const result = await Swal.fire({
+                        title: "¿Estas seguro?",
+                        text: "¡Esta acción no se puede revertir!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Si, eliminalo!",
+                        cancelButtonText: "Cancelar"
+                    })
+
+                    if(!result.isConfirmed) return;
+                }
+
                 const fd = new FormData(form)
 
                 fetch(form.action, {
@@ -454,7 +469,6 @@
                 })
                 .then(resp => resp.json())
                 .then(result => {
-                    console.log({result})
                     if(result.ok) {
                         Swal.fire({
                             title: result.title,

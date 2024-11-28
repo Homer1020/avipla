@@ -11,7 +11,7 @@
     <form
       onsubmit="handleSubmitForm(event.target, 'DELETE', function() {
         invoicesTable.ajax.reload(null, false)
-      }); return false;"
+      }, true); return false;"
       method="POST"
       action="{{ route('avisos-cobro.destroy', $avisoCobro) }}"
       class="d-inline-block"

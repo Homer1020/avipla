@@ -227,7 +227,23 @@
         });
     </script>
   @endif
+
+  <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.bootstrap5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.html5.min.js"></script>
+  <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.print.min.js"></script>
+
   <script>
+    function getFileNameToExport(name = 'avipla_afiliados_') {
+      var date = new Date();
+      var dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+      var timeString = date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds();
+      return name + dateString + '_' + timeString;
+    }
+
     const invoicesTable = new DataTable('#invoices-table', {
       columnDefs: [
         {
@@ -257,6 +273,32 @@
       order: false,
       scrollX: true,
       language: datatableES(),
+      layout: {
+        topEnd: {
+          buttons: [
+            {
+              extend: 'excel',
+              filename: getFileNameToExport(),
+              exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5],
+                modifier: {
+                  page: 'current'
+                }
+              }
+            },
+            {
+              extend: 'pdf',
+              filename: getFileNameToExport(),
+              exportOptions: {
+                columns: [0, 1, 2, 3, 4, 5],
+                modifier: {
+                  page: 'current'
+                }
+              }
+            }
+          ]
+        }
+      }
     })
 
     invoicesTable.on('draw', () => {
