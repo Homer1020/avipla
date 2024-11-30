@@ -148,7 +148,7 @@
                 <x-nav-link
                     :to="route('website.index')"
                     active="website.*"
-                    icon="fas fa-database"
+                    icon="fas fa-laptop"
                 >
                     Sitio web
                 </x-nav-link>

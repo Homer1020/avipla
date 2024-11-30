@@ -7,7 +7,10 @@
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 @endpush
 @section('content')
-  <h1 class="mt-4 fs-4">Facturas</h1>
+  <h1 class="mt-4 fs-4">
+    <i class="fas fa-file-invoice fa-sm"></i>
+    Facturas
+  </h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item active">Facturas</li>
@@ -81,25 +84,29 @@
           @foreach ($invoices as $invoice)
             @can('view', $invoice)
                 <tr>
-                    <td>#{{ $invoice->id }}</td>
-                    <td>#{{ $invoice->numero_factura }}</td>
-                    <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
-                    <td>
-                        <span class="text-truncate d-inline-block" style="max-width: 150px">
+                  <td>#{{ $invoice->id }}</td>
+                  <td>#{{ $invoice->numero_factura }}</td>
+                  <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
+                  <td>
+                    @if($invoice->avisoCobro)
+                      <span class="text-truncate d-inline-block" style="max-width: 150px">
                         {{ $invoice->avisoCobro->afiliado->razon_social }}
-                        </span>
-                    </td>
-                    <td>{{ $invoice->avisoCobro->pago->monto }}$ </td>
-                    <td>
-                      @if ($invoice)
-                        @can('view', $invoice)
-                          <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->invoice_path]) }}" class="btn btn-primary">
-                            <i class="fa fa-file-invoice"></i>
-                            Ver documento
-                          </a>
-                        @endcan
-                      @endif
-                    </td>
+                      </span>
+                    @endif
+                  </td>
+                  <td>
+                    {{ $invoice->monto_total }}$
+                  </td>
+                  <td>
+                    @if ($invoice)
+                      @can('view', $invoice)
+                        <a target="_blank" href="{{ route('files.getFile', ['dir' => 'invoices', 'path' => $invoice->invoice_path]) }}" class="btn btn-primary">
+                          <i class="fa fa-file-invoice"></i>
+                          Ver documento
+                        </a>
+                      @endcan
+                    @endif
+                  </td>
                 </tr>
             @endcan
           @endforeach

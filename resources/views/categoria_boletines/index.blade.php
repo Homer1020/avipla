@@ -4,7 +4,10 @@
   <link rel="stylesheet" href="{{ asset('assets/css/datatables.min.css') }}">
 @endpush
 @section('content')
-  <h1 class="mt-4 fs-4">Categorías</h1>
+  <h1 class="mt-4 fs-4">
+    <i class="fas fa-envelope fa-sm"></i>
+    Categorías
+  </h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('boletines.index') }}">Boletines</a></li>

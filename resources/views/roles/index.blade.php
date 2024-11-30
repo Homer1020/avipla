@@ -1,7 +1,10 @@
 @extends('layouts.dashboard')
 @section('title', 'Roles')
 @section('content')
-  <h1 class="mt-4 fs-4">Roles</h1>
+  <h1 class="mt-4 fs-4">
+    <i class="fas fa-briefcase fa-sm"></i>
+    Roles
+  </h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item active">Roles</li>

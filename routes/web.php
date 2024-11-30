@@ -206,4 +206,5 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
 
   Route::get('database', [DatabaseController::class, 'index'])->name('database.index');
   Route::post('database', [DatabaseController::class, 'backup'])->name('database.backup');
+  Route::get('database/{backup}/descargar', [DatabaseController::class, 'downloadBackup'])->name('database.downloadBackup');
 });

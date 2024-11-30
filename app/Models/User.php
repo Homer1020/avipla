@@ -74,6 +74,10 @@ class User extends Authenticatable implements Auditable
         return $this->hasMany(Boletine::class);
     }
 
+    public function backups() {
+        return $this->hasMany(Backup::class);
+    }
+
     public function is_admin(): bool {
         return $this->roles()->whereIn('name', ['admin', 'usuarios'])->exists();
     }

@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Backup;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -18,10 +19,8 @@ class BackupDatabase implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct()
-    {
-        //
-    }
+    public function __construct(public Backup $backup)
+    {}
 
     /**
      * Execute the job.
@@ -33,7 +32,6 @@ class BackupDatabase implements ShouldQueue
             $dbName = env('DB_DATABASE');
             $dbUser = env('DB_USERNAME');
             $dbPass = env('DB_PASSWORD');
-            $backupPath = storage_path('app\\backups\\' . date('Y-m-d_H-i-s') . '_backup.sql');
             $mysqldumpPath = 'C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump.exe';
 
             // Comando mysqldump
@@ -43,13 +41,15 @@ class BackupDatabase implements ShouldQueue
                 $dbUser,
                 $dbPass,
                 $dbName,
-                $backupPath
+                $this->backup->path
             );
 
             // Ejecutar el comando
             $process = Process::fromShellCommandline($command);
             $process->setTimeout(500);
             $process->run();
+
+            $this->backup->update(['status' => 1]);
 
             // Verificar errores
             if (!$process->isSuccessful()) {
@@ -58,6 +58,7 @@ class BackupDatabase implements ShouldQueue
 
             Log::info("Backup completado exitosamente");
         } catch(\Exception $e) {
+            $this->backup->update(['status' => 2]);
             $this->fail($e);
         }
     }

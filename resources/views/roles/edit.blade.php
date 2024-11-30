@@ -1,7 +1,10 @@
 @extends('layouts.dashboard')
 @section('title', 'Editar role')
 @section('content')
-  <h1 class="mt-4 fs-4">Editar role</h1>
+  <h1 class="mt-4 fs-4">
+    <i class="fas fa-briefcase fa-sm"></i>
+    Editar role
+  </h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('roles.index') }}">Roles</a></li>

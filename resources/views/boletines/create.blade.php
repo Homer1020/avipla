@@ -6,7 +6,10 @@
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 @endpush
 @section('content')
-  <h1 class="mt-4 fs-4">Crear boletin</h1>
+  <h1 class="mt-4 fs-4">
+		<i class="fas fa-envelope fa-sm"></i>
+    Crear boletin
+	</h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
     <li class="breadcrumb-item"><a href="{{ route('boletines.index') }}">Boletines</a></li>
