@@ -6,7 +6,7 @@
     <div class="col-12">
         @if ($afiliado->brand)
             <div>
-                <img width="150" class="mb-3 rounded-2" src="{{ Storage::url($afiliado->brand) }}" alt="Logo: {{ $afiliado->razon_social }}">
+                <img width="150" class="mb-3 rounded-2" src="{{ $afiliado->brand }}" alt="Logo: {{ $afiliado->razon_social }}">
             </div>
         @endif
         <x-forms.input

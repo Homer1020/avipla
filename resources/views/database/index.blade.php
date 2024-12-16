@@ -27,6 +27,7 @@
             <th class="text-start">Fecha</th>
             <th>Encargado</th>
             <th>Nombre</th>
+            <th>Nota</th>
             <th>Estado</th>
             <th>Descargar</th>
           </thead>
@@ -36,6 +37,7 @@
                 <td class="text-start">{{ $backup->created_at->format('Y-m-d') }}</td>
                 <td>{{ $backup->user->name }}</td>
                 <td>{{ $backup->filename }}</td>
+                <td>{{ $backup->note }}</td>
                 <td>{!! $backup->formatStatus() !!}</td>
                 <td>
                   <a href="{{ route('database.downloadBackup', $backup) }}" class="@if($backup->status === 0) disabled @endif btn btn-primary">
@@ -101,12 +103,21 @@
     </script>
   @endif
 
+  @if (session('error'))
+    <script>
+      Swal.fire({
+        icon: "error",
+        title: "{{ session('error') }}"
+      });
+    </script>
+  @endif
+
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script src="{{ asset('assets/css/datatables.min.js') }}"></script>
   <script>
     new DataTable('#backups-table', {
       columnDefs: [
-        { orderable: false, targets: 2 },
+        { orderable: false, targets: 5 },
       ],
       order: false,
       scrollX: false,

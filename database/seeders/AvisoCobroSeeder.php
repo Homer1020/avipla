@@ -23,9 +23,9 @@ class AvisoCobroSeeder extends Seeder
             foreach($afiliados as $afiliado) {
                 $user->avisosCobros()->create([
                     'monto_total'   => '100.00',
-                    'fecha_limite'  => '2024-0' . $index + 10 . '-01',
-                    'created_at'  => '2024-0' . $index + 10 . '-01',
-                    'updated_at'  => '2024-0' . $index + 10 . '-01',
+                    'fecha_limite'  => '2024-' . $index + 10 . '-01',
+                    'created_at'  => '2024-' . $index + 10 . '-01',
+                    'updated_at'  => '2024-' . $index + 10 . '-01',
                     'afiliado_id'   => $afiliado->id,
                     'codigo_aviso'  => $codigo
                 ]);

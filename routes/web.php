@@ -175,6 +175,46 @@ Route::prefix('admin')->middleware('auth')->group(function() {
  * Todo lo que se necesite pasar por el middleware isAdmin
  */
 Route::middleware(['auth', 'is_admin'])->group(function() {
+  Route::get('/upload-image-test', function() {
+    return view('upload-image');
+  });
+
+  Route::post('/upload-image-test', function() {
+    $image_url = 'http://avipla.test/storage/test/GunCat3UgM8z1YXUyGj2ufPla0GkUjSBqoDxGhqX.png';
+    $categorizer = 'adult_content';
+
+    $type = pathinfo($image_url, PATHINFO_EXTENSION);
+    $data = file_get_contents($image_url);
+    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
+    return "<img src='{$base64}'>";
+
+    $api_credentials = array(
+      'key' => 'acc_cf0397ea3ba4ed0',
+      'secret' => 'c0b79e56481d3c390e36613540905edb'
+    );
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_URL, 'https://api.imagga.com/v2/categories/'.$categorizer.'?image_url='.$base64);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    curl_setopt($ch, CURLOPT_USERPWD, $api_credentials['key'].':'.$api_credentials['secret']);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    $json_response = json_decode($response);
+    dd($json_response);
+    // if(request()->hasFile('file')) {
+    //   $path = request()->file('file')->store('public/test');
+    //   $imageURL = asset(Storage::url($path));
+
+    //   dd($imageURL);
+    // }
+    return 'Something';
+  })->name('firestore');
+
   Route::get('create-symlink', function() {
     Artisan::call('storage:link');
   });

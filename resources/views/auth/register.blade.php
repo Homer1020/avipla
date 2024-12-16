@@ -69,6 +69,9 @@
                   </div>
                   <div class="tab-pane" id="final" role="tabpanel" tabindex="0">
                     @include('afiliados.form.user')
+                    <div class="text-end">
+                      <button type="submit" class="btn btn-primary">Registrar</button>
+                    </div>
                   </div>
                 </div>
               </form>

@@ -21,7 +21,7 @@ class AvisoCobroController extends Controller
      */
     public function index()
     {
-        $afiliados      = Afiliado::all();
+        $afiliados      = Afiliado::withTrashed()->get();
         $afiliado       = request()->input('afiliado');
         $estado         = request()->input('estado');
         $date_range     = request()->input('date_range');

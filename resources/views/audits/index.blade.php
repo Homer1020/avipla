@@ -17,10 +17,12 @@
       <table class="table table-bordered w-100" id="audits-table">
         <thead>
           <tr>
-            <th>Usuario</th>
             <th>Evento</th>
-            <th>Módelo</th>
-            <th>IP</th>
+            <th>Tipo de registro</th>
+            <th>ID del registro</th>
+            <th>IP de origen</th>
+            <th>Datos de la maquina</th>
+            <th>Usuario</th>
             <th>Fecha</th>
             {{-- <th>Acciones</th> --}}
           </tr>
@@ -29,16 +31,16 @@
           @foreach ($audits as $audit)
             <tr>
               <td>
-                #{{ $audit->user_id }} {{ $audit->user->name }}
-              </td>
-              <td>
                 <div class="badge bg-primary">
                   {{ __($audit->event) }}
                 </div>
               </td>
               <td>{{ __($audit->auditable_type) }}</td>
+              <td>#{{ $audit->auditable_id }}</td>
               <td>{{ $audit->ip_address }}</td>
-              <td>{{ $audit->created_at->diffForHumans() }}</td>
+              <td>{{ $audit->user_agent }}</td>
+              <td> {{ $audit->user->name }} </td>
+              <td>{{ $audit->created_at->format('Y/m/d') }}</td>
               {{-- <td>
                 <button onclick="openModal('audit-details', '{{ route('audits.show', $audit) }}')" class="btn btn-primary">
                   <i class="fa fa-file"></i>
@@ -64,7 +66,7 @@
   <script>
     new DataTable('#audits-table', {
       columnDefs: [
-        { orderable: false, targets: 4 },
+        { orderable: false, targets: [0,1,2,3,4,5,6] },
       ],
       order: false,
       scrollX: true,

@@ -30,6 +30,16 @@
               <span class="fw-bold">Página web: </span>
               <a href="{{ $afiliado->pagina_web }}">{{ $afiliado->pagina_web }}</a>
             </li>
+            @if ($afiliado->user)
+              <li class="list-group-item">
+                <span class="fw-bold">Nombre del encargado: </span>
+                {{ $afiliado->user->name }}
+              </li>
+              <li class="list-group-item">
+                <span class="fw-bold">Correo del encargado: </span>
+                {{ $afiliado->user->email }}
+              </li>
+            @endif
             @if($afiliado->actividad)
               <li class="list-group-item">
                 <span class="fw-bold">Actividad principal: </span>
@@ -113,19 +123,19 @@
                 <p class="fw-bold text-uppercase my-3">Documentos</p>
                 <div>
                   @if ($afiliado->rif_path)
-                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->rif_path]) }}" class="btn btn-light me-2 border-dark">
+                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->rif_path]) }}" class="btn btn-outline-primary me-2">
                       <i class="fa fa-file-invoice me-1"></i>
                       RIF
                     </a>
                   @endif
                   @if ($afiliado->registro_mercantil_path)
-                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->registro_mercantil_path]) }}" class="btn btn-light me-2 border-dark">
+                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->registro_mercantil_path]) }}" class="btn btn-outline-primary me-2">
                       <i class="fa fa-file-invoice me-1"></i>
                       Registro mercantil
                     </a>
                   @endif
                   @if ($afiliado->estado_financiero_path)
-                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->estado_financiero_path]) }}" class="btn btn-light me-2 border-dark">
+                    <a target="_blank" href="{{ route('files.getFile', ['dir' => 'afiliados', 'path' => $afiliado->estado_financiero_path]) }}" class="btn btn-outline-primary me-2">
                       <i class="fa fa-file-invoice me-1"></i>
                       Estado financiero
                     </a>

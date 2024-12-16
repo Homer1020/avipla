@@ -8,7 +8,6 @@
     </style>
 @endpush
 @section('content')
-
 	<!-- carousel -->
 	<div class="owl-carousel">
         @forelse ($carousels as $carousel)

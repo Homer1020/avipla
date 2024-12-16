@@ -21,7 +21,7 @@
             <th>ID</th>
             <th>Razón social</th>
             <th>RIF</th>
-            <th>Usuario encargado</th>
+            <th>Fecha de ingreso</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -32,17 +32,8 @@
               <td>#{{ $afiliado->id }}</td>
               <td>{{ $afiliado->razon_social }}</td>
               <td>{{ $afiliado->rif }}</td>
+              <td>{{ $afiliado->created_at->format('Y-m-d') }}</td>
               <td>
-                @php
-                  $usuarioAfiliado = $afiliado->users->where('tipo_afiliado', 0)->first();
-                @endphp
-                @if($usuarioAfiliado)
-                  {{ $usuarioAfiliado->email }}
-                @else
-                  <span class="badge bg-warning">Sin asignar</span>
-                @endif
-              </td>
-              <td style="white-space: nowrap">
                 @can('view', $afiliado)
                   <a href="{{ route('afiliados.show', @$afiliado) }}" class="btn btn-primary">
                     <i class="fa fa-eye"></i>
@@ -94,7 +85,13 @@
 
     new DataTable('#afiliados-table', {
       columnDefs: [
-        { orderable: false, targets: 4 },
+        {
+          orderable: false,
+          targets: 4,
+          createdCell: function (td, cellData, rowData, row, col) {
+            td.style.whiteSpace = 'nowrap';
+          }
+        },
       ],
       order: false,
       scrollX: true,

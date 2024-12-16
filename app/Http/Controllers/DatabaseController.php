@@ -15,6 +15,10 @@ class DatabaseController extends Controller
 
     public function backup(Request $request) {
 
+        if(!$request->input('filename')) {
+            return redirect()->route('database.index')->with('error', 'El nombre del archivo es requerido');
+        }
+
         $backupPath = storage_path('app\\backups\\' . date('Y-m-d_H-i-s') . '_avipla_backup.sql');
 
         $backup = $request->user()->backups()->create([

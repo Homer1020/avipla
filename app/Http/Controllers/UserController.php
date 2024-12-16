@@ -19,7 +19,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->latest()->where('id', '!=', request()->user()->id)->get();
+        $users = User::with('roles')
+        ->latest()
+        ->where('id', '!=', request()->user()->id)
+        ->whereHas('roles', function($query) {
+            $query->whereNotIn('name', ['afiliado']);
+        })
+        ->get();
         return view('users.index', compact('users'));
     }
 
@@ -53,7 +59,7 @@ class UserController extends Controller
 
             DB::commit();
             return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
-        } catch(\Excepttion $e) {
+        } catch(\Exception $e) {
             DB::rollBack();
             return redirect()->route('users.index')->with('error', 'No se pudo crear el usuario.');
         }
