@@ -62,7 +62,7 @@
 <body>
     <div class="container">
         <div class="img-container">
-            <img src="{{ $message->embed(asset('assets/img/logo.png')) }}" alt="Logo Avipla" width="100">
+            <img src="public\assets\img\logo.png" alt="Logo Avipla" width="100">
         </div>
         <h1>AVIPLA - Crea tu cuenta de afiliado</h1>
 

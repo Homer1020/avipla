@@ -6,6 +6,7 @@ use App\Mail\AfiliadoEmailReminder;
 use App\Mail\VerifyAfiliadoEmail;
 use App\Models\SolicitudAfiliado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -25,19 +26,28 @@ class SolicitudController extends Controller
     }
 
     public function store(Request $request) {
-        $payload = $request->validate([
-            'razon_social'  => 'required|string',
-            'correo'        => 'required|email|unique:solicitudes_afiliados,correo'
-        ]);
+        try {
+            DB::beginTransaction();
 
-        $confirmation_code = Str::random(25);
-        $payload['confirmation_code'] = $confirmation_code;
+            $payload = $request->validate([
+                'razon_social'  => 'required|string',
+                'correo'        => 'required|email|unique:solicitudes_afiliados,correo'
+            ]);
 
-        $solicitud = SolicitudAfiliado::create($payload);
+            $confirmation_code = Str::random(25);
+            $payload['confirmation_code'] = $confirmation_code;
 
-        Mail::to($request->input('correo'))->send(new VerifyAfiliadoEmail($solicitud));
+            $solicitud = SolicitudAfiliado::create($payload);
 
-        return redirect()->route('solicitudes.index')->with('success', 'Se envió un correo de acceso.');
+            Mail::to($request->input('correo'))->send(new VerifyAfiliadoEmail($solicitud));
+
+            DB::commit();
+
+            return redirect()->route('solicitudes.index')->with('success', 'Se envió un correo de acceso.');
+        } catch(\Exception $e) {
+            DB::rollBack();
+            dd($e);
+        }
     }
 
     public function destroy(SolicitudAfiliado $solicitud) {

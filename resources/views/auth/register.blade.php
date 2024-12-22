@@ -136,6 +136,16 @@
     </script>
   @endif
 
+  @if (session('error'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+      Swal.fire({
+        icon: "error",
+        title: "{{ session('error') }}"
+      });
+    </script>
+  @endif
+
 </body>
 
 </html>

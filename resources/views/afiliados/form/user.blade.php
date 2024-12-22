@@ -6,6 +6,7 @@
       placeholder="John Doe"
       name="name"
       id="name"
+      :required="true"
       label="Nombre del encargado:"
       :value="old('name')"
       :error="$errors->first('name')" :autofocus="true" />
@@ -18,6 +19,7 @@
       placeholder="johndoe@gmail.com"
       name="email"
       id="email"
+      :required="true"
       label="Correo del encargado:"
       :value="old('email', $solicitud->correo)"
       :error="$errors->first('email')"
@@ -27,11 +29,11 @@
 </div>
 
 <!-- password -->
-<x-forms.input type="password" placeholder="********" name="password" id="password"
+<x-forms.input :required="true" type="password" placeholder="********" name="password" id="password"
   label="Contraseña:" :error="$errors->first('password')" />
 <!-- /password -->
 
 <!-- password -->
-<x-forms.input type="password" placeholder="********" name="password_confirmation"
+<x-forms.input :required="true" type="password" placeholder="********" name="password_confirmation"
   id="password_confirmation" label="Confirmar contraseña:" />
 <!-- /password -->

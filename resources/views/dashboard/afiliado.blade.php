@@ -43,7 +43,10 @@
   </style>
 @endpush
 @section('content')
-  <h1 class="mt-4 fs-4">Dashboard</h1>
+  <h1 class="mt-4 fs-4">
+    <i class="fas fa-gauge-high fa-sm"></i>
+    Dashboard
+  </h1>
   <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item active">Dashboard</li>
   </ol>

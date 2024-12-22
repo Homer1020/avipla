@@ -76,7 +76,7 @@
             <th>Fecha</th>
             <th>Afiliado</th>
             <th>Monto</th>
-            <th>Acciones</th>
+            <th>Documento</th>
           </tr>
         </thead>
     

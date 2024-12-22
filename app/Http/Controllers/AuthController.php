@@ -18,6 +18,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class AuthController extends Controller
 {
@@ -103,6 +104,42 @@ class AuthController extends Controller
         try {
             # upload image
             if($request->hasFile('brand')) {
+                $cloudinaryUpload = cloudinary()->upload($request->file('brand')->getRealPath());
+                $cloudinaryPath = $cloudinaryUpload->getSecurePath();
+                $categorizer = 'adult_content';
+
+                $api_credentials = array(
+                    'key' => 'acc_cf0397ea3ba4ed0',
+                    'secret' => 'c0b79e56481d3c390e36613540905edb'
+                );
+
+                $ch = curl_init();
+
+                curl_setopt($ch, CURLOPT_URL, 'https://api.imagga.com/v2/categories/'.$categorizer.'?image_url='.urlencode($cloudinaryPath));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+                curl_setopt($ch, CURLOPT_HEADER, FALSE);
+                curl_setopt($ch, CURLOPT_USERPWD, $api_credentials['key'].':'.$api_credentials['secret']);
+
+                $response = curl_exec($ch);
+                curl_close($ch);
+
+                $json_response = json_decode($response);
+
+                $publicId = $cloudinaryUpload->getPublicId();
+                cloudinary()->destroy($publicId);
+
+                $categories = (array) $json_response->result->categories;
+
+                $result = array_filter($categories, function($value) {
+                    return $value->name->en === 'safe';
+                });
+
+                // dd($result && array_values($result)[0]->confidence < 50);
+
+                if($result && array_values($result)[0]->confidence < 50) {
+                    return redirect()->back()->with('error', 'El sistema detecto contenido obseno.');
+                }
+
                 $path = $request->file('brand')->store('public/brands');
                 $payload['brand'] = $path;
             }
@@ -222,6 +259,7 @@ class AuthController extends Controller
 
             return redirect()->intended('admin')->with('success', 'Bienvenido ' . $user->name . '!');
         } catch (\Exception $e) {
+            dd($e);
             DB::rollback();
             return redirect()->back()->with('error', 'Error al crear la cuenta.');
         }
