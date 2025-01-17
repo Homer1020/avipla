@@ -24,6 +24,7 @@ class BoletinePolicy
     public function view(User $user, Boletine $boletine)
     {
         if($user->afiliado) {
+            // si el afiliado tiene un aviso de no conciliado de mes previo
             $avisoCobro = AvisoCobro::where('afiliado_id', $user->afiliado->id)
                 ->where('estado', '<>', 'conciliado')
                 ->whereRaw('YEAR(created_at) = YEAR(CURDATE())')

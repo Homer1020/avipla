@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\FamilyImage;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateAfiliadoRequest extends FormRequest
@@ -26,7 +27,7 @@ class UpdateAfiliadoRequest extends FormRequest
             'email'                             => 'nullable|email|unique:users,email',
             'name'                              => 'nullable|string',
             'password'                          => 'nullable|string|confirmed',
-            'brand'                             => 'nullable|max:2024|image',
+            'brand'                             => ['nullable', 'max:2024', 'image', new FamilyImage],
             'rif_path'                          => 'nullable|max:2024|mimes:pdf',
             'registro_mercantil_path'           => 'nullable|max:2024|mimes:pdf',
             'estado_financiero_path'            => 'nullable|max:2024|mimes:pdf',

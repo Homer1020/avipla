@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\FamilyImage;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreAfiliadoRequest extends FormRequest
@@ -22,7 +23,7 @@ class StoreAfiliadoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'brand'                             => 'nullable|max:2024|image',
+            'brand'                             => ['nullable', 'max:2024', 'image', new FamilyImage],
             'rif_path'                          => 'nullable|max:2024|mimes:pdf',
             'registro_mercantil_path'           => 'nullable|max:2024|mimes:pdf',
             'estado_financiero_path'            => 'nullable|max:2024|mimes:pdf',
