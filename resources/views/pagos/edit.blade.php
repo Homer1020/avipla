@@ -64,7 +64,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="monto">Monto</label>
+                        <label class="form-label" for="monto">Monto (en dólares)</label>
                         <input
                             required
                             name="monto"

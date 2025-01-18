@@ -25,7 +25,7 @@ return new class extends Migration
                 ->on('afiliados')
                 ->onDelete('CASCADE')
                 ->onUpdate('CASCADE');
-            $table->enum('estado', ['PENDIENTE', 'REVISION', 'CONCILIADO', 'DEVUELTO'])->default('PENDIENTE');
+            $table->enum('estado', ['PENDIENTE', 'REVISIÓN', 'CONCILIADO', 'DEVUELTO'])->default('PENDIENTE');
             $table->string('codigo_aviso');
             $table->decimal('monto_total');
             $table->text('observaciones')->nullable();

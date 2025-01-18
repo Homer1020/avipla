@@ -30,7 +30,7 @@
       </div>
         
         <div class="mb-3">
-            <label for="monto_total" class="form-label">Monto (en dolares)</label>
+            <label for="monto_total" class="form-label">Monto (en dólares)</label>
             <input
                 autofocus
                 type="number"

@@ -35,9 +35,9 @@ class BoletinCreated extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                ->subject('Se creó un nuevo boletin "'. $this->boletine->titulo .'"')
+                ->subject('Se creó un nuevo boletín "'. $this->boletine->titulo .'"')
                 ->greeting('¡Hola!')
-                ->line('Te informamos que creó un nuevo boletin "'. $this->boletine->titulo .'"')
+                ->line('Te informamos que creó un nuevo boletín "'. $this->boletine->titulo .'"')
                 ->line('A continuación, puedes revisar los detalles:')
                 ->line(new HtmlString('<div style="border: 1px solid #ccc; padding: 16px; margin-bottom: 16px; border-radius: 10px;">' . $this->boletine->contenido . '</div>'))
                 ->line('Fecha de actualización: ' . now())

@@ -52,7 +52,7 @@ class FamilyImage implements ValidationRule
         }
 
         if(!$result || array_values($result)[0]->confidence < 50) {
-            $fail('El sistema detecto contenido obsceno.');
+            $fail('La inteligencia artificial detectó contenido inapropiado.');
         }
     }
 }

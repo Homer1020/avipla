@@ -14,7 +14,7 @@
   </ol>
   @can('create_boletine')
     <div class="mb-4">
-      <a href="{{ route('boletines.create') }}" class="btn btn-primary">Crear Boletin</a>
+      <a href="{{ route('boletines.create') }}" class="btn btn-primary">Crear Boletín</a>
     </div>
   @endcan
 
@@ -49,7 +49,7 @@
                 @can('view', $boletin)
                   <a href="{{ route('boletines.show', $boletin) }}" class="btn btn-primary">
                     <i class="fa fa-envelope-open"></i>
-                    Ver boletin
+                    Ver boletín
                   </a>
                 @endcan
                 @can('update', $boletin)

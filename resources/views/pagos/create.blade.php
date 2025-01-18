@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="monto">Monto <span class="text-danger fw-bold">*</span></label>
+                        <label class="form-label" for="monto">Monto (en dólares) <span class="text-danger fw-bold">*</span></label>
                         <input
                             name="monto"
                             id="monto"

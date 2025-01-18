@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\FamilyImage;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePagoRequest extends FormRequest
@@ -27,7 +28,7 @@ class StorePagoRequest extends FormRequest
             'tasa'              => 'numeric|nullable',
             'referencia'        => 'nullable|unique:pagos,referencia',
             'monto'             => 'required|numeric',
-            'comprobante'       => 'file|nullable|mimes:pdf,png,jpg,jpeg',
+            'comprobante'       => ['file', 'nullable', 'mimes:pdf,png,jpg,jpeg', new FamilyImage],
             'aviso_cobro_id'    => 'numeric|required|exists:aviso_cobros,id',
             'fecha_pago'        => 'required|date',
         ];

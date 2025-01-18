@@ -18,7 +18,7 @@
             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Nuevas</button>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Leidas</button>
+            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Leídas</button>
           </li>
         </ul>
         <div class="tab-content" id="myTabContent">
@@ -29,7 +29,7 @@
                   @csrf
                   <button type="submit" class="btn btn-primary">
                     <i class="fa fa-check"></i>
-                    Marcar todo como leido
+                    Marcar todo como leído
                   </button>
                 </form>
               </div>

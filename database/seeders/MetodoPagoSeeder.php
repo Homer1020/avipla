@@ -14,7 +14,7 @@ class MetodoPagoSeeder extends Seeder
     public function run(): void
     {
         MetodoPago::insert([
-            ['metodo_pago'  => 'Pago movil'],
+            ['metodo_pago'  => 'Pago móvil'],
             ['metodo_pago'  => 'Transferencia'],
             ['metodo_pago'  => 'Efectivo'],
             ['metodo_pago'  => 'Otro']
