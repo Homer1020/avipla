@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 @section('title', 'Generar Aviso')
+@push('css')
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+@endpush
 @section('content')
   <h1 class="mt-4 fs-4">Generar Aviso</h1>
   <ol class="breadcrumb mb-4">
@@ -27,7 +31,18 @@
           @error('aviso_code')
             <div class="invalid-feedback">{{ $message }}</div>
           @enderror
-      </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="afiliado_id" class="form-label">Afiliado</label>
+          <select name="afiliado_id" id="afiliado_id" class="form-select">
+            <option value=""></option>
+            @foreach ($afiliados as $afiliado)
+              <option value="{{ $afiliado->id }}">{{ $afiliado->razon_social }}</option>
+            @endforeach
+          </select>
+          <div class="form-text">Si se deja vacío se aplicara masivamente a los afiliados que no tenga un aviso de cobro con el código</div>
+        </div>
         
         <div class="mb-3">
             <label for="monto_total" class="form-label">Monto (en dólares)</label>
@@ -66,7 +81,16 @@
   </form>
 @endsection
 @push('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        $(document).ready(function() {
+            $('#afiliado_id').select2({
+                theme: 'bootstrap-5',
+                placeholder: 'Seleccione un afiliado',
+                allowClear: true
+            })
+        })
+
         var now = new Date(),
         minDate = now.toISOString().substring(0,10);
         $('#fecha_limite').prop('min', minDate);

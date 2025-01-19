@@ -74,27 +74,47 @@ class AvisoCobroController extends Controller
             'codigo_aviso'      => 'required|string',
             'monto_total'       => 'required|numeric',
             'fecha_limite'      => 'nullable|date_format:Y-m-d|after:today',
+            'afiliado_id'       => 'nullable|numeric|exists:afiliados,id'
         ]);
 
         $user = Auth::user();
 
-        if ($user !== null && $user instanceof User) {
-            $afiliados = Afiliado::whereDoesntHave('avisosCobros', function($query) use ($payload) {
-                $query->where('codigo_aviso', $payload['codigo_aviso']);
-            })
-            // ->whereHas('users')
-            ->get();
+        if (!($user instanceof User)) abort(400);
 
-            foreach($afiliados as $afiliado) {
-                $payload['afiliado_id'] = $afiliado->id;
-                $avisoCobro = $user->avisosCobros()->create($payload);
-                
-                foreach($afiliado->users as $afiliadoUser) { 
-                    $afiliadoUser->notify(new AvisoCobroCreated($avisoCobro));
-                }
+        if($request->input('afiliado_id')) {
+            $existing = AvisoCobro::where('afiliado_id', $payload['afiliado_id'])
+                ->where('codigo_aviso', $payload['codigo_aviso']);
+            
+            if($existing) {
+                return redirect()->route('avisos-cobro.index')->with('error', 'El afiliado ya tiene un aviso de cobro asignado con ese codigo');
             }
+
+            $user->avisosCobros()->create($payload);
             return redirect()->route('avisos-cobro.index')->with('success', 'Se generó el aviso correctamente');
         }
+
+        $afiliados = Afiliado::whereDoesntHave('avisosCobros', function($query) use ($payload) {
+            $query->where('codigo_aviso', $payload['codigo_aviso']);
+        })
+        // ->whereHas('users')
+        ->get();
+
+        // dd($afiliados);
+
+        if($afiliados->count() === 0) {
+            return redirect()->route('avisos-cobro.index')->with('error', 'No hay afiliados disponibles');
+        }
+
+        foreach($afiliados as $afiliado) {
+            $payload['afiliado_id'] = $afiliado->id;
+            $avisoCobro = $user->avisosCobros()->create($payload);
+            
+
+            foreach($afiliado->users as $afiliadoUser) { 
+                $afiliadoUser->notify(new AvisoCobroCreated($avisoCobro));
+            }
+        }
+        return redirect()->route('avisos-cobro.index')->with('success', 'Se generaron los avisos de cobro correctamente');
     }
 
     /**

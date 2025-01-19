@@ -231,6 +231,15 @@
     </script>
   @endif
 
+  @if (session('error'))
+    <script>
+        Swal.fire({
+          icon: "error",
+          title: "{{ session('error') }}"
+        });
+    </script>
+  @endif
+
   <script src="https://cdn.datatables.net/buttons/3.2.0/js/dataTables.buttons.js"></script>
   <script src="https://cdn.datatables.net/buttons/3.2.0/js/buttons.bootstrap5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
