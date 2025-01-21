@@ -26,6 +26,9 @@ El sistema CRM se presenta como una herramienta valiosa para optimizar la gesti�
     -   Consulta de datos de afiliados (incluidos estados de cuenta).
     -   Suspensión de cuentas de afiliados.
     -   Edición de información del sitio web.
+    -   Creción de perfiles de usuarios personalizados.
+    -   Auditorías de los registros de la Base de Datos
+    -   Backups y restauraciones de los datos
 
 ## Levantar el proyecto en local
 
@@ -39,15 +42,19 @@ El sistema CRM se presenta como una herramienta valiosa para optimizar la gesti�
 
     composer install
 
+**Configuramos las variables de entorno:**
+
+A partir del archivo .env.example creamos nuestro .env y configuramos según sea conveniente.
+
 **Migramos la base de datos:**
 
 El siguiente comando además de crear la estructura de la base de datos, la llena con datos de ejemplo.
 
     php artisan migrate --seed
 
-**Configuramos las variables de entorno:**
+**Ejecutamos los trabajos en cola**
 
-A partir del archivo .env.example creamos nuestro .env y configuramos según sea conveniente.
+    php artisan queue:work
 
 **Iniciamos nuestro servidor PHP :**
 
