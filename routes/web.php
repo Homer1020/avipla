@@ -246,5 +246,7 @@ Route::middleware(['auth', 'is_admin'])->group(function() {
 
   Route::get('database', [DatabaseController::class, 'index'])->name('database.index');
   Route::post('database', [DatabaseController::class, 'backup'])->name('database.backup');
+  Route::post('database/{backup}/restore', [DatabaseController::class, 'restore'])->name('database.restore');
   Route::get('database/{backup}/descargar', [DatabaseController::class, 'downloadBackup'])->name('database.downloadBackup');
+  Route::delete('database/{backup}/delete', [DatabaseController::class, 'destroy'])->name('database.destroy');
 });

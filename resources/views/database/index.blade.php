@@ -40,18 +40,30 @@
                 <td>{{ $backup->note }}</td>
                 <td>{!! $backup->formatStatus() !!}</td>
                 <td>
-                  <a href="{{ route('database.downloadBackup', $backup) }}" class="@if($backup->status === 0) disabled @endif btn btn-primary">
-                    <i class="fas fa-cloud-download-alt"></i>
-                    Descargar
-                  </a>
-                  {{-- <a href="#" class="@if($backup->status === 0) disabled @endif btn btn-warning">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                    Restaurar
-                  </a>
-                  <a href="#" class="@if($backup->status === 0) disabled @endif btn btn-danger">
-                    <i class="fa fa-trash"></i>
-                    Eliminar
-                  </a> --}}
+                  <nobr>
+                    @if($backup->status === 1)
+                      <a href="{{ route('database.downloadBackup', $backup) }}" class="@if($backup->status === 0) disabled @endif btn btn-primary">
+                        <i class="fas fa-cloud-download-alt"></i>
+                        Descargar
+                      </a>
+                      <form action="{{ route('database.restore', $backup) }}" method="POST" class="d-inline-block">
+                        @csrf
+                        <button class="btn btn-warning">
+                          <i class="fas fa-cloud-upload-alt"></i>
+                          Restaurar
+                        </button>
+                      </form>
+                    @endif
+
+                    <form class="d-inline-block" action="{{ route('database.destroy', $backup) }}" method="POST">
+                      @method('DELETE')
+                      @csrf
+                      <button class="btn btn-danger">
+                        <i class="fa fa-trash"></i>
+                        Eliminar
+                      </button>
+                    </form>
+                  </nobr>
                 </td>
               </tr>
             @endforeach
@@ -74,8 +86,8 @@
         <form id="form-backup" action="{{ route('database.backup') }}" method="POST">
           @csrf
           <div class="mb-3">
-            <label for="filename" class="form-label">Nombre del archivo</label>
-            <input type="text" id="filename" name="filename" class="form-control">
+            <label for="filename" class="form-label">Nombre del archivo <span class="text-danger fw-bold">*</span></label>
+            <input type="text" required id="filename" name="filename" class="form-control">
           </div>
           <div class="mb-3">
             <label for="note" class="form-label">Nota</label>

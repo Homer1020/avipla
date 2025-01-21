@@ -26,8 +26,11 @@ class Backup extends Model
             case 1:
                 $statusText = '<span class="bg-success badge">Completado</span>';
                 break;
-            case 3:
+            case 2:
                 $statusText = '<span class="bg-danger badge">Falló</span>';
+                break;
+            case 3;
+                $statusText = '<span class="bg-secondary badge">Restaurado</span>';
                 break;
             default:
                 $statusText = '<span class="bg-info badge">Sin estado</span>';
