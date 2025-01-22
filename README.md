@@ -59,7 +59,7 @@ En el AdminSeeder.php puedes editar el usuario administrador que se creará al m
         'name'      => 'Tu nombre'
     ]);
     # next code ...
-
+```
 
 **Migramos la base de datos:**
 
