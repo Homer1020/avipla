@@ -47,7 +47,9 @@ El sistema CRM se presenta como una herramienta valiosa para optimizar la gesti�
 A partir del archivo .env.example creamos nuestro .env y configuramos según sea conveniente.
 
 **Confugurar datos para iniciar sesión**
+
 En el AdminSeeder.php puedes editar el usuario administrador que se creará al migrar la Base de Datos
+
 ``` php
 // /avipla/database/seeders/AdminSeeder.php
 
