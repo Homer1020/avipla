@@ -46,6 +46,21 @@ El sistema CRM se presenta como una herramienta valiosa para optimizar la gesti�
 
 A partir del archivo .env.example creamos nuestro .env y configuramos según sea conveniente.
 
+**Confugurar datos para iniciar sesión**
+En el AdminSeeder.php puedes editar el usuario administrador que se creará al migrar la Base de Datos
+``` php
+
+    // /avipla/database/seeders/AdminSeeder.php
+
+    # previous code ...
+    $user = User::create([
+        'email'     => 'tucorreo@gmail.com',
+        'password'  => bcrypt('admin123'),
+        'name'      => 'Tu nombre'
+    ]);
+    # next code ...
+
+
 **Migramos la base de datos:**
 
 El siguiente comando además de crear la estructura de la base de datos, la llena con datos de ejemplo.
@@ -58,7 +73,9 @@ El siguiente comando además de crear la estructura de la base de datos, la llen
 
 **Iniciamos nuestro servidor PHP :**
 
-Podemos ingresar a la ruta http://todominio.test/login para poder iniciar sesión con los siguientes datos:
+    php artisan serve
+
+Podemos ingresar a la ruta http://127.0.0.1:8000/login para poder iniciar sesión con los siguientes datos:
 
  - Correo: admin@admin.com
  - Password: admin123
