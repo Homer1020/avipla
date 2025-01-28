@@ -78,5 +78,5 @@ El siguiente comando además de crear la estructura de la base de datos, la llen
 
 Podemos ingresar a la ruta http://127.0.0.1:8000/login para poder iniciar sesión con los siguientes datos:
 
- - Correo: admin@admin.com
+ - Correo: tucorreo@gmail.com
  - Password: admin123
