@@ -21,7 +21,7 @@ class AdminSeeder extends Seeder
         $admin_role->syncPermissions($permissions);
 
         $user = User::create([
-            'email'     => 'admin@avipla.online',
+            'email'     => 'admin@avipla.test',
             'password'  => bcrypt('admin123'),
             'name'      => 'Administrador AVIPLA'
         ]);

@@ -8,6 +8,7 @@ use App\Http\Controllers\BoletineController;
 use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\CategoriaBoletineController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\FileController;
@@ -43,6 +44,10 @@ Route::get('contacto', [HomeController::class, 'contact'])->name('contact');
 Route::post('contacto', [HomeController::class, 'sendContactMail'])->name('sendContactMail');
 Route::get('noticias', [HomeController::class, 'news'])->name('news');
 Route::get('noticias/{noticia}', [HomeController::class, 'newsItem'])->name('news.item');
+
+Route::resource('comentarios', CommentController::class)
+  ->parameters(['comentarios' => 'comment'])
+  ->names('comments');
 
 /**
  * WEB ROUTES
@@ -171,8 +176,7 @@ Route::prefix('admin')->middleware('auth')->group(function() {
 });
 
 /**
- * WEBSITE
- * Todo lo que se necesite pasar por el middleware isAdmin
+ * WEBSITE o todo lo que se necesite pasar por el middleware isAdmin
  */
 Route::middleware(['auth', 'is_admin'])->group(function() {
   Route::get('/upload-image-test', function() {

@@ -115,6 +115,65 @@
                     </li>
                 </ul>
                 {!! $noticia->contenido !!}
+
+                <div class="card card-body border mb-3">
+                    <form action="{{ route('comments.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="noticia_id" value="{{ $noticia->id }}">
+
+                        <div class="mb-3">
+                            <label for="content" class="form-label">Comentario</label>
+                            <textarea name="content" placeholder="Excelente publicación" id="content" rows="5" class="form-control"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fa fa-message"></i>
+                            Guardar
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card card-body border mb-3">
+                    <h4 class="mb-4">Todos los comentarios</h4>
+                    @foreach ($noticia->comments as $comment)
+                        <div class="d-flex border-bottom mb-3 pb-3">
+                            <div class="flex-shrink-0">
+                                @if ($comment->user->afiliado && $comment->user->afiliado->brand)
+                                    <img src="{{ Storage::url($comment->user->afiliado->brand) }}" alt="Avatar" width="50">
+                                @else
+                                    <img src="{{ asset('assets/img/avatar.jpg') }}" alt="Avatar" width="50">
+                                @endif
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                @if ($comment->user->afiliado)
+                                    <h6 class="fw-bold mb-0">{{ $comment->user->afiliado->razon_social }}</h5>
+                                @else
+                                    <h6 class="fw-bold mb-0">{{ $comment->user->name }}</h5>
+                                @endif
+                                <p class="text-muted mb-0">{{ $comment->user->email }}</p>
+                                <p class="text-muted mb-1" style="font-size: 14px;">{{ $comment->created_at->diffForHumans() }}</p>
+                                <p class="m-0">{{ $comment->content }}</p>
+                                <div class="mt-2 d-flex gap-2">
+                                    @can('delete', $comment)
+                                        <form action="{{ route('comments.destroy', $comment) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn-sm btn btn-danger btn-comment">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    @endcan
+
+                                    @can('update', $comment)
+                                        <button type="submit" class="btn-sm btn btn-warning btn-comment">
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
+                                    @endcan
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
             </div>
             <div class="col-12 col-lg-4">
                 <aside>

@@ -15,17 +15,19 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PermissionSeeder::class);
         $this->call(AdminSeeder::class);
+        $this->call(EditorSeeder::class);
         $this->call(ActividadSeeder::class);
         $this->call(CategorySeeder::class);
 
         $this->call(ProductoSeeder::class);
         $this->call(MateriaPrimaSeeder::class);
         $this->call(ServicioSeeder::class);
-        // $this->call(AfiliadosSeeder::class);
-        // $this->call(AvisoCobroSeeder::class);
+        $this->call(AfiliadosSeeder::class);
+        $this->call(AvisoCobroSeeder::class);
         
         $this->call(MetodoPagoSeeder::class);
         $this->call(CategoriaBoletineSeeder::class);
+        $this->call(TagSeeder::class);
         $this->call(JuntaDirectivaRoleSeeder::class);
         $this->call(BancoSeeder::class);
     }

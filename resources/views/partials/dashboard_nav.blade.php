@@ -76,7 +76,7 @@
                     title="Noticias"
                     icon="fas fa-newspaper"
                     target="newsPage"
-                    :active="request()->routeIs('noticias.*') || request()->routeIs('categories.*') || request()->routeIs('tags.*')"
+                    :active="request()->routeIs('noticias.*') || request()->routeIs('categories.*') || request()->routeIs('tags.*') || request()->routeIs('comments.*')"
                 >
                     <a href="{{ route('noticias.index') }}" class="nav-link {{ request()->routeIs('noticias.*')  ? 'active' : '' }}">Todas las noticias</a>
                     @can('view_category')
@@ -84,6 +84,9 @@
                     @endcan
                     @can('view_tag')
                         <a href="{{ route('tags.index') }}" class="nav-link {{ request()->routeIs('tags.*') ? 'active' : '' }}">Etiquetas</a>
+                    @endcan
+                    @can('view_comment')
+                        <a href="{{ route('comments.index') }}" class="nav-link {{ request()->routeIs('comments.*') ? 'active' : '' }}">Comentarios</a>
                     @endcan
                 </x-nav-link-dropdown>
             @endcan

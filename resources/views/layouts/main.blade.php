@@ -76,9 +76,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('news') }}">Noticias</a>
                 </li>
-                <li class="nav-item mb-4">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('contact') }}">Contacto</a>
                 </li>
+                @auth
+                    <li class="nav-item mb-4">
+                        <a class="nav-link" href="{{ route('dashboard') }}">Intranet</a>
+                    </li>
+                @endauth
                 <li class="nav-item">
                     <div class="d-flex justify-content-start align-items-center">
                         <a href="{{ route('affiliation') }}" class="btn btn-primary me-3 btn-variation text-uppercase">Afiliación</a>

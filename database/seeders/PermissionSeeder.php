@@ -25,7 +25,8 @@ class PermissionSeeder extends Seeder
             'category',
             'tag',
             'category_boletine',
-            'pago'
+            'pago',
+            'comment'
         ];
 
         foreach ($permissions as $permission) {

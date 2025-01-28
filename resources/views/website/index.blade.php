@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 @section('title', 'Datos del sitio web')
+@push('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+@endpush
 @section('content')
 <h1 class="mt-4 fs-4">
     <i class="fas fa-laptop fa-sm"></i>
@@ -333,6 +337,13 @@
 @endsection
 @push('script')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $('.form-select').select2({
+            theme: 'bootstrap-5',
+            tags: true,
+        })
+    </script>
     <script>
         $displayImages = $('#display_images')
         $buttonUpload = $('#button_upload')

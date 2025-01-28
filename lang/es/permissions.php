@@ -13,6 +13,7 @@ return [
   'aviso' => 'aviso',
   'category boletine' => 'categoría de boletín',
   'pago' => 'Pago',
+  'comment' => 'Comentario',
 
   'view_user' => 'ver usuario',
   'create_user' => 'crear usuario',
@@ -73,4 +74,9 @@ return [
   'create_pago' => 'crear pago',
   'update_pago' => 'actualizar pago',
   'delete_pago' => 'eliminar pago',
+
+  'view_comment' => 'ver comentario',
+  'create_comment' => 'crear comentario',
+  'update_comment' => 'actualizar comentario',
+  'delete_comment' => 'eliminar comentario',
 ];

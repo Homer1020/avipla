@@ -1,5 +1,9 @@
 @extends('layouts.dashboard')
 @section('title', 'Detalle Factura')
+@push('css')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+@endpush
 @section('content')
   <h1 class="mt-4 fs-4">Detalles del aviso</h1>
   <ol class="breadcrumb mb-4">
@@ -149,21 +153,18 @@
                     </li>
                 @endif
             @endcan
-            
-            @if (!$avisoCobro->pago)
-                <li class="list-group-item">
-                    <span class="fw-bold d-block mb-2">Adjuntar pago:</span>
-                    <a href="{{ route('avisos-cobro.payCollectionNotice', $avisoCobro) }}" type="submit" class="btn btn-primary">
-                        <i class="fas fa-file-invoice"></i>
-                        Adjuntar pago
-                    </a>
-                </li>
-            @endif
         </ul>
     </div>
   </div>
 @endsection
 @push('script')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $('#invoice_status').select2({
+            theme: 'bootstrap-5',
+            tags: true,
+        })
+    </script>
     @if (session('success'))
         <script>
             Swal.fire({

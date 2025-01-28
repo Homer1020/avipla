@@ -30,6 +30,10 @@ class Noticia extends Model
         return $this->belongsToMany(Tag::class, 'tag_noticia');
     }
 
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';

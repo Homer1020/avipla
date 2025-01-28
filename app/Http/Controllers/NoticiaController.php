@@ -23,7 +23,7 @@ class NoticiaController extends Controller
      */
     public function index()
     {
-        $noticias = Noticia::with(['categoria', 'usuario'])->latest()->get();
+        $noticias = Noticia::with(['categoria', 'usuario', 'comments.user'])->latest()->get();
         return view('noticias.index', compact('noticias'));
     }
 

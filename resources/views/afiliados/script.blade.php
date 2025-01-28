@@ -5,6 +5,16 @@
       tags: true,
     })
 
+    $('#actividad_id').select2({
+      theme: 'bootstrap-5',
+      tags: true,
+    })
+
+    $('#relaciones_comercio_exterior').select2({
+      theme: 'bootstrap-5',
+      tags: true,
+    })
+
     $('#productos').select2({
       theme: 'bootstrap-5',
       tags: true,
