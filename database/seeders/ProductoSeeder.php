@@ -14,13 +14,21 @@ class ProductoSeeder extends Seeder
     public function run(): void
     {
         Producto::insert([
-            ['nombre' => 'Carro'],
-            ['nombre' => 'Bicicleta'],
-            ['nombre' => 'Teclado'],
-            ['nombre' => 'Pizarra'],
-            ['nombre' => 'Tornillo'],
-            ['nombre' => 'Cama'],
-            ['nombre' => 'Disco'],
-        ]);
+            ['nombre' => 'Botellas de Plástico'],
+            ['nombre' => 'Envases para Alimentos'],
+            ['nombre' => 'Tubos de PVC'],
+            ['nombre' => 'Plásticos Biodegradables'],
+            ['nombre' => 'Película Plástica para Empaque'],
+            ['nombre' => 'Cajas de Plástico Reutilizables'],
+            ['nombre' => 'Tuberías Corrugadas'],
+            ['nombre' => 'Tapas y Tapones'],
+            ['nombre' => 'Piezas de Plástico Inyectado'],
+            ['nombre' => 'Accesorios de Plástico para Construcción'],
+            ['nombre' => 'Materiales de Plástico para Automoción'],
+            ['nombre' => 'Juguetes de Plástico'],
+            ['nombre' => 'Utensilios de Cocina de Plástico'],
+            ['nombre' => 'Mobiliario Plástico'],
+            ['nombre' => 'Repuestos y Componentes Plásticos'],
+        ]);        
     }
 }

@@ -14,21 +14,37 @@ class CategoriaBoletineSeeder extends Seeder
     {
         CategoriaBoletine::insert([
             [
-                'display_name'  => 'Noticias',
-                'name'          => 'noticias'
+                'display_name'  => 'Anuncios Corporativos',
+                'name'          => 'anuncios-corporativos'
             ],
             [
-                'display_name'  => 'Eventos',
-                'name'          => 'eventos'
+                'display_name'  => 'Reconocimientos',
+                'name'          => 'reconocimientos'
             ],
             [
-                'display_name'  => 'Opinión',
-                'name'          => 'opinion'
+                'display_name'  => 'Actualizaciones de Proyectos',
+                'name'          => 'actualizaciones-de-proyectos'
             ],
             [
-                'display_name'  => 'Recursos',
-                'name'          => 'recursos'
+                'display_name'  => 'Nuevas Incorporaciones',
+                'name'          => 'nuevas-incorporaciones'
+            ],
+            [
+                'display_name'  => 'Capacitaciones y Cursos',
+                'name'          => 'capacitaciones-y-cursos'
+            ],
+            [
+                'display_name'  => 'Políticas y Procedimientos',
+                'name'          => 'politicas-y-procedimientos'
+            ],
+            [
+                'display_name'  => 'Eventos Internos',
+                'name'          => 'eventos-internos'
+            ],
+            [
+                'display_name'  => 'Mensajes de la Dirección',
+                'name'          => 'mensajes-de-la-direccion'
             ]
-        ]);
+        ]);        
     }
 }

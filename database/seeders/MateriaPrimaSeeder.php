@@ -14,9 +14,16 @@ class MateriaPrimaSeeder extends Seeder
     public function run(): void
     {
         MateriaPrima::insert([
-            ['materia_prima' => 'Madera'],
-            ['materia_prima' => 'Algodón'],
-            ['materia_prima' => 'Tierra'],
-        ]);
+            ['materia_prima' => 'Acero'],
+            ['materia_prima' => 'Cobre'],
+            ['materia_prima' => 'Vidrio'],
+            ['materia_prima' => 'Cemento'],
+            ['materia_prima' => 'Cuero'],
+            ['materia_prima' => 'Lana'],
+            ['materia_prima' => 'Papel'],
+            ['materia_prima' => 'Piedra'],
+            ['materia_prima' => 'Arena'],
+            ['materia_prima' => 'Caucho']
+        ]);        
     }
 }

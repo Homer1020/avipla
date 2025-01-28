@@ -15,21 +15,45 @@ class CategorySeeder extends Seeder
     {
         Category::insert([
             [
-                'display_name'  => 'Carros',
-                'name'          => 'carros'
+                'display_name'  => 'Tipos de Plásticos',
+                'name'          => 'tipos-de-plasticos'
             ],
             [
-                'display_name'  => 'Motos',
-                'name'          => 'motos'
+                'display_name'  => 'Reciclaje y Sostenibilidad',
+                'name'          => 'reciclaje-y-sostenibilidad'
             ],
             [
-                'display_name'  => 'Bicicletas',
-                'name'          => 'bicicletas'
+                'display_name'  => 'Usos del Plástico en la Industria',
+                'name'          => 'usos-del-plastico-en-la-industria'
             ],
             [
-                'display_name'  => 'Clima',
-                'name'          => 'clima'
+                'display_name'  => 'Innovaciones y Nuevas Tecnologías',
+                'name'          => 'innovaciones-y-nuevas-tecnologias'
+            ],
+            [
+                'display_name'  => 'Normativas y Legislación',
+                'name'          => 'normativas-y-legislacion'
+            ],
+            [
+                'display_name'  => 'Impacto del Plástico en el Medio Ambiente',
+                'name'          => 'impacto-del-plastico-en-el-medio-ambiente'
+            ],
+            [
+                'display_name'  => 'Educación y Conciencia',
+                'name'          => 'educacion-y-conciencia'
+            ],
+            [
+                'display_name'  => 'Alternativas al Plástico',
+                'name'          => 'alternativas-al-plastico'
+            ],
+            [
+                'display_name'  => 'Historia del Plástico',
+                'name'          => 'historia-del-plastico'
+            ],
+            [
+                'display_name'  => 'Tendencias de Mercado',
+                'name'          => 'tendencias-de-mercado'
             ]
-        ]);
+        ]);        
     }
 }
