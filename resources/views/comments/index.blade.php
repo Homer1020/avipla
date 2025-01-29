@@ -29,7 +29,7 @@
         </thead>
         <tbody>
           @foreach ($comments as $comment)
-            <tr>
+            <tr data-comment-row-id="{{ $comment->id }}">
               <td>#{{ $comment->id }}</td>
               <td>
                 <div class="d-flex gap-2 align-items-center">
@@ -52,10 +52,16 @@
               <td>{{ $comment->created_at->format('dd-mm-Y') }}</td>
               <td style="white-space: nowrap">
                 @can('update', $comment)
-                  <a href="{{ route('comments.edit', $comment) }}" class="btn btn-warning">
+                  <button
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalEditComment"
+                    data-comment-content="{{ $comment->content }}"
+                    data-path="{{ route('comments.update', $comment) }}"
+                    class="btn btn-warning"
+                  >
                     <i class="fa fa-pen"></i>
                     Editar
-                  </a>
+              </button>
                 @endcan
                 @can('delete', $comment)
                   <form class="d-inline-block" action="{{ route('comments.destroy', $comment) }}" onsubmit="submitAfterConfirm(event.target); return false" method="POST">
@@ -74,6 +80,34 @@
       </table>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalEditComment" tabindex="-1" aria-labelledby="modalEditCommentLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditCommentLabel">Editar comentario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="form-edit-comment" method="POST">
+            @csrf
+            <div class="mb-3">
+              <label for="note" class="form-label">Comentario</label>
+              <textarea name="content" id="content" cols="7" class="form-control"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button form="form-edit-comment" type="submit" class="btn btn-primary">
+            <i class="fas fa-message"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 @endsection
 
 @push('script')
@@ -81,10 +115,10 @@
 
   @if (session('success'))
     <script>
-        Swal.fire({
-            icon: "success",
-            title: "{{ session('success') }}"
-        });
+      Swal.fire({
+        icon: "success",
+        title: "{{ session('success') }}"
+      });
     </script>
   @endif
 
@@ -95,245 +129,60 @@
       ],
       order: false,
       scrollX: true,
-      language: {
-          "processing": "Procesando...",
-          "lengthMenu": "Mostrar _MENU_ registros",
-          "zeroRecords": "No se encontraron resultados",
-          "emptyTable": "Ningún dato disponible en esta tabla",
-          "infoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-          "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-          "search": "Buscar:",
-          "loadingRecords": "Cargando...",
-          "aria": {
-            "sortAscending": ": Activar para ordenar la columna de manera ascendente",
-            "sortDescending": ": Activar para ordenar la columna de manera descendente"
-          },
-          "buttons": {
-            "copy": "Copiar",
-            "colvis": "Visibilidad",
-            "collection": "Colección",
-            "colvisRestore": "Restaurar visibilidad",
-            "copyKeys": "Presione ctrl o u2318 + C para copiar los datos de la tabla al portapapeles del sistema. <br /> <br /> Para cancelar, haga clic en este mensaje o presione escape.",
-            "copySuccess": {
-              "1": "Copiada 1 fila al portapapeles",
-              "_": "Copiadas %ds fila al portapapeles"
-            },
-            "copyTitle": "Copiar al portapapeles",
-            "csv": "CSV",
-            "excel": "Excel",
-            "pageLength": {
-              "-1": "Mostrar todas las filas",
-              "_": "Mostrar %d filas"
-            },
-            "pdf": "PDF",
-            "print": "Imprimir",
-            "renameState": "Cambiar nombre",
-            "updateState": "Actualizar",
-            "createState": "Crear Estado",
-            "removeAllStates": "Remover Estados",
-            "removeState": "Remover",
-            "savedStates": "Estados Guardados",
-            "stateRestore": "Estado %d"
-          },
-          "autoFill": {
-            "cancel": "Cancelar",
-            "fill": "Rellene todas las celdas con <i>%d</i>",
-            "fillHorizontal": "Rellenar celdas horizontalmente",
-            "fillVertical": "Rellenar celdas verticalmente"
-          },
-          "decimal": ",",
-          "searchBuilder": {
-            "add": "Añadir condición",
-            "button": {
-              "0": "Constructor de búsqueda",
-              "_": "Constructor de búsqueda (%d)"
-            },
-            "clearAll": "Borrar todo",
-            "condition": "Condición",
-            "conditions": {
-              "date": {
-                "before": "Antes",
-                "between": "Entre",
-                "empty": "Vacío",
-                "equals": "Igual a",
-                "notBetween": "No entre",
-                "not": "Diferente de",
-                "after": "Después",
-                "notEmpty": "No Vacío"
-              },
-              "number": {
-                "between": "Entre",
-                "equals": "Igual a",
-                "gt": "Mayor a",
-                "gte": "Mayor o igual a",
-                "lt": "Menor que",
-                "lte": "Menor o igual que",
-                "notBetween": "No entre",
-                "notEmpty": "No vacío",
-                "not": "Diferente de",
-                "empty": "Vacío"
-              },
-              "string": {
-                "contains": "Contiene",
-                "empty": "Vacío",
-                "endsWith": "Termina en",
-                "equals": "Igual a",
-                "startsWith": "Empieza con",
-                "not": "Diferente de",
-                "notContains": "No Contiene",
-                "notStartsWith": "No empieza con",
-                "notEndsWith": "No termina con",
-                "notEmpty": "No Vacío"
-              },
-              "array": {
-                "not": "Diferente de",
-                "equals": "Igual",
-                "empty": "Vacío",
-                "contains": "Contiene",
-                "notEmpty": "No Vacío",
-                "without": "Sin"
-              }
-            },
-            "data": "Data",
-            "deleteTitle": "Eliminar regla de filtrado",
-            "leftTitle": "Criterios anulados",
-            "logicAnd": "Y",
-            "logicOr": "O",
-            "rightTitle": "Criterios de sangría",
-            "title": {
-              "0": "Constructor de búsqueda",
-              "_": "Constructor de búsqueda (%d)"
-            },
-            "value": "Valor"
-          },
-          "searchPanes": {
-            "clearMessage": "Borrar todo",
-            "collapse": {
-              "0": "Paneles de búsqueda",
-              "_": "Paneles de búsqueda (%d)"
-            },
-            "count": "{total}",
-            "countFiltered": "{shown} ({total})",
-            "emptyPanes": "Sin paneles de búsqueda",
-            "loadMessage": "Cargando paneles de búsqueda",
-            "title": "Filtros Activos - %d",
-            "showMessage": "Mostrar Todo",
-            "collapseMessage": "Colapsar Todo"
-          },
-          "select": {
-            "cells": {
-              "1": "1 celda seleccionada",
-              "_": "%d celdas seleccionadas"
-            },
-            "columns": {
-              "1": "1 columna seleccionada",
-              "_": "%d columnas seleccionadas"
-            },
-            "rows": {
-              "1": "1 fila seleccionada",
-              "_": "%d filas seleccionadas"
-            }
-          },
-          "thousands": ".",
-          "datetime": {
-            "previous": "Anterior",
-            "hours": "Horas",
-            "minutes": "Minutos",
-            "seconds": "Segundos",
-            "unknown": "-",
-            "amPm": [
-              "AM",
-              "PM"
-            ],
-            "months": {
-              "0": "Enero",
-              "1": "Febrero",
-              "2": "Marzo",
-              "3": "Abril",
-              "4": "Mayo",
-              "5": "Junio",
-              "6": "Julio",
-              "7": "Agosto",
-              "8": "Septiembre",
-              "9": "Octubre",
-              "10": "Noviembre",
-              "11": "Diciembre"
-            },
-            "weekdays": {
-              "0": "Dom",
-              "1": "Lun",
-              "2": "Mar",
-              "3": "Mié",
-              "4": "Jue",
-              "5": "Vie",
-              "6": "Sáb"
-            },
-            "next": "Próximo"
-          },
-          "editor": {
-            "close": "Cerrar",
-            "create": {
-              "button": "Nuevo",
-              "title": "Crear Nuevo Registro",
-              "submit": "Crear"
-            },
-            "edit": {
-              "button": "Editar",
-              "title": "Editar Registro",
-              "submit": "Actualizar"
-            },
-            "remove": {
-              "button": "Eliminar",
-              "title": "Eliminar Registro",
-              "submit": "Eliminar",
-              "confirm": {
-                "1": "¿Está seguro de que desea eliminar 1 fila?",
-                "_": "¿Está seguro de que desea eliminar %d filas?"
-              }
-            },
-            "error": {
-              "system": "Ha ocurrido un error en el sistema (<a target=\"\\\"rel=\"\\nofollow\"href=\"\\\">Más información&lt;\\/a&gt;).</a>"
-            },
-            "multi": {
-              "title": "Múltiples Valores",
-              "restore": "Deshacer Cambios",
-              "noMulti": "Este registro puede ser editado individualmente, pero no como parte de un grupo.",
-              "info": "Los elementos seleccionados contienen diferentes valores para este registro. Para editar y establecer todos los elementos de este registro con el mismo valor, haga clic o pulse aquí, de lo contrario conservarán sus valores individuales."
-            }
-          },
-          "info": "Mostrando _START_ a _END_ de _TOTAL_ registros",
-          "stateRestore": {
-            "creationModal": {
-              "button": "Crear",
-              "name": "Nombre:",
-              "order": "Clasificación",
-              "paging": "Paginación",
-              "select": "Seleccionar",
-              "columns": {
-                "search": "Búsqueda de Columna",
-                "visible": "Visibilidad de Columna"
-              },
-              "title": "Crear Nuevo Estado",
-              "toggleLabel": "Incluir:",
-              "scroller": "Posición de desplazamiento",
-              "search": "Búsqueda",
-              "searchBuilder": "Búsqueda avanzada"
-            },
-            "removeJoiner": "y",
-            "removeSubmit": "Eliminar",
-            "renameButton": "Cambiar Nombre",
-            "duplicateError": "Ya existe un Estado con este nombre.",
-            "emptyStates": "No hay Estados guardados",
-            "removeTitle": "Remover Estado",
-            "renameTitle": "Cambiar Nombre Estado",
-            "emptyError": "El nombre no puede estar vacío.",
-            "removeConfirm": "¿Seguro que quiere eliminar %s?",
-            "removeError": "Error al eliminar el Estado",
-            "renameLabel": "Nuevo nombre para %s:"
-          },
-          "infoThousands": "."
-        
-      }
+      language: datatableES()
+    })
+
+
+    const $modalEditComment = document.getElementById('modalEditComment')
+    const $contentTextarea = $modalEditComment.querySelector('#content')
+    const $formEditComment = document.getElementById('form-edit-comment')
+
+    const modalEditComment = new bootstrap.Modal('#modalEditComment', {
+      keyboard: false
+    })
+
+    $formEditComment.addEventListener('submit', async event => {
+      event.preventDefault()
+
+      const url = $formEditComment.action
+
+      const resp = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        body: JSON.stringify({
+          content: $contentTextarea.value
+        })
+      })
+
+      const result = await resp.json()
+
+      if(!result.ok) return;
+
+      await Swal.fire({
+        icon: "success",
+        title: "Se actualizó el comentario correctamente"
+      });
+
+      $(`[data-comment-row-id="${ result.comment.id }"] td:nth-child(3)`).text(result.comment.content);
+
+      modalEditComment.hide()
+    })
+
+    $modalEditComment.addEventListener('show.bs.modal', event => {
+
+      const { commentContent, path } = event.relatedTarget.dataset
+
+      $formEditComment.action = path;
+
+      $contentTextarea.value = commentContent
+    })
+
+    $modalEditComment.addEventListener('hide.bs.modal', () => {
+      $contentTextarea.value = ''
     })
   </script>
 @endpush

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Models\Noticia;
 use Illuminate\Http\Request;
@@ -65,9 +66,18 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment)
+    public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        //
+        if($request->header('Accept') !== 'application/json') {
+            return redirect()->back()->with('error', 'Solicitud no permitida');
+        }
+
+        $comment->update(['content' => $request->content]);
+
+        return response()->json([
+            'ok' => true,
+            'comment' => $comment
+        ]);
     }
 
     /**

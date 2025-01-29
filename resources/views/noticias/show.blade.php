@@ -72,6 +72,11 @@
         h4 {
             color: #000;
         }
+
+        .btn-comment {
+            min-width: initial !important;
+            padding: .5rem .9rem !important;
+        }
     </style>
 @endpush
 @section('content')
@@ -116,64 +121,81 @@
                 </ul>
                 {!! $noticia->contenido !!}
 
-                <div class="card card-body border mb-3">
-                    <form action="{{ route('comments.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="noticia_id" value="{{ $noticia->id }}">
+                @auth
+                    <div class="card card-body border mb-3">
+                        <form action="{{ route('comments.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="noticia_id" value="{{ $noticia->id }}">
 
-                        <div class="mb-3">
-                            <label for="content" class="form-label">Comentario</label>
-                            <textarea name="content" placeholder="Excelente publicación" id="content" rows="5" class="form-control"></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-sm">
-                            <i class="fa fa-message"></i>
-                            Guardar
-                        </button>
-                    </form>
-                </div>
-
-                <div class="card card-body border mb-3">
-                    <h4 class="mb-4">Todos los comentarios</h4>
-                    @foreach ($noticia->comments as $comment)
-                        <div class="d-flex border-bottom mb-3 pb-3">
-                            <div class="flex-shrink-0">
-                                @if ($comment->user->afiliado && $comment->user->afiliado->brand)
-                                    <img src="{{ Storage::url($comment->user->afiliado->brand) }}" alt="Avatar" width="50">
-                                @else
-                                    <img src="{{ asset('assets/img/avatar.jpg') }}" alt="Avatar" width="50">
-                                @endif
+                            <div class="mb-3">
+                                <label for="content" class="form-label">Comentario</label>
+                                <textarea name="content" placeholder="Excelente publicación" id="content" rows="5"
+                                    class="form-control"></textarea>
                             </div>
-                            <div class="flex-grow-1 ms-3">
-                                @if ($comment->user->afiliado)
-                                    <h6 class="fw-bold mb-0">{{ $comment->user->afiliado->razon_social }}</h5>
-                                @else
-                                    <h6 class="fw-bold mb-0">{{ $comment->user->name }}</h5>
-                                @endif
-                                <p class="text-muted mb-0">{{ $comment->user->email }}</p>
-                                <p class="text-muted mb-1" style="font-size: 14px;">{{ $comment->created_at->diffForHumans() }}</p>
-                                <p class="m-0">{{ $comment->content }}</p>
-                                <div class="mt-2 d-flex gap-2">
-                                    @can('delete', $comment)
-                                        <form action="{{ route('comments.destroy', $comment) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn-sm btn btn-danger btn-comment">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    @endcan
 
-                                    @can('update', $comment)
-                                        <button type="submit" class="btn-sm btn btn-warning btn-comment">
-                                            <i class="fa fa-pencil"></i>
-                                        </button>
-                                    @endcan
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="fa fa-message"></i>
+                                Guardar
+                            </button>
+                        </form>
+                    </div>
+                @endauth
+
+                @if($noticia->comments->count() > 0)
+                    <div class="card card-body border mb-3">
+                        <h4 class="mb-4">Todos los comentarios</h4>
+                        @foreach ($noticia->comments as $comment)
+                            <div class="d-flex border-bottom mb-3 pb-3">
+                                <div class="flex-shrink-0">
+                                    @if ($comment->user->afiliado && $comment->user->afiliado->brand)
+                                        <img src="{{ Storage::url($comment->user->afiliado->brand) }}" alt="Avatar" width="50">
+                                    @else
+                                        <img src="{{ asset('assets/img/avatar.jpg') }}" alt="Avatar" width="50">
+                                    @endif
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            @if ($comment->user->afiliado)
+                                                <h6 class="fw-bold mb-0">{{ $comment->user->afiliado->razon_social }}</h5>
+                                            @else
+                                                <h6 class="fw-bold mb-0">{{ $comment->user->name }}</h5>
+                                            @endif
+                                            <p class="text-muted mb-0">{{ $comment->user->email }}</p>
+                                            <p class="text-muted mb-1" style="font-size: 14px;">{{ $comment->created_at->diffForHumans() }}</p>
+                                        </div>
+        
+                                        <div class="d-flex gap-2 align-items-center">
+                                            @can('delete', $comment)
+                                                <form action="{{ route('comments.destroy', $comment) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn-sm btn btn-danger btn-comment">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endcan
+        
+                                            @can('update', $comment)
+                                                <button
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalEditComment"
+                                                    data-comment-content="{{ $comment->content }}"
+                                                    data-path="{{ route('comments.update', $comment) }}"
+                                                    type="submit"
+                                                    class="btn-sm btn btn-warning btn-comment"
+                                                >
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>
+                                            @endcan
+                                        </div>
+                                    </div>
+                                    <p class="m-0" data-comment-content="{{ $comment->id }}">{{ $comment->content }}</p>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
             <div class="col-12 col-lg-4">
                 <aside>
@@ -221,4 +243,87 @@
             </div>
         </div>
     </main>
+
+    <!-- Modal -->
+  <div class="modal fade" id="modalEditComment" tabindex="-1" aria-labelledby="modalEditCommentLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditCommentLabel">Editar comentario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="form-edit-comment" method="POST">
+            @csrf
+            <div class="mb-3">
+              <label for="note" class="form-label">Comentario</label>
+              <textarea name="content" id="content" cols="7" class="form-control"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button style="font-size: 14px" type="button" class="btn btn-comment btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button style="font-size: 14px" form="form-edit-comment" type="submit" class="btn btn-comment btn-primary">
+            <i class="fas fa-message"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
+
+@push('script')
+    <script>
+        const $modalEditComment = document.getElementById('modalEditComment')
+        const $contentTextarea = $modalEditComment.querySelector('#content')
+        const $formEditComment = document.getElementById('form-edit-comment')
+
+        const modalEditComment = new bootstrap.Modal('#modalEditComment', {
+            keyboard: false
+        })
+
+        $formEditComment.addEventListener('submit', async event => {
+            event.preventDefault()
+
+            const url = $formEditComment.action
+
+            const resp = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': $('[name="_token"]').val()
+                },
+                body: JSON.stringify({
+                    content: $contentTextarea.value
+                })
+            })
+
+            const result = await resp.json()
+
+            if(!result.ok) return;
+
+            await Swal.fire({
+                icon: "success",
+                title: "Se actualizó el comentario correctamente"
+            });
+
+            $(`[data-comment-content="${ result.comment.id }"]`).text(result.comment.content);
+
+            modalEditComment.hide()
+        })
+
+        $modalEditComment.addEventListener('show.bs.modal', event => {
+
+            const { commentContent, path } = event.relatedTarget.dataset
+
+            $formEditComment.action = path;
+
+            $contentTextarea.value = commentContent
+        })
+
+        $modalEditComment.addEventListener('hide.bs.modal', () => {
+            $contentTextarea.value = ''
+        })
+    </script>
+@endpush
