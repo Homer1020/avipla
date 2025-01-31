@@ -22,13 +22,14 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductoSeeder::class);
         $this->call(MateriaPrimaSeeder::class);
         $this->call(ServicioSeeder::class);
-        $this->call(AfiliadosSeeder::class);
-        $this->call(AvisoCobroSeeder::class);
+        // $this->call(AfiliadosSeeder::class);
+        // $this->call(AvisoCobroSeeder::class);
         
         $this->call(MetodoPagoSeeder::class);
         $this->call(CategoriaBoletineSeeder::class);
         $this->call(TagSeeder::class);
         $this->call(JuntaDirectivaRoleSeeder::class);
         $this->call(BancoSeeder::class);
+        $this->call(SocialNetworkSeeder::class);
     }
 }

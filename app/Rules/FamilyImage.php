@@ -15,6 +15,8 @@ class FamilyImage implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        if ($value && !in_array($value->getClientOriginalExtension(), ['png', 'jpg', 'jpeg'])) return;
+        
         $cloudinaryUpload = cloudinary()->upload($value->getRealPath());
         $cloudinaryPath = $cloudinaryUpload->getSecurePath();
         $categorizer = 'adult_content';

@@ -77,6 +77,19 @@
             min-width: initial !important;
             padding: .5rem .9rem !important;
         }
+
+        table {
+            border: none;
+            margin-bottom: 1rem;
+        }
+
+        table th {
+            background-color: #ddd;
+        }
+
+        table td {
+            border: 1px solid #ddd;
+        }
     </style>
 @endpush
 @section('content')
@@ -87,7 +100,7 @@
                 <div class="hero mb-3 rounded d-flex align-items-end pb-2 ps-4 m-0" style="background-image: url({{ Storage::url($noticia->thumbnail) }});">
                     <h1 class="text-white text-uppercase fs-2">{{ $noticia->titulo }}</h1>
                 </div>
-                <ul class="metadata mb-3">
+                <ul class="metadata mb-4">
                     <li>
                         <span class="me-1">
                             <i class="fa fa-user"></i>
@@ -119,6 +132,7 @@
                         @endforeach
                     </li>
                 </ul>
+                
                 {!! $noticia->contenido !!}
 
                 @auth
@@ -232,7 +246,7 @@
                                 <ul>
                                     @foreach ($categorias as $categoria)
                                         <li>
-                                            <a href="{{ route('category.show', $categoria) }}" class="link link-primary" style="text-decoration: none;">{{ $categoria->name }} ({{ $categoria->noticias->count() }})</a>
+                                            <a href="{{ route('category.show', $categoria) }}" class="link link-primary" style="text-decoration: none;">{{ $categoria->display_name }} ({{ $categoria->noticias->count() }})</a>
                                         </li>
                                     @endforeach
                                 </ul>

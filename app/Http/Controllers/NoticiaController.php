@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Noticia;
 use App\Models\Tag;
 use App\Models\User;
+use App\Rules\FamilyImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -46,7 +47,7 @@ class NoticiaController extends Controller
             'titulo'        => 'required|string|unique:noticias,titulo',
             'contenido'     => 'required|string',
             'categoria_id'  => 'nullable',
-            'thumbnail'     => 'required|file|image|mimes:jpeg,jpg,png|max:2048'
+            'thumbnail'     => ['required', 'file', 'image', 'mimes:jpeg,jpg,png', 'max:2048', new FamilyImage]
         ]);
 
         if($request->input('save_draft')) {
@@ -88,7 +89,7 @@ class NoticiaController extends Controller
             'titulo'        => 'required|string|unique:noticias,titulo,' . $noticia->id,
             'contenido'     => 'required|string',
             'categoria_id'  => 'nullable',
-            'thumbnail'     => 'file|image|mimes:jpeg,jpg,png|max:2048'
+            'thumbnail'     => ['file', 'image', 'mimes:jpeg,jpg,png', 'max:2048', new FamilyImage]
         ]);
 
         if($request->hasFile('thumbnail') && Storage::fileExists($noticia->thumbnail)) {
